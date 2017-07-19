@@ -1,1 +1,1 @@
-include ':core', ':oss-android-sdk', ':app', ':MyDaoGenerator',':opencv-android', ':olive'
+include ':core', ':oss-android-sdk',  ':MyDaoGenerator',':opencv-android', ':olive'
