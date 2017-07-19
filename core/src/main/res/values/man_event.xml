@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--推荐事件-商品曝光-->
+    <string name="recommend_event_product_view">RECOMMEND_EVENT_PRODUCT_VIEW</string>
+    <!--推荐事件-非搜索出的商品进入详情页时-->
+    <string name="recommend_event_product_click">RECOMMEND_EVENT_PRODUCT_CLICK</string>
+    <!--推荐事件-消费，下订单时-->
+    <string name="recommend_event_product_consume">RECOMMEND_EVENT_PRODUCT_CONSUME</string>
+    <!--推荐事件-评分，评分时-->
+    <string name="recommend_event_product_grade">RECOMMEND_EVENT_PRODUCT_GRADE</string>
+    <!--推荐事件-收藏-->
+    <string name="recommend_event_product_collect">RECOMMEND_EVENT_PRODUCT_COLLECT</string>
+    <!--推荐事件-取消收藏-->
+    <string name="recommend_event_product_uncollect">RECOMMEND_EVENT_PRODUCT_UNCOLLECT</string>
+    <!--推荐事件-分享商品-->
+    <string name="recommend_event_product_share">RECOMMEND_EVENT_PRODUCT_SHARE</string>
+    <!--推荐事件-评论-->
+    <string name="recommend_event_product_comment">RECOMMEND_EVENT_PRODUCT_COMMENT</string>
+    <!--推荐事件-搜索结果列表商品的点击-->
+    <string name="recommend_event_product_search_click">RECOMMEND_EVENT_PRODUCT_SEARCH_CLICK</string>
+
+</resources>

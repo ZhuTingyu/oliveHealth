@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+            android:gravity="center_vertical"
+            android:padding="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_marginLeft="8dp"
+                android:background="#d8d8d8"
+                android:layout_height="1px"/>
+
+        <TextView
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/color_929292"
+                android:text="@string/text_recommend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_marginRight="8dp"
+                android:background="#d8d8d8"
+                android:layout_height="1px"/>
+    </LinearLayout>
+
+    <com.biz.widget.ExpandGridView
+            android:numColumns="2"
+            android:horizontalSpacing="8dp"
+            android:verticalSpacing="8dp"
+            android:id="@+id/gridview_product"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+</LinearLayout>

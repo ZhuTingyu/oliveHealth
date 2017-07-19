@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/color_transparent_half"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:orientation="vertical">
+
+
+    <com.biz.widget.CustomDraweeView
+            android:id="@+id/icon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="70dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            />
+
+    <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/btn_close"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_below="@id/icon"
+            android:layout_marginBottom="40dp"
+            android:layout_gravity="center_horizontal|bottom"
+            android:scaleType="centerInside"
+            android:background="?attr/selectableItemBackground"
+            android:layout_centerHorizontal="true"
+            app:srcCompat="@drawable/vector_adv_close" />
+</FrameLayout>

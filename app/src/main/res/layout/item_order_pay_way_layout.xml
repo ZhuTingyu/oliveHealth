@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:showDividers="middle"
+              android:divider="@drawable/divider_line"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <include layout="@layout/item_pay_way_layout"/>
+
+    <RelativeLayout
+            android:padding="8dp"
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:id="@+id/title_line_1"
+                tools:text="发票信息"
+                android:text="@string/text_invoice"
+                android:textColor="@color/color_2c2c2c"
+                android:textSize="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:id="@+id/title_line_2"
+                android:textColor="@color/color_9b9b9b"
+                android:textSize="15dp"
+                tools:text="发票抬头:隔壁仓库科技有限公司"
+                android:layout_marginTop="8dp"
+                android:layout_below="@id/title_line_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:id="@+id/title_line_3"
+                android:text="@string/text_invoice_number"
+                android:textColor="@color/color_2c2c2c"
+                android:textSize="16dp"
+                android:layout_below="@id/title_line_2"
+                android:layout_marginTop="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:id="@+id/title_line_4"
+                android:textColor="@color/color_9b9b9b"
+                android:textSize="15dp"
+                tools:text="发票抬头:隔壁仓库科技有限公司"
+                android:layout_marginTop="8dp"
+                android:layout_below="@id/title_line_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+
+</LinearLayout>

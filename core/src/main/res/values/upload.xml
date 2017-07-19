@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--upload Image-->
+    <string name="text_upload_image_handle_error">图片处理失败！</string>
+    <string name="text_upload_image_file_not_exists">上传文件不存在！</string>
+    <string name="text_upload_image_network_error">上传文件失败！</string>
+</resources>

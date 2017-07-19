@@ -1,0 +1,120 @@
+apply plugin: 'com.android.library'
+apply plugin: 'me.tatarka.retrolambda'
+
+dependencies {
+    compile fileTree(include: '*.jar', dir: 'libs')
+    compile fileTree(include: '*.jar', dir: 'alisdklibs')
+    compile fileTree(include: '*.jar', dir: 'pushSdkLibs')
+    compile fileTree(include: '*.jar', dir: 'sharelibs')
+
+    compile fileTree(include: '*/so', dir: 'pushSdkLibs/armeabi')
+    compile fileTree(include: '*/so', dir: 'pushSdkLibs/armeabi-v7a')
+    compile fileTree(include: '*/so', dir: 'pushSdkLibs/arm64-v8a')
+    compile fileTree(include: '*/so', dir: 'pushSdkLibs/x86')
+
+    compile fileTree(include: '*/so', dir: 'sharelibs/armeabi')
+    compile fileTree(include: '*/so', dir: 'sharelibs/armeabi-v7a')
+    compile fileTree(include: '*/so', dir: 'sharelibs/arm64-v8a')
+    compile fileTree(include: '*/so', dir: 'sharelibs/x86')
+
+
+
+    compile fileTree(include: '*/so', dir: 'libs/armeabi')
+    compile fileTree(include: '*/so', dir: 'libs/armeabi-v7a')
+    compile fileTree(include: '*/so', dir: 'libs/arm64-v8a')
+    compile fileTree(include: '*/so', dir: 'libs/x86')
+    compile 'com.squareup.okhttp3:okhttp:3.3.1'
+    compile 'com.google.code.gson:gson:2.7'
+    compile "com.android.support:appcompat-v7:${SUPPORT_VERSION}"
+
+    compile "com.android.support:design:${SUPPORT_VERSION}"
+    compile "com.android.support:recyclerview-v7:${SUPPORT_VERSION}"
+//    compile "com.android.support:cardview-v7:${SUPPORT_VERSION}"
+//    compile "com.android.support:percent:${SUPPORT_VERSION}"
+
+    /*rx*/
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.1@aar'
+
+
+    compile 'com.wang.avi:library:2.1.3'
+    compile 'com.yqritc:recyclerview-flexibledivider:1.4.0'
+    compile 'com.github.iwgang:simplifyspan:1.1'
+
+    compile 'com.rengwuxian.materialedittext:library:2.1.4'
+    compile 'de.greenrobot:eventbus:2.4.0'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
+
+    compile 'com.github.lsjwzh.RecyclerViewPager:lib:v1.1.2'
+    //compile 'com.github.lsjwzh.RecyclerViewPager:tablayoutsupport:v1.1.2'
+
+    compile 'com.facebook.fresco:fresco:1.0.0'
+    compile project(':opencv-android')
+    compile project(':oss-android-sdk')
+    compile 'com.umeng.analytics:analytics:6.1.1'
+}
+
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+
+        vectorDrawables.useSupportLibrary = true
+
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.compileSdkVersion
+        versionCode 1
+        versionName "1.0"
+        resValue("string", "defualt_http_url_list", "");
+        resValue("string", "api_init_master_head", "")
+        resValue("bool", "isDispatcher", "false")
+        resValue("bool", "isSiner", "true")
+        resValue("bool", "isDebug", "true")
+        resValue("string", "text_network_error", "网络不给力，请稍后重试")
+        resValue("integer", "time_connect_out", "15000")
+        resValue("integer", "time_read_out", "30000")
+        resValue("string", "xiaomi_appid", "")
+        resValue("string", "xiaomi_appkey", "")
+        resValue("string", "oss_bucket", "")
+        resValue("string","oss_ak","")
+        resValue("string","oss_sk","")
+        resValue("string","oss_token","")
+        resValue("string", "qq_appid", "")
+        resValue("string", "dialog_share_not_installed", "当前未安装客户端，请下载安装。")
+        resValue("string", "sina_key", "")
+        resValue("string", "sina_redirect_url", "")
+        resValue("string", "weixin_appid", "")
+        resValue("string", "weixin_appsecret", "")
+        resValue("string", "dialog_not_pay_weixin", "当前微信版本不支持支付功能，请下载最新版本。")
+
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs', 'alisdklibs', 'pushSdkLibs','sharelibs']
+            java.srcDirs = ['src/main/java', 'src/main/java-base', 'src/main/java-push', 'src/main/oss','src/main/share']
+//,"src/main/imageUpload"]
+        }
+        instrumentTest.setRoot('tests')
+        debug.setRoot('build-types/debug')
+        release.setRoot('build-types/release')
+        play.setRoot('build-types/play')
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+
+
+

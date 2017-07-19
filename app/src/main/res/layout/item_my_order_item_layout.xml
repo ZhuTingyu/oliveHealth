@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+        android:paddingBottom="6dp"
+        android:paddingTop="6dp"
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:background="?attr/selectableItemBackground"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+            android:id="@id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:drawablePadding="8dp"
+            tools:drawableTop="@drawable/vector_order_wait_pay"
+            android:gravity="center_horizontal"
+            android:padding="4dp"
+            android:text="@string/tab_wait_pay_order"
+            android:textColor="@color/color_515151"
+            android:textSize="13dp"/>
+
+    <com.biz.widget.BadgeView
+            style="@style/badge_style"
+            tools:visibility="visible"
+            android:id="@+id/badge_unread"
+            android:visibility="visible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/title"
+            tools:text="2"
+            android:textSize="10dp"/>
+
+</RelativeLayout>
+

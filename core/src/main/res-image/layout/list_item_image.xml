@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.biz.imageselector.view.SquareFrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:descendantFocusability="blocksDescendants"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <com.biz.widget.CustomDraweeView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"
+            />
+
+    <View
+            android:id="@+id/mask"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#88000000"
+            android:visibility="gone"/>
+
+    <CheckBox
+            android:id="@+id/checkmark"
+            android:clickable="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|right"
+            android:layout_marginRight="5.5dp"
+            android:layout_marginTop="5.5dp"
+            android:button="@drawable/ic_checkbox_square_selector"
+            android:checked="false"/>
+
+</com.biz.imageselector.view.SquareFrameLayout>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:divider="@drawable/divider_line"
+              android:background="?attr/selectableItemBackground"
+              android:showDividers="beginning|end"
+              xmlns:android="http://schemas.android.com/apk/res/android"
+        >
+
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@drawable/divider_line"
+        android:orientation="vertical"
+        android:showDividers="middle">
+
+
+        <include layout="@layout/item_order_include_text_layout" />
+        <include layout="@layout/item_order_include_sale_layout"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/item_list"
+            android:duplicateParentState="false"
+            android:layout_width="wrap_content"
+            android:layout_height="96dp"
+            android:padding="8dp" />
+
+        <include layout="@layout/item_order_include_more_layout" />
+    </LinearLayout>
+</LinearLayout>

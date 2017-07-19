@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="imageselector_image_size">96dp</dimen>
+    <dimen name="imageselector_space_size">2dp</dimen>
+    <dimen name="imageselector_folder_cover_size">72dp</dimen>
+</resources>

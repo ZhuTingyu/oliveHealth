@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingBottom="8dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingTop="8dp">
+
+        <Button
+            android:id="@+id/btn_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_red_selector"
+            android:text="@string/text_share_for_money"
+            android:textColor="@color/base_color" />
+    </LinearLayout>
+</merge>

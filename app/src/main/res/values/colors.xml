@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#d2d2d2</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="color_background">#fbfbfb</color>
+
+
+    <color name="base_color">#FA3946</color>
+    <color name="base_color_10">#10FA3946</color>
+    <color name="base_color_disable">#999999</color>
+    <color name="base_color_transparent">#a0FA3946</color>
+    <color name="color_btn_disable">#80FA3946</color>
+    <color name="btn_color">#FA3946</color>
+
+</resources>

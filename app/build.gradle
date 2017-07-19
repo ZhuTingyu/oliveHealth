@@ -1,0 +1,182 @@
+apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
+
+dependencies {
+    compile fileTree(include: '*.jar', dir: 'libs')
+    compile fileTree(include: '*/so', dir: 'libs/armeabi')
+    compile project(':core')
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'de.greenrobot:greendao:2.1.0'
+    compile 'com.android.support:multidex:1.0.1'
+}
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    //flavorDimensions "default"
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.compileSdkVersion
+
+        applicationId "com.warehourse.b2b"
+
+        vectorDrawables.useSupportLibrary = true
+
+        versionCode VERSION_CODE.toInteger()
+        versionName "${VERSION_NAME}"
+        multiDexEnabled true
+        resValue("integer", "time_connect_out", "10000")
+        resValue("integer", "time_read_out", "15000")
+        resValue("string","default_tel400","400 999 1919")
+        resValue("string","oss_private_name","audit")
+        resValue("string","oss_public_name","product")
+//        resValue("string", "qq_appid", "1106207360")
+//        resValue("string", "weixin_appid", "wx1c9a440cdbb4a9d1")
+//        resValue("string", "weixin_appsecret", "1f70969377edbef54b2eaee41a1c6988")
+        resValue("string", "qq_appid", "MTEwNjIwNzM2MA==")
+        resValue("string", "weixin_appid", "d3gxYzlhNDQwY2RiYjRhOWQx")
+        resValue("string", "weixin_appsecret", "MWY3MDk2OTM3N2VkYmVmNTRiMmVhZWU0MWExYzY5ODg=")
+        resValue("string", "xiaomi_appid", "2882303761517581926")
+        resValue("string", "xiaomi_appkey", "5131758132926")
+        manifestPlaceholders = [
+                PACKAGE              : "com.warehourse.b2b",
+                QQAPPID:"1106207360",
+                JPUSH_APPKEY:"7976e410fd53b60ab1bb98f4",
+                UMENG_APPKEY:"593a0cc01061d23cb0002721",
+                UMENG_CHANNEL:"web",
+                ]
+
+
+    }
+    signingConfigs {
+        myConfig {
+            storeFile file('../key/gbck.keystore')
+            storePassword "gbck1GBCK"
+            keyAlias "depotnextdoor"
+            keyPassword "gbck1GBCK"
+        }
+    }
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'armeabi'
+            universalApk false
+        }
+    }
+    buildTypes {
+        debug {
+            manifestPlaceholders = [
+                    PACKAGE              : "com.warehourse.b2b",
+                    QQAPPID:"1106207360",
+                    JPUSH_APPKEY:"7976e410fd53b60ab1bb98f4",
+                    UMENG_APPKEY:"593a0f9245297d352c001a98",
+                    UMENG_CHANNEL:"",
+            ]
+            multiDexEnabled true
+            resValue("string", "api_init_master_head", "${APP_URL_HEAD_DEBUG}")
+            resValue("string", "defualt_http_url_list", "${APP_URL_DEFUALT_DEBUG}")
+            resValue("string", "url_share_recommend", "http://b2b.depotnextdoor.com/production/h5/recommend.html")
+            resValue("string", "url_share_luckmoney", "http://b2b.depotnextdoor.com/production/h5/luckmoney.html")
+            debuggable true
+            signingConfig signingConfigs.myConfig
+        }
+        release {
+            multiDexEnabled true
+            resValue("string", "api_init_master_head", "${APP_URL_HEAD_RELEASE}")
+            resValue("string", "defualt_http_url_list", "${APP_URL_DEFUALT_RELEASE}")
+            resValue("string", "url_share_recommend", "https://b2b.depotnextdoor.com/production/h5/recommend.html")
+            resValue("string", "url_share_luckmoney", "https://b2b.depotnextdoor.com/production/h5/luckmoney.html")
+            debuggable false
+            signingConfig signingConfigs.myConfig
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFile 'proguard-project.txt'
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
+    android.applicationVariants.all { variant ->
+        if (variant.buildType.zipAlignEnabled) {
+            variant.outputs.each { output ->
+                def outputFile = output.outputFile
+                if (outputFile != null && outputFile.name.endsWith('.apk')) {
+
+                    def fileName = "apk_release/" + outputFile.name
+                    fileName = fileName.replace("app-", "")
+                    output.outputFile = new File(outputFile.parent, fileName)
+                }
+            }
+
+        } else {
+            variant.outputs.each { output ->
+                def outputFile = output.outputFile
+                if (outputFile != null && outputFile.name.endsWith('.apk')) {
+
+                    def fileName = "apk/" + variant.productFlavors[0].name + "-unaligned.apk"
+
+                    output.outputFile = new File(outputFile.parent, fileName)
+                }
+            }
+        }
+    }
+    productFlavors.all { flavor ->
+        flavor.manifestPlaceholders = [
+                UMENG_CHANNEL_VALUE    : flavor.name,
+                UMENG_CHANNEL_VALUE_SUB: ""
+        ]
+    }
+    productFlavors {
+
+        web {}
+        huawei {}
+        xiaomi {}
+        yingyongbao {}
+        wandoujia {}
+        baidu {}
+        apk91 {
+            manifestPlaceholders = [
+                    UMENG_CHANNEL_VALUE    : "91",
+                    UMENG_CHANNEL_VALUE_SUB: ""
+            ]
+        }
+        anzhuo {}
+        flyme {}
+        apk360 {
+
+            manifestPlaceholders = [
+                    UMENG_CHANNEL_VALUE    : "360",
+                    UMENG_CHANNEL_VALUE_SUB: ""
+            ]
+        }
+        oppo{}
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+            java.srcDirs = ['src/main/java', 'src/main/java-gen','src/main/java-wxapi']
+        }
+        instrumentTest.setRoot('tests')
+        debug.setRoot('build-types/debug')
+        release.setRoot('build-types/release')
+        play.setRoot('build-types/play')
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+

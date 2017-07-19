@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="horizontal"
+        android:divider="@drawable/divider_gray_1_width"
+        android:showDividers="middle"
+        android:background="@color/white"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp">
+
+    <com.biz.widget.CustomDraweeView
+            android:layout_weight="1.3"
+            android:id="@+id/icon1"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+    </com.biz.widget.CustomDraweeView>
+
+    <LinearLayout
+            android:layout_weight="1"
+            android:divider="@drawable/divider_line"
+            android:showDividers="middle"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="vertical">
+
+        <com.biz.widget.CustomDraweeView
+                android:id="@+id/icon2"
+                android:padding="6dp"
+                android:layout_width="match_parent"
+                android:layout_height="100dp">
+
+
+        </com.biz.widget.CustomDraweeView>
+
+        <com.biz.widget.CustomDraweeView
+                android:id="@+id/icon3"
+                android:padding="6dp"
+                android:layout_width="match_parent"
+                android:layout_height="100dp">
+
+
+        </com.biz.widget.CustomDraweeView>
+    </LinearLayout>
+</LinearLayout>

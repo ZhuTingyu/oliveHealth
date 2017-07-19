@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+    <com.biz.widget.banner.LoopRecyclerViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"/>
+    <com.biz.widget.banner.PageIndicatorView
+            android:id="@+id/indicator"
+            android:layout_gravity="bottom"
+            android:gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+</FrameLayout>

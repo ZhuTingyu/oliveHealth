@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="api_init">init/init.do</string>
+    <string name="api_user_login">users/login.do</string>
+    <string name="api_user_auto_login">users/autoLogin.do</string>
+    <string name="api_user_login_out">users/logout.do</string>
+    <string name="api_user_register">users/register.do</string>
+    <string name="api_change_password">users/changePwd.do</string>
+    <string name="api_forgot_password">users/forgotPassword.do</string>
+    <string name="api_change_mobile">users/changeMobile.do</string>
+    <string name="api_change_avatar">users/changeAvatar.do</string>
+    <string name="api_shop_change_delivery_name">shops/changeDeliveryName.do</string>
+    <string name="api_sms_validate">sms/validate.do</string>
+    <string name="api_sms_send">sms/send.do</string>
+
+    <string name="api_shop_update_detail">shops/updateDetail.do</string>
+    <string name="api_shop_update_photo">shops/updateQualification.do</string>
+    <string name="api_shop_type">shops/types.do</string>
+    <string name="api_shop_update_address">shops/updateDeliveryAddress.do</string>
+    <string name="api_user_latest_shop_detail">shops/latestDetail.do</string>
+    <string name="api_user_latest_shop_photo">shops/latestQualification.do</string>
+    <string name="api_shop_update_address_status">shops/getUpdateAddressStatus.do</string>
+
+    <string name="api_init_upgrade">init/upgrade.do</string>
+
+    <string name="api_home">homepage.do</string>
+
+    <string name="api_upload_token">sts/oss.do</string>
+    <string name="api_message_list">info/notices.do</string>
+
+    <string name="api_vouchers_all">vouchers/all.do</string>
+
+    <string name="api_product_detail">product/detail.do</string>
+    <string name="api_product_search">product/search.do</string>
+
+
+
+    <string name="api_init_master">init/dispatch.do</string>
+    <string name="api_init_dispatcher">init/dispatch.do</string>
+    <string name="api_init_avg">init/adv.do</string>
+    
+    <string name="api_cart_list">cart/list.do</string>
+    <string name="api_cart_add">cart/add.do</string>
+    <string name="api_cart_delete">cart/delete.do</string>
+    <string name="api_cart_update">cart/updateQuantity.do</string>
+    <string name="api_cart_get_count">cart/cartNum.do</string>
+
+    <string name="api_order_list">order/list.do</string>
+    <string name="api_order_detail">order/detail.do</string>
+    <string name="api_order_preview">order/settle.do</string>
+    <string name="api_order_pay">order/createOrderNoPay.do</string>
+    <string name="api_order_pay_alipay">order/createOrderAlipay.do</string>
+    <string name="api_order_pay_weixin">order/createOrderWechat.do</string>
+    <string name="api_order_pay_re_weixin">payment/wechat.do</string>
+    <string name="api_order_pay_re_alipay">payment/alipay.do</string>
+    <string name="api_order_pay_query_status">payment/queryPaid.do</string>
+    <string name="api_order_cancel">order/cancel.do</string>
+    <string name="api_order_apply_return">order/applyReturn.do</string>
+    <string name="api_order_count">order/orderNum.do</string>
+    <string name="api_vouchers_create_order">vouchers/availVouchers4shopcraft.do</string>
+
+    <string name="api_product_search_promote">product/promotion/promotionProductList.do</string>
+    <string name="api_product_recommend">product/recommend.do</string>
+    <string name="api_activity_list">info/promotions.do</string>
+
+
+
+    <string name="api_order_shopping_cart">order/getShoppingCart.do</string>
+    <string name="api_order_shopping_cart_promotion">order/getShoppingCartWithPromotion.do</string>
+
+
+
+
+
+
+    <string name="api_order_list_wait_for_pay">order/listWaitForPay.do</string>
+    <string name="api_order_list_wait_for_receive">order/listWaitForReceive.do</string>
+    <string name="api_order_list_finished">order/listFinished.do</string>
+
+    <string name="api_order_query_order_pay_status">order/queryOrderPayStatus.do</string>
+
+
+
+
+    <string name="api_order_apply_refund">order/applyRefund.do</string>
+    <string name="api_loan_index">account/accountIndex.do</string>
+
+
+    <string name="api_geo_find_provinces">geo/findProvinces.do</string>
+    <string name="api_geo_find_city">geo/findCityByProvinceId.do</string>
+    <string name="api_geo_find_district">geo/findDistrictByCityId.do</string>
+
+
+</resources>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:showDividers="none"
+              android:background="@color/white"
+              android:divider="@drawable/divider_nav_gray"
+              android:layout_height="match_parent">
+
+    <include
+            layout="@layout/activity_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            />
+
+    <LinearLayout
+            android:id="@+id/layout"
+            android:background="@drawable/shape_rect_gray_transparent_background"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="55dp">
+
+        <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/title_no_use"
+                tools:text="@string/text_no_use_coupon"
+                android:text="@string/text_no_use_coupon"
+                android:gravity="left|center_vertical"
+                android:textSize="20dp"
+                android:layout_marginLeft="4dp"
+                android:button="@drawable/abc_btn_radio"
+                android:textColor="@color/color_515151"
+                android:layout_toRightOf="@id/title_left"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"/>
+
+        <android.support.v7.widget.AppCompatTextView
+                android:text="@string/text_money_fit"
+                android:gravity="right|center_vertical"
+                android:textSize="17dp"
+                android:paddingRight="16dp"
+                android:button="@drawable/abc_btn_radio"
+                android:textColor="@color/color_4a4a4a"
+                android:layout_toRightOf="@id/title_left"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:visibility="gone"
+                android:layout_height="wrap_content"/>
+
+        <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/title_total"
+                tools:text="$330033"
+                android:gravity="left|center_vertical"
+                android:textSize="18dp"
+                android:paddingRight="16dp"
+                android:textColor="@color/base_color"
+                android:layout_toRightOf="@id/title_left"
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+</LinearLayout>

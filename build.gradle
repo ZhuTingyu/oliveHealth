@@ -1,0 +1,37 @@
+
+buildscript {
+    repositories {
+        maven {url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+        jcenter()
+        maven { url "https://jitpack.io" }
+        maven { url 'https://maven.google.com' }
+
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.3'
+        //classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.6.1'
+        classpath "me.tatarka:gradle-retrolambda:3.4.0"
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+project.ext {
+    buildToolsVersion = "${BUILD_TOOLS_VERSION}"
+    compileSdkVersion = COMPILE_SDK_VERSION.toInteger()
+    minSdkVersion = MINI_SDK_VERSION.toInteger()
+}
+allprojects {
+    repositories {
+        maven {url 'http://maven.aliyun.com/nexus/content/groups/public/'}
+        jcenter()
+        maven { url "https://jitpack.io" }
+        maven { url 'https://maven.google.com' }
+
+
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="url_partner_name">UMENG_CHANNEL</string>
+    <string name="url_sub_name">UMENG_CHANNEL_SUB</string>
+    <string name="api_init_master">init/dispatch.do</string>
+    <string name="api_init_dispatcher">init/dispatch.do</string>
+</resources>

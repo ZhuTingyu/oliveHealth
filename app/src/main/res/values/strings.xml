@@ -1,0 +1,390 @@
+<resources>
+    <string name="app_name">隔壁仓库</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_cart">进货单</string>
+    <string name="action_home">首页</string>
+    <string name="action_category">分类</string>
+    <string name="action_my">我的</string>
+
+    <string name="tab_beer">啤酒仓库</string>
+    <string name="tab_white">白酒仓库</string>
+    <string name="tab_red">红酒仓库</string>
+    <string name="tab_foreign">洋酒仓库</string>
+    <string name="btn_search">搜索</string>
+    <string name="text_hint_search">搜索酒品牌、名称或用酒场景</string>
+    <string name="text_search_promo">热门推荐</string>
+    <string name="text_search_history">搜索历史</string>
+    <string name="text_clear_history">清空历史搜索</string>
+    <string name="tab_wait_pay_order">待付款</string>
+    <string name="tab_wait_receive_order">待收货</string>
+    <string name="tab_order_done">已完成</string>
+    <string name="tab_wait_send_order">待发货</string>
+
+
+    <string name="btn_reset">重置</string>
+    <string name="text_filter">筛选</string>
+
+    <string name="text_my_account">账户管理</string>
+
+    <string name="title_order">我的订单</string>
+    <string name="title_money">红包</string>
+    <string name="title_my_account">记我账上</string>
+    <string name="title_share">推荐有礼</string>
+    <string name="title_activity">活动中心</string>
+    <string name="title_message">消息中心</string>
+    <string name="title_contact">联系客服</string>
+    <string name="title_settings">设置</string>
+    <string name="title_upload_profile">上传资质</string>
+    <string name="title_user_info">商户中心</string>
+    <string name="title_fill_profile">填写资料</string>
+    <string name="title_cart">进货单</string>
+    <string name="title_product_recommend">小库智选</string>
+    <string name="title_fill_order">填写订单</string>
+    <string name="title_activity_detail">活动详情</string>
+
+    <string name="text_pay_way_alipay">支付宝</string>
+    <string name="text_pay_way_wechat">微信支付</string>
+    <string name="text_pay_way_cash">货到付款</string>
+    <string name="text_pay_way_unknown">未知</string>
+
+    <string name="text_settings_clear">清除本地缓存</string>
+    <string name="text_settings_private">特别声明</string>
+    <string name="text_settings_protocol">服务协议</string>
+    <string name="text_settings_version">版本信息</string>
+    <string name="text_settings_exit">退出登录</string>
+
+    <string name="url_partner_name">UMENG_CHANNEL</string>
+    <string name="url_sub_name">UMENG_CHANNEL_SUB</string>
+    <string name="text_pay_way">支付方式</string>
+    <string name="text_invoice">发票信息</string>
+    <string name="text_invoice_number">纳税人识别号</string>
+    <string name="text_product_total">商品总额</string>
+    <string name="text_pay_price">实付款:&#160;</string>
+    <string name="text_money">红包</string>
+    <string name="text_money_validity_date">有效期:&#160;%1$s至%2$s</string>
+    <string name="dialog_title_choose_pay_way">选择支付方式</string>
+    <string name="title_activity_login">@string/text_login</string>
+    <string name="text_go_pay">去支付</string>
+
+    <!-- Strings related to login -->
+
+    <string name="action_sign_in_short">@string/text_login</string>
+
+    <string name="text_hint_username">请输入手机号或账号</string>
+    <string name="text_hint__new_username">请输入新手机号</string>
+    <string name="text_hint_password">请输入密码</string>
+    <string name="text_hint_old_password">请输入原密码</string>
+    <string name="text_hint_login_password">请输入登录密码</string>
+    <string name="text_login">登录</string>
+    <string name="text_login_register">登录／注册</string>
+    <string name="text_forget_password_quot">忘记密码 ?</string>
+    <string name="text_confirm">确定</string>
+    <string name="text_confirm_ok">确认</string>
+    <string name="text_hint_invoice">请填写您的发票抬头信息</string>
+    <string name="text_hint_invoice_number">请填写您的纳税人识别号</string>
+
+
+    <string name="text_submit">提交</string>
+
+    <string name="text_add_to_cart">加入进货单</string>
+    <string name="text_hint_code">请输入验证码</string>
+    <string name="text_send_code">发送验证码</string>
+    <string name="text_find_password">找回密码</string>
+    <string name="text_forget_password">忘记密码</string>
+    <string name="text_reset_password">重置密码</string>
+    <string name="text_change_confirm">确认更换</string>
+    <string name="text_to_submit">提交审核</string>
+    <string name="text_hint_new_password">请输入您的新密码</string>
+    <string name="text_hint_new_password_again">请再次输入新密码</string>
+    <string name="text_hint_old_pay_password">请输入原支付密码</string>
+    <string name="text_hint_new_pay_password">请输入您的新支付密码</string>
+    <string name="text_hint_new_pay_password_again">请再次输入新支付密码</string>
+
+    <string name="text_confirm_change">确定修改</string>
+    <string name="text_sales">销量</string>
+    <string name="text_price">价格</string>
+    <string name="text_hint_number">请输入手机号</string>
+    <string name="text_hint_promo">请输入推荐码 (选填)</string>
+    <string name="text_register">注册</string>
+    <string name="text_free_register">免费注册</string>
+    <string name="text_next_step">下一步</string>
+    <string name="text_hint_shop_name">请输入店招名称</string>
+    <string name="text_hint_shop_identity">请输入法人名称</string>
+    <string name="text_hint_shop_type">请选择店招类型</string>
+    <string name="text_hint_area">请选择您的收货地区</string>
+    <string name="text_hint_detail">请填写详细收货地址</string>
+    <string name="text_hint_change_reason">请输入更换理由</string>
+    <string name="text_register_about_info">请上传相关资质,以便我们对您的身份核实</string>
+    <string name="text_business_license">营业执照</string>
+    <string name="text_register_about_info_2">为必须上传的资质</string>
+    <string name="text_register_error_empty_shop_name">请填写店铺名称</string>
+    <string name="text_register_error_empty_shop_corporate_name">请填写法人名称</string>
+    <string name="text_register_error_empty_shop_city">请填写地区信息</string>
+    <string name="text_register_error_empty_shop_delivery_address">请填写详细地址</string>
+    <string name="text_register_error_empty_shop_type">请填写店铺类型</string>
+    <string name="text_gate_photo">门头照片</string>
+    <string name="text_wine_license">酒类流通许可证</string>
+    <string name="text_identity_license">法人身份证</string>
+    <string name="text_upload_success">上传成功</string>
+    <string name="text_upload">上传</string>
+
+    <string name="text_change_phone">更换手机号</string>
+    <string name="text_change_address">更换收货地址</string>
+    <string name="text_change_receiver">更换收货人姓名</string>
+    <string name="text_click_login">点击登录</string>
+    <string name="text_back_home">返回首页</string>
+    <string name="text_for_phone_number">您当前的手机号为</string>
+    <string name="text_for_address">您当前收货地址为</string>
+    <string name="text_for_receiver">您当前收货人姓名为</string>
+    <string name="btn_resend_count">%1$s s</string>
+
+    <string name="text_error_register_code_not_valid">您输入的短信验证码不正确</string>
+    <string name="text_error_register_phone_not_valid">您输入的手机号码不正确</string>
+    <string name="text_error_register_pwd_not_valid">您填写的密码格式错误</string>
+    <string name="text_error_forgot_two_pwd_not_exists">两次密码输入不一致</string>
+    <string name="text_error_old_pwd_equals">新密码不能与原密码相同</string>
+    <string name="error_invalid_account">请输入正确的手机号码</string>
+    <string name="error_invalid_password">请输入有效的密码</string>
+    <string name="error_pwd_length">密码必须大于6位</string>
+    <string name="error_incorrect_password">请输入密码</string>
+    <string name="error_field_required">请输入手机号码</string>
+    <string name="error_address_reason">请填写更改理由</string>
+    <string name="error_address">请输入详细收货地址</string>
+
+    <string name="text_product_min_count">商品不得低于%1$s瓶销售</string>
+    <string name="text_product_max_count">商品不得大于%1$s瓶销售</string>
+    <string name="text_product_max_count_f">%1$s商品补货中，请重新下单</string>
+    <string name="text_product_max_count_f2">[%1$s]限购数量%2$s</string>
+    <string name="text_error_product_min_count">有商品未达到最低购买要求</string>
+    <string name="text_error_product_cart_empty">您的订货单里没有商品</string>
+    <string name="text_error_product_status">商品[%1$s]已经下架不能购买!请重新下单</string>
+    <string name="text_error_product_cart_not_stock">进货单中商品无货</string>
+    <string name="text_error_product_not_stock">商品无货</string>
+    <string name="text_product_detail">商品详情</string>
+    <string name="text_money_max_count">红包最多使用%1$s张</string>
+    <string name="text_money_count">已使用%1$s张</string>
+    <string name="text_money_coupon">红包金额</string>
+    <string name="text_promote_order">优惠金额</string>
+    <string name="text_submit_order">提交订单</string>
+    <string name="text_re_identity">重新认证</string>
+    <string name="text_pay_arrived">您的货到付款订单需要人工核对\n确认后会即刻为您发货</string>
+    <string name="text_mouth_pay_arrived">券抵货款订单需要人工核对\n确认后会即刻为您发货</string>
+    <string name="text_pay_success">支付成功</string>
+    <string name="text_pay_failed">支付失败</string>
+    <string name="text_share_friend">分享给好友</string>
+    <string name="text_upload_profile">上传资质</string>
+    <string name="btn_cancel">取消</string>
+    <string name="btn_confirm">确定</string>
+    <string name="btn_dial">拨打</string>
+    <string name="btn_cancel_login">取消</string>
+    <string name="btn_refresh">重新加载</string>
+    <string name="btn_im_login">去登录</string>
+    <string name="btn_upgrade">去升级</string>
+    <string name="dialog_title_upgrade">发现新版本%1$s</string>
+    <string name="dialog_title_notice">提示</string>
+    <string name="dialog_msg_saved">您的资料还未完成填写，是否退出？</string>
+    <string name="dialog_msg_cancel_order">确认取消？</string>
+    <string name="dialog_login_tip">您还没有登录</string>
+
+    <string name="text_digits_number">1234567890</string>
+    <string name="text_digits">1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</string>
+    <string name="text_share_for_money">推荐或分享成功可得红包</string>
+    <string name="text_clever_promo">智选结果根据隔壁仓库大数据为您推荐</string>
+    <string name="text_private_hint">隔壁仓库在此声明，您通过本软件参加的商业活动，与手机硬件厂商以及网络提供商无关。</string>
+    <string name="text_contact_customer">是否拨打</string>
+    <string name="text_tel">tel:&#160;</string>
+    <string name="text_out_of_stock">- 缺货 -</string>
+    <string name="text_under_shelf">- 已下架 -</string>
+    <string name="text_product_out_of_stock">该商品缺货</string>
+    <string name="text_total">合计:&#160;</string>
+    <string name="text_expired_soon">快过期</string>
+    <string name="title_use_money">使用红包</string>
+    <string name="text_use_info">使用说明</string>
+    <string name="text_promo">促销活动</string>
+    <string name="text_benefit">利润:</string>
+    <string name="text_gift">赠品</string>
+    <string name="text_word_gift">赠</string>
+    <string name="text_none">无</string>
+    <string name="text_hint_choose">请选择</string>
+    <string name="text_area">所在地区</string>
+
+
+    <string name="text_limit">限购</string>
+    <string name="text_limit_count">该商品最多可购%d瓶</string>
+
+    <!--upload Image-->
+    <string name="text_upload_image_handle_error" >图片处理失败！</string>
+    <string name="text_upload_image_file_not_exists">上传文件不存在！</string>
+    <string name="text_upload_image_network_error">上传文件失败！</string>
+    <string name="text_error_not_exists_business_licence">请上传营业执照图片！</string>
+    <string name="text_error_not_exists_shop_photo">请上传门头照片图片！</string>
+    <string name="text_money_fit">返现</string>
+    <string name="text_money_disable">不可用</string>
+    <string name="text_share_sina_ok">新浪微博分享成功！</string>
+    <string name="text_share_sina_error">新浪微博分享失败！</string>
+    <string name="text_suggest_price">建议零售价:&#160;</string>
+    <string name="text_market_price">市场采购价:&#160;</string>
+    <string name="text_min_number">最低起售量:&#160;</string>
+    <string name="text_max_quantity">限购数量:&#160;</string>
+    <string name="text_max_number">库存:&#160;</string>
+    <string name="text_click">点击查看</string>
+    <string name="text_success_submit">提交成功!</string>
+    <string name="text_change_phone_success">更换成功!</string>
+    <string name="text_product_standard">包装规格:&#160;%1$s</string>
+
+
+    <string name="dialog_share_not_installed">当前未安装客户端，请下载安装。</string>
+    <string name="dialog_not_pay_weixin">当前微信版本不支持支付功能，请下载最新版本。</string>
+
+
+    <string name="resultcode_alipay_ERROR_8000">正在处理中！</string>
+    <string name="resultcode_alipay_ERROR_4000">订单支付失败！</string>
+    <string name="resultcode_alipay_ERROR_6001">您取消了本笔订单支付！</string>
+    <string name="resultcode_alipay_ERROR_6002">网络连接出错！</string>
+    <string name="resultcode_weixin_cancel">您取消了本笔订单支付！</string>
+    <string name="resultcode_weixin_error">订单支付失败！</string>
+    <string name="text_order_list_cancel">取消订单</string>
+    <string name="text_order_list_tell">联系客服</string>
+    <string name="text_order_list_buy_again">再次购买</string>
+    <string name="text_order_list_pay">去支付</string>
+    <string name="text_order_list_price">实付款:&#160;</string>
+    <string name="text_order_list_price_pay">待付款:&#160;</string>
+    <string name="text_order_list_price_should">应付款:&#160;</string>
+
+    <string name="text_order_create_time">下单时间:&#160;</string>
+    <string name="text_order_code">订单号:&#160;</string>
+    <string name="text_order_ticket">发票抬头:&#160;</string>
+    <string name="text_search_none_products">商品没有找到哦</string>
+    <string name="text_no_product_in_cart">您的进货单里没有商品</string>
+    <string name="text_no_login_cart">登录以开始进货</string>
+    <string name="text_no_order">您还没有订单哦</string>
+    <string name="text_login_check">请登录查看价格</string>
+    <string name="text_house_price">仓库价:&#160;</string>
+    <string name="text_go_main">立即采购</string>
+    <string name="dialog_title_permission">权限请求</string>
+    <string name="dialog_msg_permission">我们的应用需要获取您的这些权限!</string>
+
+    <string name="user_status_10">等待填写资料</string>
+    <string name="user_status_20">已提交资料，等待审核</string>
+    <string name="user_status_25">提交新的资料，等待审核</string>
+    <string name="user_status_30">通过</string>
+    <string name="title_result">审核结果</string>
+    <string name="text_activity_none">暂无活动哦</string>
+    <string name="text_money_none">您还没有红包哦</string>
+    <string name="text_message_none">没有新的消息</string>
+    <string name="text_message_login">立即登录查看更多信息</string>
+    <string name="text_wait_review">资料审核中, 请耐心等待</string>
+    <string name="text_progress_clear_cache">正在清除缓存...</string>
+
+    <string name="text_avatar">头像</string>
+    <string name="text_person_name">商户名称</string>
+    <string name="text_person_phone">商户手机号</string>
+    <string name="text_person_receiver">收货人姓名</string>
+    <string name="text_person_address">商户收货地址</string>
+    <string name="text_person_password">修改密码</string>
+    <string name="text_pay_password">支付密码</string>
+
+    <string name="text_setting_pay_password">设置支付密码</string>
+    <string name="text_forgot_pay_password">忘记支付密码</string>
+    <string name="text_change_pay_password">修改支付密码</string>
+
+
+    <string name="text_photo">拍照</string>
+    <string name="text_choose_photo">从手机相册选择</string>
+    <string name="text_cancel">取消</string>
+    <string name="text_no_use">未使用</string>
+    <string name="text_count_use">%1$s张可用</string>
+    <string name="text_used">已使用</string>
+    <string name="text_no_use_">不可使用红包</string>
+    <string name="text_used_">可使用红包</string>
+    <string name="text_expired">已过期</string>
+    <string name="toast_back_again">再点击返回键退出</string>
+
+    <string name="text_network_error">网络不给力，请稍后重试</string>
+    <string name="text_main_none">暂时无数据</string>
+    <string name="text_money_info">1.红包仅适用于隔壁仓库注册用户在登录后方可使用。\n\n2.红包金额大于应付金额时，差额不予退回。\n\n3.如忘记红包使用规则或对红包使用有疑问，请您拨打隔壁仓库客服电话400-999-1919按5号键进行咨询。\n</string>
+    <string name="text_hint_receiver">请输入收货人姓名</string>
+    <string name="text_clear_success">清理成功</string>
+    <string name="text_no_use_coupon">不使用优惠劵</string>
+    <string name="text_surplus_pay_time">付款剩余时间</string>
+    <string name="text_check_all">全选</string>
+    <string name="action_edit">编辑</string>
+    <string name="action_done">完成</string>
+    <string name="dialog_change_password_success">修改密码成功</string>
+    <string name="btn_del">删除</string>
+    <string name="title_apply_sale">申请售后</string>
+
+    <string name="error_not_avg">当前没有广告信息</string>
+    <string name="error_not_upload_image">请上传图片</string>
+    <string name="error_not_selected_type">请选择服务类型</string>
+    <string name="error_not_selected_reason">请选择退款原因</string>
+
+    <string name="dialog_apply_sale_success">申请售后成功</string>
+    <string name="toast_three_more">最多可选3个哦~</string>
+    <string name="all">全部</string>
+    <string name="see_move">查看更多</string>
+    <string name="text_wechat_friend">微信好友</string>
+    <string name="text_wechat_cycle">微信朋友圈</string>
+    <string name="text_qq">手机QQ</string>
+    <string name="text_qzone">QQ空间</string>
+    <string name="text_sina">新浪微博</string>
+    <string name="text_sale_max">销量最高</string>
+    <string name="text_price_max">价格最高</string>
+    <string name="text_price_min">价格最低</string>
+
+    <string name="text_no_more_products">没有更多商品了</string>
+    <string name="error_phone_code">请输入短信验证码</string>
+    <string name="error_pay_pwd_empty_odl">请输入原支付密码</string>
+    <string name="error_pay_pwd_odl_error">原支付密码填写不规范</string>
+    <string name="error_pay_pwd_new_error">支付密码填写不规范</string>
+    <string name="error_pay_pwd_empty_new1">请输入新支付密码</string>
+    <string name="error_pay_pwd_empty_new2">请再次输入新支付密码</string>
+    <string name="error_pay_pwd_new_equals">两次输入支付密码不一致</string>
+    <string name="error_pay_pwd_new_old_equals">新支付密码不能与支付原密码相同</string>
+    <string name="dialog_pay_change_pwd_ok">修改支付密码成功!</string>
+    <string name="dialog_pay_forget_pwd_ok">找回支付密码成功!</string>
+    <string name="dialog_pay_setting_pwd_ok">设置支付密码成功!</string>
+    <string name="text_pay_ximu">酒先拿走</string>
+    <string name="text_pay_zsgf">券抵货款</string>
+    <string name="error_order_pay_pwd">支付密码错误</string>
+    <string name="error_order_pay_not_setting">商户未设置支付密码</string>
+    <string name="btn_go_change_pay_pwd">找回密码</string>
+    <string name="btn_go_setting_pay_pwd">设置密码</string>
+    <string name="btn_re_pay_pwd">重新输入</string>
+    <string name="error_pay_not_upload_image">请上传[%1$s]图片</string>
+    <string name="error_pay_upload_image_empty">当前没有需要上传的图片信息</string>
+    <string name="error_order_ximu_empty_agree">获取协议信息失败！</string>
+    <string name="btn_agree">同意</string>
+    <string name="btn_disagress">不同意</string>
+    <string name="btn_send_email">发送</string>
+    <string name="dialog_msg_send_email_ok">发送邮件成功！</string>
+    <string name="title_ximu_private">用户协议</string>
+    <string name="dialog_cancel_order">您确定取消订单吗？</string>
+    <string name="text_refresh_page">刷新页面</string>
+    <string name="title_promote">活动商品</string>
+    <string name="text_0_00">¥0.00</string>
+    <string name="text_price_total">总额:</string>
+    <string name="text_price_free">立减:</string>
+    <string name="text_recommend">仓库热荐</string>
+    <string name="text_go_detail"><![CDATA[查看详情 >>]]></string>
+    <string name="text_pay_remind_time">付款剩余时间</string>
+    <string name="text_upgrade_desc">更新内容:</string>
+    <string name="text_upgrade_title">升级提醒</string>
+    <string name="text_upgrade_no_tip">不再提示</string>
+    <string name="text_upgrade">立即更新</string>
+    <string name="text_error_load_oss_token">加载token信息失败,请重试！</string>
+    <string name="text_add_cart_ok">添加购物车成功！</string>
+    <string name="text_dialog_checked_cart_item">请先选择一个删除项！</string>
+    <string name="text_dialog_pay_cart_item">请添加购物车物品！</string>
+    <string name="text_coupon_count_use">%1$s张可用</string>
+    <string name="text_coupon_count_used">已用%1$s张</string>
+    <string name="text_error_selected_pay">请选择支付方式!</string>
+    <string name="text_error_pay">当前无法发起支付!</string>
+    <string name="text_copyright">Copyright ©-2018\n
+隔壁仓库depotnextdoor.com 版权</string>
+    <string name="text_empty_coupon">当前没有红包信息</string>
+</resources>
+

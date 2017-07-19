@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.internal.ScrimInsetsFrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+    <android.support.v4.widget.DrawerLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/drawer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        xmlns:tools="http://schemas.android.com/tools"
+                        android:orientation="vertical"
+                        android:fitsSystemWindows="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+            <com.biz.widget.BottomNavigationViewEx
+                    android:layout_alignParentBottom="true"
+                    android:id="@+id/design_navigation_view"
+                    app:elevation="3dp"
+                    android:elevation="3dp"
+                    tools:menu="@menu/main"
+                    app:menu="@menu/main"
+                    app:itemBackground="@color/color_transparent"
+                    app:itemIconTint="@color/color_tab_selector"
+                    app:itemTextColor="@color/color_tab_selector"
+                    android:fadingEdge="none"
+                    android:overScrollMode="never"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"/>
+
+            <View
+                    android:id="@+id/line"
+                    android:layout_above="@id/design_navigation_view"
+                    android:background="@color/color_cccccc"
+                    android:layout_height="1px"
+                    android:layout_width="match_parent"/>
+
+            <com.biz.widget.NoSwipeViewPager
+                    android:id="@+id/viewpager"
+                    android:fitsSystemWindows="true"
+                    android:layout_above="@id/line"
+                    android:fadingEdge="none"
+                    android:overScrollMode="never"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+            </com.biz.widget.NoSwipeViewPager>
+
+        </RelativeLayout>
+
+        <FrameLayout
+                android:id="@+id/drawer_right"
+                android:layout_gravity="end"
+                android:layout_width="260dp"
+                android:layout_height="match_parent">
+
+        </FrameLayout>
+    </android.support.v4.widget.DrawerLayout>
+</android.support.design.internal.ScrimInsetsFrameLayout>

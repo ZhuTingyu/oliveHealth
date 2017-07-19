@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ClearEditText">
+        <attr name="drawableStart" format="reference"/>
+        <attr name="drawableClear" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="CouponStatusTextView">
+        <attr name="tagWidth" format="dimension"/>
+        <attr name="cornerDistance" format="dimension"/>
+        <attr name="tagTextSize" format="dimension"/>
+        <attr name="tagTextColor" format="color"/>
+        <attr name="tagColor" format="color"/>
+        <attr name="tagText" format="string"/>
+        <attr name="tagPosition" format="enum">
+            <enum name="left_top" value="0"/>
+            <enum name="right_top" value="1"/>
+            <enum name="right_bottom" value="2"/>
+            <enum name="left_bottom" value="3"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="PageRecyclerView">
+        <!--行数，如果为0表示横向显示gridview-->
+        <attr name="PagingRows" format="integer"/>
+        <!--列数,如果为0表示纵向显示gridview-->
+        <attr name="PagingColums" format="integer"/>
+        <attr name="PagingDiver" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="WaveSideBar">
+        <attr name="sidebar_lazy_respond" format="boolean"/>
+        <attr name="sidebar_text_color" format="color"/>
+        <attr name="sidebar_max_offset" format="dimension"/>
+        <attr name="sidebar_position" format="enum">
+            <enum name="right" value="0"/>
+            <enum name="left" value="1"/>
+        </attr>
+        <attr name="sidebar_text_alignment" format="enum">
+            <enum name="center" value="0"/>
+            <enum name="left" value="1"/>
+            <enum name="right" value="2" />
+        </attr>
+    </declare-styleable>
+</resources>

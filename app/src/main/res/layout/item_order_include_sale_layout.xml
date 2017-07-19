@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+        android:orientation="vertical"
+        android:id="@+id/text2"
+        android:paddingLeft="8dp"
+        android:layout_weight="1"
+        android:background="?attr/selectableItemBackground"
+        android:textColor="@color/base_color"
+        android:textSize="14dp"
+        android:singleLine="true"
+        android:gravity="center_vertical|left"
+        android:layout_width="match_parent"
+        tools:text="订单号: B2B1234567890"
+        android:layout_height="wrap_content"
+        android:paddingTop="0dp"
+        tools:visibility="visible"
+        android:paddingBottom="8dp"
+        android:visibility="gone"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+</TextView>

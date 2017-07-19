@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.biz.widget.CustomDraweeView xmlns:android="http://schemas.android.com/apk/res/android"
+                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                 android:orientation="vertical"
+                                 android:id="@id/icon"
+                                 android:duplicateParentState="false"
+                                 app:placeholderImageScaleType="fitXY"
+                                 app:overlayImage="@drawable/shape_rect_gray_transparent_background"
+                                 android:layout_width="80dp"
+                                 android:layout_height="80dp">
+
+</com.biz.widget.CustomDraweeView>

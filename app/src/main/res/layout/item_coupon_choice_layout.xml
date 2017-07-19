@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    android:background="?attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:layout_width="match_parent"
+    android:layout_height="48dp">
+    <TextView
+        android:id="@id/text"
+        android:text="@string/text_money"
+        android:layout_centerVertical="true"
+        android:textColor="@color/color_2c2c2c"
+        android:textSize="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/title_left"
+        android:padding="4dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        android:layout_toRightOf="@id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/title_right"
+        android:gravity="right"
+        android:layout_centerVertical="true"
+        android:textColor="@color/color_2c2c2c"
+        android:textSize="16dp"
+        android:drawableRight="@drawable/ic_arrow_right_gray"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

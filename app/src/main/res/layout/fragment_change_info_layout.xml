@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@id/title"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:gravity="center"
+        tools:text="dkjfdkjfjkdfjddkfjdkfjdkfjdfkjdkfjdkfjdkdjfjdfjd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/icon"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:drawablePadding="15dp"
+        android:textSize="18sp" />
+
+
+    <TextView
+        android:id="@id/title_line_2"
+        tools:text="dkjfdkjfjkdfjddkfjdkfjdkfjdfkjdkfjdkfjdkdjfjdfjd"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:text=""
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@id/btn_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_line_2"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/btn_red_selector"
+        android:text="@string/text_back_home"
+        android:textColor="@color/base_color"
+        android:textStyle="normal" />
+    <TextView
+        android:id="@+id/title_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_2"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/color_ee6e6e"
+        android:visibility="gone"
+        android:textSize="18sp" />
+
+    <ImageView
+        android:id="@+id/icon1"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="60dp"
+        android:layout_width="64dp"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

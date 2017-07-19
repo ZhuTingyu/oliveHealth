@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+    <include layout="@layout/toolbar"
+             android:id="@+id/include"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list"
+        android:background="@color/white"
+        android:layout_below="@id/include"
+        app:layoutManager="LinearLayoutManager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <com.biz.widget.WaveSideBar
+            android:id="@+id/side_bar"
+            android:layout_below="@id/include"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_height="match_parent"
+            android:paddingRight="8dp"
+            app:sidebar_position="right"
+            app:sidebar_max_offset="80dp"
+            app:sidebar_lazy_respond="true"
+            app:sidebar_text_color="@color/color_666666"
+            app:sidebar_text_alignment="center"/>
+
+</RelativeLayout>

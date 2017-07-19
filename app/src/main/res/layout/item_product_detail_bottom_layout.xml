@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="55dp"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentRight="true"
+    android:layout_gravity="end|bottom"
+    android:background="@drawable/shape_rect_gray_white_background"
+    android:foregroundGravity="bottom"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    app:layout_anchorGravity="bottom|right|end"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:id="@+id/btn_contact"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_contact_4a"
+            tools:src="@drawable/ic_contact_4a" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_contact"
+            android:textColor="@color/color_4a4a4a" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btn_cart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginTop="5dp"
+                app:srcCompat="@drawable/vector_cart"
+                tools:src="@drawable/vector_cart" />
+
+            <com.biz.widget.BadgeView
+                android:id="@+id/badge_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right|top"
+                android:textSize="12sp"
+                tools:text="6" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_cart"
+            android:textColor="@color/color_4a4a4a" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/btn_2"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:background="@drawable/btn_red_rect_selector"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="right|center_vertical"
+        android:layout_weight="1"
+        android:text="@string/text_add_to_cart"
+        android:textStyle="normal" />
+</LinearLayout>

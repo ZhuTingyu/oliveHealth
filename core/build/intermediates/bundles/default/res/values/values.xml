@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="isDebug">true</bool>
+    <bool name="isDispatcher">false</bool>
+    <bool name="isSiner">true</bool>
+    <color name="base_color">#06C8FC</color>
+    <color name="base_color_10">#1006C8FC</color>
+    <color name="base_color_disable">#999999</color>
+    <color name="base_color_transparent">#a006C8FC</color>
+    <color name="black">#000</color>
+    <color name="blue_light">#ff33b5e5</color>
+    <color name="btn_color">#06C8FC</color>
+    <color name="colorAccent">#1655bf</color>
+    <color name="colorPrimary">#06C8FC</color>
+    <color name="colorPrimaryDark">#a006C8FC</color>
+    <color name="color_262626">#262626</color>
+    <color name="color_2c2c2c">#2c2c2c</color>
+    <color name="color_333333">#333333</color>
+    <color name="color_4a4a4a">#4a4a4a</color>
+    <color name="color_515151">#515151</color>
+    <color name="color_666666">#666666</color>
+    <color name="color_666666_dd">#dd666666</color>
+    <color name="color_929292">#929292</color>
+    <color name="color_999999">#999999</color>
+    <color name="color_9b9b9b">#9b9b9b</color>
+    <color name="color_a0fdae2e">#a0fdae2e</color>
+    <color name="color_b2b2b2">#b2b2b2</color>
+    <color name="color_background">#efefef</color>
+    <color name="color_btn_disable">#abc2c8</color>
+    <color name="color_cccccc">#cccccc</color>
+    <color name="color_d2d2d2">#d2d2d2</color>
+    <color name="color_d5d5d5">#d5d5d5</color>
+    <color name="color_divider">#e5e5e5</color>
+    <color name="color_e5e5e5">#e5e5e5</color>
+    <color name="color_ee6e6e">#ee6e6e</color>
+    <color name="color_eeeeee">#eeeeee</color>
+    <color name="color_efefef">#efefef</color>
+    <color name="color_f43b32">#f43b32</color>
+    <color name="color_f5f5f5">#f5f5f5</color>
+    <color name="color_f6f6f6">#f6f6f6</color>
+    <color name="color_f9feff">#f9feff</color>
+    <color name="color_fbfbfb">#fbfbfb</color>
+    <color name="color_fdae2e">#fdae2e</color>
+    <color name="color_fdecd0">#fdecd0</color>
+    <color name="color_ffa004">#ffa004</color>
+    <color name="color_hint">#d2d2d2</color>
+    <color name="color_money">#fd5e50</color>
+    <color name="color_red">#ff0000</color>
+    <color name="color_red_transparent">#10ff0000</color>
+    <color name="color_search_edit_shape">#d2d2d2</color>
+    <color name="color_text_444">#444</color>
+    <color name="color_transparent">#00000000</color>
+    <color name="color_transparent_10">#10000000</color>
+    <color name="color_transparent_half">#50000000</color>
+    <color name="color_white_transparent_10">#0dffffff</color>
+    <color name="color_white_transparent_50">#80ffffff</color>
+    <color name="color_white_transparent_70">#b3ffffff</color>
+    <color name="color_white_transparent_80">#ccffffff</color>
+    <color name="color_white_transparent_85">#d5ffffff</color>
+    <color name="color_white_transparent_95">#e5ffffff</color>
+    <color name="color_white_transparent_f5">#f9ffffff</color>
+    <color name="dark_gray">#a1a4a4</color>
+    <color name="default_overlay_color">#b0FFFFFF</color>
+    <color name="gray">#e0e0e0</color>
+    <color name="gray_line">#dadada</color>
+    <color name="green_light">#ff99cc00</color>
+    <color name="orange_light">#ffffbb33</color>
+    <color name="red_light">#ffff4444</color>
+    <color name="text_color">#303030</color>
+    <color name="white">#fff</color>
+    <declare-styleable name="ClearEditText"><attr format="reference" name="drawableStart"/><attr format="reference" name="drawableClear"/></declare-styleable>
+    <declare-styleable name="CouponStatusTextView"><attr format="dimension" name="tagWidth"/><attr format="dimension" name="cornerDistance"/><attr format="dimension" name="tagTextSize"/><attr format="color" name="tagTextColor"/><attr format="color" name="tagColor"/><attr format="string" name="tagText"/><attr format="enum" name="tagPosition">
+            <enum name="left_top" value="0"/>
+            <enum name="right_top" value="1"/>
+            <enum name="right_bottom" value="2"/>
+            <enum name="left_bottom" value="3"/>
+        </attr></declare-styleable>
+    <declare-styleable name="PageRecyclerView"><attr format="integer" name="PagingRows"/><attr format="integer" name="PagingColums"/><attr format="reference" name="PagingDiver"/></declare-styleable>
+    <declare-styleable name="SwipeLayout"><attr format="enum" name="drag_edge">
+            <enum name="left" value="0"/>
+            <enum name="right" value="1"/>
+            <enum name="top" value="2"/>
+            <enum name="bottom" value="3"/>
+        </attr><attr format="dimension" name="horizontalSwipeOffset"/><attr format="dimension" name="verticalSwipeOffset"/><attr format="enum" name="show_mode">
+            <enum name="lay_down" value="0"/>
+            <enum name="pull_out" value="1"/>
+        </attr></declare-styleable>
+    <declare-styleable name="WaveSideBar"><attr format="boolean" name="sidebar_lazy_respond"/><attr format="color" name="sidebar_text_color"/><attr format="dimension" name="sidebar_max_offset"/><attr format="enum" name="sidebar_position">
+            <enum name="right" value="0"/>
+            <enum name="left" value="1"/>
+        </attr><attr format="enum" name="sidebar_text_alignment">
+            <enum name="center" value="0"/>
+            <enum name="left" value="1"/>
+            <enum name="right" value="2"/>
+        </attr></declare-styleable>
+    <declare-styleable name="superrecyclerview"><attr format="reference" name="layout_empty"/><attr format="reference" name="layout_moreProgress"/><attr format="reference" name="layout_progress"/><attr format="boolean" name="recyclerClipToPadding"/><attr format="dimension" name="recyclerPadding"/><attr format="dimension" name="recyclerPaddingTop"/><attr format="dimension" name="recyclerPaddingBottom"/><attr format="dimension" name="recyclerPaddingLeft"/><attr format="dimension" name="recyclerPaddingRight"/><attr name="scrollbarStyle">
+            <flag name="insideOverlay" value="0x0"/>
+            <flag name="insideInset" value="0x01000000"/>
+            <flag name="outsideOverlay" value="0x02000000"/>
+            <flag name="outsideInset" value="0x03000000"/>
+        </attr><attr format="reference" name="mainLayoutId"/></declare-styleable>
+    <dimen name="swipe_progress_bar_height">8dp</dimen>
+    <item name="recyclerview_swipe" type="id"/>
+    <integer name="default_blur_radius">20</integer>
+    <integer name="default_downsample_factor">16</integer>
+    <integer name="time_connect_out">15000</integer>
+    <integer name="time_read_out">30000</integer>
+    <string name="api_init_dispatcher">init/dispatch.do</string>
+    <string name="api_init_master">init/dispatch.do</string>
+    <string name="api_init_master_head" translatable="false"/>
+    <string name="app_name">HttpModule</string>
+    <string name="btn_cancel">取消</string>
+    <string name="btn_confirm">确定</string>
+    <string name="defualt_http_url_list" translatable="false"/>
+    <string name="dialog_not_pay_weixin" translatable="false">当前微信版本不支持支付功能，请下载最新版本。</string>
+    <string name="dialog_share_not_installed" translatable="false">当前未安装客户端，请下载安装。</string>
+    <string name="oss_ak" translatable="false"/>
+    <string name="oss_bucket" translatable="false"/>
+    <string name="oss_sk" translatable="false"/>
+    <string name="oss_token" translatable="false"/>
+    <string name="qq_appid" translatable="false"/>
+    <string name="recommend_event_product_click">RECOMMEND_EVENT_PRODUCT_CLICK</string>
+    <string name="recommend_event_product_collect">RECOMMEND_EVENT_PRODUCT_COLLECT</string>
+    <string name="recommend_event_product_comment">RECOMMEND_EVENT_PRODUCT_COMMENT</string>
+    <string name="recommend_event_product_consume">RECOMMEND_EVENT_PRODUCT_CONSUME</string>
+    <string name="recommend_event_product_grade">RECOMMEND_EVENT_PRODUCT_GRADE</string>
+    <string name="recommend_event_product_search_click">RECOMMEND_EVENT_PRODUCT_SEARCH_CLICK</string>
+    <string name="recommend_event_product_share">RECOMMEND_EVENT_PRODUCT_SHARE</string>
+    <string name="recommend_event_product_uncollect">RECOMMEND_EVENT_PRODUCT_UNCOLLECT</string>
+    <string name="recommend_event_product_view">RECOMMEND_EVENT_PRODUCT_VIEW</string>
+    <string name="sina_key" translatable="false"/>
+    <string name="sina_redirect_url" translatable="false"/>
+    <string name="text_checkstr_toast">不能输入特殊字符</string>
+    <string name="text_copied">已经复制到粘贴板</string>
+    <string name="text_error_permission">请在应用程序管理里设置权限</string>
+    <string name="text_error_permission_photo">请在应用程序管理里设置拍照权限</string>
+    <string name="text_error_permission_storage">请在应用程序管理里设置存储权限</string>
+    <string name="text_error_photo_image">请重新拍照</string>
+    <string name="text_money_date">%1$s至%2$s</string>
+    <string name="text_money_validity_date">有效期: %1$s至%2$s</string>
+    <string name="text_network_error" translatable="false">网络不给力，请稍后重试</string>
+    <string name="text_qq">手机QQ</string>
+    <string name="text_qzone">QQ空间</string>
+    <string name="text_share_sina_error">新浪微博分享失败！</string>
+    <string name="text_share_sina_ok">新浪微博分享成功！</string>
+    <string name="text_sina">新浪微博</string>
+    <string name="text_upload_image_file_not_exists">上传文件不存在！</string>
+    <string name="text_upload_image_handle_error">图片处理失败！</string>
+    <string name="text_upload_image_network_error">上传文件失败！</string>
+    <string name="text_wechat_cycle">微信朋友圈</string>
+    <string name="text_wechat_friend">微信好友</string>
+    <string name="url_partner_name">UMENG_CHANNEL</string>
+    <string name="url_sub_name">UMENG_CHANNEL_SUB</string>
+    <string name="weixin_appid" translatable="false"/>
+    <string name="weixin_appsecret" translatable="false"/>
+    <string name="xiaomi_appid" translatable="false"/>
+    <string name="xiaomi_appkey" translatable="false"/>
+    <style name="Animation.Popup" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
+</resources>

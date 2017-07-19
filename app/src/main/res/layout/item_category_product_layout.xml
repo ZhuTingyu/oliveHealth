@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:foreground="?selectableItemBackground"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:padding="8dp">
+
+        <com.biz.widget.CustomDraweeView
+                android:id="@id/icon"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"/>
+
+        <com.biz.widget.CustomDraweeView
+                android:id="@+id/icon_type"
+                android:layout_centerVertical="true"
+                android:visibility="visible"
+                android:layout_width="30dp"
+                android:layout_height="70dp"/>
+
+        <TextView
+                android:id="@id/title"
+                android:textSize="17dp"
+                android:textColor="@color/color_262626"
+                android:singleLine="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/icon"/>
+
+        <TextView
+                android:orientation="horizontal"
+                android:id="@+id/text_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:layout_below="@id/title"
+                android:layout_marginTop="2dp"
+                android:layout_toRightOf="@id/icon"
+                />
+        <TextView
+                android:id="@+id/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_house_price"
+                android:layout_below="@id/text_tag"
+                android:layout_marginTop="2dp"
+                android:layout_toRightOf="@id/icon"
+                android:textColor="@color/color_2c2c2c"
+                android:textSize="14sp"
+                />
+        <TextView
+                android:id="@+id/text_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_tag"
+                android:layout_marginTop="2dp"
+                android:layout_toRightOf="@id/text"
+                android:textColor="@color/color_red"
+                android:textSize="14sp"
+                android:singleLine="true"
+                android:maxLines="1"
+                />
+
+        <TextView
+                android:id="@+id/text_promo"
+                android:textSize="22sp"
+                android:paddingLeft="6dp"
+                android:layout_toRightOf="@id/text_price"
+                android:layout_alignBaseline="@id/text_price"
+                android:textColor="@color/color_transparent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+    </RelativeLayout>
+</FrameLayout>

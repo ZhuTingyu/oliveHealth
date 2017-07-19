@@ -1,0 +1,85 @@
+apply plugin: 'com.android.library'
+apply plugin: 'maven'
+
+version = '2.4.8'
+group = 'org.opencv'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.compileSdkVersion
+        versionCode 2480
+        versionName = version
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+            java.srcDirs = ['src/main/java', 'src/main/java-gen', 'src/main/qiniu']
+        }
+        instrumentTest.setRoot('tests')
+        debug.setRoot('build-types/debug')
+        release.setRoot('build-types/release')
+        play.setRoot('build-types/play')
+    }
+}
+
+afterEvaluate { project ->
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                def mavenRepositoryUrl
+                if (!project.hasProperty('mvnRepoUrl')) {
+                    println "Settings for mvnRepoUrl are missing/incomplete for ${project.name}"
+                    mavenRepositoryUrl = mavenLocal().getUrl()
+                } else {
+                    mavenRepositoryUrl = project.getProperties().get('mvnRepoUrl')
+                }
+
+                // mavenRepositoryUrl = mavenLocal().getUrl()
+
+                repository(url: mavenRepositoryUrl)
+
+                pom.project {
+                    name 'OpenCV Android Library'
+                    packaging 'aar'
+                    description 'The OpenCV Java project for Android.'
+                    url 'https://github.com/vRallev/OpenCV'
+
+                    scm {
+                        url 'https://github.com/vRallev/OpenCV'
+                        connection 'scm:git@github.com:vRallev/OpenCV.git'
+                        developerConnection 'scm:git@github.com:vRallev/OpenCV.git'
+                    }
+                }
+            }
+        }
+    }
+
+    //noinspection GroovyAssignabilityCheck
+    task androidJavadocs(type: Javadoc) {
+        source = android.sourceSets.main.java
+    }
+
+    //noinspection GroovyAssignabilityCheck
+    task androidJavadocsJar(type: Jar) {
+        classifier = 'javadoc'
+        //basename = artifact_id
+        from androidJavadocs.destinationDir
+    }
+
+    //noinspection GroovyAssignabilityCheck
+    task androidSourcesJar(type: Jar) {
+        classifier = 'sources'
+        //basename = artifact_id
+        from android.sourceSets.main
+    }
+
+    artifacts {
+        //archives packageReleaseJar
+        archives androidSourcesJar
+        archives androidJavadocsJar
+    }
+}

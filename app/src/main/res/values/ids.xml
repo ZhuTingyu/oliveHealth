@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="title" type="id"/>
+    <item name="title_left" type="id"/>
+    <item name="title_right" type="id"/>
+    <item name="title_line_1" type="id"/>
+    <item name="title_line_2" type="id"/>
+
+    <item name="title_line_1_left" type="id"/>
+    <item name="title_line_1_right" type="id"/>
+
+    <item name="title_line_2_left" type="id"/>
+    <item name="title_line_2_right" type="id"/>
+
+    <item name="text" type="id"/>
+    <item name="text_detail" type="id"/>
+    <item name="avatar" type="id"/>
+    <item name="list" type="id"/>
+    <item name="icon" type="id"/>
+    <item name="btn_2" type="id"/>
+    <item name="btn_1" type="id"/>
+
+</resources>

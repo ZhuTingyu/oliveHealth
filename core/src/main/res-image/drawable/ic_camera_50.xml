@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<inset>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/vector_photo_camera_black_24dp"></item>
+</selector>
+</inset>

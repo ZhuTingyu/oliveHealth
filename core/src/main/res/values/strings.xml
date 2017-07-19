@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">HttpModule</string>
+    <string name="text_error_permission">请在应用程序管理里设置权限</string>
+    <string name="text_error_permission_photo">请在应用程序管理里设置拍照权限</string>
+    <string name="text_error_permission_storage">请在应用程序管理里设置存储权限</string>
+    <string name="text_copied">已经复制到粘贴板</string>
+    <string name="text_checkstr_toast">不能输入特殊字符</string>
+
+    <string name="btn_cancel">取消</string>
+    <string name="btn_confirm">确定</string>
+    <string name="text_error_photo_image">请重新拍照</string>
+    <string name="text_money_validity_date">有效期:&#160;%1$s至%2$s</string>
+    <string name="text_money_date">%1$s至%2$s</string>
+
+    <string name="text_share_sina_ok">新浪微博分享成功！</string>
+    <string name="text_share_sina_error">新浪微博分享失败！</string>
+
+    <string name="text_wechat_friend">微信好友</string>
+    <string name="text_wechat_cycle">微信朋友圈</string>
+    <string name="text_qq">手机QQ</string>
+    <string name="text_qzone">QQ空间</string>
+    <string name="text_sina">新浪微博</string>
+</resources>
