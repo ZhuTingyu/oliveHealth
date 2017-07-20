@@ -2,9 +2,11 @@ package com.olive.ui.main.my;
 
 import com.biz.base.BaseLazyFragment;
 import com.biz.util.Lists;
+import com.biz.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.olive.R;
+import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -63,11 +65,14 @@ public class UserFragment  extends BaseLazyFragment  {
 
         adapter.addFooterView(footer);
         adapter.setOnItemClickListener(this::onItemClick);
+        mRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity())
+        .marginProvider(adapter).colorProvider(adapter).sizeProvider(adapter).build());
     }
 
 
     private void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         String s = mList.get(position);
+        ToastUtils.showLong(getActivity(), s);
         if (equalsString(s, R.string.text_my_order)){
 
         }else  if (equalsString(s, R.string.text_refund)){

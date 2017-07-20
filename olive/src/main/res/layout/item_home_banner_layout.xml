@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="wrap_content">
@@ -20,16 +21,20 @@
             android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
+                app:srcCompat="@drawable/vector_announcement"
                 android:id="@+id/icon_left"
-                android:layout_width="80dp"
+                android:scaleType="centerInside"
+                android:layout_width="100dp"
                 android:layout_height="80dp"/>
         <LinearLayout
                 android:id="@+id/layout"
                 android:layout_toRightOf="@id/icon_left"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-            <ImageView
+            <android.support.v7.widget.AppCompatImageView
+                    app:srcCompat="@drawable/vector_new"
+                    android:scaleType="centerInside"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"/>
             <TextView
@@ -37,6 +42,7 @@
                     android:textColor="@color/color_666666"
                     tools:text="dddd"
                     android:textSize="16dp"
+                    android:layout_marginLeft="8dp"
                     android:layout_gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -47,12 +53,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             <ImageView
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/vector_new"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"/>
             <TextView
                     android:id="@+id/text2"
                     android:textColor="@color/color_666666"
                     tools:text="dddd"
+                    android:layout_marginLeft="8dp"
                     android:textSize="16dp"
                     android:layout_gravity="center_vertical"
                     android:layout_width="wrap_content"

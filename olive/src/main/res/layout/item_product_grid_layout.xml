@@ -36,7 +36,7 @@
                 app:direction="rightTop"
                 app:labelTopPadding="15dp"
                 app:labelCenterPadding="5dp"
-                app:labelBottomPadding="10dp"
+                app:labelBottomPadding="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|top"
