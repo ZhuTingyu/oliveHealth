@@ -9,6 +9,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.olive.R;
 import com.olive.ui.login.LoginActivity;
+import com.olive.ui.order.OrderActivity;
+import com.olive.ui.refund.RefundActivity;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import android.os.Bundle;
@@ -81,11 +83,10 @@ public class UserFragment  extends BaseLazyFragment  {
 
     private void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         String s = mList.get(position);
-        //ToastUtils.showLong(getActivity(), s);
         if (equalsString(s, R.string.text_my_order)){
-
+            OrderActivity.startOrder(getActivity(), OrderActivity.ORDER_TAB_ALL);
         }else  if (equalsString(s, R.string.text_refund)){
-
+            RefundActivity.start(getActivity(), 0);
         }else if (equalsString(s, R.string.text_my_favor)){
             IntentBuilder.Builder().startParentActivity(getActivity(), FavoriteFragment.class);
         }else if (equalsString(s, R.string.text_my_stock)){

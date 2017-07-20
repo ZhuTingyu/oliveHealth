@@ -27,6 +27,15 @@
     <string name="text_my_password_pay">重置支付密码</string>
     <string name="text_system_info">系统信息</string>
 
+    <string name="text_waiting_pay">待付款</string>
+    <string name="text_wait_receive">待收货</string>
+    <string name="text_wait_send">待发货</string>
+    <string name="text_order_all">全部</string>
+
+    <string name="text_refund_apply">退货申请</string>
+    <string name="text_refund_list">退货单</string>
+
+
     <string-array name="array_my">
         <item>@string/text_my_order</item>
         <item>@string/text_refund</item>

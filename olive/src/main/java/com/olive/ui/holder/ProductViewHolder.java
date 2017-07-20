@@ -5,6 +5,7 @@ import com.biz.widget.CustomDraweeView;
 import com.olive.R;
 import com.olive.widget.LabelView;
 
+import android.app.Activity;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
 import android.widget.TextView;
@@ -42,6 +43,11 @@ public class ProductViewHolder extends BaseViewHolder {
         tvProductPriceOld = (TextView) findViewById(R.id.tv_product_price_old);
         btnCart = (AppCompatImageView) findViewById(R.id.btn_cart);
         btnLike = (AppCompatImageView) findViewById(R.id.btn_like);
+
+        Activity activity = (Activity) itemView.getContext();
+        if (activity.getTitle().equals(getString(R.string.text_my_favor))){
+            btnLike.setVisibility(View.GONE);
+        }
 
     }
 }
