@@ -27,7 +27,9 @@ class HomeCategoryAdapter extends BaseArrayListAdapter<String> {
 
 
     private int size;
+
     private List<Integer> mDrawableList;
+
 
     public HomeCategoryAdapter(Context context) {
         super(context);
@@ -60,11 +62,19 @@ class HomeCategoryAdapter extends BaseArrayListAdapter<String> {
 //        HomeItemEntity entity = getItem(position);
 //        holder.bindData(entity);
 //        holder.setListener(holder.itemView, entity.link);
+
         LoadImageUtil.Builder()
                 .load(mDrawableList.get(position)).drawable().build()
                 .imageOptions(mDrawableList.get(position))
                 .displayImage(holder.icon);
         holder.setTitle(getItem(position));
+
+        /*LoadImageUtil.Builder()
+                .load("http://img13.360buyimg.com/imgzone/jfs/t6517/304/1921907774/343777/df918f69/595a01f6Ne19fc737.jpg").http().build()
+                .displayImage(holder.icon);*/
+        holder.setTitle("标题");
+
+
         return convertView;
     }
 
