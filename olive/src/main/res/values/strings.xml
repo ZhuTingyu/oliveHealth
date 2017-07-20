@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">olive</string>
+
+
+    <string name="action_cart">购物车</string>
+    <string name="action_home">首页</string>
+    <string name="action_category">分类</string>
+    <string name="action_my">我的</string>
+
+    <string name="toast_back_again">再点击返回键退出</string>
+
+
+
 </resources>
