@@ -2,6 +2,7 @@ package com.olive.ui.main.my;
 
 import com.biz.base.BaseLazyFragment;
 import com.biz.util.ActivityStackManager;
+import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
 import com.biz.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -70,7 +71,9 @@ public class UserFragment  extends BaseLazyFragment  {
         });
 
         adapter.addFooterView(footer);
+
         adapter.setOnItemClickListener(this::onItemClick);
+
         mRecyclerView.addItemDecoration(new HorizontalDividerItemDecoration.Builder(getActivity())
         .marginProvider(adapter).colorProvider(adapter).sizeProvider(adapter).build());
     }
@@ -84,7 +87,7 @@ public class UserFragment  extends BaseLazyFragment  {
         }else  if (equalsString(s, R.string.text_refund)){
 
         }else if (equalsString(s, R.string.text_my_favor)){
-
+            IntentBuilder.Builder().startParentActivity(getActivity(), FavoriteFragment.class);
         }else if (equalsString(s, R.string.text_my_stock)){
 
         }else if (equalsString(s, R.string.text_my_account)){
