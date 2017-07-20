@@ -72,7 +72,7 @@ class HomeCategoryAdapter extends BaseArrayListAdapter<String> {
         /*LoadImageUtil.Builder()
                 .load("http://img13.360buyimg.com/imgzone/jfs/t6517/304/1921907774/343777/df918f69/595a01f6Ne19fc737.jpg").http().build()
                 .displayImage(holder.icon);*/
-        holder.setTitle("标题");
+        holder.setTitle(getItem(position));
 
 
         return convertView;

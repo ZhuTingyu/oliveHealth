@@ -101,6 +101,7 @@ public class HomeFragment extends BaseLazyFragment {
                 .setCanLoop(true);
 
         HomeCategoryAdapter adapter = new HomeCategoryAdapter(getActivity());
+        adapter.setList(Lists.newArrayList(getContext().getResources().getStringArray(R.array.array_category)));
         gridview.setAdapter(adapter);
 
 
