@@ -10,6 +10,7 @@ import com.facebook.drawee.drawable.ScalingUtils;
 import com.olive.R;
 import com.olive.ui.adapter.ProductAdapter;
 import com.olive.ui.holder.ImageHolderView;
+import com.olive.ui.search.SearchActivity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,6 +18,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.List;
@@ -65,9 +67,15 @@ public class HomeFragment extends BaseLazyFragment {
         mAdapter.setNewData(Lists.newArrayList("","","",""));
         mRecyclerView.setAdapter(mAdapter);
 
-//        mRecyclerView.setRefreshListener(()->{
-//
-//        });
+        EditText searchView = getView(R.id.edit_search);
+        searchView.setFocusableInTouchMode(false);
+        searchView.setOnClickListener(v->{
+            SearchActivity.startSearch(getActivity());
+        });
+
+        mRecyclerView.setRefreshListener(()->{
+            mRecyclerView.postDelayed(()->{mRecyclerView.setRefreshing(false);},2000);
+        });
     }
 
     private View createBannerView(){

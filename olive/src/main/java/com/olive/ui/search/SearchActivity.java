@@ -1,7 +1,12 @@
 package com.olive.ui.search;
 
 import com.biz.base.BaseActivity;
+import com.biz.util.IntentBuilder;
+import com.olive.R;
+import com.olive.ui.main.MainActivity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
@@ -18,8 +23,20 @@ import android.support.annotation.Nullable;
 
 public class SearchActivity extends BaseActivity {
 
+
+    public static final void startSearch(Activity activity) {
+        IntentBuilder.Builder()
+                .setClass(activity, SearchActivity.class)
+                .startActivity();
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.search_toolbar_layout);
+        mToolbar.setNavigationIcon(R.drawable.ic_back);
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.frame_holder, new SearchFragment(), SearchFragment.class.getName())
+                .commitAllowingStateLoss();
     }
 }

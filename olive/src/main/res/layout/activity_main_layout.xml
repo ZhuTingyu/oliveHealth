@@ -11,6 +11,7 @@
             <com.biz.widget.BottomNavigationViewEx
                     android:layout_alignParentBottom="true"
                     android:id="@+id/design_navigation_view"
+                    android:background="#fbfbfb"
                     app:elevation="3dp"
                     android:elevation="3dp"
                     tools:menu="@menu/main"

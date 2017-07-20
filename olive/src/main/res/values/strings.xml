@@ -12,4 +12,36 @@
     <string name="text_spec_price">特价</string>
     <string name="text_promotion">商品推荐</string>
     <string name="hint_search">搜索酒名称、品牌、系列</string>
+
+    <string name="text_sort_total">综合排序</string>
+    <string name="text_sort_price">价格排序</string>
+    <string name="text_sort_sale">销量排序</string>
+
+    <string name="text_my_order">我的订单</string>
+    <string name="text_refund">退货管理</string>
+    <string name="text_my_favor">收藏夹</string>
+    <string name="text_my_stock">我的库存</string>
+    <string name="text_my_account">我的帐户</string>
+    <string name="text_my_address">收货地址</string>
+    <string name="text_my_password">修改登录密码</string>
+    <string name="text_my_password_pay">重置支付密码</string>
+    <string name="text_system_info">系统信息</string>
+
+    <string-array name="array_my">
+        <item>@string/text_my_order</item>
+        <item>@string/text_refund</item>
+        <item>@string/text_my_favor</item>
+
+        <item>@string/text_my_stock</item>
+        <item>@string/text_my_account</item>
+
+        <item>@string/text_my_address</item>
+        <item>@string/text_my_password</item>
+        <item>@string/text_my_password_pay</item>
+
+        <item>@string/text_system_info</item>
+    </string-array>
+
+    <string name="text_exit">退出登录</string>
+
 </resources>

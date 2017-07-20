@@ -2,6 +2,7 @@ package com.olive.ui.launch;
 
 import com.biz.base.BaseActivity;
 import com.biz.util.IntentBuilder;
+import com.olive.R;
 import com.olive.ui.main.MainActivity;
 
 import android.os.Build;
@@ -48,7 +49,9 @@ public class LaunchActivity extends BaseActivity {
     }
 
     private void startMain() {
-        IntentBuilder.Builder().setClass(getActivity(), MainActivity.class).startActivity(this);
+        IntentBuilder.Builder()
+                .overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out)
+                .setClass(getActivity(), MainActivity.class).startActivity(this);
     }
 
 
