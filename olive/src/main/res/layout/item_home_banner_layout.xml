@@ -6,10 +6,17 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content">
 
-    <com.biz.widget.banner.ConvenientBanner
-            android:id="@+id/banner"
+    <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="180dp"/>
+            android:layout_height="200dp">
+
+        <com.biz.widget.banner.ConvenientBanner
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"/>
+
+
+    </FrameLayout>
 
     <com.biz.widget.ExpandGridView
             android:id="@+id/gridview"
@@ -17,26 +24,32 @@
             android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+
+
     <RelativeLayout
             android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
         <android.support.v7.widget.AppCompatImageView
                 app:srcCompat="@drawable/vector_announcement"
                 android:id="@+id/icon_left"
                 android:scaleType="centerInside"
                 android:layout_width="100dp"
-                android:layout_height="80dp"/>
+                android:layout_height="70dp"/>
+
         <LinearLayout
                 android:id="@+id/layout"
                 android:layout_toRightOf="@id/icon_left"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
             <android.support.v7.widget.AppCompatImageView
                     app:srcCompat="@drawable/vector_new"
                     android:scaleType="centerInside"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"/>
+                    android:layout_height="35dp"/>
+
             <TextView
                     android:id="@+id/text1"
                     android:textColor="@color/color_666666"
@@ -47,16 +60,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
         </LinearLayout>
+
         <LinearLayout
                 android:layout_below="@id/layout"
                 android:layout_toRightOf="@id/icon_left"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
             <ImageView
                     android:scaleType="centerInside"
                     app:srcCompat="@drawable/vector_new"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"/>
+                    android:layout_height="35dp"/>
+
             <TextView
                     android:id="@+id/text2"
                     android:textColor="@color/color_666666"
@@ -68,6 +84,7 @@
                     android:layout_height="wrap_content"/>
         </LinearLayout>
     </RelativeLayout>
+
     <TextView
             android:text="@string/text_promotion"
             android:gravity="center"

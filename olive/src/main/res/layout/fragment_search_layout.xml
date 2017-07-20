@@ -64,6 +64,6 @@
                 android:layout_height="wrap_content"/>
     </FrameLayout>
     </LinearLayout>
-
+    <include layout="@layout/line_dark"/>
     <include layout="@layout/activity_recyclerview"/>
 </LinearLayout>

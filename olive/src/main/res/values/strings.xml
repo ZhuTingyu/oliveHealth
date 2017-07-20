@@ -35,6 +35,21 @@
     <string name="text_refund_apply">退货申请</string>
     <string name="text_refund_list">退货单</string>
 
+    <string name="text_category_eat">食品</string>
+    <string name="text_category_electronic">电子器械</string>
+    <string name="text_category_packing">包材</string>
+    <string name="text_category_daily">日用品</string>
+    <string name="text_category_all">全部</string>
+
+    <string-array name="array_category">
+        <item>@string/text_category_eat</item>
+        <item>@string/text_category_electronic</item>
+        <item>@string/text_category_packing</item>
+        <item>@string/text_category_daily</item>
+        <item>@string/text_category_all</item>
+
+    </string-array>
+
 
     <string-array name="array_my">
         <item>@string/text_my_order</item>

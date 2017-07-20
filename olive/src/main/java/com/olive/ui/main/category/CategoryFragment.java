@@ -61,7 +61,6 @@ public class CategoryFragment extends BaseLazyFragment {
         mAdapter.setNewData(Lists.newArrayList("","","",""));
 
         mBrandAdapter = new BrandAdapter();
-        mBrandAdapter.setList(Lists.newArrayList("","","",""));
         addItemDecorationLine(mBrandView);
         mBrandView.setAdapter(mBrandAdapter);
         mRecyclerView.setAdapter(mAdapter);

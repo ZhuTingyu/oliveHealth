@@ -86,7 +86,9 @@ public class HomeFragment extends BaseLazyFragment {
         gridview.setNumColumns(5);
         text1 = (TextView) view.findViewById(R.id.text1);
         text2 = (TextView) view.findViewById(R.id.text2);
-
+        View indicator = banner.findViewById(com.bigkoo.convenientbanner.R.id.loPageTurningPoint);
+        ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) indicator.getLayoutParams();
+        lp.bottomMargin= Utils.dip2px(30);
         List list = Lists.newArrayList(
                 "http://img.taopic.com/uploads/allimg/140326/235113-1403260G01561.jpg",
                 "http://img.taopic.com/uploads/allimg/140326/235113-1403260G01561.jpg",
@@ -99,7 +101,6 @@ public class HomeFragment extends BaseLazyFragment {
                 .setCanLoop(true);
 
         HomeCategoryAdapter adapter = new HomeCategoryAdapter(getActivity());
-        adapter.setList(list);
         gridview.setAdapter(adapter);
 
 

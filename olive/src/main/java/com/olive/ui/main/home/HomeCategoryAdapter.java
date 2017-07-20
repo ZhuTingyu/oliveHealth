@@ -1,6 +1,7 @@
 package com.olive.ui.main.home;
 
 import com.biz.base.BaseArrayListAdapter;
+import com.biz.util.Lists;
 import com.biz.util.Utils;
 import com.olive.R;
 import com.olive.util.LoadImageUtil;
@@ -8,6 +9,8 @@ import com.olive.util.LoadImageUtil;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.List;
 
 /**
  * Title: CategoryAdapter
@@ -20,14 +23,22 @@ import android.view.ViewGroup;
  * @version 1.0
  */
 
-class HomeCategoryAdapter extends BaseArrayListAdapter<Object> {
+class HomeCategoryAdapter extends BaseArrayListAdapter<String> {
 
 
     private int size;
+    private List<Integer> mDrawableList;
 
     public HomeCategoryAdapter(Context context) {
         super(context);
-        size = context.getResources().getDisplayMetrics().widthPixels/5-Utils.dip2px(10);
+        mDrawableList = Lists.newArrayList(
+                R.drawable.vector_category_eat,
+                R.drawable.vector_category_electronic_equipment,
+                R.drawable.vector_category_packing_materials,
+                R.drawable.vector_category_daily_use,
+                R.drawable.vector_category_all);
+        setList(Lists.newArrayList(getContext().getResources().getStringArray(R.array.array_category)));
+        size = context.getResources().getDisplayMetrics().widthPixels/5-Utils.dip2px(24);
         //size = size/4;
     }
 
@@ -50,9 +61,10 @@ class HomeCategoryAdapter extends BaseArrayListAdapter<Object> {
 //        holder.bindData(entity);
 //        holder.setListener(holder.itemView, entity.link);
         LoadImageUtil.Builder()
-                .load("http://img13.360buyimg.com/imgzone/jfs/t6517/304/1921907774/343777/df918f69/595a01f6Ne19fc737.jpg").http().build()
+                .load(mDrawableList.get(position)).drawable().build()
+                .imageOptions(mDrawableList.get(position))
                 .displayImage(holder.icon);
-        holder.setTitle("标题");
+        holder.setTitle(getItem(position));
         return convertView;
     }
 
