@@ -1,11 +1,13 @@
 package com.olive.ui.main.my;
 
 import com.biz.base.BaseLazyFragment;
+import com.biz.util.ActivityStackManager;
 import com.biz.util.Lists;
 import com.biz.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.olive.R;
+import com.olive.ui.login.LoginActivity;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import android.os.Bundle;
@@ -59,7 +61,11 @@ public class UserFragment  extends BaseLazyFragment  {
         adapter.addHeaderView(header);
 
         View footer = View.inflate(getActivity(), R.layout.button_layout, null);
+
         getView(footer, R.id.btn).setOnClickListener(v -> {
+            //EXIT
+            LoginActivity.startLogin(getActivity());
+            ActivityStackManager.finish();
 
         });
 

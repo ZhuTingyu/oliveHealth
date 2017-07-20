@@ -205,7 +205,7 @@ public class BaseActivity extends RxBaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         fragmentBackHelperList = Lists.newArrayList();
-        StatusBarHelper.Builder(this).setStatusBarLightMode(true);
+        //StatusBarHelper.Builder(this).setStatusBarLightMode(true);
         super.onCreate(savedInstanceState);
         ActivityStackManager.add(this);
     }

@@ -95,8 +95,6 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
 
-        StatusBarHelper.Builder(this).setStatusBarLightMode(false);
-
         setContentView(R.layout.activity_main_layout);
         mBottomNavigationView = getView(R.id.design_navigation_view);
         mBottomNavigationView.enableAnimation(false);
