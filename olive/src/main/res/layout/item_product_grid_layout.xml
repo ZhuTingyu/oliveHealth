@@ -14,7 +14,7 @@
 
     <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="220dp">
+            android:layout_height="150dp">
 
         <com.biz.widget.CustomDraweeView
                 android:id="@+id/icon"
@@ -26,12 +26,19 @@
                 tools:src="@mipmap/ic_launcher"/>
 
 
-        <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/icon_"
+        <com.olive.widget.LabelView
+                android:id="@+id/icon_label"
+                app:text="@string/text_spec_price"
+                app:num=""
+                app:numStyle="normal"
+                app:numSize="12sp"
+                app:textSize="10sp"
+                app:direction="rightTop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|top"
-                android:visibility="gone"/>
+                app:backgroundColor="@color/base_color_red"
+                android:visibility="visible"/>
     </FrameLayout>
 
 
@@ -66,7 +73,7 @@
                 android:layout_below="@id/tv_product_name"
                 android:layout_marginBottom="@dimen/item_margin_8dp"
                 android:layout_marginTop="6dp"
-                android:textColor="@color/color_red"
+                android:textColor="@color/base_color_red"
                 tools:text="¥ 1130.00 /瓶"/>
 
         <TextView
@@ -83,7 +90,7 @@
         <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/btn_cart"
                 android:layout_alignParentRight="true"
-                app:srcCompat="@drawable/ic_cart_selector"
+                app:srcCompat="@drawable/ic_cart_product_selector"
                 android:layout_below="@id/tv_product_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>

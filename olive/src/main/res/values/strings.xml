@@ -9,6 +9,7 @@
 
     <string name="toast_back_again">再点击返回键退出</string>
 
-
+    <string name="text_spec_price">特价</string>
+    <string name="text_promotion">商品推荐</string>
 
 </resources>

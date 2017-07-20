@@ -1,8 +1,13 @@
 package com.olive.ui.holder;
 
 import com.biz.base.BaseViewHolder;
+import com.biz.widget.CustomDraweeView;
+import com.olive.R;
+import com.olive.widget.LabelView;
 
+import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
+import android.widget.TextView;
 
 /**
  * Title: ProductViewHolder
@@ -17,8 +22,26 @@ import android.view.View;
 
 public class ProductViewHolder extends BaseViewHolder {
 
+    public CustomDraweeView icon;
+    public LabelView iconLabel;
+    public TextView tvProductName;
+    public TextView tvProductPrice;
+    public TextView tvProductPriceOld;
+    public AppCompatImageView btnCart;
+    public AppCompatImageView btnLike;
+
+
     public ProductViewHolder(View itemView) {
         super(itemView);
+
+
+        icon = (CustomDraweeView) findViewById(R.id.icon);
+        iconLabel = (LabelView) findViewById(R.id.icon_label);
+        tvProductName = (TextView) findViewById(R.id.tv_product_name);
+        tvProductPrice = (TextView) findViewById(R.id.tv_product_price);
+        tvProductPriceOld = (TextView) findViewById(R.id.tv_product_price_old);
+        btnCart = (AppCompatImageView) findViewById(R.id.btn_cart);
+        btnLike = (AppCompatImageView) findViewById(R.id.btn_like);
 
     }
 }

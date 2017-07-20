@@ -39,7 +39,26 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity
+                android:name=".ui.launch.LaunchActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme.Launch">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
 
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
 
+        <activity
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme.Load"
+                android:name=".ui.main.MainActivity"
+                android:windowSoftInputMode="adjustPan"
+                android:launchMode="singleTop"/>
+
+        <activity android:name="com.biz.base.FragmentParentActivity"
+                  android:configChanges="orientation|keyboardHidden|screenSize"
+                  android:screenOrientation="portrait"/>
     </application>
 </manifest>

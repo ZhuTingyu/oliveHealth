@@ -2,5 +2,12 @@
 <resources>
     <color name="colorPrimary">#56CDB5</color>
     <color name="colorPrimaryDark">#56CDB5</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#FF6D6E</color>
+
+    <color name="base_color">#56CDB5</color>
+    <color name="base_color_10">#1056CDB5</color>
+    <color name="base_color_disable">#999999</color>
+    <color name="base_color_transparent">#a056CDB5</color>
+    <color name="color_background">#efefef</color>
+    <color name="base_color_red">#FF6D6E</color>
 </resources>

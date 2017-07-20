@@ -41,11 +41,12 @@ import rx.Observable;
 
 public class MainActivity extends BaseActivity {
 
-    private DrawerLayout mDrawerLayout;
     private BottomNavigationViewEx mBottomNavigationView;
     private ViewPager mViewPager;
     private BadgeView cartBadgeView;
     protected Boolean isFirst = true;
+
+
 
 
     public static final void startMain(Activity activity, int tab) {
@@ -97,8 +98,6 @@ public class MainActivity extends BaseActivity {
         StatusBarHelper.Builder(this).setStatusBarLightMode(false);
 
         setContentView(R.layout.activity_main_layout);
-        mDrawerLayout = getView(R.id.drawer);
-        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         mBottomNavigationView = getView(R.id.design_navigation_view);
         mBottomNavigationView.enableAnimation(false);
         mBottomNavigationView.enableItemShiftingMode(false);
@@ -152,6 +151,12 @@ public class MainActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    public void onEventMainThread(Object event) {
+        if (event != null) {
+
+        }
     }
 
 }

@@ -1,14 +1,25 @@
 package com.olive.ui.main.home;
 
 import com.biz.base.BaseLazyFragment;
+import com.biz.util.Lists;
+import com.biz.util.Utils;
+import com.biz.widget.ExpandGridView;
+import com.biz.widget.banner.ConvenientBanner;
 import com.biz.widget.recyclerview.XRecyclerView;
+import com.facebook.drawee.drawable.ScalingUtils;
 import com.olive.R;
+import com.olive.ui.adapter.ProductAdapter;
+import com.olive.ui.holder.ImageHolderView;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import java.util.List;
 
 /**
  * Title: HomeFragment
@@ -24,6 +35,13 @@ import android.view.ViewGroup;
 public class HomeFragment extends BaseLazyFragment {
 
     XRecyclerView mRecyclerView;
+
+    private ConvenientBanner banner;
+    private ExpandGridView gridview;
+    private TextView text1;
+    private TextView text2;
+
+    ProductAdapter mAdapter;
 
     @Override
     public void lazyLoad() {
@@ -41,5 +59,45 @@ public class HomeFragment extends BaseLazyFragment {
         super.onViewCreated(view, savedInstanceState);
         getLayoutInflater().inflate(R.layout.activity_recyclerview, getView(R.id.frame_holder));
         mRecyclerView = getView(R.id.list);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        mAdapter = new ProductAdapter();
+        mAdapter.addHeaderView(createBannerView());
+        mAdapter.setNewData(Lists.newArrayList("","","",""));
+        mRecyclerView.setAdapter(mAdapter);
+
+//        mRecyclerView.setRefreshListener(()->{
+//
+//        });
     }
+
+    private View createBannerView(){
+        View view = getLayoutInflater().inflate(R.layout.item_home_banner_layout, null);
+
+        banner = (ConvenientBanner) view.findViewById(R.id.banner);
+        gridview = (ExpandGridView) view.findViewById(R.id.gridview);
+        gridview.setNumColumns(5);
+        text1 = (TextView) view.findViewById(R.id.text1);
+        text2 = (TextView) view.findViewById(R.id.text2);
+
+        List list = Lists.newArrayList(
+                "http://img.taopic.com/uploads/allimg/140326/235113-1403260G01561.jpg",
+                "http://img.taopic.com/uploads/allimg/140326/235113-1403260G01561.jpg",
+                "http://img.taopic.com/uploads/allimg/140326/235113-1403260G01561.jpg");
+        banner.setPages(
+                () -> new ImageHolderView(Utils.dip2px(getActivity(), 180), ScalingUtils.ScaleType.FIT_XY), list)
+                .startTurning(3000)
+                .setPageIndicator(new int[]{R.drawable.ic_page_indicator, R.drawable.ic_page_indicator_focus})
+                .setPointViewVisible(true)
+                .setCanLoop(true);
+
+        HomeCategoryAdapter adapter = new HomeCategoryAdapter(getActivity());
+        adapter.setList(list);
+        gridview.setAdapter(adapter);
+
+
+        return view;
+
+    }
+
+
 }

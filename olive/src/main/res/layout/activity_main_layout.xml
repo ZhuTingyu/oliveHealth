@@ -1,20 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.internal.ScrimInsetsFrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
-
-    <android.support.v4.widget.DrawerLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/drawer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true">
 
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -58,13 +42,3 @@
             </com.biz.widget.NoSwipeViewPager>
 
         </RelativeLayout>
-
-        <FrameLayout
-                android:id="@+id/drawer_right"
-                android:layout_gravity="end"
-                android:layout_width="260dp"
-                android:layout_height="match_parent">
-
-        </FrameLayout>
-    </android.support.v4.widget.DrawerLayout>
-</android.support.design.internal.ScrimInsetsFrameLayout>

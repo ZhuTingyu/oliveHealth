@@ -11,7 +11,7 @@ import com.biz.util.FrescoManager;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
-import biz.olive.BuildConfig;
+import com.olive.BuildConfig;
 
 /**
  * Title: OliveApplication
