@@ -8,6 +8,7 @@
     <color name="base_color_10">#1056CDB5</color>
     <color name="base_color_disable">#999999</color>
     <color name="base_color_transparent">#a056CDB5</color>
+    <color name="base_b4eee2">#B4EEE2</color>
     <color name="color_background">#efefef</color>
     <color name="base_color_red">#FF6D6E</color>
 </resources>
