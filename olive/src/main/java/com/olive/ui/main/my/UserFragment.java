@@ -81,7 +81,7 @@ public class UserFragment  extends BaseLazyFragment  {
 
     private void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         String s = mList.get(position);
-        ToastUtils.showLong(getActivity(), s);
+        //ToastUtils.showLong(getActivity(), s);
         if (equalsString(s, R.string.text_my_order)){
 
         }else  if (equalsString(s, R.string.text_refund)){
