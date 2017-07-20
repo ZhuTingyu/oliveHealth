@@ -27,7 +27,6 @@
                 android:drawableRight="@drawable/ic_sort_selector"
                 android:drawablePadding="6dp"
                 android:textColor="@color/color_filter_selector"
-                android:drawableRight="@drawable/ic_rank_selector"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
     </FrameLayout>
@@ -45,7 +44,6 @@
 
                 android:drawablePadding="6dp"
                 android:textColor="@color/color_filter_selector"
-                android:drawableRight="@drawable/ic_rank_selector"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
     </FrameLayout>
@@ -62,7 +60,6 @@
                 android:drawableRight="@drawable/ic_sort_selector"
                 android:drawablePadding="6dp"
                 android:textColor="@color/color_filter_selector"
-                android:drawableRight="@drawable/ic_rank_selector"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
     </FrameLayout>
