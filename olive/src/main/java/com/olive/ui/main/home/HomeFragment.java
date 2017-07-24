@@ -1,16 +1,19 @@
 package com.olive.ui.main.home;
 
 import com.biz.base.BaseLazyFragment;
+import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
 import com.biz.util.Utils;
 import com.biz.widget.ExpandGridView;
 import com.biz.widget.banner.ConvenientBanner;
 import com.biz.widget.recyclerview.XRecyclerView;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.olive.R;
 import com.olive.ui.adapter.HomeNoticeAdapter;
 import com.olive.ui.adapter.ProductAdapter;
 import com.olive.ui.holder.ImageHolderView;
+import com.olive.ui.notice.NoticeListFragment;
 import com.olive.ui.search.SearchActivity;
 
 import android.os.Bundle;
@@ -43,7 +46,7 @@ public class HomeFragment extends BaseLazyFragment {
 
     private ConvenientBanner banner;
     private ExpandGridView gridview;
-    private RecyclerView mNoticeList;
+    private RecyclerView mNoticeTitleList;
 
     ProductAdapter mAdapter;
     HomeNoticeAdapter mNoticeAdapter;
@@ -87,11 +90,17 @@ public class HomeFragment extends BaseLazyFragment {
         banner = (ConvenientBanner) view.findViewById(R.id.banner);
         gridview = (ExpandGridView) view.findViewById(R.id.gridview);
         gridview.setNumColumns(5);
-        mNoticeList = findViewById(view, R.id.notice_list);
-        mNoticeList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mNoticeTitleList = findViewById(view, R.id.notice_list);
+        mNoticeTitleList.setLayoutManager(new LinearLayoutManager(getActivity()));
         mNoticeAdapter = new HomeNoticeAdapter();
         mNoticeAdapter.setNewData(Lists.newArrayList("","","",""));
-        mNoticeList.setAdapter(mNoticeAdapter);
+        mNoticeAdapter.setOnItemClickListener((baseQuickAdapter, view1, i) -> {
+
+        });
+        mNoticeTitleList.setAdapter(mNoticeAdapter);
+        findViewById(view,R.id.icon_left).setOnClickListener(v -> {
+            IntentBuilder.Builder().startParentActivity(getActivity(), NoticeListFragment.class, true);
+        });
         View indicator = banner.findViewById(com.bigkoo.convenientbanner.R.id.loPageTurningPoint);
         ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) indicator.getLayoutParams();
         lp.bottomMargin= Utils.dip2px(30);

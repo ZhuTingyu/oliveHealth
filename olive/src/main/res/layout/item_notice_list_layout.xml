@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/padding_8dp"
+    android:background="@color/color_background"
+    android:orientation="vertical"
+    android:padding="@dimen/item_margin_8dp">
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/item_margin_8dp"
+        android:gravity="center"
+        tools:text="09:36"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_corner_gray_gray_background"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/item_margin_8dp"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/big_font_16dp"
+            tools:text="五一大放假"
+            />
+
+        <com.biz.widget.CustomDraweeView
+            android:id="@+id/icon"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_marginLeft="@dimen/item_margin_8dp"
+            android:layout_marginRight="@dimen/item_margin_8dp"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/describe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/item_margin_8dp"
+            android:layout_marginRight="@dimen/item_margin_8dp"
+            android:layout_marginTop="@dimen/item_margin_8dp"
+            tools:text="五一采购节五一采购节五一采购节五一采购节五一采购节五一采购节五一采购节五一采购节五一"
+            />
+
+        <View
+            android:background="@color/gray_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/item_margin_8dp"
+            android:layout_marginRight="@dimen/item_margin_8dp"
+            android:layout_marginTop="@dimen/item_margin_8dp"
+            />
+
+        <TextView
+            android:id="@+id/go_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/vector_arrow_right_gray"
+            android:paddingBottom="@dimen/item_margin_8dp"
+            android:paddingLeft="@dimen/item_margin_8dp"
+            android:paddingRight="@dimen/item_margin_8dp"
+            android:paddingTop="@dimen/item_margin_8dp"
+            android:text="@string/text_look_info_details"
+            android:textColor="@color/color_333333"
+            />
+
+    </LinearLayout>
+
+
+</LinearLayout>
