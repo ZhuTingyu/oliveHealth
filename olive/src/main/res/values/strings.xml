@@ -10,6 +10,7 @@
     <!--notice-->
     <string name="text_notice_list">公告列表</string>
     <string name="text_look_info_details">查看详情</string>
+    <string name="text_notice_details">公告详情</string>
 
     <string name="action_cart">购物车</string>
     <string name="action_home">首页</string>

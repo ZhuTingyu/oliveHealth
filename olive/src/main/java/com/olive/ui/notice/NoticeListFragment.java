@@ -34,7 +34,7 @@ public class NoticeListFragment extends BaseFragment {
         setTitle(getString(R.string.text_notice_list));
         recyclerView = findViewById(view, R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new NoticeListAdapter();
+        adapter = new NoticeListAdapter(getActivity());
         adapter.setNewData(Lists.newArrayList("","","",""));
         recyclerView.setAdapter(adapter);
     }
