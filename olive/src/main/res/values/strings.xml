@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">olive</string>
 
+    <!--login-->
+    <string name="text_hint_import_user_name">请输入用户名</string>
+    <string name="text_hint_import_password">请输入登录密码</string>
+    <string name="text_login">登录</string>
+    <string name="text_register">注册</string>
 
     <string name="action_cart">购物车</string>
     <string name="action_home">首页</string>

@@ -6,7 +6,7 @@
             <solid android:color="@color/base_color_transparent" >
             </solid>
 
-            <corners android:radius="0dp" >
+            <corners android:radius="40dp" >
             </corners>
 
             <stroke
@@ -21,7 +21,7 @@
             <solid android:color="@color/base_color_disable" >
             </solid>
 
-            <corners android:radius="0dp" >
+            <corners android:radius="40dp" >
             </corners>
 
             <stroke
@@ -36,7 +36,7 @@
             <solid android:color="@color/base_color" >
             </solid>
 
-            <corners android:radius="0dp" >
+            <corners android:radius="40dp" >
             </corners>
 
             <stroke

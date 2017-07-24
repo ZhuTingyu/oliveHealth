@@ -8,6 +8,7 @@ import com.biz.widget.banner.ConvenientBanner;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.olive.R;
+import com.olive.ui.adapter.HomeNoticeAdapter;
 import com.olive.ui.adapter.ProductAdapter;
 import com.olive.ui.holder.ImageHolderView;
 import com.olive.ui.search.SearchActivity;
@@ -15,6 +16,8 @@ import com.olive.ui.search.SearchActivity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,10 +43,10 @@ public class HomeFragment extends BaseLazyFragment {
 
     private ConvenientBanner banner;
     private ExpandGridView gridview;
-    private TextView text1;
-    private TextView text2;
+    private RecyclerView mNoticeList;
 
     ProductAdapter mAdapter;
+    HomeNoticeAdapter mNoticeAdapter;
 
     @Override
     public void lazyLoad() {
@@ -84,8 +87,11 @@ public class HomeFragment extends BaseLazyFragment {
         banner = (ConvenientBanner) view.findViewById(R.id.banner);
         gridview = (ExpandGridView) view.findViewById(R.id.gridview);
         gridview.setNumColumns(5);
-        text1 = (TextView) view.findViewById(R.id.text1);
-        text2 = (TextView) view.findViewById(R.id.text2);
+        mNoticeList = findViewById(view, R.id.notice_list);
+        mNoticeList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mNoticeAdapter = new HomeNoticeAdapter();
+        mNoticeAdapter.setNewData(Lists.newArrayList("","","",""));
+        mNoticeList.setAdapter(mNoticeAdapter);
         View indicator = banner.findViewById(com.bigkoo.convenientbanner.R.id.loPageTurningPoint);
         ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) indicator.getLayoutParams();
         lp.bottomMargin= Utils.dip2px(30);
