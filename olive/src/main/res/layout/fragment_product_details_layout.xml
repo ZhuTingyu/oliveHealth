@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/button_layout"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/left"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ic_back"/>
+
+
+        <View
+            android:id="@+id/right"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/ic_arrow_right_gray"/>
+
+        <com.biz.widget.recyclerview.XRecyclerView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_toRightOf="@id/left"
+            android:layout_toLeftOf="@id/right"
+            app:layout_empty="@layout/list_empty_layout"
+            app:layout_moreProgress="@layout/view_load_more"
+            app:mainLayoutId="@layout/refresh_recyclerview"
+            app:recyclerClipToPadding="false"
+            app:recyclerPadding="0dp"
+            app:scrollbarStyle="insideOverlay"/>
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

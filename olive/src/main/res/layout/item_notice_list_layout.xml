@@ -64,7 +64,7 @@
             android:id="@+id/go_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableRight="@drawable/vector_arrow_right_gray"
+            android:drawableRight="@drawable/vector_look_news_details"
             android:paddingBottom="@dimen/item_margin_8dp"
             android:paddingLeft="@dimen/item_margin_8dp"
             android:paddingRight="@dimen/item_margin_8dp"

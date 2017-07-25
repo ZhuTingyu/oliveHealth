@@ -54,7 +54,7 @@ public class FavoriteFragment extends BaseFragment {
         setTitle(R.string.text_my_favor);
         mRecyclerView = getView(R.id.list);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        mAdapter = new ProductAdapter();
+        mAdapter = new ProductAdapter(R.layout.item_product_grid_layout);
         mAdapter.setNewData(Lists.newArrayList("", "", "", ""));
         mRecyclerView.setAdapter(mAdapter);
 

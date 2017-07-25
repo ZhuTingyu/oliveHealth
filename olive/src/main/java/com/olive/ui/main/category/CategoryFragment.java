@@ -57,7 +57,7 @@ public class CategoryFragment extends BaseLazyFragment {
         mRecyclerView = getView(R.id.list);
         mBrandView = getView(R.id.list_brand);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        mAdapter = new ProductAdapter();
+        mAdapter = new ProductAdapter(R.layout.item_product_grid_layout);
         mAdapter.setNewData(Lists.newArrayList("","","",""));
 
         mBrandAdapter = new BrandAdapter();

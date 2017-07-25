@@ -38,7 +38,7 @@ public class UserAdapter extends BaseQuickAdapter<String, BaseViewHolder>
                 R.drawable.vector_favorite,
                 R.drawable.vector_my_stock,
                 R.drawable.vector_my_account,
-                R.drawable.vector_receiver_address,
+                R.drawable.vector_receiver_address2,
                 R.drawable.vector_modify_login_password,
                 R.drawable.vector_modify_pay_password,
                 R.drawable.vector_system_message

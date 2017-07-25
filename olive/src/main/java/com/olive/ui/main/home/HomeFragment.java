@@ -14,6 +14,7 @@ import com.olive.ui.adapter.HomeNoticeAdapter;
 import com.olive.ui.adapter.ProductAdapter;
 import com.olive.ui.holder.ImageHolderView;
 import com.olive.ui.notice.NoticeListFragment;
+import com.olive.ui.order.ProductDetailsFragment;
 import com.olive.ui.search.SearchActivity;
 
 import android.os.Bundle;
@@ -68,9 +69,12 @@ public class HomeFragment extends BaseLazyFragment {
         getLayoutInflater().inflate(R.layout.activity_recyclerview, getView(R.id.frame_holder));
         mRecyclerView = getView(R.id.list);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        mAdapter = new ProductAdapter();
+        mAdapter = new ProductAdapter(R.layout.item_product_grid_layout);
         mAdapter.addHeaderView(createBannerView());
         mAdapter.setNewData(Lists.newArrayList("","","",""));
+        mAdapter.setOnItemClickListener((baseQuickAdapter, view1, i) -> {
+            IntentBuilder.Builder().startParentActivity(getActivity(), ProductDetailsFragment.class, true);
+        });
         mRecyclerView.setAdapter(mAdapter);
 
         EditText searchView = getView(R.id.edit_search);
