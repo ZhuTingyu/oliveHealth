@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/smContentView"
+    android:paddingTop="12dp"
+    android:paddingBottom="12dp"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:layout_marginTop="2dp"
+    android:layout_marginBottom="2dp"
+    android:background="@color/white"
+    >
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="0dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/ic_cart_choose_selector"
+        android:layout_marginTop="8dp"/>
+
+    <FrameLayout
+        android:id="@+id/icon"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/shape_rect_gray_transparent_background"
+        android:layout_toRightOf="@id/checkbox"
+        android:padding="2dp"
+        android:layout_marginLeft="8dp">
+
+        <com.biz.widget.CustomDraweeView
+            android:id="@+id/icon_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:src="@mipmap/ic_launcher"/>
+
+    </FrameLayout>
+
+
+
+
+    <RelativeLayout
+        android:layout_toRightOf="@id/icon"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:lines="1"
+            tools:text="52C 五粮液 500ML52C 52C 五粮液 500ML"
+            android:textColor="@color/color_333333"
+            android:textSize="14dp"
+            android:maxLines="1"
+            android:ellipsize="end"/>
+
+
+        <TextView
+            android:id="@+id/title_line_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:layout_marginTop="8dp"
+            android:text="包装规格: 100mg*100粒"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/font_12dp"
+            app:layout_constraintLeft_toLeftOf="@+id/title"
+            app:layout_constraintTop_toBottomOf="@+id/title" />
+
+
+        <TextView
+            android:id="@+id/title_line_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:singleLine="true"
+            android:textColor="@color/color_e84900"
+            android:textSize="@dimen/big_font_16dp"
+            android:layout_alignParentBottom="true"
+            tools:text="¥ 7908.00" />
+
+
+        <LinearLayout
+            android:id="@+id/number_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:background="@drawable/shape_rect_gray_white_background">
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/btn_min"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="?attr/selectableItemBackground"
+                android:scaleType="center"
+                app:srcCompat="@drawable/vector_goods_number_minus"
+                tools:src="@drawable/vector_goods_number_minus" />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/divider_line"
+                />
+
+            <com.biz.widget.CountEditText
+                android:id="@+id/edit_count"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:background="@null"
+                android:maxLines="1"
+                android:digits="1234567890"
+                android:focusable="false"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="4"
+                tools:text="1"
+                />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/divider_line"
+                />
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/btn_add"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="?attr/selectableItemBackground"
+                android:scaleType="center"
+                app:srcCompat="@drawable/vector_goods_number_add"
+                tools:src="@drawable/vector_goods_number_add" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/text_product_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:textColor="@color/color_333333"
+            android:textSize="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone"
+            tools:text="× 1"/>
+
+    </RelativeLayout>
+</RelativeLayout>

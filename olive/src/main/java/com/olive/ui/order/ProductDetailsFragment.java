@@ -1,5 +1,6 @@
 package com.olive.ui.order;
 
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.biz.base.BaseFragment;
 import com.biz.base.BaseViewHolder;
@@ -54,7 +56,9 @@ public class ProductDetailsFragment extends BaseFragment {
         headHolder.setText(R.id.tv_product_name,"食品名称");
         headHolder.setText(R.id.tv_product_advice,"建议：加大财政投入，进一步健全和完善保健品的监管保障机制。财政投入是保健品检验、检测设备的保障");
         headHolder.setText(R.id.tv_product_price,"¥ 1130.00 /瓶");
-        headHolder.setText(R.id.tv_product_price_old,"¥ 1130.00 /瓶");
+        TextView priceOld = headHolder.findViewById(R.id.tv_product_price_old);
+        priceOld.setText("¥ 1130.00 /瓶");
+        priceOld.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
         headHolder.setText(R.id.tv_product_specification,"商品规格：225g/件");
         headHolder.setText(R.id.tv_product_sale_end_date,"该商品促销截止时间为2017年6月20日");
         headHolder.findViewById(R.id.btn_one_key_join).setOnClickListener(v -> {

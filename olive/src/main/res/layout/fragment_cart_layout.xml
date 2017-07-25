@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:divider="@drawable/divider_nav_gray"
+    android:orientation="vertical"
+    android:showDividers="none">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:elevation="0dp"
+        app:elevation="0dp"
+        android:background="@color/base_color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.biz.widget.Toolbar
+            style="@style/Toolbar"
+            android:id="@+id/toolbar"
+            android:focusable="true"
+            android:background="@color/color_transparent"
+            app:contentInsetStartWithNavigation="0dp"
+            app:contentInsetStart="20dp"
+            app:contentInsetLeft="20dp"
+            app:contentInsetRight="20dp"
+            app:contentInsetEnd="20dp"
+            android:focusableInTouchMode="true"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            >
+        </com.biz.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <include
+        layout="@layout/activity_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
+
+    <FrameLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:animateLayoutChanges="true">
+
+        <LinearLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@drawable/shape_rect_gray_transparent_background"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="0dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/ic_cart_choose_selector"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:id="@+id/total_only_show_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left|center_vertical"
+                android:text="合计:"
+                android:textColor="@color/color_333333"
+                android:textSize="16dp"
+                />
+
+            <TextView
+                android:id="@+id/title_total"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:textColor="@color/red_light"
+                android:textSize="@dimen/big_font_16dp"
+                tools:text="￥567809987645"
+                />
+
+
+            <TextView
+                android:id="@+id/btn_2"
+                android:background="@drawable/btn_red_rect_selector"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:layout_width="120dp"
+                android:layout_height="60dp"
+                android:layout_gravity="right|center_vertical"
+                android:textSize="16dp"
+                android:textStyle="normal"
+                android:text="去支付" />
+        </LinearLayout>
+
+
+    </FrameLayout>
+</LinearLayout>

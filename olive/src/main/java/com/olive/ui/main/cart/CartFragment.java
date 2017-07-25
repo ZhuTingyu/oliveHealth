@@ -11,7 +11,7 @@ import com.biz.base.BaseLazyFragment;
 import com.biz.util.Lists;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
-import com.olive.ui.adapter.ProductAdapter;
+import com.olive.ui.adapter.CartAdapter;
 
 /**
  * Title: CartFragment
@@ -27,7 +27,7 @@ import com.olive.ui.adapter.ProductAdapter;
 public class CartFragment extends BaseLazyFragment {
 
     private XRecyclerView recyclerView;
-    private ProductAdapter adapter;
+    private CartAdapter adapter;
 
     @Override
     public void lazyLoad() {
@@ -37,11 +37,28 @@ public class CartFragment extends BaseLazyFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_recyclerview, container, false);
+        return inflater.inflate(R.layout.fragment_cart_layout, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setTitle(getString(R.string.action_cart));
+        mToolbar.setNavigationOnClickListener(null);
+        mToolbar.setNavigationIcon(null);
+        initView(view);
+    }
+
+    private void initView(View view) {
+        recyclerView = findViewById(view, R.id.list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.getRecyclerView();
+        adapter = new CartAdapter();
+        adapter.setNewData(Lists.newArrayList("","","","","","","","","","","","","","","",""));
+        recyclerView.setAdapter(adapter);
+
+        recyclerView.setRefreshListener(()->{
+            recyclerView.postDelayed(()->{recyclerView.setRefreshing(false);},2000);
+        });
     }
 }
