@@ -12,9 +12,9 @@
             android:layout_height="200dp">
 
         <com.biz.widget.banner.ConvenientBanner
-                android:id="@+id/banner"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"/>
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"/>
 
 
     </FrameLayout>
@@ -39,12 +39,17 @@
                 android:layout_width="100dp"
                 android:layout_height="70dp"/>
 
-        <android.support.v7.widget.RecyclerView
+        <com.biz.widget.recyclerview.XRecyclerView
             android:id="@+id/notice_list"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_toRightOf="@id/icon_left"
-            />
+            app:layout_empty="@layout/list_empty_layout"
+            app:layout_moreProgress="@layout/view_load_more"
+            app:mainLayoutId="@layout/refresh_recyclerview"
+            app:recyclerClipToPadding="false"
+            app:recyclerPadding="0dp"
+            app:scrollbarStyle="insideOverlay"/>
 
     </RelativeLayout>
 

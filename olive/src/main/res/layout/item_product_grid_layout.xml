@@ -17,13 +17,13 @@
             android:layout_height="150dp">
 
         <com.biz.widget.CustomDraweeView
-                android:id="@+id/icon"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:actualImageScaleType="fitCenter"
-                app:fadeDuration="200"
-                app:placeholderImageScaleType="centerCrop"
-                tools:src="@mipmap/ic_launcher"/>
+            android:id="@+id/icon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:actualImageScaleType="fitCenter"
+            app:fadeDuration="200"
+            app:placeholderImageScaleType="centerCrop"
+            tools:src="@mipmap/ic_launcher"/>
 
 
         <com.olive.widget.LabelView

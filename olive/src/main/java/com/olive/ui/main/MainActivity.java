@@ -4,7 +4,6 @@ import com.biz.base.BaseActivity;
 import com.biz.base.FragmentAdapter;
 import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
-import com.biz.util.StatusBarHelper;
 import com.biz.widget.BadgeView;
 import com.biz.widget.BottomNavigationViewEx;
 import com.olive.R;
@@ -20,7 +19,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -94,7 +92,6 @@ public class MainActivity extends BaseActivity {
         setTheme(R.style.AppTheme_Home);
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
-
         setContentView(R.layout.activity_main_layout);
         mBottomNavigationView = getView(R.id.design_navigation_view);
         mBottomNavigationView.enableAnimation(false);

@@ -7,7 +7,6 @@ import com.biz.util.Utils;
 import com.biz.widget.ExpandGridView;
 import com.biz.widget.banner.ConvenientBanner;
 import com.biz.widget.recyclerview.XRecyclerView;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.olive.R;
 import com.olive.ui.adapter.HomeNoticeAdapter;
@@ -21,12 +20,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import java.util.List;
 
@@ -47,7 +44,7 @@ public class HomeFragment extends BaseLazyFragment {
 
     private ConvenientBanner banner;
     private ExpandGridView gridview;
-    private RecyclerView mNoticeTitleList;
+    private XRecyclerView mNoticeTitleList;
 
     ProductAdapter mAdapter;
     HomeNoticeAdapter mNoticeAdapter;

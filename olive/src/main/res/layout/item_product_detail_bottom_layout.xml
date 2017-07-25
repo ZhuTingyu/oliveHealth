@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="54dp"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentRight="true"
+    android:layout_gravity="end|bottom"
+    android:background="@drawable/shape_rect_gray_white_background"
+    android:foregroundGravity="bottom"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    app:layout_anchorGravity="bottom|right|end">
+
+    <LinearLayout
+        android:id="@+id/btn_contact"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/vector_customer_service"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_customer_service"
+            android:textColor="@color/color_4a4a4a"
+            android:textSize="@dimen/font_12dp"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="1px"
+        android:layout_height="match_parent"
+        android:background="@color/gray_line"
+        />
+
+    <LinearLayout
+        android:id="@+id/btn_cart"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/vector_cart"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/action_cart"
+            android:textColor="@color/color_4a4a4a"
+            android:textSize="@dimen/font_12dp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/btn_join_cart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="right|center_vertical"
+        android:layout_weight="1"
+        android:text="@string/text_join_cart"
+        android:background="@drawable/btn_orange_selector"
+        android:gravity="center"
+        android:textSize="16dp"
+        android:textStyle="normal"/>
+
+    <TextView
+        android:id="@+id/btn_buy_now"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="right|center_vertical"
+        android:layout_weight="1"
+        android:background="@drawable/btn_red_2_selector"
+        android:text="@string/text_buy_now"
+        android:gravity="center"
+        android:textSize="16dp"
+        android:textStyle="normal"/>
+</LinearLayout>

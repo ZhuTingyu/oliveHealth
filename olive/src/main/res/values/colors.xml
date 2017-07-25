@@ -11,4 +11,9 @@
     <color name="base_b4eee2">#B4EEE2</color>
     <color name="color_background">#efefef</color>
     <color name="base_color_red">#FF6D6E</color>
+
+    <color name="color_e89100_transparent">#a0e89100</color>
+    <color name="color_e89100">#e89100</color>
+    <color name="color_e84900_transparent">#a0E84900</color>
+    <color name="color_e84900">#e84900</color>
 </resources>

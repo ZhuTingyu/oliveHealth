@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="2dp"
+    android:layout_marginRight="2dp"
+    android:layout_marginTop="4dp"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.biz.widget.banner.ConvenientBanner
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"/>
+
+        <com.olive.widget.LabelView
+            android:id="@+id/icon_label"
+            app:text="@string/text_spec_price"
+            app:num=""
+            app:numStyle="normal"
+            app:numSize="12sp"
+            app:textSize="12sp"
+            app:direction="rightTop"
+            app:labelTopPadding="15dp"
+            app:labelCenterPadding="5dp"
+            app:labelBottomPadding="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|top"
+            app:backgroundColor="@color/base_color_red"
+            android:visibility="visible"/>
+    </FrameLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/padding_8dp"
+        android:paddingLeft="@dimen/padding_8dp"
+        android:paddingRight="@dimen/padding_8dp"
+        android:paddingTop="@dimen/padding_8dp">
+
+        <TextView
+            android:id="@+id/tv_product_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:lines="2"
+            android:textSize="16dp"
+            android:textColor="@color/color_333333"
+            tools:text="53度茅台飞天整箱装"
+            android:layout_marginLeft="4dp"/>
+
+        <TextView
+            android:id="@+id/tv_product_advice"
+            android:layout_below="@id/tv_product_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:lines="2"
+            android:textColor="@color/dark_gray"
+            tools:text="建议：加大财政投入，进一步健全和完善保健品的监管保障机制。财政投入是保健品检验、检测设备的保障"
+            android:layout_marginLeft="4dp"/>
+
+
+        <TextView
+            android:id="@+id/tv_product_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/tv_product_advice"
+            android:layout_marginBottom="@dimen/item_margin_8dp"
+            android:layout_marginTop="6dp"
+            android:textColor="@color/base_color_red"
+            tools:text="¥ 1130.00 /瓶"/>
+
+        <TextView
+            android:id="@+id/tv_product_price_old"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/tv_product_advice"
+            android:layout_marginBottom="@dimen/item_margin_8dp"
+            android:layout_marginTop="6dp"
+            android:textColor="@color/color_999999"
+            tools:text="¥ 1130.00 /瓶"/>
+
+        <TextView
+            android:id="@+id/tv_product_specification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/tv_product_price"
+            android:layout_marginBottom="@dimen/item_margin_8dp"
+            android:layout_marginTop="6dp"
+            tools:text="商品规格：225g/件"/>
+
+        <TextView
+            android:id="@+id/tv_product_sale_end_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/tv_product_specification"
+            android:layout_marginBottom="@dimen/item_margin_8dp"
+            android:layout_marginTop="6dp"
+            android:textColor="@color/base_color_red"
+            tools:text="该商品促销截止时间为2017年6月20日"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/tv_product_sale_end_date"
+            android:layout_marginBottom="@dimen/item_margin_8dp"
+            android:layout_marginTop="16dp"
+            android:textSize="16dp"
+            android:text="@string/text_associated_goods"/>
+
+
+        <TextView
+            android:id="@+id/btn_one_key_join"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/tv_product_sale_end_date"
+            android:layout_marginBottom="@dimen/item_margin_8dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:drawableLeft="@drawable/vector_cart"
+            android:background="@drawable/btn_gray_rect_selector"
+            android:text="@string/text_one_key_to_join"/>
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>
