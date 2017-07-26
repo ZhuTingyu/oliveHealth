@@ -2,6 +2,7 @@ package com.olive.util;
 
 import com.biz.application.BaseApplication;
 import com.biz.http.Request;
+import com.biz.http.RestMethodEnum;
 
 /**
  * Title: HttpRequest
@@ -16,6 +17,7 @@ import com.biz.http.Request;
 public class HttpRequest<T> extends Request<T> {
     public static <T> Request<T> builder() {
         HttpRequest<T> request = new HttpRequest<T>();
+        request.restMethod(RestMethodEnum.REST_POST);
         request.https(false);
         request.setDefaultConnectTime();
         return request;

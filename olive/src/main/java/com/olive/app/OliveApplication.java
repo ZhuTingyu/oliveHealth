@@ -12,6 +12,7 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 
 import com.olive.BuildConfig;
+import com.olive.model.db.DatabaseLoader;
 
 
 /**
@@ -42,6 +43,7 @@ public class OliveApplication extends BaseApplication {
         PushManager.getInstance().register(this);
         DispatcherUtil.init(this);
         HttpConfig.setLog(BuildConfig.DEBUG);
+        DatabaseLoader.init(this);
     }
 
     @Override

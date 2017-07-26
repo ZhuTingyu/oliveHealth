@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
-
+apply plugin: 'org.greenrobot.greendao'
 
 dependencies {
     compile fileTree(include: '*.jar', dir: 'libs')
     compile fileTree(include: '*/so', dir: 'libs/armeabi')
     compile project(':core')
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'de.greenrobot:greendao:2.1.0'
+    compile 'org.greenrobot:greendao:3.2.2'
     compile 'com.android.support:multidex:1.0.1'
 }
 
@@ -15,6 +15,12 @@ dependencies {
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
+
+    greendao {
+        schemaVersion 1
+        daoPackage 'com.anye.greendao.gen'
+        targetGenDir 'src/main/java'
+    }
 
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
@@ -30,7 +36,7 @@ android {
         versionCode VERSION_CODE.toInteger()
         versionName "${VERSION_NAME}"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "android.support.UserModel.runner.AndroidJUnitRunner"
 
 
         manifestPlaceholders = [
@@ -40,8 +46,8 @@ android {
                 UMENG_APPKEY:"",
                 UMENG_CHANNEL:"",
         ]
-        resValue("string", "api_init_master_head", "")
-        resValue("string", "defualt_http_url_list", "")
+        resValue("string", "api_init_master_head", "http://101.204.230.34:8060/app")
+        resValue("string", "defualt_http_url_list", "http://101.204.230.34:8060/app")
     }
 
     signingConfigs {

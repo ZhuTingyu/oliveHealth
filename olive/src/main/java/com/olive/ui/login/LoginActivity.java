@@ -3,7 +3,6 @@ package com.olive.ui.login;
 import com.biz.base.BaseActivity;
 import com.biz.util.IntentBuilder;
 import com.olive.R;
-import com.olive.ui.search.SearchActivity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -22,6 +21,8 @@ import android.support.annotation.Nullable;
 
 public class LoginActivity extends BaseActivity {
 
+    private LoginViewModel viewModel;
+
     public static final void startLogin(Activity activity) {
         IntentBuilder.Builder()
                 .setClass(activity, LoginActivity.class)
@@ -29,11 +30,15 @@ public class LoginActivity extends BaseActivity {
                 .startActivity();
     }
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_layout);
+        viewModel = new LoginViewModel(this);
         mToolbar.setTitle(getString(R.string.text_login));
+        viewModel.login(userEntity -> {
+
+        });
+
     }
 }
