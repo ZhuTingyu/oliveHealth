@@ -38,6 +38,8 @@ public class Request<T> {
         headUrl = HttpUrlCache.getInstance().copyUrlList();
     }
 
+    private String token;
+
     public static <T> Request<T> builder() {
         Request<T> request = new Request<T>();
         request.https(false);
@@ -181,6 +183,17 @@ public class Request<T> {
         return this;
     }
 
+    /**
+     * token
+     *
+     * @param token
+     * @return
+     */
+    public Request<T> token(String token) {
+        this.token = token;
+        return this;
+    }
+
     public RestMethodEnum getRestMethodEnum() {
         return restMethodEnum;
     }
@@ -236,6 +249,14 @@ public class Request<T> {
 
     public boolean isHttps() {
         return isHttps;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     /**

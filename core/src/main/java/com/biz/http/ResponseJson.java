@@ -29,7 +29,7 @@ final public class ResponseJson<T> {
     public long execTime;
 
     public boolean isOk() {
-        return code == 0;
+        return code == 200;
     }
 
     public String toJsonString() {

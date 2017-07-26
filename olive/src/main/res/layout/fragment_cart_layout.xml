@@ -89,7 +89,7 @@
 
 
             <TextView
-                android:id="@+id/btn_2"
+                android:id="@+id/btn_go_pay"
                 android:background="@drawable/btn_red_rect_selector"
                 android:textColor="@color/white"
                 android:gravity="center"
@@ -98,7 +98,7 @@
                 android:layout_gravity="right|center_vertical"
                 android:textSize="16dp"
                 android:textStyle="normal"
-                android:text="去支付" />
+                android:text="@string/text_go_pay" />
         </LinearLayout>
 
 

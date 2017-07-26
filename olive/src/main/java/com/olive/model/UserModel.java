@@ -125,6 +125,11 @@ public class UserModel {
         return userInfo.userId;
     }
 
+    public String getToken() {
+        if (userInfo == null || userInfo.userId.length() < 0) return "";
+        return userInfo.token;
+    }
+
 
     public String getShopId() {
         if (userInfo == null) return "";

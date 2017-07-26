@@ -8,10 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.biz.base.BaseLazyFragment;
+import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
 import com.olive.ui.adapter.CartAdapter;
+import com.olive.ui.order.CheckOrderInfoFragment;
 
 /**
  * Title: CartFragment
@@ -60,5 +62,10 @@ public class CartFragment extends BaseLazyFragment {
         recyclerView.setRefreshListener(()->{
             recyclerView.postDelayed(()->{recyclerView.setRefreshing(false);},2000);
         });
+
+        findViewById(view, R.id.btn_go_pay).setOnClickListener(v -> {
+            IntentBuilder.Builder().startParentActivity(getActivity(), CheckOrderInfoFragment.class, true);
+        });
+
     }
 }

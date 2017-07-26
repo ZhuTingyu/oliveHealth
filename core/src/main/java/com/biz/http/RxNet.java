@@ -64,7 +64,7 @@ public class RxNet {
                 if (request.getRestMethodEnum() != null && request.getRestMethodEnum() == RestMethodEnum.GET) {
                     s = get(subscriber, url, request.isHttps(), request.getConnectTime(), request.getReadTime());
                 } else {
-                    s = post(subscriber, url, request.isHttps(), request.getBodyObj(), request.getConnectTime(), request.getReadTime());
+                    s = post(subscriber, url, request.isHttps(), request.getBodyObj(), request.getConnectTime(), request.getReadTime(), request.getToken(), request.getUserId());
                 }
                 LogUtil.print(request.getBeginTime() + " s:" + s);
                 if (!request.isHtml() && !TextUtils.isEmpty(s)) {
@@ -97,7 +97,7 @@ public class RxNet {
         });
     }
 
-    private synchronized static String post(Subscriber subscriber, String url, boolean isHttps, String param, long CONNECT_TIME_OUT, long READ_TIME_OUT) {
+    private synchronized static String post(Subscriber subscriber, String url, boolean isHttps, String param, long CONNECT_TIME_OUT, long READ_TIME_OUT, String token, String userId) {
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
                 .connectTimeout(CONNECT_TIME_OUT, TimeUnit.MILLISECONDS)
                 .writeTimeout(CONNECT_TIME_OUT, TimeUnit.MILLISECONDS)
@@ -119,7 +119,13 @@ public class RxNet {
                 param = "";
             }
             okhttp3.Request request;
-            RequestBody requestBody = new FormBody.Builder().add("data", param).build();
+            FormBody.Builder bodyBuilder = new FormBody.Builder();
+            bodyBuilder.add("data", param);
+            if(token != null && !token.isEmpty()){
+                bodyBuilder.add("token", token);
+                bodyBuilder.add("userId",userId);
+            }
+            RequestBody requestBody = bodyBuilder.build();
             request = new okhttp3.Request.Builder().url(url)
                     .post(requestBody).build();
             final Call call1 = client.newCall(request);

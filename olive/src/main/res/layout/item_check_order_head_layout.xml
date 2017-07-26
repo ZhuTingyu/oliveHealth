@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="20dp"
+    android:layout_marginBottom="20dp"
+    android:background="@drawable/vector_order_page_address_background_24dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+
+
+    <TextView
+        android:id="@+id/tv_shop_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/color_2c2c2c"
+        tools:text="成都市武侯区生活馆" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/tv_shop_name"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/divider_gray_1_width" />
+
+    <TextView
+        android:id="@+id/tv_consignee_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_shop_name"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/color_2c2c2c"
+        tools:text="收货人：胡萝卜" />
+
+    <TextView
+        android:id="@+id/tv_consignee_tel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/tv_shop_name"
+        android:layout_marginRight="32dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/color_2c2c2c"
+        tools:text="手机号：15899768766" />
+
+    <TextView
+        android:id="@+id/tv_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/tv_consignee_name"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_marginTop="@dimen/margin_8dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        tools:text="地址：成都市环球中心E1-1801" />
+
+    <ImageView
+        android:id="@+id/right_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_arrow_right_gray" />
+
+</RelativeLayout>
+

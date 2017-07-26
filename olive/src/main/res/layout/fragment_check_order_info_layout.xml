@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/btn_sure_order"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/btn_red_rect_selector"
+        android:gravity="center"
+        android:text="@string/text_make_sure_order"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        tools:text="确认订单" />
+
+
+    <com.biz.widget.recyclerview.XRecyclerView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/btn_sure_order"
+        app:layout_empty="@layout/list_empty_layout"
+        app:layout_moreProgress="@layout/view_load_more"
+        app:mainLayoutId="@layout/refresh_recyclerview"
+        app:recyclerClipToPadding="false"
+        app:recyclerPadding="0dp"
+        app:scrollbarStyle="insideOverlay" />
+
+    <RelativeLayout
+        android:id="@+id/rl_debt"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:gravity="center_vertical"
+        android:layout_above="@id/btn_sure_order"
+        android:visibility="gone"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:id="@+id/ll_debt"
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:textColor="@color/color_333333"
+                android:text="您目前仍有欠款"/>
+
+            <TextView
+                android:id="@+id/text_debt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red_light"
+                tools:text="￥1000.00"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_debt"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/dark_gray"
+            android:text="请先还款在购买商品"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

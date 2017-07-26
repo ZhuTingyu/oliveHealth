@@ -35,6 +35,7 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_layout);
         viewModel = new LoginViewModel(this);
+        initViewModel(viewModel);
         mToolbar.setTitle(getString(R.string.text_login));
         viewModel.login(userEntity -> {
 

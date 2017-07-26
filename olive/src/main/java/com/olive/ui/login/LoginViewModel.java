@@ -23,7 +23,7 @@ public class LoginViewModel extends BaseViewModel {
     }
 
     public  void login(Action1<UserEntity> onNext){
-        submitRequest(UserModel.login("1234567890111", "123456dms"), r -> {
+        submitRequest(UserModel.login("12345678911", "123456dms"), r -> {
             if (r.isOk()) {
                 rx.Observable.just(r.data).subscribe(onNext);
                 submitRequest(UserModel.saveLoginMobile("1234567890111"), b -> {

@@ -3,6 +3,7 @@ package com.olive.util;
 import com.biz.application.BaseApplication;
 import com.biz.http.Request;
 import com.biz.http.RestMethodEnum;
+import com.olive.model.UserModel;
 
 /**
  * Title: HttpRequest
@@ -19,6 +20,16 @@ public class HttpRequest<T> extends Request<T> {
         HttpRequest<T> request = new HttpRequest<T>();
         request.restMethod(RestMethodEnum.REST_POST);
         request.https(false);
+        request.setDefaultConnectTime();
+        return request;
+    }
+
+    public static <T> Request<T> builderAfterLogin() {
+        HttpRequest<T> request = new HttpRequest<T>();
+        request.restMethod(RestMethodEnum.REST_POST);
+        request.https(false);
+        request.userId(UserModel.getInstance().getUserId());
+        request.token(UserModel.getInstance().getToken());
         request.setDefaultConnectTime();
         return request;
     }
