@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/bank_icon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginRight="16dp"
+        tools:src="@drawable/vector_address_manage_edit"/>
+
+    <TextView
+        android:id="@+id/bank_name"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:textSize="16dp"
+        android:maxLines="1"
+        android:gravity="center_vertical"
+        tools:text="中国银行"
+        android:textColor="@color/color_262626"/>
+
+</LinearLayout>

@@ -48,6 +48,10 @@ public class CheckOrderInfoFragment extends BaseFragment {
         adapter.setNewData(Lists.newArrayList("","","","","",""));
         recyclerView.setAdapter(adapter);
 
+        findViewById(view, R.id.btn_sure).setOnClickListener(v -> {
+            IntentBuilder.Builder().startParentActivity(getActivity(), PayOrderFragment.class, true);
+        });
+
         initHeadView();
         initFoodView();
     }

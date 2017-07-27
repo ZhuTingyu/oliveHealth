@@ -101,6 +101,25 @@
     <string name="title_edit_address">编辑收货地址</string>
     <string name="text_make_sure_delete_address">确认删除该地址吗？</string>
 
+    <string name="title_pay_order">订单支付</string>
+    <string name="text_order_created">订单已生成！</string>
+    <string name="text_order_number">订单编号：</string>
+    <string name="text_order_price">订单金额</string>
+    <string name="text_pay_by_account_vacancies">账户余额付款</string>
+    <string name="text_input_price">请输入账户余额付款金额</string>
+    <string name="text_need_pay">还需要支付:</string>
+    <string name="text_choose_way_for_pay">，请选择支付方式</string>
+
+    <string name="text_digits_number">1234567890</string>
+    <string name="text_digits">1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</string>
+    <string name="text_input_phone_or_username">请输入手机号或账号</string>
+    <string name="text_input_code">请输入验证码</string>
+    <string name="text_commit">提交</string>
+
+    <string name="text_send_code">发送验证码</string>
+
+
+
     <string name="text_exit">退出登录</string>
 
 </resources>
