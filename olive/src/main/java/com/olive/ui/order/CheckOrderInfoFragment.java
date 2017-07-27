@@ -10,10 +10,12 @@ import android.widget.TextView;
 
 import com.biz.base.BaseFragment;
 import com.biz.base.BaseViewHolder;
+import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
 import com.olive.ui.adapter.CheckOrderAdapter;
+import com.olive.ui.main.my.address.AddressManageFragment;
 
 /**
  * Created by TingYu Zhu on 2017/7/26.
@@ -29,7 +31,7 @@ public class CheckOrderInfoFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_check_order_info_layout, container, false);
+        return inflater.inflate(R.layout.fragment_recycler_with_button_layout, container, false);
     }
 
     @Override
@@ -66,7 +68,7 @@ public class CheckOrderInfoFragment extends BaseFragment {
         holder.setText(R.id.tv_consignee_tel,"手机号：15899768766");
         holder.setText(R.id.tv_address,"地址：成都市环球中心E1-1801");
         head.setOnClickListener(v -> {
-
+            IntentBuilder.Builder().startParentActivity(getActivity(), AddressManageFragment.class, true);
         });
         adapter.addHeaderView(head);
     }

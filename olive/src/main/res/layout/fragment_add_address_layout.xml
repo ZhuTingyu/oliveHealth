@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_receiver_"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/text_receiver_name"
+        android:textColor="@color/color_666666"
+        android:textSize="@dimen/big_font_16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/tv_receiver"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:background="@null"
+        android:textColor="@color/color_333333"
+        android:gravity="end"
+        android:textSize="@dimen/big_font_16dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tv_receiver_"
+        app:layout_constraintLeft_toRightOf="@+id/tv_receiver_"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:text="张三" />
+
+    <include
+        android:id="@+id/include1"
+        layout="@layout/line_dark"
+        android:layout_width="0dp"
+        android:layout_height="1px"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_receiver_" />
+
+    <TextView
+        android:id="@+id/tv_phone_"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:layout_marginStart="@dimen/activity_vertical_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/text_phone"
+        android:textColor="@color/color_666666"
+        android:textSize="@dimen/big_font_16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include1" />
+
+    <EditText
+        android:id="@+id/tv_phone"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:layout_marginStart="@dimen/activity_vertical_margin"
+        android:background="@null"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/big_font_16dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tv_phone_"
+        app:layout_constraintLeft_toRightOf="@+id/tv_phone_"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:text="13923202232"
+        android:gravity="end"/>
+
+    <include
+        android:id="@+id/include2"
+        layout="@layout/line_dark"
+        android:layout_width="0dp"
+        android:layout_height="1px"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_phone_" />
+
+    <TextView
+        android:id="@+id/tv_area_"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/text_area"
+        android:textColor="@color/color_666666"
+        android:textSize="@dimen/big_font_16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include2" />
+
+    <EditText
+        android:id="@+id/tv_area"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="0dp"
+        android:background="@null"
+        android:drawablePadding="@dimen/activity_vertical_margin"
+        android:drawableRight="@drawable/ic_arrow_right_gray"
+        android:gravity="right|center_vertical"
+        android:hint="@string/text_choose"
+        android:textColor="@color/color_333333"
+        android:textColorHint="@color/color_hint"
+        android:textSize="@dimen/big_font_16dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tv_area_"
+        app:layout_constraintLeft_toRightOf="@+id/tv_area_"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <include
+        android:id="@+id/include3"
+        layout="@layout/line_dark"
+        android:layout_width="0dp"
+        android:layout_height="1px"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_area_" />
+
+    <TextView
+        android:id="@+id/tv_address_"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/text_street"
+        android:textColor="@color/color_666666"
+        android:textSize="@dimen/big_font_16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include3" />
+
+    <EditText
+        android:id="@+id/tv_address"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="0dp"
+        android:background="@null"
+        android:drawablePadding="@dimen/activity_vertical_margin"
+        android:drawableRight="@drawable/ic_arrow_right_gray"
+        android:gravity="right|center_vertical"
+        android:hint="@string/text_choose"
+        android:textColor="@color/color_333333"
+        android:textColorHint="@color/color_hint"
+        android:textSize="@dimen/big_font_16dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tv_address_"
+        app:layout_constraintLeft_toRightOf="@+id/tv_address_"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <include
+        android:id="@+id/include4"
+        layout="@layout/line_dark"
+        android:layout_width="0dp"
+        android:layout_height="1px"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_address_" />
+
+
+    <TextView
+        android:id="@+id/tv_address_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/text_address_detail"
+        android:textColor="@color/color_666666"
+        android:textSize="@dimen/big_font_16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include4" />
+
+    <EditText
+        android:id="@+id/tv_address1"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="16dp"
+        android:background="@null"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/big_font_16dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tv_address_1"
+        app:layout_constraintLeft_toRightOf="@+id/tv_address_1"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:text="环球中心E1"
+        android:gravity="end"/>
+
+    <include
+        android:id="@+id/include5"
+        layout="@layout/line_dark"
+        android:layout_width="0dp"
+        android:layout_height="1px"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_address_1" />
+
+
+
+    <TextView
+        android:id="@+id/btn_ok"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="64dp"
+        android:background="@drawable/btn_red_rect_selector"
+        android:gravity="center"
+        android:text="@string/text_save"
+        android:textColor="@color/white"
+        android:textSize="@dimen/big_font_16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include5" />
+
+
+</android.support.constraint.ConstraintLayout>

@@ -85,6 +85,21 @@
     </string-array>
 
     <string name="text_go_pay">去支付</string>
+    <string name="text_action_edit">编辑</string>
+    <string name="text_action_delete">删除</string>
+    <string name="text_default_address">默认地址</string>
+    <string name="text_add_new_address">添加新地址</string>
+    <string name="title_manager_address">管理收货地址</string>
+    <string name="text_receiver_name">收货人</string>
+    <string name="text_phone">手机号</string>
+    <string name="text_area">所在地区</string>
+    <string name="text_choose">请选择</string>
+    <string name="text_address_detail">详细地址</string>
+    <string name="text_save">保存</string>
+    <string name="text_street">街道</string>
+    <string name="title_add_new_address">新增收货地址</string>
+    <string name="title_edit_address">编辑收货地址</string>
+    <string name="text_make_sure_delete_address">确认删除该地址吗？</string>
 
     <string name="text_exit">退出登录</string>
 

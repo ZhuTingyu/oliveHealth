@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/btn_sure_order"
+        android:id="@+id/btn_sure"
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:layout_alignParentBottom="true"
@@ -22,7 +22,7 @@
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/btn_sure_order"
+        android:layout_above="@+id/btn_sure"
         app:layout_empty="@layout/list_empty_layout"
         app:layout_moreProgress="@layout/view_load_more"
         app:mainLayoutId="@layout/refresh_recyclerview"
@@ -35,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:gravity="center_vertical"
-        android:layout_above="@id/btn_sure_order"
+        android:layout_above="@+id/btn_sure"
         android:visibility="gone"
         android:background="@color/white">
 
