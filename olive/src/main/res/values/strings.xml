@@ -110,10 +110,20 @@
     <string name="text_need_pay">还需要支付:</string>
     <string name="text_choose_way_for_pay">，请选择支付方式</string>
 
+
+    <string name="title_find_password">找回密码</string>
+    <string name="title_modify_password">修改密码</string>
     <string name="text_digits_number">1234567890</string>
     <string name="text_digits">1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</string>
     <string name="text_input_phone_or_username">请输入手机号或账号</string>
     <string name="text_input_code">请输入验证码</string>
+    <string name="text_input_password">请输入密码</string>
+    <string name="text_input_password_again">请再次输入密码</string>
+    <string name="text_input_old_password">原登录密码</string>
+    <string name="text_input_new_password">新登录密码</string>
+    <string name="text_make_sure_modify_password">确认修改</string>
+    <string name="text_reset_pay_number">重置支付密码</string>
+    <string name="btn_resend_count">%1$s s后重新获取</string>
     <string name="text_commit">提交</string>
 
     <string name="text_send_code">发送验证码</string>
