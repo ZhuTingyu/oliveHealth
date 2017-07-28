@@ -36,6 +36,7 @@ public class PayOrderFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setTitle(getString(R.string.title_pay_order));
         initView();
     }
 

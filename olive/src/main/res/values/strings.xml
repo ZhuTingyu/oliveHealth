@@ -108,7 +108,16 @@
     <string name="text_pay_by_account_vacancies">账户余额付款</string>
     <string name="text_input_price">请输入账户余额付款金额</string>
     <string name="text_need_pay">还需要支付:</string>
+    <string name="text_pay_way">支付方式</string>
+    <string name="text_need_pay_price">需支付</string>
     <string name="text_choose_way_for_pay">，请选择支付方式</string>
+    <string name="text_forget_password">忘记密码</string>
+    <string name="text_notice_pay_password_error">支付密码错误！您还可输出两次</string>
+    <string name="text_notice_urge_pay">请尽快完成支付</string>
+    <string name="text_pay_now">立即支付</string>
+    <string name="text_back_cart">返回购物车</string>
+    <string name="text_already_pay">您已经付款成功</string>
+    <string name="text_pay_failed">付款失败</string>
 
 
     <string name="title_find_password">找回密码</string>
