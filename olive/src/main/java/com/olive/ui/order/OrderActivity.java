@@ -53,18 +53,19 @@ public class OrderActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab_layout);
+        mToolbar.setTitle(getString(R.string.text_my_order));
 
-        mToolbar.setTitle(R.string.text_my_order);
 
         mTitles = Lists.newArrayList(getString(R.string.text_order_all),
                 getString(R.string.text_waiting_pay),
                 getString(R.string.text_wait_send),
-                getString(R.string.text_wait_receive));
+                getString(R.string.text_wait_receive),
+                getString(R.string.text_order_complete),
+                getString(R.string.text_order_cancel));
 
-        mFragments.add(new FavoriteFragment());
-        mFragments.add(new FavoriteFragment());
-        mFragments.add(new FavoriteFragment());
-        mFragments.add(new FavoriteFragment());
+        for(int i = 0; i < mTitles.size(); i++){
+            mFragments.add(new OrderListInfoFragment(mTitles.get(i)));
+        }
 
         initTabLayout();
     }
@@ -77,8 +78,9 @@ public class OrderActivity extends BaseActivity {
 
         mFragmentAdapter = new FragmentAdapter(getSupportFragmentManager(), mFragments, mTitles);
         mViewPager.setAdapter(mFragmentAdapter);
-        mViewPager.setOffscreenPageLimit(mFragments.size());
+        mViewPager.setOffscreenPageLimit(mTitles.size());
         mTabLayout.setupWithViewPager(mViewPager);
+        mTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         Uri uri = getIntent().getData();
         if (uri != null) {
             mViewPager.setCurrentItem(Utils.getInteger(uri.getQueryParameter(IntentBuilder.KEY_PAGE_INDEX)));

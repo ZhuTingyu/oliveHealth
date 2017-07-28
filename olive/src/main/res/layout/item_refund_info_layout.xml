@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="16dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:textSize="16dp"
+        android:textColor="@color/orange_light"
+        tools:text="待退款"/>
+
+    <TextView
+        android:id="@+id/tate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_alignParentRight="true"
+        android:visibility="gone"
+        tools:text="2017-5-27"/>
+
+    <LinearLayout
+        android:id="@+id/ll_info"
+        android:layout_below="@id/status"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/item_refund_products_info_layout"/>
+        <include layout="@layout/item_refund_products_info_layout"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/contact_service"
+        android:layout_width="64dp"
+        android:layout_height="28dp"
+        android:layout_below="@id/ll_info"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/color_red"
+        android:background="@drawable/btn_red_selector"
+        android:gravity="center"
+        android:text="@string/text_contact_service"/>
+
+    <TextView
+        android:id="@+id/look_result"
+        android:layout_width="64dp"
+        android:layout_height="28dp"
+        android:layout_below="@id/ll_info"
+        android:layout_toLeftOf="@id/contact_service"
+        android:textColor="@color/base_color"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/btn_green_selector"
+        android:gravity="center"
+        android:text="@string/text_look_check_result"/>
+
+    <TextView
+        android:id="@+id/total_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_info"
+        android:layout_marginLeft="8dp"
+        android:visibility="gone"
+        android:layout_alignParentRight="true"
+        tools:text="共 3 件商品"/>
+
+    <TextView
+        android:id="@+id/remark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_below="@id/total_number"
+        android:maxLines="6"
+        android:minLines="6"
+        android:layout_marginLeft="8dp"
+        android:layout_alignParentRight="true"
+        android:visibility="gone"
+        tools:text="【订单审核备注】方法方法方法方法方法方法
+方法方法方法方法方法方法方法方法方法
+方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法"/>
+
+
+
+</RelativeLayout>

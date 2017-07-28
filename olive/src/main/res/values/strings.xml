@@ -49,6 +49,8 @@
     <string name="text_wait_receive">待收货</string>
     <string name="text_wait_send">待发货</string>
     <string name="text_order_all">全部</string>
+    <string name="text_order_complete">已完成</string>
+    <string name="text_order_cancel">已取消</string>
 
     <string name="text_refund_apply">退货申请</string>
     <string name="text_refund_list">退货单</string>
@@ -85,6 +87,7 @@
     </string-array>
 
     <string name="text_go_pay">去支付</string>
+    <string name="text_cancel_order">取消订单</string>
     <string name="text_action_edit">编辑</string>
     <string name="text_action_delete">删除</string>
     <string name="text_default_address">默认地址</string>
@@ -135,9 +138,13 @@
     <string name="btn_resend_count">%1$s s后重新获取</string>
     <string name="text_commit">提交</string>
 
+    <string name="text_order_list_info_number">共%1$s件商品，实付：</string>
+
+    <string name="text_products_total_number">共 %1$s 件商品</string>
     <string name="text_send_code">发送验证码</string>
 
-
+    <string name="text_contact_service">联系客服</string>
+    <string name="text_look_check_result">查看审核结果</string>
 
     <string name="text_exit">退出登录</string>
 
