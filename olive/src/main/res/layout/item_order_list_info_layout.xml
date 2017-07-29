@@ -125,7 +125,7 @@
             tools:text="共1件商品，实付："/>
 
         <TextView
-            android:id="@+id/btn_go_pay"
+            android:id="@+id/btn_left"
             android:layout_width="64dp"
             android:layout_height="28dp"
             android:layout_below="@id/number"
@@ -137,12 +137,12 @@
             android:text="@string/text_go_pay"/>
 
         <TextView
-            android:id="@+id/btn_cancel"
+            android:id="@+id/btn_right"
             android:layout_width="64dp"
             android:layout_height="28dp"
             android:layout_below="@id/number"
             android:layout_marginTop="8dp"
-            android:layout_toLeftOf="@id/btn_go_pay"
+            android:layout_toLeftOf="@id/btn_left"
             android:textColor="@color/color_red"
             android:gravity="center"
             android:background="@drawable/btn_red_selector"

@@ -1,22 +1,35 @@
 package com.olive.ui.refund;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.biz.base.BaseFragment;
+import com.biz.util.Lists;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
+import com.olive.ui.adapter.RefundAdapter;
 
 /**
  * Created by TingYu Zhu on 2017/7/28.
  */
 
-public class RefundRequestFragment extends BaseFragment {
+@SuppressLint("ValidFragment")
+public class RefundBaseFragment extends BaseFragment {
+
+    private String type;
 
     private XRecyclerView recyclerView;
+    private RefundAdapter adapter;
+
+    public RefundBaseFragment(String type){
+        this.type = type;
+    }
+
 
     @Nullable
     @Override
@@ -32,5 +45,9 @@ public class RefundRequestFragment extends BaseFragment {
 
     private void initView() {
         recyclerView = findViewById(R.id.list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter = new RefundAdapter(getActivity(), type);
+        adapter.setNewData(Lists.newArrayList("","","",""));
+        recyclerView.setAdapter(adapter);
     }
 }

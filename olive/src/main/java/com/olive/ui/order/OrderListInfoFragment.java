@@ -64,7 +64,7 @@ public class OrderListInfoFragment extends BaseFragment {
     private void initView() {
         recyclerView = findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new OrderInfoListAdapter(getContext());
+        adapter = new OrderInfoListAdapter(getContext(),type);
         adapter.setNewData(data);
         recyclerView.setAdapter(adapter);
     }

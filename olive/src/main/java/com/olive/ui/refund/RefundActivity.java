@@ -51,8 +51,13 @@ public class RefundActivity extends BaseActivity {
         mTitles = Lists.newArrayList(getString(R.string.text_refund_apply),
                 getString(R.string.text_refund_list));
 
-        mFragments.add(new FavoriteFragment());
-        mFragments.add(new FavoriteFragment());
+        /*mFragments.add(new FavoriteFragment());
+        mFragments.add(new FavoriteFragment());*/
+
+        for(int i = 0; i < mTitles.size(); i++){
+            RefundBaseFragment fragment = new RefundBaseFragment(mTitles.get(i));
+            mFragments.add(fragment);
+        }
 
         initTabLayout();
     }

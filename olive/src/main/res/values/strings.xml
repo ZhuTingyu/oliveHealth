@@ -143,8 +143,12 @@
     <string name="text_products_total_number">共 %1$s 件商品</string>
     <string name="text_send_code">发送验证码</string>
 
+    <string name="title_check_result">审核结果</string>
     <string name="text_contact_service">联系客服</string>
     <string name="text_look_check_result">查看审核结果</string>
+    <string name="text_look_refund_check_remark">注：我们将在确认收到你的退货之后尽快退款。请你尽快将商品退回</string>
+    <string name="text_make_sure_result">确认结果</string>
+    <string name="text_check_remark">审核备注</string>
 
     <string name="text_exit">退出登录</string>
 
