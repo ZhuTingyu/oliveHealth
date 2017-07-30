@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/smContentView"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:layout_marginBottom="2dp"
+    android:background="@color/white"
+    android:paddingBottom="12dp"
+    android:paddingTop="12dp">
+
+
+    <FrameLayout
+        android:id="@+id/icon"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="8dp"
+        android:layout_toRightOf="@id/checkbox"
+        android:background="@drawable/shape_rect_gray_transparent_background"
+        android:padding="2dp">
+
+        <com.biz.widget.CustomDraweeView
+            android:id="@+id/icon_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:src="@mipmap/ic_launcher" />
+
+    </FrameLayout>
+
+
+    <RelativeLayout
+        android:id="@id/rl_info"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_toRightOf="@id/icon">
+
+        <TextView
+            android:id="@id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="1"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/color_333333"
+            android:textSize="16dp"
+            tools:text="52C 五粮液 500ML52C 52C 五粮液 500ML" />
+
+
+        <TextView
+            android:id="@+id/amount_out"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="0dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:singleLine="true"
+            android:textColor="@color/color_333333"
+            tools:text="销售量：500" />
+
+        <TextView
+            android:id="@+id/amount_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/amount_out"
+            android:layout_marginTop="8dp"
+            android:text="进货量：500"
+            android:textColor="@color/color_333333"
+            app:layout_constraintLeft_toLeftOf="@+id/title"
+            app:layout_constraintTop_toBottomOf="@+id/title" />
+
+
+        <TextView
+            android:id="@+id/number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            tools:text="300"
+            android:textColor="@color/color_red"
+            android:gravity="center" />
+
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/number"
+            android:layout_alignParentBottom="true"
+            tools:text="商品库存："
+            android:text="@string/text_goods_stock"
+            android:textColor="@color/color_333333"
+            android:gravity="center" />
+
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

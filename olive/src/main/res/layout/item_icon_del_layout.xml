@@ -6,12 +6,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginRight="8dp">
 
-    <com.biz.widget.CustomDraweeView
+    <android.support.v7.widget.AppCompatImageView
         android:id="@+id/icon"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        app:actualImageScaleType="centerCrop"
         tools:src="@drawable/vector_return_goods_photo"
+        app:srcCompat="@drawable/vector_return_goods_photo"
         />
 
     <android.support.v7.widget.AppCompatImageView

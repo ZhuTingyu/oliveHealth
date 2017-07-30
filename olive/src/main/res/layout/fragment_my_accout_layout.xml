@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="@string/text_account_balance"
+        android:textColor="@color/color_2c2c2c" />
+
+    <TextView
+        android:id="@+id/balance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:padding="16dp" />
+
+
+    <view
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/text" />
+
+    <RelativeLayout
+        android:id="@+id/rl_consume"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text">
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="@string/text_account_consume_money"
+            android:textColor="@color/color_2c2c2c" />
+
+        <TextView
+            android:id="@+id/consume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:drawableRight="@drawable/ic_arrow_right_gray"
+            android:padding="16dp" />
+
+    </RelativeLayout>
+
+    <view
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/rl_consume" />
+
+
+    <RelativeLayout
+        android:id="@+id/rl_debt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_consume">
+
+        <TextView
+            android:id="@+id/text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="@string/text_account_debt"
+            android:textColor="@color/color_2c2c2c" />
+
+        <TextView
+            android:id="@+id/debt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:drawableRight="@drawable/ic_arrow_right_gray"
+            android:padding="16dp"
+            android:textColor="@color/color_red" />
+
+    </RelativeLayout>
+
+    <view
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/rl_debt" />
+
+
+    <TextView
+        android:id="@id/btn_ok"
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="64dp"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/btn_red_rect_selector"
+        android:gravity="center"
+        android:text="@string/text_refund_money"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
+
+
+</RelativeLayout>

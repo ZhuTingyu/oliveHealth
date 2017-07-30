@@ -44,10 +44,11 @@
 
 
     <RelativeLayout
+        android:id="@id/rl_info"
         android:layout_toRightOf="@id/icon"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_width="match_parent"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent">
 
         <TextView
@@ -58,7 +59,7 @@
             android:lines="1"
             tools:text="52C 五粮液 500ML52C 52C 五粮液 500ML"
             android:textColor="@color/color_333333"
-            android:textSize="14dp"
+            android:textSize="16dp"
             android:maxLines="1"
             android:ellipsize="end"/>
 
@@ -159,4 +160,14 @@
             tools:text="× 1"/>
 
     </RelativeLayout>
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/right_icon"
+        android:layout_height="match_parent"
+        android:layout_width="24dp"
+        android:layout_alignParentRight="true"
+        android:visibility="gone"
+        tools:src="@drawable/ic_arrow_right_gray"
+        app:srcCompat="@drawable/ic_arrow_right_gray"/>
+
 </RelativeLayout>

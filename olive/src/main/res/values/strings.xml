@@ -109,6 +109,7 @@
     <string name="text_order_created">订单已生成！</string>
     <string name="text_order_number">订单编号：</string>
     <string name="text_order_price">订单金额</string>
+    <string name="text_order_price_1">订单金额：</string>
     <string name="text_pay_by_account_vacancies">账户余额付款</string>
     <string name="text_input_price">请输入账户余额付款金额</string>
     <string name="text_need_pay">还需要支付:</string>
@@ -173,6 +174,21 @@
         <item>@string/text_reason_2</item>
         <item>@string/text_reason_3</item>
     </array>
+
+    <string name="text_goods_stock">商品库存：</string>
+    <string name="text_number_in_goods">进货量：%1$s</string>
+    <string name="text_number_out_goods">销售量：%1$s</string>
+
+    <string name="title_my_account">我的账户</string>
+    <string name="text_account_balance">账户余额</string>
+    <string name="text_account_consume_money">消费总金额</string>
+    <string name="text_account_debt">欠款</string>
+    <string name="text_refund_money">还款</string>
+
+    <string name="title_refund_money_detail">欠款明细</string>
+    <string name="title_consume_detail">消费明细</string>
+
+
 
     <string name="text_exit">退出登录</string>
     <string name="text_sure">确认</string>>
