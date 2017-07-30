@@ -52,6 +52,7 @@
     <string name="text_order_complete">已完成</string>
     <string name="text_order_cancel">已取消</string>
 
+    <string name="title_apply_refund">申请退货</string>
     <string name="text_refund_apply">退货申请</string>
     <string name="text_refund_list">退货单</string>
 
@@ -150,6 +151,30 @@
     <string name="text_make_sure_result">确认结果</string>
     <string name="text_check_remark">审核备注</string>
 
+    <string name="text_choose_goods_for_refund">选择退货商品</string>
+    <string name="text_refund_reason">退货原因</string>
+    <string name="text_refund_describe">退货描述</string>
+    <string name="text_refund_describe_hint">请输入退货描述</string>
+    <string name="text_refund_photo">退货描述</string>
+
+    <string name="text_photo">拍照</string>
+    <string name="text_choose_photo">从手机相册选择</string>
+    <string name="text_cancel">取消</string>
+    <array name="array_photo">
+        <item>@string/text_photo</item>
+        <item>@string/text_choose_photo</item>
+    </array>
+
+    <string name="text_reason_1">七天无理由退货</string>
+    <string name="text_reason_2">货物破损退货</string>
+    <string name="text_reason_3">货物临近过期无法出售</string>
+    <array name="array_reason">
+        <item>@string/text_reason_1</item>
+        <item>@string/text_reason_2</item>
+        <item>@string/text_reason_3</item>
+    </array>
+
     <string name="text_exit">退出登录</string>
+    <string name="text_sure">确认</string>>
 
 </resources>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/btn_sure"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/btn_red_rect_selector"
+        android:gravity="center"
+        android:text="@string/text_sure"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+
+        android:layout_above="@id/btn_sure"
+        android:paddingTop="8dp">
+
+
+        <TextView
+            android:id="@+id/choose_goods"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/white"
+            android:drawableRight="@drawable/vector_arrow_right_gray"
+            android:text="@string/text_choose_goods_for_refund"
+            android:textSize="16dp"/>
+
+        <TextView
+            android:id="@+id/reason"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_width="match_parent"
+            android:background="@color/white"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/vector_arrow_right_gray"
+            android:text="@string/text_refund_reason"
+            android:textSize="16dp"/>
+
+        <TextView
+            android:id="@+id/text"
+            android:paddingBottom="8dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/text_refund_describe"
+            android:textSize="16dp"/>
+
+
+        <EditText
+            android:id="@+id/describe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/text_refund_describe_hint"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:gravity="left"
+            android:padding="8dp"
+            android:maxLines="6"
+            android:minLines="6"
+            android:background="@null"/>
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:background="@color/white"
+            android:text="@string/text_refund_photo"
+            android:textSize="16dp"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <include layout="@layout/item_icon_del_layout"/>
+            <include layout="@layout/item_icon_del_layout"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

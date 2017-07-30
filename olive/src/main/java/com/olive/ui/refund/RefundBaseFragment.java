@@ -7,8 +7,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.biz.base.BaseFragment;
+import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
@@ -49,5 +51,14 @@ public class RefundBaseFragment extends BaseFragment {
         adapter = new RefundAdapter(getActivity(), type);
         adapter.setNewData(Lists.newArrayList("","","",""));
         recyclerView.setAdapter(adapter);
+        TextView btn = findViewById(R.id.btn_sure);
+
+        if(getString(R.string.text_refund_apply).equals(type)){
+            btn.setOnClickListener(v -> {
+                IntentBuilder.Builder().startParentActivity(getActivity(), ApplyRefundFragment.class, true);
+            });
+        }else {
+            btn.setVisibility(View.GONE);
+        }
     }
 }

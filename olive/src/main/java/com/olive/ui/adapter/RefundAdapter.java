@@ -51,7 +51,6 @@ public class RefundAdapter extends BaseQuickAdapter<Object, BaseViewHolder> {
             linearLayout.addView(view);
         }
 
-        TextView btnOK = holder.findViewById(R.id.btn_ok);
         TextView service = holder.findViewById(R.id.contact_service);
         TextView look = holder.findViewById(R.id.look_result);
 
@@ -63,9 +62,6 @@ public class RefundAdapter extends BaseQuickAdapter<Object, BaseViewHolder> {
             IntentBuilder.Builder().startParentActivity(context, LookRefundCheckResult.class, true);
         });
 
-        btnOK.setOnClickListener(v -> {
-
-        });
 
         if(context.getString(R.string.text_refund_list).equals(type)){
             TextView date = holder.findViewById(R.id.date);
@@ -77,7 +73,6 @@ public class RefundAdapter extends BaseQuickAdapter<Object, BaseViewHolder> {
             date.setVisibility(View.VISIBLE);
             service.setVisibility(View.GONE);
             look.setVisibility(View.GONE);
-            btnOK.setVisibility(View.GONE);
 
             date.setText(TimeUtil.format(1501296465, TimeUtil.FORMAT_YYYYMMDD));
             totalNumber.setText(context.getString(R.string.text_products_total_number,3+""));

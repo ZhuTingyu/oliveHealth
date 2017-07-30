@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:drawableLeft="@drawable/vector_user_name"
-            android:background="@drawable/shap_login_edit_backgroud"
+            android:background="@drawable/shape_corner_40_solid_white_backgroud"
             android:hint="@string/text_hint_import_user_name"
             android:inputType="textEmailAddress" />
 
@@ -80,7 +80,7 @@
                 android:imeActionId="@+id/login"
                 android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"
-                android:background="@drawable/shap_login_edit_backgroud"
+                android:background="@drawable/shape_corner_40_solid_white_backgroud"
                 android:drawableLeft="@drawable/vector_password"
                 android:maxLength="12"/>
 
