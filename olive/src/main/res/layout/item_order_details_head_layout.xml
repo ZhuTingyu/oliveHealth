@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/text"
+        android:textSize="16dp"
+        android:padding="16dp"
+        android:text="@string/text_order_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/status"
+        android:textSize="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:layout_toRightOf="@id/text"
+        android:textColor="@color/color_red"
+        tools:text="待付款"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:id="@+id/divider1"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_below="@id/status"
+        android:background="@drawable/divider_nav_gray"/>
+
+
+
+    <TextView
+        android:id="@+id/address"
+        android:textSize="16dp"
+        android:padding="16dp"
+        android:layout_below="@id/divider1"
+        tools:text="成都武侯区生活馆"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/name"
+        android:textSize="16dp"
+        android:layout_below="@id/address"
+        android:paddingLeft="16dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        tools:text="刘德华"
+        android:drawableLeft="@drawable/vector_receiver_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <TextView
+        android:id="@+id/phone"
+        android:textSize="16dp"
+        android:layout_below="@id/address"
+        android:paddingLeft="16dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:layout_marginLeft="64dp"
+        tools:text="12312312312"
+        android:layout_toRightOf="@+id/name"
+        android:drawableLeft="@drawable/vector_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <TextView
+        android:id="@+id/address_1"
+        android:textSize="16dp"
+        android:layout_below="@id/name"
+        android:paddingLeft="16dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        tools:text="12312312312"
+        android:drawableLeft="@drawable/vector_receiver_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_below="@id/address_1"
+        android:background="@drawable/divider_nav_gray"/>
+
+</RelativeLayout>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout android:id="@+id/ll_btn"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_height="48dp">
+
+        <TextView
+            android:id="@+id/btn_cancel"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:textColor="@color/color_red"
+            android:textSize="16dp"
+            android:gravity="center"
+            android:text="@string/text_cancel_order"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/btn_ok"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:textColor="@color/base_color"
+            android:textSize="16dp"
+            android:gravity="center"
+            android:text="@string/text_go_pay"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <com.biz.widget.recyclerview.XRecyclerView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/ll_btn"
+        app:layout_empty="@layout/list_empty_layout"
+        app:layout_moreProgress="@layout/view_load_more"
+        app:mainLayoutId="@layout/refresh_recyclerview"
+        app:recyclerClipToPadding="false"
+        app:recyclerPadding="0dp"
+        app:scrollbarStyle="insideOverlay">
+
+    </com.biz.widget.recyclerview.XRecyclerView>
+
+</RelativeLayout>

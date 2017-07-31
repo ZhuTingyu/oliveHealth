@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.biz.base.BaseFragment;
+import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
@@ -67,5 +68,8 @@ public class OrderListInfoFragment extends BaseFragment {
         adapter = new OrderInfoListAdapter(getContext(),type);
         adapter.setNewData(data);
         recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener((baseQuickAdapter, view, i) -> {
+            IntentBuilder.Builder().startParentActivity(getActivity(), OrderDetailsFragment.class, true);
+        });
     }
 }

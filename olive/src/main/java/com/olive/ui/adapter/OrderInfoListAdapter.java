@@ -20,12 +20,10 @@ import java.util.List;
  */
 
 public class OrderInfoListAdapter extends BaseQuickAdapter<Object, BaseViewHolder> {
-    private Context context;
     private String type;
 
     public OrderInfoListAdapter(Context context, String type) {
         super(R.layout.item_order_list_info_layout, Lists.newArrayList());
-        this.context = context;
         this.type = type;
     }
 
@@ -39,21 +37,21 @@ public class OrderInfoListAdapter extends BaseQuickAdapter<Object, BaseViewHolde
         holder.setText(R.id.title_line_2, "规格：1000mg*100粒");
         holder.setText(R.id.title_line_3, "¥ 7908.00");
         holder.setText(R.id.text_product_number, "x2");
-        holder.setText(R.id.number, context.getString(R.string.text_order_list_info_number, 1+""));
+        holder.setText(R.id.number, mContext.getString(R.string.text_order_list_info_number, 1+""));
         holder.setText(R.id.price, PriceUtil.formatRMB(9800));
 
         TextView leftBtn = holder.findViewById(R.id.btn_left);
         TextView rightBtn = holder.findViewById(R.id.btn_right);
 
-        if(context.getString(R.string.text_waiting_pay).equals(type)){
+        if(mContext.getString(R.string.text_waiting_pay).equals(type)){
             //待支付
-        }else if(context.getString(R.string.text_wait_send).equals(type)){
+        }else if(mContext.getString(R.string.text_wait_send).equals(type)){
             //待发货
-        }else if(context.getString(R.string.text_wait_receive).equals(type)){
+        }else if(mContext.getString(R.string.text_wait_receive).equals(type)){
             //待收货
-        }else if(context.getString(R.string.text_order_complete).equals(type)){
+        }else if(mContext.getString(R.string.text_order_complete).equals(type)){
             //已完成
-        }else if(context.getString(R.string.text_order_cancel).equals(type)){
+        }else if(mContext.getString(R.string.text_order_cancel).equals(type)){
             //已经取消
         }
 

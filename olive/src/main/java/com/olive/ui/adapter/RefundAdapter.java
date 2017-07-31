@@ -1,8 +1,6 @@
 package com.olive.ui.adapter;
 
 import android.app.Activity;
-import android.content.Context;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -15,12 +13,6 @@ import com.biz.util.TimeUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.olive.R;
 import com.olive.ui.refund.LookRefundCheckResult;
-import com.olive.ui.refund.RefundActivity;
-import com.olive.ui.refund.RefundBaseFragment;
-
-import org.w3c.dom.Text;
-
-import java.util.List;
 
 /**
  * Created by TingYu Zhu on 2017/7/29.
@@ -43,7 +35,7 @@ public class RefundAdapter extends BaseQuickAdapter<Object, BaseViewHolder> {
 
         LinearLayout linearLayout = holder.findViewById(R.id.ll_info);
         for(int i = 0; i < 3; i++){
-            View view = LayoutInflater.from(context).inflate(R.layout.item_refund_products_info_layout, linearLayout,false);
+            View view = LayoutInflater.from(context).inflate(R.layout.item_line_text_layout, linearLayout,false);
             TextView name = (TextView) view.findViewById(R.id.name);
             TextView number = (TextView) view.findViewById(R.id.number);
             name.setText("汤臣倍健 鱼油软胶囊");

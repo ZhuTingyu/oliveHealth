@@ -49,7 +49,7 @@ public class ConsumeDetailFragment extends BaseFragment {
     private void initView() {
         recyclerView = findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new ConsumeDetailAdapter(getContext());
+        adapter = new ConsumeDetailAdapter();
         adapter.setNewData(Lists.newArrayList("","","",""));
         recyclerView.setAdapter(adapter);
     }

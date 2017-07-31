@@ -143,6 +143,7 @@
     <string name="text_order_list_info_number">共%1$s件商品，实付：</string>
 
     <string name="text_products_total_number">共 %1$s 件商品</string>
+    <string name="text_products_total_money">共 %1$s 件商品,合计</string>
     <string name="text_send_code">发送验证码</string>
 
     <string name="title_check_result">审核结果</string>
@@ -187,8 +188,17 @@
 
     <string name="title_refund_money_detail">欠款明细</string>
     <string name="title_consume_detail">消费明细</string>
+    <string name="text_order_status">订单状态：</string>
 
-
+    <array name="array_order_details">
+        <item>物流单号</item>
+        <item>物流信息</item>
+        <item></item>
+        <item>订单编号</item>
+        <item>交易编号</item>
+        <item>创建日期</item>
+        <item>成交日期</item>
+    </array>
 
     <string name="text_exit">退出登录</string>
     <string name="text_sure">确认</string>>

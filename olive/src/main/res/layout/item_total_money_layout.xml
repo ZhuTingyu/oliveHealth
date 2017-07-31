@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:paddingRight="8dp"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/red_light"
+        tools:text="￥121.12"/>
+
+
+    <TextView
+        android:id="@+id/number"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:paddingRight="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/price"
+        tools:text="共1件商品，实付："/>
+
+    <View
+        android:background="@drawable/divider_nav_gray"
+        android:layout_below="@id/number"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+
+</RelativeLayout>
