@@ -51,10 +51,10 @@ public class BottomSheetAdapter extends BaseRecyclerViewAdapter<String>
         bottomSheetDialog.getWindow().findViewById(R.id.bottom_sheet)
                 .setBackgroundResource(android.R.color.transparent);
 
-        /*Window window = bottomSheetDialog.getWindow();
+        Window window = bottomSheetDialog.getWindow();
         WindowManager.LayoutParams lp = window.getAttributes();
         lp.alpha = 0.9f;
-        window.setAttributes(lp);*/
+        window.setAttributes(lp);
 
         view.findViewById(R.id.btn).setOnClickListener(v -> {
             bottomSheetDialog.dismiss();

@@ -3,6 +3,7 @@ package com.olive.ui.login;
 import com.biz.base.BaseActivity;
 import com.biz.util.IntentBuilder;
 import com.olive.R;
+import com.olive.ui.main.MainActivity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -37,8 +38,11 @@ public class LoginActivity extends BaseActivity {
         viewModel = new LoginViewModel(this);
         initViewModel(viewModel);
         mToolbar.setTitle(getString(R.string.text_login));
-        viewModel.login(userEntity -> {
+        /*viewModel.login(userEntity -> {
 
+        });*/
+        findViewById(R.id.btn_ok).setOnClickListener(v -> {
+            MainActivity.startMainWithAnim(getActivity(),0);
         });
 
     }

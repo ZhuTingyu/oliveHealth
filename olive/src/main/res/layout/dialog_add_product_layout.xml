@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/color_transparent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl_info"
+        android:layout_marginTop="24dp"
+        android:paddingTop="24dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.biz.widget.CustomDraweeView
+            android:id="@+id/cdv_product"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cdv_product"
+            app:layout_constraintTop_toTopOf="@+id/cdv_product"
+            tools:text="使大脑风暴嗯哇的弄爱我呢但我你的健康哇的不健康哇" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/shape_rect_gray_white_background"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/cdv_product"
+            app:layout_constraintStart_toEndOf="@+id/cdv_product">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/icon_less"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/vector_product_detail_minus"
+                tools:src="@drawable/vector_product_detail_minus" />
+
+            <com.biz.widget.CountEditText
+                android:id="@+id/ed_count"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:cursorVisible="false"
+                android:digits="1234567890"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="4"
+                tools:text="1" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/icon_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:src="@drawable/vector_product_detail_add"
+                app:srcCompat="@drawable/vector_product_detail_add"
+                android:scaleType="fitXY"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:textColor="@color/color_e84900"
+            android:textSize="@dimen/big_font_16dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
+            app:layout_constraintStart_toEndOf="@+id/cdv_product"
+            tools:text="¥ 1200/箱" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_below="@+id/cl_info"
+        android:paddingTop="16dp"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="64dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_total_price"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"
+            android:textColor="@color/color_e84900"
+            tools:text="共：¥ 2000.00" />
+
+        <TextView
+            android:id="@+id/tv_confirm"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/color_e84900"
+            android:gravity="center"
+            android:text="@string/btn_confirm"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/iv_close"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginRight="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_alignParentRight="true"
+        tools:src="@drawable/vector_product_detail_dailog_close"
+        app:srcCompat="@drawable/vector_product_detail_dailog_close" />
+
+</RelativeLayout>

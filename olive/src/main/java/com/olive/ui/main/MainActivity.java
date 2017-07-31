@@ -59,7 +59,7 @@ public class MainActivity extends BaseActivity {
     public static final void startMainWithAnim(Activity activity, int tab) {
         IntentBuilder.Builder()
                 .setClass(activity, MainActivity.class)
-                .overridePendingTransition(R.anim.left_in, R.anim.right_out)
+                .overridePendingTransition(R.anim.right_in, R.anim.left_out)
                 .addFlag(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
                 .putExtra(IntentBuilder.KEY_ID, tab)
                 .startActivity();
