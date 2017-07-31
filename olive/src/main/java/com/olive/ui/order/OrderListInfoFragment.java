@@ -69,7 +69,10 @@ public class OrderListInfoFragment extends BaseFragment {
         adapter.setNewData(data);
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener((baseQuickAdapter, view, i) -> {
-            IntentBuilder.Builder().startParentActivity(getActivity(), OrderDetailsFragment.class, true);
+            //TODO data里面的type
+            IntentBuilder.Builder()
+                    .putExtra(IntentBuilder.KEY_TYPE, "")
+                    .startParentActivity(getActivity(), OrderDetailsFragment.class, true);
         });
     }
 }

@@ -49,7 +49,7 @@
         android:textSize="16dp" />
 
     <TextView
-        android:id="@+id/order_price"
+        android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -64,7 +64,7 @@
 
     <RelativeLayout
         android:id="@+id/ll"
-        android:layout_below="@id/order_price"
+        android:layout_below="@id/price"
         android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

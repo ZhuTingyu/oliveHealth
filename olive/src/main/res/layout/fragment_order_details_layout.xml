@@ -6,9 +6,22 @@
     android:layout_height="match_parent">
 
 
+    <TextView
+        android:id="@+id/btn_sure"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:textColor="@color/base_color"
+        android:textSize="16dp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_alignParentBottom="true"
+        android:text="@string/text_go_pay"/>
+
+
     <LinearLayout android:id="@+id/ll_btn"
         android:layout_width="match_parent"
         android:orientation="horizontal"
+        android:background="@color/white"
         android:layout_alignParentBottom="true"
         android:layout_height="48dp">
 

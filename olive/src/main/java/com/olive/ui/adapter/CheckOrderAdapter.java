@@ -15,13 +15,13 @@ import java.util.List;
  * Created by TingYu Zhu on 2017/7/26.
  */
 
-public class CheckOrderAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
+public class CheckOrderAdapter extends BaseQuickAdapter<Object, BaseViewHolder> {
     public CheckOrderAdapter() {
         super(R.layout.item_cart_layout, Lists.newArrayList());
     }
 
     @Override
-    protected void convert(BaseViewHolder holder, String s) {
+    protected void convert(BaseViewHolder holder, Object s) {
         LoadImageUtil.Builder()
                 .load("http://img13.360buyimg.com/imgzone/jfs/t6517/304/1921907774/343777/df918f69/595a01f6Ne19fc737.jpg").http().build()
                 .displayImage(holder.getView(R.id.icon_img));
