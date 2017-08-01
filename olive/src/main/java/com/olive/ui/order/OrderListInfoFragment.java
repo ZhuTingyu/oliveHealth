@@ -23,14 +23,13 @@ import java.util.List;
 
 @SuppressLint("ValidFragment")
 public class OrderListInfoFragment extends BaseFragment {
-    String type;
+
+    public static final String KEY_TYPE = "type";
+
+    private String type;
     private XRecyclerView recyclerView;
     private OrderInfoListAdapter adapter;
     private List<Object> data;
-
-    public OrderListInfoFragment(String type){
-        this.type = type;
-    }
 
     @Nullable
     @Override
@@ -41,6 +40,7 @@ public class OrderListInfoFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        type = getArguments().getString(KEY_TYPE);
         initData();
         initView();
     }
@@ -65,7 +65,7 @@ public class OrderListInfoFragment extends BaseFragment {
     private void initView() {
         recyclerView = findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new OrderInfoListAdapter(getContext(),type);
+        adapter = new OrderInfoListAdapter(type);
         adapter.setNewData(data);
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener((baseQuickAdapter, view, i) -> {

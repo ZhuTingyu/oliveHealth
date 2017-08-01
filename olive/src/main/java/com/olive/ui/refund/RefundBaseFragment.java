@@ -23,14 +23,13 @@ import com.olive.ui.adapter.RefundAdapter;
 @SuppressLint("ValidFragment")
 public class RefundBaseFragment extends BaseFragment {
 
+    public static final String KEY_TYPE = "type";
+
     private String type;
 
     private XRecyclerView recyclerView;
     private RefundAdapter adapter;
 
-    public RefundBaseFragment(String type){
-        this.type = type;
-    }
 
 
     @Nullable
@@ -42,6 +41,7 @@ public class RefundBaseFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        type = getArguments().getString(KEY_TYPE);
         initView();
     }
 

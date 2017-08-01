@@ -64,7 +64,11 @@ public class OrderActivity extends BaseActivity {
                 getString(R.string.text_order_cancel));
 
         for(int i = 0; i < mTitles.size(); i++){
-            mFragments.add(new OrderListInfoFragment(mTitles.get(i)));
+            OrderListInfoFragment fragment = new OrderListInfoFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString(OrderListInfoFragment.KEY_TYPE,mTitles.get(i));
+            fragment.setArguments(bundle);
+            mFragments.add(fragment);
         }
 
         initTabLayout();

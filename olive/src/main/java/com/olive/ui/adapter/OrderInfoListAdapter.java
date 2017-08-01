@@ -29,7 +29,7 @@ import java.util.List;
 public class OrderInfoListAdapter extends BaseQuickAdapter<Object, BaseViewHolder> {
     private String type;
 
-    public OrderInfoListAdapter(Context context, String type) {
+    public OrderInfoListAdapter(String type) {
         super(R.layout.item_order_list_info_layout, Lists.newArrayList());
         this.type = type;
     }
@@ -66,16 +66,16 @@ public class OrderInfoListAdapter extends BaseQuickAdapter<Object, BaseViewHolde
 
 
 
-        /*TextView leftBtn = holder.findViewById(R.id.btn_left);
+        TextView leftBtn = holder.findViewById(R.id.btn_left);
         TextView rightBtn = holder.findViewById(R.id.btn_right);
 
-        /leftBtn.setOnClickListener(v -> {
+        leftBtn.setOnClickListener(v -> {
 
         });
 
         rightBtn.setOnClickListener(v -> {
 
-        });*/
+        });
 
         if(mContext.getString(R.string.text_waiting_pay).equals(type)){
             //待支付
