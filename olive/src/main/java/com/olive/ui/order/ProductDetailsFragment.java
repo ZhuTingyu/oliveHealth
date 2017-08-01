@@ -130,6 +130,8 @@ public class ProductDetailsFragment extends BaseFragment {
     private void showBottomSheet(int type) {
         BottomSheetDialog dialog = new BottomSheetDialog(getActivity());
         dialog.setContentView(R.layout.dialog_add_product_layout);
+        dialog.getWindow().findViewById(R.id.design_bottom_sheet)
+                .setBackgroundResource(android.R.color.transparent);
         dialog.show();
         initBottomSheet(dialog, type);
     }
