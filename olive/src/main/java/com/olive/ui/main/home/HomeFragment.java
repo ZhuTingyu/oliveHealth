@@ -25,6 +25,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +53,7 @@ public class HomeFragment extends BaseLazyFragment {
     private ConvenientBanner banner;
     private ExpandGridView gridview;
     private XRecyclerView mNoticeTitleList;
+    private EditText searchView;
 
     ProductAdapter mAdapter;
     HomeNoticeAdapter mNoticeAdapter;
@@ -84,13 +87,25 @@ public class HomeFragment extends BaseLazyFragment {
         initListView();
         initData();
 
-        EditText searchView = getView(R.id.edit_search);
-        searchView.setFocusableInTouchMode(false);
-        searchView.setOnClickListener(v->{
-            SearchActivity.startSearch(getActivity());
+        searchView = getView(R.id.edit_search);
+        searchView.setOnKeyListener((View v, int keyCode, KeyEvent event) -> {
+            if ((keyCode == KeyEvent.KEYCODE_SEARCH || keyCode == KeyEvent.KEYCODE_ENTER)
+                    && event.getAction() == KeyEvent.ACTION_UP) {
+                v.clearFocus();
+                String key = getSearchText();
+                if (!TextUtils.isEmpty(key)) {
+                    IntentBuilder.Builder(getActivity(), SearchActivity.class).
+                            putExtra(IntentBuilder.KEY_VALUE, key).startActivity();
+                }else {
+                    error(getString(R.string.message_input_search_key_word));
+                }
+            }
+            return false;
         });
 
-
+    }
+    public String getSearchText() {
+        return searchView.getText() == null ? "" : searchView.getText().toString();
     }
 
     private void initListView() {
@@ -133,7 +148,6 @@ public class HomeFragment extends BaseLazyFragment {
             mNoticeAdapter.setNewData(noticeEntities);
         });
 
-        viewModel.homeCategory();
         viewModel.getCategoryList(categoryEntities -> {
             gridview = (ExpandGridView) view.findViewById(R.id.gridview);
             gridview.setNumColumns(5);

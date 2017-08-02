@@ -2,6 +2,7 @@ package com.olive.ui.search;
 
 import com.biz.base.BaseFragment;
 import com.biz.util.Lists;
+import com.biz.util.RxUtil;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
 import com.olive.model.entity.ProductEntity;
@@ -44,10 +45,13 @@ public class SearchFragment extends BaseFragment {
 
     private EditText searchView;
 
+    private SearchViewModel viewModel;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         searchView = getView(getActivity(), R.id.edit_search);
+        viewModel = new SearchViewModel(context);
     }
 
     @Nullable
@@ -67,47 +71,96 @@ public class SearchFragment extends BaseFragment {
         mRecyclerView = getView(R.id.list);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         mAdapter = new ProductAdapter(R.layout.item_product_grid_layout);
-        mAdapter.setNewData(Lists.newArrayList(new ProductEntity(),new ProductEntity(),new ProductEntity(),new ProductEntity()));
         mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setOnLoadMoreListener(()->{
+            setProgressVisible(true);
+            viewModel.addPage();
+            viewModel.loadMore(o -> {
+                setProgressVisible(false);
+            });
+        },mRecyclerView.getRecyclerView());
+        viewModel.setRecyclerView(mRecyclerView);
 
-//        mRecyclerView.setRefreshListener(()->{
-//
-//        });
+        initDate();
 
         totalView = layout.getChildAt(0);
         priceView = layout.getChildAt(1);
         saleView = layout.getChildAt(2);
 
         totalView.setOnClickListener(v -> {
-            totalView.setSelected(true);
+            setProgressVisible(true);
+            totalView.setSelected(!v.isSelected());
             priceView.setSelected(false);
             saleView.setSelected(false);
+            if(v.isSelected()){
+                viewModel.setOrderUp();
+            }else {
+                viewModel.setOrderDOWN();
+            }
+            viewModel.setSort(SearchViewModel.TYPE_RANK_SYNTHESIZE);
+            viewModel.search(o -> {
+                setProgressVisible(false);
+            });
         });
 
         textPrice.setOnClickListener(v -> {
+            setProgressVisible(true);
             totalView.setSelected(false);
-            priceView.setSelected(true);
+            priceView.setSelected(!v.isSelected());
             saleView.setSelected(false);
+            if(v.isSelected()){
+                viewModel.setOrderUp();
+            }else {
+                viewModel.setOrderDOWN();
+            }
+            viewModel.setSort(SearchViewModel.TYPE_RANK_PRICE);
+            viewModel.search(o -> {
+                setProgressVisible(false);
+            });
         });
 
         saleView.setOnClickListener(v -> {
+            setProgressVisible(true);
             totalView.setSelected(false);
             priceView.setSelected(false);
-            saleView.setSelected(true);
+            saleView.setSelected(!v.isSelected());
+            if(v.isSelected()){
+                viewModel.setOrderUp();
+            }else {
+                viewModel.setOrderDOWN();
+            }
+            viewModel.setSort(SearchViewModel.TYPE_RANK_SALE);
+            viewModel.search(o -> {
+                setProgressVisible(false);
+            });
         });
 
+        bindUi(RxUtil.textChanges(searchView), viewModel.setKeyWord());
         searchView.setOnKeyListener((View v, int keyCode, KeyEvent event) -> {
             if ((keyCode == KeyEvent.KEYCODE_SEARCH || keyCode == KeyEvent.KEYCODE_ENTER)
                     && event.getAction() == KeyEvent.ACTION_UP) {
                 v.clearFocus();
                 String key = getSearchText();
-                if (TextUtils.isEmpty(key)) {
-
+                if (!TextUtils.isEmpty(key)) {
+                    setProgressVisible(true);
+                    viewModel.search(o -> {
+                        setProgressVisible(false);
+                    });
+                    dismissKeyboard();
+                }else {
+                    error(getString(R.string.message_input_search_key_word));
                 }
             }
             return false;
         });
 
+    }
+
+    private void initDate() {
+        setProgressVisible(true);
+        viewModel.loadMore(o -> {
+            setProgressVisible(false);
+        });
     }
 
     public String getSearchText() {
