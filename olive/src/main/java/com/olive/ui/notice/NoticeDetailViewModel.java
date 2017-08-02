@@ -22,7 +22,7 @@ public class NoticeDetailViewModel extends BaseViewModel {
     }
 
     public void getNoticeDetail(Action1<NoticeDetailEntity> action1){
-        submitRequestThrowError(NoticeModel.NoticeDetail(id).map(r -> {
+        submitRequestThrowError(NoticeModel.noticeDetail(id).map(r -> {
             if(r.isOk()){
                 return r.data;
             }else throw new HttpErrorException(r);

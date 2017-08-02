@@ -6,12 +6,15 @@ import com.biz.util.PriceUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.olive.R;
+import com.olive.model.entity.ProductEntity;
 import com.olive.ui.holder.ProductViewHolder;
 import com.olive.util.LoadImageUtil;
 
 import android.graphics.Paint;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -26,20 +29,26 @@ import java.util.List;
  * @version 1.0
  */
 
-public class ProductAdapter extends BaseQuickAdapter<Object, ProductViewHolder> {
+public class ProductAdapter extends BaseQuickAdapter<ProductEntity, ProductViewHolder> {
     public ProductAdapter(@LayoutRes int id) {
         super(id, Lists.newArrayList());
     }
 
     @Override
-    protected void convert(ProductViewHolder holder, Object item) {
+    protected void convert(ProductViewHolder holder, ProductEntity item) {
         LoadImageUtil.Builder()
-                .load("http://img13.360buyimg.com/imgzone/jfs/t6517/304/1921907774/343777/df918f69/595a01f6Ne19fc737.jpg").http().build()
+                .load(item.imgLogo).http().build()
                 .displayImage(holder.icon);
-        holder.tvProductName.setText("美国GNC健安喜三倍效力鱼油软胶囊120");
-        holder.tvProductPrice.setText(PriceUtil.formatRMB(50000));
-        holder.tvProductPriceOld.setText(PriceUtil.formatRMB(40000));
-        holder.tvProductPriceOld.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
+        holder.tvProductName.setText(item.name);
+
+        if(item.salePrice == 0){
+            holder.tvProductPrice.setText(PriceUtil.formatRMB(item.originalPrice));
+            holder.tvProductPriceOld.setVisibility(View.GONE);
+        }else {
+            holder.tvProductPrice.setText(PriceUtil.formatRMB(item.salePrice));
+            holder.tvProductPriceOld.setText(PriceUtil.formatRMB(item.originalPrice));
+            holder.tvProductPriceOld.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
+        }
         if(holder.btnLike != null){
             holder.btnLike.setOnClickListener(v -> {
                 v.setSelected(!v.isSelected());

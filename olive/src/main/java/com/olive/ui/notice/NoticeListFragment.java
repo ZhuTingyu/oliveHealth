@@ -44,22 +44,11 @@ public class NoticeListFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         setTitle(getString(R.string.text_notice_list));
         initView();
-        initData();
-    }
-
-    private void initData() {
-        viewModel.setPage(page);
-        viewModel.getNoticeList(noticeEntities -> {
+        viewModel.loadMore(o -> {
             setProgressVisible(false);
-            if(noticeEntities.isEmpty()){
-                error(getString(R.string.message_no_more));
-                adapter.loadMoreEnd();
-            }else {
-                adapter.addData(noticeEntities);
-                adapter.loadMoreComplete();
-            }
         });
     }
+
 
     private void initView() {
         recyclerView = findViewById(R.id.list);
@@ -67,8 +56,11 @@ public class NoticeListFragment extends BaseFragment {
         adapter = new NoticeListAdapter(getActivity());
         recyclerView.setAdapter(adapter);
         adapter.setOnLoadMoreListener(()-> {
-            page++;
-            initData();
+            viewModel.page++;
+            viewModel.loadMore(o -> {
+                setProgressVisible(false);
+            });
         },recyclerView.getRecyclerView());
+        viewModel.setRecyclerView(recyclerView);
     }
 }

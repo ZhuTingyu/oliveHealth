@@ -1,4 +1,4 @@
-package com.olive.ui.main.my;
+package com.olive.ui.adapter;
 
 import com.biz.base.BaseViewHolder;
 import com.biz.util.Lists;

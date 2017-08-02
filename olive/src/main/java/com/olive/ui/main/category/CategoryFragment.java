@@ -6,6 +6,7 @@ import com.biz.widget.ExpandGridView;
 import com.biz.widget.banner.ConvenientBanner;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
+import com.olive.model.entity.ProductEntity;
 import com.olive.ui.adapter.ProductAdapter;
 import com.olive.ui.search.SearchActivity;
 
@@ -58,7 +59,7 @@ public class CategoryFragment extends BaseLazyFragment {
         mBrandView = getView(R.id.list_brand);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         mAdapter = new ProductAdapter(R.layout.item_product_grid_layout);
-        mAdapter.setNewData(Lists.newArrayList("","","",""));
+        //mAdapter.setNewData(Lists.newArrayList(new ProductEntity(),new ProductEntity(),new ProductEntity(),new ProductEntity()));
 
         mBrandAdapter = new BrandAdapter();
         addItemDecorationLine(mBrandView);

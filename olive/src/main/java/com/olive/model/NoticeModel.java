@@ -19,7 +19,7 @@ import rx.Observable;
 
 public class NoticeModel {
 
-    public static Observable<ResponseJson<List<AdvertEntity>>> AdvertList() {
+    public static Observable<ResponseJson<List<AdvertEntity>>> advertList() {
         return HttpRequest.<ResponseJson<List<AdvertEntity>>>builder()
                 .setToJsonType(new TypeToken<ResponseJson<List<AdvertEntity>>>() {
                 }.getType())
@@ -28,7 +28,7 @@ public class NoticeModel {
     }
 
 
-    public static Observable<ResponseJson<List<NoticeEntity>>> NoticeList(int page) {
+    public static Observable<ResponseJson<List<NoticeEntity>>> noticeList(int page) {
         return HttpRequest.<ResponseJson<List<NoticeEntity>>>builder()
                 .setToJsonType(new TypeToken<ResponseJson<List<NoticeEntity>>>() {
                 }.getType())
@@ -37,7 +37,7 @@ public class NoticeModel {
                 .requestPI();
     }
 
-    public static Observable<ResponseJson<NoticeDetailEntity>> NoticeDetail(int id) {
+    public static Observable<ResponseJson<NoticeDetailEntity>> noticeDetail(int id) {
         return HttpRequest.<ResponseJson<NoticeDetailEntity>>builder()
                 .setToJsonType(new TypeToken<ResponseJson<NoticeDetailEntity>>() {
                 }.getType())

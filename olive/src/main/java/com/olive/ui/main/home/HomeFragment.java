@@ -9,10 +9,14 @@ import com.biz.widget.banner.ConvenientBanner;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.olive.R;
+import com.olive.model.entity.NoticeEntity;
+import com.olive.model.entity.ProductEntity;
 import com.olive.ui.adapter.HomeNoticeAdapter;
 import com.olive.ui.adapter.ProductAdapter;
 import com.olive.ui.holder.ImageHolderView;
+import com.olive.ui.notice.NoticeDetailFragment;
 import com.olive.ui.notice.NoticeListFragment;
+import com.olive.ui.notice.NoticeViewModel;
 import com.olive.ui.order.ProductDetailsFragment;
 import com.olive.ui.search.SearchActivity;
 
@@ -52,11 +56,13 @@ public class HomeFragment extends BaseLazyFragment {
     HomeNoticeAdapter mNoticeAdapter;
 
     private HomeViewModel viewModel;
+    private NoticeViewModel noticeViewModel;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         viewModel = new HomeViewModel(context);
+        noticeViewModel = new NoticeViewModel(context);
         initViewModel(viewModel);
     }
 
@@ -75,15 +81,8 @@ public class HomeFragment extends BaseLazyFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getLayoutInflater().inflate(R.layout.activity_recyclerview, getView(R.id.frame_holder));
-        mRecyclerView = getView(R.id.list);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        mAdapter = new ProductAdapter(R.layout.item_product_grid_layout);
-        mAdapter.addHeaderView(createBannerView());
-        mAdapter.setNewData(Lists.newArrayList("","","",""));
-        mAdapter.setOnItemClickListener((baseQuickAdapter, view1, i) -> {
-            IntentBuilder.Builder().startParentActivity(getActivity(), ProductDetailsFragment.class, true);
-        });
-        mRecyclerView.setAdapter(mAdapter);
+        initListView();
+        initData();
 
         EditText searchView = getView(R.id.edit_search);
         searchView.setFocusableInTouchMode(false);
@@ -91,41 +90,82 @@ public class HomeFragment extends BaseLazyFragment {
             SearchActivity.startSearch(getActivity());
         });
 
+
+    }
+
+    private void initListView() {
+        mRecyclerView = getView(R.id.list);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        mAdapter = new ProductAdapter(R.layout.item_product_grid_layout);
+        mAdapter.addHeaderView(createBannerView());
+        mAdapter.setOnItemClickListener((baseQuickAdapter, view1, i) -> {
+            IntentBuilder.Builder().startParentActivity(getActivity(), ProductDetailsFragment.class, true);
+        });
+
+
+        mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setRefreshListener(()->{
             mRecyclerView.postDelayed(()->{mRecyclerView.setRefreshing(false);},2000);
+        });
+    }
+
+    private void initData() {
+        setProgressVisible(true);
+        viewModel.getRecommendProductList(productEntities -> {
+            setProgressVisible(false);
+            mAdapter.setNewData(productEntities);
         });
     }
 
     private View createBannerView(){
         View view = getLayoutInflater().inflate(R.layout.item_home_banner_layout, null);
 
-        viewModel.getAvertList(advertEntities -> {
-            initBanner(view, viewModel.getNoticeImageList());
-        });
-
-
-        gridview = (ExpandGridView) view.findViewById(R.id.gridview);
-        gridview.setNumColumns(5);
-        mNoticeTitleList = findViewById(view, R.id.notice_list);
-        mNoticeTitleList.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mNoticeAdapter = new HomeNoticeAdapter();
-        mNoticeAdapter.setNewData(Lists.newArrayList("","","",""));
-        mNoticeAdapter.setOnItemClickListener((baseQuickAdapter, view1, i) -> {
-
-        });
-        mNoticeTitleList.setAdapter(mNoticeAdapter);
         findViewById(view,R.id.icon_left).setOnClickListener(v -> {
             IntentBuilder.Builder().startParentActivity(getActivity(), NoticeListFragment.class, true);
         });
 
+        viewModel.getAvertList(advertEntities -> {
+            initBanner(view, viewModel.getNoticeImageList());
+        });
 
-        HomeCategoryAdapter adapter = new HomeCategoryAdapter(getActivity());
-        adapter.setList(Lists.newArrayList(getContext().getResources().getStringArray(R.array.array_category)));
-        gridview.setAdapter(adapter);
+        initNoticeList(view);
+        noticeViewModel.getNoticeList(noticeEntities -> {
+            mNoticeAdapter.setNewData(noticeEntities);
+        });
+
+        viewModel.homeCategory();
+        viewModel.getCategoryList(categoryEntities -> {
+            gridview = (ExpandGridView) view.findViewById(R.id.gridview);
+            gridview.setNumColumns(5);
+            HomeCategoryAdapter adapter = new HomeCategoryAdapter(getActivity());
+            adapter.setList(categoryEntities);
+            gridview.setAdapter(adapter);
+        });
+
+
 
 
         return view;
 
+    }
+
+    private void initNoticeList(View view) {
+        mNoticeTitleList = findViewById(view, R.id.notice_list);
+        mNoticeTitleList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mNoticeAdapter = new HomeNoticeAdapter();
+        mNoticeTitleList.setAdapter(mNoticeAdapter);
+        mNoticeAdapter.setOnLoadMoreListener(()-> {
+            noticeViewModel.page++;
+            noticeViewModel.loadMore(o -> {
+                setProgressVisible(false);
+            });
+        },mNoticeTitleList.getRecyclerView());
+        mNoticeAdapter.setOnItemClickListener((baseQuickAdapter, view1, i) -> {
+            NoticeEntity entity = (NoticeEntity) baseQuickAdapter.getItem(i);
+            IntentBuilder.Builder().putExtra(IntentBuilder.KEY_VALUE, entity.id)
+                    .startParentActivity(getActivity(), NoticeDetailFragment.class, true);
+        });
+        noticeViewModel.setRecyclerView(mNoticeTitleList);
     }
 
     private void initBanner(View view, ArrayList<String> imgs){

@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:text="@string/text_customer_service"
             android:textColor="@color/color_4a4a4a"
-            android:textSize="@dimen/font_12dp"/>
+            android:textSize="12dp"/>
     </LinearLayout>
 
     <View

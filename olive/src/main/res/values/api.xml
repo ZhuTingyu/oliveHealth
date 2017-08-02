@@ -5,5 +5,6 @@
     <string name="api_advert_list">/ad/ads</string>
     <string name="api_notice_list">/infobulletin/list</string>
     <string name="api_notice_detail">/infobulletin/detail</string>
-
+    <string name="api_recommend_product_list">/products/recommends</string>
+    <string name="api_category_ist">/categories/list</string>
 </resources>

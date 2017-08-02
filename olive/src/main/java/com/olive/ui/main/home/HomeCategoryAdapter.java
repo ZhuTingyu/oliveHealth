@@ -4,6 +4,7 @@ import com.biz.base.BaseArrayListAdapter;
 import com.biz.util.Lists;
 import com.biz.util.Utils;
 import com.olive.R;
+import com.olive.model.entity.CategoryEntity;
 import com.olive.util.LoadImageUtil;
 
 import android.content.Context;
@@ -23,7 +24,7 @@ import java.util.List;
  * @version 1.0
  */
 
-class HomeCategoryAdapter extends BaseArrayListAdapter<String> {
+class HomeCategoryAdapter extends BaseArrayListAdapter<CategoryEntity> {
 
 
     private int size;
@@ -39,9 +40,13 @@ class HomeCategoryAdapter extends BaseArrayListAdapter<String> {
                 R.drawable.vector_category_packing_materials,
                 R.drawable.vector_category_daily_use,
                 R.drawable.vector_category_all);
-        setList(Lists.newArrayList(getContext().getResources().getStringArray(R.array.array_category)));
         size = context.getResources().getDisplayMetrics().widthPixels/5-Utils.dip2px(24);
         //size = size/4;
+    }
+
+    @Override
+    public int getCount() {
+        return mList != null ? 5 : 0;
     }
 
     @Override
@@ -59,20 +64,21 @@ class HomeCategoryAdapter extends BaseArrayListAdapter<String> {
         } else {
             holder = (HomeViewHolder) convertView.getTag();
         }
-//        HomeItemEntity entity = getItem(position);
-//        holder.bindData(entity);
-//        holder.setListener(holder.itemView, entity.link);
 
-        LoadImageUtil.Builder()
-                .load(mDrawableList.get(position)).drawable().build()
-                .imageOptions(mDrawableList.get(position))
-                .displayImage(holder.icon);
-        holder.setTitle(getItem(position));
 
-        /*LoadImageUtil.Builder()
-                .load("http://img13.360buyimg.com/imgzone/jfs/t6517/304/1921907774/343777/df918f69/595a01f6Ne19fc737.jpg").http().build()
-                .displayImage(holder.icon);*/
-        holder.setTitle(getItem(position));
+
+        if(position == 4){
+            LoadImageUtil.Builder()
+                    .load(mDrawableList.get(4)).drawable().build()
+                    .imageOptions(mDrawableList.get(4))
+                    .displayImage(holder.icon);
+            holder.setTitle("全部");
+        }else {
+            LoadImageUtil.Builder()
+                    .load(getItem(position).icon).http().build()
+                    .displayImage(holder.icon);
+            holder.setTitle(getItem(position).name);
+        }
 
 
         return convertView;

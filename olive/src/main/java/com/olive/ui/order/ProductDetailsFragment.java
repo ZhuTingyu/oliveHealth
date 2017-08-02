@@ -69,7 +69,7 @@ public class ProductDetailsFragment extends BaseFragment {
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         adapter = new ProductAdapter(R.layout.item_cart_product_layout);
-        adapter.setNewData(Lists.newArrayList("", "", "", ""));
+        adapter.setNewData(Lists.newArrayList(new ProductEntity(),new ProductEntity(),new ProductEntity(),new ProductEntity()));
         recyclerView.setAdapter(adapter);
         LoadImageUtil.Builder()
                 .load("http://img13.360buyimg.com/imgzone/jfs/t6517/304/1921907774/343777/df918f69/595a01f6Ne19fc737.jpg").http().build()

@@ -4,6 +4,7 @@ import com.biz.base.BaseFragment;
 import com.biz.util.Lists;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
+import com.olive.model.entity.ProductEntity;
 import com.olive.ui.adapter.ProductAdapter;
 
 import android.content.Context;
@@ -66,7 +67,7 @@ public class SearchFragment extends BaseFragment {
         mRecyclerView = getView(R.id.list);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         mAdapter = new ProductAdapter(R.layout.item_product_grid_layout);
-        mAdapter.setNewData(Lists.newArrayList("", "", "", ""));
+        mAdapter.setNewData(Lists.newArrayList(new ProductEntity(),new ProductEntity(),new ProductEntity(),new ProductEntity()));
         mRecyclerView.setAdapter(mAdapter);
 
 //        mRecyclerView.setRefreshListener(()->{
