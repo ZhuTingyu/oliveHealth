@@ -96,7 +96,7 @@ public class HomeFragment extends BaseLazyFragment {
                 if (!TextUtils.isEmpty(key)) {
                     IntentBuilder.Builder(getActivity(), SearchActivity.class).
                             putExtra(IntentBuilder.KEY_VALUE, key).startActivity();
-                }else {
+                } else {
                     error(getString(R.string.message_input_search_key_word));
                 }
             }
@@ -104,6 +104,7 @@ public class HomeFragment extends BaseLazyFragment {
         });
 
     }
+
     public String getSearchText() {
         return searchView.getText() == null ? "" : searchView.getText().toString();
     }
@@ -112,15 +113,20 @@ public class HomeFragment extends BaseLazyFragment {
         mRecyclerView = getView(R.id.list);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         mAdapter = new ProductAdapter(R.layout.item_product_grid_layout);
-        mAdapter.addHeaderView(createBannerView());
         mAdapter.setOnItemClickListener((baseQuickAdapter, view1, i) -> {
-            IntentBuilder.Builder().startParentActivity(getActivity(), ProductDetailsFragment.class, true);
+            ProductAdapter adapter = (ProductAdapter) baseQuickAdapter;
+            IntentBuilder.Builder()
+                    .putExtra(IntentBuilder.KEY_VALUE, adapter.getItem(i).productNo)
+                    .startParentActivity(getActivity(), ProductDetailsFragment.class, true);
         });
 
 
         mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setRefreshListener(()->{
-            mRecyclerView.postDelayed(()->{mRecyclerView.setRefreshing(false);},2000);
+        mAdapter.addHeaderView(createBannerView());
+        mRecyclerView.setRefreshListener(() -> {
+            mRecyclerView.postDelayed(() -> {
+                mRecyclerView.setRefreshing(false);
+            }, 2000);
         });
     }
 
@@ -132,31 +138,20 @@ public class HomeFragment extends BaseLazyFragment {
         });
     }
 
-    private View createBannerView(){
+    private View createBannerView() {
         View view = getLayoutInflater().inflate(R.layout.item_home_banner_layout, null);
 
-        findViewById(view,R.id.icon_left).setOnClickListener(v -> {
+        findViewById(view, R.id.icon_left).setOnClickListener(v -> {
             IntentBuilder.Builder().startParentActivity(getActivity(), NoticeListFragment.class, true);
         });
 
-        viewModel.getAvertList(advertEntities -> {
-            initBanner(view, viewModel.getNoticeImageList());
-        });
+        initBanner(view);
+
 
         initNoticeList(view);
-        noticeViewModel.getNoticeList(noticeEntities -> {
-            mNoticeAdapter.setNewData(noticeEntities);
-        });
-
-        viewModel.getCategoryList(categoryEntities -> {
-            gridview = (ExpandGridView) view.findViewById(R.id.gridview);
-            gridview.setNumColumns(5);
-            HomeCategoryAdapter adapter = new HomeCategoryAdapter(getActivity());
-            adapter.setList(categoryEntities);
-            gridview.setAdapter(adapter);
-        });
 
 
+        initGirdView(view);
 
 
         return view;
@@ -168,35 +163,53 @@ public class HomeFragment extends BaseLazyFragment {
         mNoticeTitleList.setLayoutManager(new LinearLayoutManager(getActivity()));
         mNoticeAdapter = new HomeNoticeAdapter();
         mNoticeTitleList.setAdapter(mNoticeAdapter);
-        mNoticeAdapter.setOnLoadMoreListener(()-> {
+        mNoticeAdapter.setOnLoadMoreListener(() -> {
             noticeViewModel.page++;
             noticeViewModel.loadMore(o -> {
                 setProgressVisible(false);
             });
-        },mNoticeTitleList.getRecyclerView());
+        }, mNoticeTitleList.getRecyclerView());
         mNoticeAdapter.setOnItemClickListener((baseQuickAdapter, view1, i) -> {
             NoticeEntity entity = (NoticeEntity) baseQuickAdapter.getItem(i);
             IntentBuilder.Builder().putExtra(IntentBuilder.KEY_VALUE, entity.id)
                     .startParentActivity(getActivity(), NoticeDetailFragment.class, true);
         });
         noticeViewModel.setRecyclerView(mNoticeTitleList);
+
+        noticeViewModel.getNoticeList(noticeEntities -> {
+            setProgressVisible(false);
+            mNoticeAdapter.setNewData(noticeEntities);
+        });
     }
 
-    private void initBanner(View view, ArrayList<String> imgs){
+    private void initBanner(View view) {
         banner = (ConvenientBanner) view.findViewById(R.id.banner);
         View indicator = banner.findViewById(com.bigkoo.convenientbanner.R.id.loPageTurningPoint);
         ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) indicator.getLayoutParams();
-        lp.bottomMargin= Utils.dip2px(30);
+        lp.bottomMargin = Utils.dip2px(30);
         List list = Lists.newArrayList(
                 "http://img.taopic.com/uploads/allimg/140326/235113-1403260G01561.jpg",
                 "http://img.taopic.com/uploads/allimg/140326/235113-1403260G01561.jpg",
                 "http://img.taopic.com/uploads/allimg/140326/235113-1403260G01561.jpg");
-        banner.setPages(
-                () -> new ImageHolderView(Utils.dip2px(getActivity(), 180), ScalingUtils.ScaleType.FIT_XY), imgs)
-                .startTurning(3000)
-                .setPageIndicator(new int[]{R.drawable.ic_page_indicator, R.drawable.ic_page_indicator_focus})
-                .setPointViewVisible(true)
-                .setCanLoop(true);
+        viewModel.getAvertList(advertEntities -> {
+            banner.setPages(
+                    () -> new ImageHolderView(Utils.dip2px(getActivity(), 180), ScalingUtils.ScaleType.FIT_XY), viewModel.getNoticeImageList())
+                    .startTurning(3000)
+                    .setPageIndicator(new int[]{R.drawable.ic_page_indicator, R.drawable.ic_page_indicator_focus})
+                    .setPointViewVisible(true)
+                    .setCanLoop(true);
+        });
+    }
+
+    private void initGirdView(View view) {
+        gridview = (ExpandGridView) view.findViewById(R.id.gridview);
+        gridview.setNumColumns(5);
+        viewModel.getCategoryList(categoryEntities -> {
+            setProgressVisible(false);
+            HomeCategoryAdapter adapter = new HomeCategoryAdapter(getActivity());
+            adapter.setList(categoryEntities);
+            gridview.setAdapter(adapter);
+        });
     }
 
 }

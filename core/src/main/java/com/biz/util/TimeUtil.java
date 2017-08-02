@@ -20,6 +20,7 @@ public class TimeUtil {
     public static final String FORMAT_YYYYMMDDHHMM = "yyyy-MM-dd HH:mm";
     public static final String FORMAT_YYYYMMDDHHMMSS = "yyyy-MM-dd HH:mm:ss";
     public static final String FORMAT_HHMM = "HH:mm";
+    public static final String FORMAT_YYYYHHMM_CHICESEC= "yyyy年MM月dd日";
 
     public static String formatValidityDate(long dateBegin, long dateEnd) {
         return BaseApplication.getAppContext().getString(R.string.text_money_date, format(dateBegin, FORMAT_YYYYMMDD), format(dateEnd, FORMAT_YYYYMMDD));

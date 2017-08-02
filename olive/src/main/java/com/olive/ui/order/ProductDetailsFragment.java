@@ -1,5 +1,6 @@
 package com.olive.ui.order;
 
+import android.content.Context;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,9 +17,12 @@ import android.widget.TextView;
 
 import com.biz.base.BaseFragment;
 import com.biz.base.BaseViewHolder;
+import com.biz.util.IdsUtil;
 import com.biz.util.IntentBuilder;
+import com.biz.util.ListUtil;
 import com.biz.util.Lists;
 import com.biz.util.PriceUtil;
+import com.biz.util.TimeUtil;
 import com.biz.util.ToastUtils;
 import com.biz.util.Utils;
 import com.biz.widget.CountEditText;
@@ -31,6 +35,7 @@ import com.olive.model.entity.ProductEntity;
 import com.olive.ui.adapter.ProductAdapter;
 import com.olive.ui.holder.ImageHolderView;
 import com.olive.ui.main.cart.CartFragment;
+import com.olive.ui.order.viewModel.ProductDetailViewModel;
 import com.olive.util.LoadImageUtil;
 
 import java.util.List;
@@ -47,6 +52,15 @@ public class ProductDetailsFragment extends BaseFragment {
     private static final int TYPE_CART = 1001;
     private static final int TYPE_BUY = 1002;
 
+    private ProductDetailViewModel viewModel;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        viewModel = new ProductDetailViewModel(context);
+        initViewModel(viewModel);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -57,10 +71,19 @@ public class ProductDetailsFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setTitle(getString(R.string.text_product_details));
-        initHeadView((ViewGroup) view, new ProductEntity());
+        initHeadData(view);
         initView(view);
         initBelowLayout();
         recyclerView.setFocusable(false);
+    }
+
+
+    private void initHeadData(View view) {
+        setProgressVisible(true);
+        viewModel.getProductDetail(productEntity -> {
+            setProgressVisible(false);
+            initHeadView(view,productEntity);
+        });
     }
 
     private void initView(View view) {
@@ -69,24 +92,30 @@ public class ProductDetailsFragment extends BaseFragment {
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         adapter = new ProductAdapter(R.layout.item_cart_product_layout);
-        adapter.setNewData(Lists.newArrayList(new ProductEntity(),new ProductEntity(),new ProductEntity(),new ProductEntity()));
+        //adapter.setNewData(Lists.newArrayList(new ProductEntity(),new ProductEntity(),new ProductEntity(),new ProductEntity()));
         recyclerView.setAdapter(adapter);
         LoadImageUtil.Builder()
                 .load("http://img13.360buyimg.com/imgzone/jfs/t6517/304/1921907774/343777/df918f69/595a01f6Ne19fc737.jpg").http().build()
                 .displayImage(findViewById(view, R.id.below_icon));
     }
 
-    private void initHeadView(ViewGroup view, ProductEntity product) {
+    private void initHeadView(View view, ProductEntity product) {
         View headView = findViewById(view, R.id.head);
         BaseViewHolder headHolder = new BaseViewHolder(headView);
-        headHolder.setText(R.id.tv_product_name, "食品名称");
-        headHolder.setText(R.id.tv_product_advice, "建议：加大财政投入，进一步健全和完善保健品的监管保障机制。财政投入是保健品检验、检测设备的保障");
-        headHolder.setText(R.id.tv_product_price, "¥ 1130.00 /瓶");
+        headHolder.setText(R.id.tv_product_name, product.name);
+        headHolder.setText(R.id.tv_product_advice, product.intro);
+        TextView price = headHolder.getView(R.id.tv_product_price);
         TextView priceOld = headHolder.findViewById(R.id.tv_product_price_old);
-        priceOld.setText("¥ 1130.00 /瓶");
-        priceOld.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
-        headHolder.setText(R.id.tv_product_specification, "商品规格：225g/件");
-        headHolder.setText(R.id.tv_product_sale_end_date, "该商品促销截止时间为2017年6月20日");
+        if(product.salePrice == 0){
+            price.setText(PriceUtil.formatRMB(product.originalPrice)+"/"+product.unit);
+            priceOld.setVisibility(View.GONE);
+        }else {
+            price.setText(PriceUtil.formatRMB(product.salePrice)+"/"+product.unit);
+            priceOld.setText(PriceUtil.formatRMB(product.originalPrice)+"/"+product.unit);
+            priceOld.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
+        }
+        headHolder.setText(R.id.tv_product_specification, getString(R.string.text_product_specification,product.standard));
+        headHolder.setText(R.id.tv_product_sale_end_date, getString(R.string.text_product_sale_end_time, TimeUtil.format(product.saleEndDate, TimeUtil.FORMAT_YYYYHHMM_CHICESEC)));
         headHolder.findViewById(R.id.btn_one_key_join).setOnClickListener(v -> {
             ToastUtils.showLong(getContext(), "一键加入");
         });
@@ -100,7 +129,7 @@ public class ProductDetailsFragment extends BaseFragment {
                 "http://img.taopic.com/uploads/allimg/140326/235113-1403260G01561.jpg",
                 "http://img.taopic.com/uploads/allimg/140326/235113-1403260G01561.jpg");
         banner.setPages(
-                () -> new ImageHolderView(Utils.dip2px(getActivity(), 180), ScalingUtils.ScaleType.FIT_XY), list)
+                () -> new ImageHolderView(Utils.dip2px(getActivity(), 180), ScalingUtils.ScaleType.FIT_XY), Lists.newArrayList(IdsUtil.getList(product.images, ",", false)))
                 .startTurning(3000)
                 .setPageIndicator(new int[]{R.drawable.ic_page_indicator, R.drawable.ic_page_indicator_focus})
                 .setPointViewVisible(true)

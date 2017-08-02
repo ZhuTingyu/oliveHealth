@@ -12,6 +12,8 @@
 
     <string name="text_product_details">商品详情</string>
     <string name="text_associated_goods">关联商品</string>
+    <string name="text_product_specification">商品规格：%1$s</string>
+    <string name="text_product_sale_end_time">该商品促销截止时间为%1$s</string>
     <string name="text_one_key_to_join">一键加入</string>
     <string name="text_customer_service">联系客服</string>
     <string name="text_join_cart">加入购物车</string>
