@@ -206,6 +206,9 @@
     <string name="text_need_refund_money">还需还款金额</string>
 
     <string name="text_exit">退出登录</string>
-    <string name="text_sure">确认</string>>
+    <string name="text_sure">确认</string>
+
+    <string name="message_no_more">没有消息了</string>
+    <string name="message_input_username_or_password">请输入账号和密码</string>
 
 </resources>

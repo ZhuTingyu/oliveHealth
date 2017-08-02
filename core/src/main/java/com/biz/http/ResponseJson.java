@@ -9,7 +9,7 @@ final public class ResponseJson<T> {
     /**
      * 返回的错误消息
      */
-    public String msg;
+    public String message;
     /**
      * 调用返回状态码
      */

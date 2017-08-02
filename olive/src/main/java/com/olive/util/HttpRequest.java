@@ -19,17 +19,9 @@ public class HttpRequest<T> extends Request<T> {
     public static <T> Request<T> builder() {
         HttpRequest<T> request = new HttpRequest<T>();
         request.restMethod(RestMethodEnum.REST_POST);
-        request.https(false);
-        request.setDefaultConnectTime();
-        return request;
-    }
-
-    public static <T> Request<T> builderAfterLogin() {
-        HttpRequest<T> request = new HttpRequest<T>();
-        request.restMethod(RestMethodEnum.REST_POST);
-        request.https(false);
         request.userId(UserModel.getInstance().getUserId());
         request.token(UserModel.getInstance().getToken());
+        request.https(false);
         request.setDefaultConnectTime();
         return request;
     }

@@ -10,6 +10,7 @@ import com.biz.http.RestMethodEnum;
 import com.biz.util.AES;
 import com.biz.util.GsonUtil;
 import com.biz.util.Lists;
+import com.biz.util.LogUtil;
 import com.biz.util.MD5;
 import com.biz.util.Utils;
 import com.google.gson.reflect.TypeToken;
@@ -19,12 +20,13 @@ import com.olive.model.entity.ConfigBean;
 import com.olive.model.entity.DatabaseType;
 import com.olive.model.entity.UserEntity;
 import com.olive.util.HttpRequest;
-import com.tencent.connect.UserInfo;
 
 
 import java.util.List;
 
 import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
 /**
@@ -69,7 +71,7 @@ public class UserModel {
             for (ConfigBean configBean : list) {
                 if (configBean.getTs() != null && configBean.getTs() > 0) {
                     try {
-                        this.userInfo = GsonUtil.fromJson(configBean.getCache(), new TypeToken<UserInfo>() {
+                        this.userInfo = GsonUtil.fromJson(configBean.getCache(), new TypeToken<UserEntity>() {
                         }.getType());
                     } catch (Exception e) {
                     }
@@ -119,7 +121,6 @@ public class UserModel {
     }
 
 
-
     public String getUserId() {
         if (userInfo == null || userInfo.userId.length() < 0) return "";
         return userInfo.userId;
@@ -137,6 +138,7 @@ public class UserModel {
     }
 
     public synchronized void setUserInfo(UserEntity userInfo) {
+        LogUtil.print(";");
         List<ConfigBean> list = DatabaseLoader.
                 getDaoSession()
                 .getConfigBeanDao()
@@ -174,19 +176,44 @@ public class UserModel {
         hisUserId = getUserId();
     }
 
+    public synchronized void loginOut() {
+        loginOutUser().subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(b -> {
+        }, throwable -> {
+        });
+        List<ConfigBean> list = DatabaseLoader.
+                getDaoSession().getConfigBeanDao().queryBuilder().where(ConfigBeanDao.Properties.Type.eq(DatabaseType.TYPE_USER)).list();
+        if (list != null && list.size() > 0) {
+            for (ConfigBean configBean : list) {
+                configBean.setTs(-1l);
+            }
+        } else if (list == null) {
+            list = Lists.newArrayList();
+        }
+        DatabaseLoader.
+                getDaoSession().getConfigBeanDao().insertOrReplaceInTx(list);
+        hisUserId = getUserId();
+        this.userInfo = null;
+    }
+
     public static Observable<ResponseJson<UserEntity>> login(String mobile, String password) {
         return HttpRequest.<ResponseJson<UserEntity>>builder()
                 .url(R.string.api_user_login)
                 .addBody("mobile", mobile)
                 .addBody("password", MD5.toMD5(password).toUpperCase())
-                .setToJsonType(new TypeToken<ResponseJson<UserEntity>>() {
-                }.getType())
+                .setToJsonType(new TypeToken<ResponseJson<UserEntity>>() {}.getType())
                 .requestPI().map(r -> {
                     if (r.isOk()) {
                         UserModel.getInstance().setUserInfo(r.data);
                     }
                     return r;
                 });
+    }
+
+    public static Observable<ResponseJson<Object>> loginOutUser() {
+        return Request.<ResponseJson<Object>>builder()
+
+                .requestPI();
     }
 
 }

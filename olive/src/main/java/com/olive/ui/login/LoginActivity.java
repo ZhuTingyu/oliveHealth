@@ -2,12 +2,15 @@ package com.olive.ui.login;
 
 import com.biz.base.BaseActivity;
 import com.biz.util.IntentBuilder;
+import com.biz.util.RxUtil;
 import com.olive.R;
+import com.olive.model.UserModel;
 import com.olive.ui.main.MainActivity;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.widget.EditText;
 
 /**
  * Title: LoginActivity
@@ -23,6 +26,9 @@ import android.support.annotation.Nullable;
 public class LoginActivity extends BaseActivity {
 
     private LoginViewModel viewModel;
+    private EditText etUserName;
+    private EditText etPassword;
+
 
     public static final void startLogin(Activity activity) {
         IntentBuilder.Builder()
@@ -38,11 +44,32 @@ public class LoginActivity extends BaseActivity {
         viewModel = new LoginViewModel(this);
         initViewModel(viewModel);
         mToolbar.setTitle(getString(R.string.text_login));
-        /*viewModel.login(userEntity -> {
+        if(UserModel.getInstance().isLogin()){
+            MainActivity.startMainWithAnim(getActivity(), 0);
+        }
+        initView();
+    }
 
-        });*/
+    private void initView() {
+        etUserName = (EditText) findViewById(R.id.username);
+        etPassword = (EditText) findViewById(R.id.password);
+
+        bindUi(RxUtil.textChanges(etUserName), viewModel.setUserName());
+        bindUi(RxUtil.textChanges(etPassword), viewModel.setPassword());
+
         findViewById(R.id.btn_ok).setOnClickListener(v -> {
-            MainActivity.startMainWithAnim(getActivity(),0);
+            viewModel.isCanLogin(aBoolean -> {
+                if(aBoolean){
+                    setProgressVisible(true);
+                    viewModel.login(userEntity -> {
+                        setProgressVisible(false);
+                        MainActivity.startMainWithAnim(getActivity(), 0);
+                    });
+                }else {
+                    error(getString(R.string.message_input_username_or_password));
+                }
+            });
+
         });
 
     }

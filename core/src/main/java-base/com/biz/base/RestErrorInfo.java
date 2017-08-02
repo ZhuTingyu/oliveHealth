@@ -7,7 +7,7 @@ public class RestErrorInfo {
     public String message;
     public RestErrorInfo(ResponseJson responseJson){
         this.code=responseJson.code;
-        this.message=responseJson.msg;
+        this.message=responseJson.message;
     }
     public RestErrorInfo(int code,String message){
         this.code=code;

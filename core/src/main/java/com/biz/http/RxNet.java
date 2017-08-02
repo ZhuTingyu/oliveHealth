@@ -82,7 +82,7 @@ public class RxNet {
             if (!request.isHtml() && TextUtils.isEmpty(s)) {
                 ResponseJson responseJson = new ResponseJson();
                 responseJson.code = -1;
-                responseJson.msg = BaseApplication.getAppContext().getString(R.string.text_network_error);
+                responseJson.message = BaseApplication.getAppContext().getString(R.string.text_network_error);
                 s = GsonUtil.toJson(responseJson);
             } else if (request.isHtml() && TextUtils.isEmpty(s)) {
                 s = "";

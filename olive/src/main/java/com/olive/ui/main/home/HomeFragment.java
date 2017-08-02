@@ -16,6 +16,7 @@ import com.olive.ui.notice.NoticeListFragment;
 import com.olive.ui.order.ProductDetailsFragment;
 import com.olive.ui.search.SearchActivity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -25,6 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,6 +50,15 @@ public class HomeFragment extends BaseLazyFragment {
 
     ProductAdapter mAdapter;
     HomeNoticeAdapter mNoticeAdapter;
+
+    private HomeViewModel viewModel;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        viewModel = new HomeViewModel(context);
+        initViewModel(viewModel);
+    }
 
     @Override
     public void lazyLoad() {
@@ -88,7 +99,11 @@ public class HomeFragment extends BaseLazyFragment {
     private View createBannerView(){
         View view = getLayoutInflater().inflate(R.layout.item_home_banner_layout, null);
 
-        banner = (ConvenientBanner) view.findViewById(R.id.banner);
+        viewModel.getAvertList(advertEntities -> {
+            initBanner(view, viewModel.getNoticeImageList());
+        });
+
+
         gridview = (ExpandGridView) view.findViewById(R.id.gridview);
         gridview.setNumColumns(5);
         mNoticeTitleList = findViewById(view, R.id.notice_list);
@@ -102,19 +117,7 @@ public class HomeFragment extends BaseLazyFragment {
         findViewById(view,R.id.icon_left).setOnClickListener(v -> {
             IntentBuilder.Builder().startParentActivity(getActivity(), NoticeListFragment.class, true);
         });
-        View indicator = banner.findViewById(com.bigkoo.convenientbanner.R.id.loPageTurningPoint);
-        ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) indicator.getLayoutParams();
-        lp.bottomMargin= Utils.dip2px(30);
-        List list = Lists.newArrayList(
-                "http://img.taopic.com/uploads/allimg/140326/235113-1403260G01561.jpg",
-                "http://img.taopic.com/uploads/allimg/140326/235113-1403260G01561.jpg",
-                "http://img.taopic.com/uploads/allimg/140326/235113-1403260G01561.jpg");
-        banner.setPages(
-                () -> new ImageHolderView(Utils.dip2px(getActivity(), 180), ScalingUtils.ScaleType.FIT_XY), list)
-                .startTurning(3000)
-                .setPageIndicator(new int[]{R.drawable.ic_page_indicator, R.drawable.ic_page_indicator_focus})
-                .setPointViewVisible(true)
-                .setCanLoop(true);
+
 
         HomeCategoryAdapter adapter = new HomeCategoryAdapter(getActivity());
         adapter.setList(Lists.newArrayList(getContext().getResources().getStringArray(R.array.array_category)));
@@ -125,5 +128,21 @@ public class HomeFragment extends BaseLazyFragment {
 
     }
 
+    private void initBanner(View view, ArrayList<String> imgs){
+        banner = (ConvenientBanner) view.findViewById(R.id.banner);
+        View indicator = banner.findViewById(com.bigkoo.convenientbanner.R.id.loPageTurningPoint);
+        ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) indicator.getLayoutParams();
+        lp.bottomMargin= Utils.dip2px(30);
+        List list = Lists.newArrayList(
+                "http://img.taopic.com/uploads/allimg/140326/235113-1403260G01561.jpg",
+                "http://img.taopic.com/uploads/allimg/140326/235113-1403260G01561.jpg",
+                "http://img.taopic.com/uploads/allimg/140326/235113-1403260G01561.jpg");
+        banner.setPages(
+                () -> new ImageHolderView(Utils.dip2px(getActivity(), 180), ScalingUtils.ScaleType.FIT_XY), imgs)
+                .startTurning(3000)
+                .setPageIndicator(new int[]{R.drawable.ic_page_indicator, R.drawable.ic_page_indicator_focus})
+                .setPointViewVisible(true)
+                .setCanLoop(true);
+    }
 
 }

@@ -2,5 +2,8 @@
 <resources>
 
     <string name="api_user_login">/account/login</string>
+    <string name="api_advert_list">/ad/ads</string>
+    <string name="api_notice_list">/infobulletin/list</string>
+    <string name="api_notice_detail">/infobulletin/detail</string>
 
 </resources>

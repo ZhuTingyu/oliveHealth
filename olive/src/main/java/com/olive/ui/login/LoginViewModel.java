@@ -1,13 +1,14 @@
 package com.olive.ui.login;
 
+import android.text.TextUtils;
+
 import com.biz.base.BaseViewModel;
-import com.biz.base.RestErrorInfo;
-import com.biz.util.MD5;
+import com.biz.http.HttpErrorException;
 import com.olive.model.UserModel;
 import com.olive.model.entity.UserEntity;
 
-import java.util.Observable;
 
+import rx.Observable;
 import rx.functions.Action1;
 
 /**
@@ -16,6 +17,7 @@ import rx.functions.Action1;
 
 public class LoginViewModel extends BaseViewModel {
 
+    private String userName;
     private String password;
 
     public LoginViewModel(Object activity) {
@@ -23,17 +25,30 @@ public class LoginViewModel extends BaseViewModel {
     }
 
     public  void login(Action1<UserEntity> onNext){
-        submitRequest(UserModel.login("12345678911", "123456dms"), r -> {
-            if (r.isOk()) {
-                rx.Observable.just(r.data).subscribe(onNext);
-                submitRequest(UserModel.saveLoginMobile("1234567890111"), b -> {
+
+        submitRequestThrowError(UserModel.login(userName, password + "dms").map(r ->{
+            if(r.isOk()){
+                submitRequest(UserModel.saveLoginMobile(userName), b -> {
                 });
-            } else {
-                error.onNext(new RestErrorInfo(r.msg));
-            }
-        }, e -> {
-            error.onNext(getError(e));
-        });
+                return r.data;
+            }else throw new HttpErrorException(r);
+        }),onNext);
+    }
+
+    public Action1<String> setUserName(){
+        return s -> {
+            userName = s;
+        };
+    }
+
+    public Action1<String> setPassword(){
+        return s -> {
+            password = s;
+        };
+    }
+
+    public void isCanLogin(Action1<Boolean> action1) {
+        Observable.just(!TextUtils.isEmpty(userName) && !TextUtils.isEmpty(password)).subscribe(action1);
     }
 
 }
