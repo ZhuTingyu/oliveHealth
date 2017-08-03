@@ -74,14 +74,17 @@ public class SearchFragment extends BaseFragment {
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnLoadMoreListener(()->{
             setProgressVisible(true);
-            viewModel.addPage();
-            viewModel.loadMore(o -> {
+            viewModel.setLoadMore(o -> {
                 setProgressVisible(false);
             });
         },mRecyclerView.getRecyclerView());
         viewModel.setRecyclerView(mRecyclerView);
 
-        initDate();
+        setProgressVisible(true);
+        viewModel.getProductList(productEntities -> {
+            mAdapter.setNewData(productEntities);
+        });
+
 
         totalView = layout.getChildAt(0);
         priceView = layout.getChildAt(1);
@@ -154,13 +157,6 @@ public class SearchFragment extends BaseFragment {
             return false;
         });
 
-    }
-
-    private void initDate() {
-        setProgressVisible(true);
-        viewModel.loadMore(o -> {
-            setProgressVisible(false);
-        });
     }
 
     public String getSearchText() {

@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.olive.R;
 import com.olive.model.ProductsModel;
 import com.olive.model.entity.ProductEntity;
+import com.olive.ui.BaseLoadMoreViewModel;
 
 import java.util.List;
 
@@ -19,15 +20,13 @@ import rx.functions.Action1;
  * Created by TingYu Zhu on 2017/8/2.
  */
 
-public class SearchViewModel extends BaseViewModel {
+public class SearchViewModel extends BaseLoadMoreViewModel {
 
     private String keyWord;
     private String categoryCode;
-    private int page = 1;
     private int sort;
     private int order;
 
-    private XRecyclerView recyclerView;
 
     public static final int TYPE_RANK_SYNTHESIZE = 0;
     public static final int TYPE_RANK_SALE = 1;
@@ -50,21 +49,6 @@ public class SearchViewModel extends BaseViewModel {
         }), action1);
     }
 
-
-    public void loadMore(Action1<Object> action1) {
-        getProductList(productEntities -> {
-            Observable.just(new Object()).subscribe(action1);
-            if (productEntities.isEmpty()) {
-                error.onNext(new RestErrorInfo(getString(R.string.message_no_more)));
-                recyclerView.setLoadMore(true);
-            } else {
-                BaseQuickAdapter adapter = (BaseQuickAdapter) recyclerView.getAdapter();
-                adapter.addData(productEntities);
-                recyclerView.setLoadMore(false);
-            }
-        });
-    }
-
     public void search(Action1<Object> action1){
         cleanPage();
         getProductList(productEntities -> {
@@ -74,9 +58,6 @@ public class SearchViewModel extends BaseViewModel {
         });
     }
 
-    public void cleanPage(){
-        page = 1;
-    }
 
     public Action1<String> setKeyWord(){
         return s -> {
@@ -86,6 +67,14 @@ public class SearchViewModel extends BaseViewModel {
 
     public void setRecyclerView(XRecyclerView recyclerView) {
         this.recyclerView = recyclerView;
+    }
+
+    @Override
+    public void setLoadMore(Action1<Object> action1) {
+        page++;
+        getProductList(productEntities -> {
+            loadMore(productEntities, action1);
+        });
     }
 
     public void setCategoryCode(String categoryCode) {
@@ -98,10 +87,6 @@ public class SearchViewModel extends BaseViewModel {
 
     public void setOrder(int order) {
         this.order = order;
-    }
-
-    public void addPage() {
-        page++;
     }
 
     public void setOrderUp(){

@@ -12,7 +12,7 @@ import com.chad.library.adapter.base.listener.OnItemChildClickListener;
  * Created by TingYu Zhu on 2017/8/3.
  */
 
-public class ReceyclerViewUtil {
+public class Utils {
 
 
     public static void setRecyclerViewNestedSlide(XRecyclerView recyclerView){

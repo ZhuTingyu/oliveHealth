@@ -4,6 +4,7 @@ import com.biz.base.BaseRecyclerViewAdapter;
 import com.biz.base.BaseViewHolder;
 import com.biz.util.Lists;
 import com.olive.R;
+import com.olive.model.entity.CategoryEntity;
 
 import android.util.SparseBooleanArray;
 import android.view.View;
@@ -20,7 +21,7 @@ import android.view.ViewGroup;
  * @version 1.0
  */
 
- class BrandAdapter extends BaseRecyclerViewAdapter<String> {
+ class BrandAdapter extends BaseRecyclerViewAdapter<CategoryEntity> {
 
     private  SparseBooleanArray mSparseBooleanArray;
     private View.OnClickListener mOnClickListener;
@@ -40,7 +41,6 @@ import android.view.ViewGroup;
     }
 
     public BrandAdapter() {
-        setList(Lists.newArrayList(getContext().getResources().getStringArray(R.array.array_category)));
         mSparseBooleanArray = new SparseBooleanArray();
         mSparseBooleanArray.put(0, true);
     }
@@ -53,7 +53,7 @@ import android.view.ViewGroup;
     @Override
     public void onBindViewHolder(BaseViewHolder holder, int position) {
 //        BrandItemEntity entity = getItem(position);
-        holder.setTextView(R.id.title, getItem(position));
+        holder.setTextView(R.id.title, getItem(position).name);
         holder.itemView.setSelected(mSparseBooleanArray.get(position, false));
         if (mOnClickListener!=null){
             holder.itemView.setTag(position);

@@ -167,7 +167,9 @@ public class ProductDetailsFragment extends BaseFragment {
         });
 
         findViewById(R.id.btn_cart).setOnClickListener(v -> {
-            IntentBuilder.Builder().startParentActivity(getActivity(), CartFragment.class, true);
+            IntentBuilder.Builder()
+                    .putExtra(IntentBuilder.KEY_BOOLEAN,true)
+                    .startParentActivity(getActivity(), CartFragment.class, false);
         });
 
         findViewById(R.id.btn_join_cart).setOnClickListener(v -> {

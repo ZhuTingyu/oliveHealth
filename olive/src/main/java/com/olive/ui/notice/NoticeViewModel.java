@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.olive.R;
 import com.olive.model.NoticeModel;
 import com.olive.model.entity.NoticeEntity;
+import com.olive.ui.BaseLoadMoreViewModel;
 
 import java.util.List;
 
@@ -21,10 +22,7 @@ import rx.functions.Action1;
  * Created by TingYu Zhu on 2017/8/1.
  */
 
-public class NoticeViewModel extends BaseViewModel {
-
-    public int page = 1;
-    private XRecyclerView recyclerView;
+public class NoticeViewModel extends BaseLoadMoreViewModel {
 
     public NoticeViewModel(Object activity) {
         super(activity);
@@ -38,26 +36,11 @@ public class NoticeViewModel extends BaseViewModel {
         }), action1);
     }
 
-    public void setPage(int page) {
-        this.page = page;
-    }
-
-    public void setRecyclerView(XRecyclerView recyclerView) {
-        this.recyclerView = recyclerView;
-    }
-
-    public void loadMore(Action1<Object> action1) {
+    @Override
+    public void setLoadMore(Action1<Object> action1) {
+        page++;
         getNoticeList(noticeEntities -> {
-            Observable.just(new Object()).subscribe(action1);
-            if (noticeEntities.isEmpty()) {
-                error.onNext(new RestErrorInfo(getString(R.string.message_no_more)));
-                recyclerView.setLoadMore(true);
-            } else {
-                BaseQuickAdapter adapter = (BaseQuickAdapter) recyclerView.getAdapter();
-                adapter.addData(noticeEntities);
-                recyclerView.setLoadMore(false);
-            }
+            loadMore(noticeEntities,action1);
         });
     }
-
 }

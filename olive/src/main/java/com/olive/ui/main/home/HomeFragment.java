@@ -3,7 +3,6 @@ package com.olive.ui.main.home;
 import com.biz.base.BaseLazyFragment;
 import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
-import com.biz.util.Utils;
 import com.biz.widget.ExpandGridView;
 import com.biz.widget.banner.ConvenientBanner;
 import com.biz.widget.recyclerview.XRecyclerView;
@@ -18,7 +17,7 @@ import com.olive.ui.notice.NoticeListFragment;
 import com.olive.ui.notice.NoticeViewModel;
 import com.olive.ui.order.ProductDetailsFragment;
 import com.olive.ui.search.SearchActivity;
-import com.olive.util.ReceyclerViewUtil;
+import com.olive.util.Utils;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -32,7 +31,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -159,7 +157,7 @@ public class HomeFragment extends BaseLazyFragment {
     private void initNoticeList(View view) {
         mNoticeTitleList = findViewById(view, R.id.notice_list);
         mNoticeTitleList.setLayoutManager(new LinearLayoutManager(getActivity()));
-        ReceyclerViewUtil.setRecyclerViewNestedSlide(mNoticeTitleList);
+        Utils.setRecyclerViewNestedSlide(mNoticeTitleList);
         mNoticeAdapter = new HomeNoticeAdapter();
         mNoticeTitleList.setAdapter(mNoticeAdapter);
         mNoticeAdapter.setOnLoadMoreListener(() -> {
@@ -183,14 +181,14 @@ public class HomeFragment extends BaseLazyFragment {
         banner = (ConvenientBanner) view.findViewById(R.id.banner);
         View indicator = banner.findViewById(com.bigkoo.convenientbanner.R.id.loPageTurningPoint);
         ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) indicator.getLayoutParams();
-        lp.bottomMargin = Utils.dip2px(30);
+        lp.bottomMargin = com.biz.util.Utils.dip2px(30);
         List list = Lists.newArrayList(
                 "http://img.taopic.com/uploads/allimg/140326/235113-1403260G01561.jpg",
                 "http://img.taopic.com/uploads/allimg/140326/235113-1403260G01561.jpg",
                 "http://img.taopic.com/uploads/allimg/140326/235113-1403260G01561.jpg");
         viewModel.getAvertList(advertEntities -> {
             banner.setPages(
-                    () -> new ImageHolderView(Utils.dip2px(getActivity(), 180), ScalingUtils.ScaleType.FIT_XY), viewModel.getNoticeImageList())
+                    () -> new ImageHolderView(com.biz.util.Utils.dip2px(getActivity(), 180), ScalingUtils.ScaleType.FIT_XY), viewModel.getNoticeImageList())
                     .startTurning(3000)
                     .setPageIndicator(new int[]{R.drawable.ic_page_indicator, R.drawable.ic_page_indicator_focus})
                     .setPointViewVisible(true)

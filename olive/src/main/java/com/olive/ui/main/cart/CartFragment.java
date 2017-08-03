@@ -46,8 +46,11 @@ public class CartFragment extends BaseLazyFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setTitle(getString(R.string.action_cart));
-        mToolbar.setNavigationOnClickListener(null);
-        mToolbar.setNavigationIcon(null);
+        Boolean haveBack = getActivity().getIntent().getBooleanExtra(IntentBuilder.KEY_BOOLEAN, false);
+        if (!haveBack) {
+            mToolbar.setNavigationOnClickListener(null);
+            mToolbar.setNavigationIcon(null);
+        }
         initView(view);
     }
 
@@ -56,11 +59,13 @@ public class CartFragment extends BaseLazyFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.getRecyclerView();
         adapter = new CartAdapter();
-        adapter.setNewData(Lists.newArrayList("","","","","","","","","","","","","","","",""));
+        adapter.setNewData(Lists.newArrayList("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""));
         recyclerView.setAdapter(adapter);
 
-        recyclerView.setRefreshListener(()->{
-            recyclerView.postDelayed(()->{recyclerView.setRefreshing(false);},2000);
+        recyclerView.setRefreshListener(() -> {
+            recyclerView.postDelayed(() -> {
+                recyclerView.setRefreshing(false);
+            }, 2000);
         });
 
         findViewById(view, R.id.btn_go_pay).setOnClickListener(v -> {
