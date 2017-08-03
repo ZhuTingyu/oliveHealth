@@ -10,7 +10,6 @@ import com.biz.widget.recyclerview.XRecyclerView;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.olive.R;
 import com.olive.model.entity.NoticeEntity;
-import com.olive.model.entity.ProductEntity;
 import com.olive.ui.adapter.HomeNoticeAdapter;
 import com.olive.ui.adapter.ProductAdapter;
 import com.olive.ui.holder.ImageHolderView;
@@ -19,6 +18,7 @@ import com.olive.ui.notice.NoticeListFragment;
 import com.olive.ui.notice.NoticeViewModel;
 import com.olive.ui.order.ProductDetailsFragment;
 import com.olive.ui.search.SearchActivity;
+import com.olive.util.ReceyclerViewUtil;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -131,9 +131,7 @@ public class HomeFragment extends BaseLazyFragment {
     }
 
     private void initData() {
-        setProgressVisible(true);
         viewModel.getRecommendProductList(productEntities -> {
-            setProgressVisible(false);
             mAdapter.setNewData(productEntities);
         });
     }
@@ -161,12 +159,12 @@ public class HomeFragment extends BaseLazyFragment {
     private void initNoticeList(View view) {
         mNoticeTitleList = findViewById(view, R.id.notice_list);
         mNoticeTitleList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        ReceyclerViewUtil.setRecyclerViewNestedSlide(mNoticeTitleList);
         mNoticeAdapter = new HomeNoticeAdapter();
         mNoticeTitleList.setAdapter(mNoticeAdapter);
         mNoticeAdapter.setOnLoadMoreListener(() -> {
             noticeViewModel.page++;
             noticeViewModel.loadMore(o -> {
-                setProgressVisible(false);
             });
         }, mNoticeTitleList.getRecyclerView());
         mNoticeAdapter.setOnItemClickListener((baseQuickAdapter, view1, i) -> {
@@ -174,10 +172,9 @@ public class HomeFragment extends BaseLazyFragment {
             IntentBuilder.Builder().putExtra(IntentBuilder.KEY_VALUE, entity.id)
                     .startParentActivity(getActivity(), NoticeDetailFragment.class, true);
         });
-        noticeViewModel.setRecyclerView(mNoticeTitleList);
 
+        noticeViewModel.setRecyclerView(mNoticeTitleList);
         noticeViewModel.getNoticeList(noticeEntities -> {
-            setProgressVisible(false);
             mNoticeAdapter.setNewData(noticeEntities);
         });
     }
@@ -205,7 +202,6 @@ public class HomeFragment extends BaseLazyFragment {
         gridview = (ExpandGridView) view.findViewById(R.id.gridview);
         gridview.setNumColumns(5);
         viewModel.getCategoryList(categoryEntities -> {
-            setProgressVisible(false);
             HomeCategoryAdapter adapter = new HomeCategoryAdapter(getActivity());
             adapter.setList(categoryEntities);
             gridview.setAdapter(adapter);

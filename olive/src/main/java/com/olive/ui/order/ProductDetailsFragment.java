@@ -2,7 +2,9 @@ package com.olive.ui.order;
 
 import android.content.Context;
 import android.graphics.Paint;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.AppCompatImageView;
@@ -12,6 +14,8 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,6 +26,7 @@ import com.biz.util.IntentBuilder;
 import com.biz.util.ListUtil;
 import com.biz.util.Lists;
 import com.biz.util.PriceUtil;
+import com.biz.util.RxUtil;
 import com.biz.util.TimeUtil;
 import com.biz.util.ToastUtils;
 import com.biz.util.Utils;
@@ -38,6 +43,8 @@ import com.olive.ui.main.cart.CartFragment;
 import com.olive.ui.order.viewModel.ProductDetailViewModel;
 import com.olive.util.LoadImageUtil;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -53,6 +60,7 @@ public class ProductDetailsFragment extends BaseFragment {
     private static final int TYPE_BUY = 1002;
 
     private ProductDetailViewModel viewModel;
+    private ProductEntity productEntity;
 
     @Override
     public void onAttach(Context context) {
@@ -71,71 +79,86 @@ public class ProductDetailsFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setTitle(getString(R.string.text_product_details));
-        initHeadData(view);
-        initView(view);
+        initHeadData();
+        initView();
         initBelowLayout();
         recyclerView.setFocusable(false);
     }
 
 
-    private void initHeadData(View view) {
-        setProgressVisible(true);
+    private void initHeadData() {
         viewModel.getProductDetail(productEntity -> {
-            setProgressVisible(false);
-            initHeadView(view,productEntity);
+            this.productEntity = productEntity;
+            initHeadView();
         });
     }
 
-    private void initView(View view) {
-        recyclerView = findViewById(view, R.id.list);
+    private void initView() {
+        recyclerView = findViewById(R.id.list);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         adapter = new ProductAdapter(R.layout.item_cart_product_layout);
-        //adapter.setNewData(Lists.newArrayList(new ProductEntity(),new ProductEntity(),new ProductEntity(),new ProductEntity()));
         recyclerView.setAdapter(adapter);
-        LoadImageUtil.Builder()
-                .load("http://img13.360buyimg.com/imgzone/jfs/t6517/304/1921907774/343777/df918f69/595a01f6Ne19fc737.jpg").http().build()
-                .displayImage(findViewById(view, R.id.below_icon));
+
+        viewModel.getRelevanceProductList(productEntities -> {
+            adapter.setNewData(productEntities);
+        });
+
+
+        findViewById(R.id.left).setOnClickListener(v -> {
+            recyclerView.smoothScrollBy(-recyclerView.getWidth(), 0);
+        });
+
+        findViewById(R.id.right).setOnClickListener(v -> {
+            recyclerView.smoothScrollBy(recyclerView.getWidth(), 0);
+        });
+
     }
 
-    private void initHeadView(View view, ProductEntity product) {
-        View headView = findViewById(view, R.id.head);
+    private void initHeadView() {
+        View headView = findViewById(R.id.head);
         BaseViewHolder headHolder = new BaseViewHolder(headView);
-        headHolder.setText(R.id.tv_product_name, product.name);
-        headHolder.setText(R.id.tv_product_advice, product.intro);
+        headHolder.setText(R.id.tv_product_name, productEntity.name);
+        headHolder.setText(R.id.tv_product_advice, productEntity.intro);
         TextView price = headHolder.getView(R.id.tv_product_price);
         TextView priceOld = headHolder.findViewById(R.id.tv_product_price_old);
-        if(product.salePrice == 0){
-            price.setText(PriceUtil.formatRMB(product.originalPrice)+"/"+product.unit);
+        if (productEntity.salePrice == 0) {
+            price.setText(PriceUtil.formatRMB(productEntity.originalPrice) + "/" + productEntity.unit);
             priceOld.setVisibility(View.GONE);
-        }else {
-            price.setText(PriceUtil.formatRMB(product.salePrice)+"/"+product.unit);
-            priceOld.setText(PriceUtil.formatRMB(product.originalPrice)+"/"+product.unit);
+        } else {
+            price.setText(PriceUtil.formatRMB(productEntity.salePrice) + "/" + productEntity.unit);
+            priceOld.setText(PriceUtil.formatRMB(productEntity.originalPrice) + "/" + productEntity.unit);
             priceOld.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
         }
-        headHolder.setText(R.id.tv_product_specification, getString(R.string.text_product_specification,product.standard));
-        headHolder.setText(R.id.tv_product_sale_end_date, getString(R.string.text_product_sale_end_time, TimeUtil.format(product.saleEndDate, TimeUtil.FORMAT_YYYYHHMM_CHICESEC)));
+        headHolder.setText(R.id.tv_product_specification, getString(R.string.text_product_specification, productEntity.standard));
+        headHolder.setText(R.id.tv_product_sale_end_date, getString(R.string.text_product_sale_end_time, TimeUtil.format(productEntity.saleEndDate, TimeUtil.FORMAT_YYYYHHMM_CHICESEC)));
         headHolder.findViewById(R.id.btn_one_key_join).setOnClickListener(v -> {
-            ToastUtils.showLong(getContext(), "一键加入");
+            viewModel.setAddCartRelevanceProductList();
+            viewModel.addCart(s -> {
+                ToastUtils.showLong(getContext(), s);
+            });
         });
 
         ConvenientBanner banner = headHolder.findViewById(R.id.banner);
         View indicator = banner.findViewById(com.bigkoo.convenientbanner.R.id.loPageTurningPoint);
         ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) indicator.getLayoutParams();
         lp.bottomMargin = Utils.dip2px(30);
-        List list = Lists.newArrayList(
-                "http://img.taopic.com/uploads/allimg/140326/235113-1403260G01561.jpg",
-                "http://img.taopic.com/uploads/allimg/140326/235113-1403260G01561.jpg",
-                "http://img.taopic.com/uploads/allimg/140326/235113-1403260G01561.jpg");
         banner.setPages(
-                () -> new ImageHolderView(Utils.dip2px(getActivity(), 180), ScalingUtils.ScaleType.FIT_XY), Lists.newArrayList(IdsUtil.getList(product.images, ",", false)))
+                () -> new ImageHolderView(Utils.dip2px(getActivity(), 180), ScalingUtils.ScaleType.FIT_XY), IdsUtil.getList(productEntity.images, ",", false))
                 .startTurning(3000)
                 .setPageIndicator(new int[]{R.drawable.ic_page_indicator, R.drawable.ic_page_indicator_focus})
                 .setPointViewVisible(true)
                 .setCanLoop(true);
-    }
 
+
+        WebView webView = findViewById(R.id.webView);
+
+        WebSettings settings = webView.getSettings();
+        settings.setJavaScriptEnabled(true);
+        webView.loadDataWithBaseURL(null, productEntity.desc, "text/html", "utf-8", null);
+
+    }
 
 
     private void initBelowLayout() {
@@ -144,7 +167,7 @@ public class ProductDetailsFragment extends BaseFragment {
         });
 
         findViewById(R.id.btn_cart).setOnClickListener(v -> {
-            IntentBuilder.Builder().startParentActivity(baseActivity, CartFragment.class, true);
+            IntentBuilder.Builder().startParentActivity(getActivity(), CartFragment.class, true);
         });
 
         findViewById(R.id.btn_join_cart).setOnClickListener(v -> {
@@ -173,106 +196,56 @@ public class ProductDetailsFragment extends BaseFragment {
         TextView tvTitle = (TextView) dialog.findViewById(R.id.tv_title);
         TextView tvPrice = (TextView) dialog.findViewById(R.id.tv_price);
         CountEditText edCount = (CountEditText) dialog.findViewById(R.id.ed_count);
-        //productCount = mViewModel.getMinNumber();
+        productCount = productEntity.orderCardinality;
         edCount.setText(productCount + "");
 
-            /*if (mViewModel.getImageList() != null && mViewModel.getImageList().size() != 0) {
-                customDraweeView.setImageURI(Uri.parse(mViewModel.getImageList().get(0)));
-            }
-            tvTitle.setText(mViewModel.getTitle());
-            tvPrice.setText(PriceUtil.formatRMB(mViewModel.getPrice()));
 
-            //减少
-            AppCompatImageView iconLess = (AppCompatImageView) dialog.findViewById(R.id.icon_less);
-            iconLess.setOnClickListener(l -> {
-                if (productCount <= mViewModel.getMinNumber()) {
-                    productCount = mViewModel.getMinNumber();
-                    ToastUtils.showLong(getBaseActivity(), getString(R.string.text_min_buy_number, mViewModel.getMinNumber() + ""));
-                } else {
-                    productCount--;
-                }
-                edCount.setText(productCount + "");
-                mViewModel.setTotalNum(productCount);
-            });*/
+        customDraweeView.setImageURI(Uri.parse(productEntity.imgLogo));
+
+        tvTitle.setText(productEntity.name);
+        tvPrice.setText(PriceUtil.formatRMB(viewModel.getPrice()));
+        TextView tvTotal = (TextView) dialog.findViewById(R.id.tv_total_price);
+
+
+        bindUi(RxUtil.textChanges(edCount), viewModel.setProductNumberAndCalculateTotalPrice(aLong -> {
+            tvTotal.setText(getString(R.string.text_price_total,PriceUtil.formatRMB(aLong)));
+        }));
+
+        //减少
+        AppCompatImageView iconLess = (AppCompatImageView) dialog.findViewById(R.id.icon_less);
+        iconLess.setOnClickListener(l -> {
+            if (productCount <= productEntity.orderCardinality) {
+                productCount = productEntity.orderCardinality;
+                error(getString(R.string.message_add_cart_min_number, productEntity.orderCardinality + ""));
+            } else {
+                productCount -= productEntity.orderCardinality;
+            }
+            edCount.setText(productCount + "");
+        });
 
         //增多
         AppCompatImageView iconMore = (AppCompatImageView) dialog.findViewById(R.id.icon_more);
         iconMore.setOnClickListener(l -> {
-                /*if (productInfo.preSale!=8&&productCount+1>mViewModel.getShowNum()){
-                    ToastUtils.showLong(getBaseActivity(),"库存不足");
-                    return;
-                }
-                productCount++;
-                edCount.setText(productCount + "");
-                mViewModel.setTotalNum(productCount);*/
-        });
-
-        TextView tvTotal = (TextView) dialog.findViewById(R.id.tv_total_price);
-        //tvTotal.setText(PriceUtil.formatRMB(mViewModel.getTotalPrice()));
-
-
-        edCount.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                try {
-                       /* productCount = Integer.parseInt(s.toString());
-                        if (productInfo.preSale!=8&&productCount>productInfo.showQuantity){
-                            productCount=productInfo.showQuantity;
-                            edCount.setText(productCount+"");
-                        }
-                        BigDecimal num = BigDecimal.valueOf(productCount);
-                        BigDecimal price = BigDecimal.valueOf(mViewModel.getPrice());
-                        BigDecimal total = num.multiply(price);
-                        tvTotal.setText(getString(R.string.text_total_, PriceUtil.formatRMB(total.longValue())));*/
-                } catch (Exception e) {
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
+            productCount += productEntity.orderCardinality;
+            edCount.setText(productCount + "");
         });
 
         TextView tvConfirm = (TextView) dialog.findViewById(R.id.tv_confirm);
         tvConfirm.setOnClickListener(l -> {
             switch (type) {
                 case TYPE_CART:
-                       /* if (productCount < mViewModel.getMinNumber()) {
-                            ToastUtils.showLong(getBaseActivity(), getString(R.string.text_min_buy_number, mViewModel.getMinNumber() + ""));
-                            edCount.setText(mViewModel.getMinNumber() + "");
-                            return;
-                        }
-                        if (productInfo.preSale!=8&&productCount>productInfo.showQuantity){
-                            return;
-                        }
-                        dialog.dismiss();
-                        mViewModel.setCart(productId, productCount,s->{
-                            //购物车不为空切换图片
-                        });*/
-                    //EventBus.getDefault().post(new CartUpdateEvent(productId,productCount));
-                    ToastUtils.showLong(getBaseActivity(), "添加购物车成功");
+                    viewModel.setAddCartCurrentProduct();
+                    viewModel.addCart(s -> {
+                        ToastUtils.showLong(getBaseActivity(), s);
+                        //TODO 刷新首页购物车界面
+                        //EventBus.getDefault().post(new CartUpdateEvent(productId,productCount));
+                    });
+
                     break;
                 case TYPE_BUY:
-                        /*if (productCount < mViewModel.getMinNumber()) {
-                            ToastUtils.showLong(getBaseActivity(), getString(R.string.text_min_buy_number, mViewModel.getMinNumber() + ""));
-                            edCount.setText(mViewModel.getMinNumber() + "");
-                            return;
-                        }
-                        if (productInfo.preSale!=8&&productCount>productInfo.showQuantity){
-
-                            return;
-                        }
-                        dialog.dismiss();
-                        productInfo.purchaseQuantity = productCount;
-                        productInfos.add(productInfo);
-                        IntentBuilder.Builder().putExtra(IntentBuilder.KEY_LIST, productInfos).startParentActivity(getActivity(), OrderConfirmFragment.class);
-                        productInfos.clear();
-                        break;*/
+                        IntentBuilder.Builder().putParcelableArrayListExtra(IntentBuilder.KEY_VALUE, (ArrayList<? extends Parcelable>) viewModel.setAddCartCurrentProduct())
+                                .startParentActivity(getActivity(), CheckOrderInfoFragment.class, true);
+                        break;
             }
         });
     }

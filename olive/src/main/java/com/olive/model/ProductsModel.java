@@ -48,4 +48,13 @@ public class ProductsModel {
                 .url(R.string.api_products_detail)
                 .requestPI();
     }
+
+    public static Observable<ResponseJson<List<ProductEntity>>> relevanceProductList(String productNo){
+        return HttpRequest.<ResponseJson<List<ProductEntity>>>builder()
+                .setToJsonType(new TypeToken<ResponseJson<List<ProductEntity>>>() {
+                }.getType())
+                .addBody("productNo", productNo)
+                .url(R.string.api_relevance_product_list)
+                .requestPI();
+    }
 }

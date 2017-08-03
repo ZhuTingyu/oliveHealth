@@ -194,6 +194,7 @@
     <string name="title_order_detail">订单详情</string>
     <string name="text_order_status">订单状态：</string>
     <string name="text_buy_again">再次购买</string>
+    <string name="text_price_total">共：%1$s</string>
 
     <array name="array_order_details">
         <item>物流单号</item>
@@ -213,5 +214,7 @@
     <string name="message_no_more">没有消息了</string>
     <string name="message_input_username_or_password">请输入账号和密码</string>
     <string name="message_input_search_key_word">请输入搜索关键字</string>
+    <string name="message_add_cart_min_number">不能小于订单基数，基数为：%1$s</string>
+
 
 </resources>

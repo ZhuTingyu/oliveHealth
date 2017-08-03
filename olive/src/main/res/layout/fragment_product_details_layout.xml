@@ -26,21 +26,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <View
+                <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/left"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/ic_back" />
+                    app:srcCompat="@drawable/vector_arrow_left" />
 
 
-                <View
+                <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/right"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/ic_arrow_right_gray" />
+                    app:srcCompat="@drawable/vector_arrow_right" />
 
                 <com.biz.widget.recyclerview.XRecyclerView
                     android:id="@+id/list"
@@ -64,13 +64,10 @@
                 android:textSize="16dp"
                 android:text="@string/text_product_details"/>
 
-            <com.biz.widget.CustomDraweeView
-                android:id="@+id/below_icon"
+            <WebView
+                android:id="@+id/webView"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
-                app:actualImageScaleType="fitCenter"
-                app:placeholderImageScaleType="centerCrop"
-                tools:src="@mipmap/ic_launcher"/>
+                android:layout_height="wrap_content"/>
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>

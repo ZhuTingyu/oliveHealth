@@ -33,6 +33,12 @@ public class ProductEntity implements Parcelable {
     public String imgLogo;  //商品logo
     public int favorited;   //是否已收藏  0：否， 1：是
 
+    //购物车商品属性
+    public int quantity;    //数量
+    public long price;//价格（分）
+    public int productStauts; //0:新品，1：销售中，2:已下架（只有状态是销售中的才能加入订单）
+
+
     @Override
     public int describeContents() {
         return 0;
@@ -53,6 +59,9 @@ public class ProductEntity implements Parcelable {
         dest.writeString(this.images);
         dest.writeString(this.imgLogo);
         dest.writeInt(this.favorited);
+        dest.writeInt(this.quantity);
+        dest.writeLong(this.price);
+        dest.writeInt(this.productStauts);
     }
 
     public ProductEntity() {
@@ -72,6 +81,9 @@ public class ProductEntity implements Parcelable {
         this.images = in.readString();
         this.imgLogo = in.readString();
         this.favorited = in.readInt();
+        this.quantity = in.readInt();
+        this.price = in.readLong();
+        this.productStauts = in.readInt();
     }
 
     public static final Parcelable.Creator<ProductEntity> CREATOR = new Parcelable.Creator<ProductEntity>() {
