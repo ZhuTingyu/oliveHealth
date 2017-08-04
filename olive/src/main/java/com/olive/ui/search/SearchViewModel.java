@@ -1,12 +1,9 @@
 package com.olive.ui.search;
 
-import com.biz.base.BaseViewModel;
-import com.biz.base.RestErrorInfo;
 import com.biz.http.HttpErrorException;
 import com.biz.util.IntentBuilder;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.olive.R;
 import com.olive.model.ProductsModel;
 import com.olive.model.entity.ProductEntity;
 import com.olive.ui.BaseLoadMoreViewModel;

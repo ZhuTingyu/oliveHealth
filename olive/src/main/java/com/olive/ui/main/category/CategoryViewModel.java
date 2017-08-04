@@ -1,12 +1,6 @@
 package com.olive.ui.main.category;
 
-import com.alipay.android.phone.mrpc.core.HttpException;
-import com.biz.base.BaseViewModel;
-import com.biz.base.RestErrorInfo;
 import com.biz.http.HttpErrorException;
-import com.biz.widget.recyclerview.XRecyclerView;
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.olive.R;
 import com.olive.model.CategoryModel;
 import com.olive.model.ProductsModel;
 import com.olive.model.entity.CategoryEntity;
@@ -15,7 +9,6 @@ import com.olive.ui.BaseLoadMoreViewModel;
 
 import java.util.List;
 
-import rx.Observable;
 import rx.functions.Action1;
 
 /**

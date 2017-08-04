@@ -57,4 +57,13 @@ public class ProductsModel {
                 .url(R.string.api_relevance_product_list)
                 .requestPI();
     }
+
+    public static Observable<ResponseJson<String>> addProductfavorites(String productNo){
+        return HttpRequest.<ResponseJson<String>>builder()
+                .setToJsonType(new TypeToken<ResponseJson<String>>() {
+                }.getType())
+                .addBody("productNo", productNo)
+                .url(R.string.api_products_favorites_add)
+                .requestPI();
+    }
 }

@@ -30,7 +30,6 @@ public class HomeViewModel extends BaseViewModel {
 
     private ArrayList<AdvertEntity> goodsList;
     private ArrayList<String> noticeList;
-    private List<ProductEntity> addProductList;
 
     public HomeViewModel(Object activity) {
         super(activity);
@@ -54,13 +53,6 @@ public class HomeViewModel extends BaseViewModel {
         }),action1);
     }
 
-    public void addCart(Action1<String> action1){
-        submitRequestThrowError(CartModel.addCart(addProductList).map(r -> {
-            if(r.isOk()){
-                return r.data;
-            }else throw new HttpErrorException(r);
-        }),action1);
-    }
 
     public void getCategoryList(Action1<List<CategoryEntity>> action1){
         submitRequestThrowError(CategoryModel.categroyList(TYPE_CATEGORY_HOME).map(r -> {
@@ -90,7 +82,5 @@ public class HomeViewModel extends BaseViewModel {
         return noticeList;
     }
 
-    public void setAddProductList(ProductEntity product) {
-        this.addProductList = Lists.newArrayList(product);
-    }
+
 }

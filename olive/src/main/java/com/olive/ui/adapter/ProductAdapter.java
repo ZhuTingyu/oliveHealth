@@ -1,22 +1,17 @@
 package com.olive.ui.adapter;
 
-import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
 import com.biz.util.PriceUtil;
+import com.biz.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.facebook.drawee.drawable.ScalingUtils;
-import com.olive.R;
 import com.olive.model.entity.ProductEntity;
 import com.olive.ui.holder.ProductViewHolder;
+import com.olive.ui.main.home.ProductsViewModel;
 import com.olive.util.LoadImageUtil;
 
 import android.graphics.Paint;
 import android.support.annotation.LayoutRes;
-import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.TextView;
-
-import java.util.List;
 
 /**
  * Title: ProductAdapter
@@ -30,8 +25,12 @@ import java.util.List;
  */
 
 public class ProductAdapter extends BaseQuickAdapter<ProductEntity, ProductViewHolder> {
+
+    private ProductsViewModel viewHolder;
+
     public ProductAdapter(@LayoutRes int id) {
         super(id, Lists.newArrayList());
+        viewHolder = new ProductsViewModel(mContext);
     }
 
     @Override
@@ -52,10 +51,19 @@ public class ProductAdapter extends BaseQuickAdapter<ProductEntity, ProductViewH
         if(holder.btnLike != null){
             holder.btnLike.setOnClickListener(v -> {
                 v.setSelected(!v.isSelected());
+                if(v.isSelected()){
+                    viewHolder.setProductNo(mData.get(holder.getAdapterPosition()).productNo);
+                    viewHolder.addProductFavorites(s -> {
+                        ToastUtils.showLong(mContext, s);
+                    });
+                }
             });
         }
         holder.btnCart.setOnClickListener(v -> {
-            v.setSelected(!v.isSelected());
+            viewHolder.setAddProductList(mData.get(holder.getAdapterPosition()));
+            viewHolder.addCart(s -> {
+                ToastUtils.showLong(mContext, s);
+            });
         });
 
     }

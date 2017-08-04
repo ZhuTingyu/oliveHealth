@@ -9,6 +9,7 @@
     <string name="api_category_ist">/categories/list</string>
     <string name="api_products_list">/products/list</string>
     <string name="api_products_detail">/products/detail</string>
+    <string name="api_products_favorites_add">/products/favorites/add</string>
     <string name="api_relevance_product_list">/products/relevanced/list</string>
     <string name="api_add_cart">/cart/products/add</string>
     <string name="api_cart_product_list">/cart/products/</string>

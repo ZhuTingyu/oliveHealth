@@ -1,13 +1,9 @@
 package com.olive.ui.order.viewModel;
 
-import android.util.Log;
-
 import com.biz.base.BaseViewModel;
 import com.biz.http.HttpErrorException;
 import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
-import com.biz.util.PriceUtil;
-import com.olive.R;
 import com.olive.model.CartModel;
 import com.olive.model.ProductsModel;
 import com.olive.model.entity.ProductEntity;
