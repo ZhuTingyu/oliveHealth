@@ -3,6 +3,7 @@ package com.olive.ui.main.home;
 import com.biz.base.BaseLazyFragment;
 import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
+import com.biz.util.ToastUtils;
 import com.biz.widget.ExpandGridView;
 import com.biz.widget.banner.ConvenientBanner;
 import com.biz.widget.recyclerview.XRecyclerView;
@@ -118,7 +119,13 @@ public class HomeFragment extends BaseLazyFragment {
                     .startParentActivity(getActivity(), ProductDetailsFragment.class, true);
         });
 
-
+        mAdapter.setOnItemClickListener((baseQuickAdapter, view, i) -> {
+            ProductAdapter adapter = (ProductAdapter) baseQuickAdapter;
+            viewModel.setAddProductList(adapter.getItem(i));
+            viewModel.addCart(s -> {
+                ToastUtils.showLong(getActivity(), s);
+            });
+        });
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.addHeaderView(createBannerView());
         mRecyclerView.setRefreshListener(() -> {

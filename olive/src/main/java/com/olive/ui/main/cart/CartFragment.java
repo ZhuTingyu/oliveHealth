@@ -2,6 +2,7 @@ package com.olive.ui.main.cart;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
@@ -18,6 +19,8 @@ import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
 import com.olive.ui.adapter.CartAdapter;
 import com.olive.ui.order.CheckOrderInfoFragment;
+
+import java.util.ArrayList;
 
 /**
  * Title: CartFragment
@@ -64,27 +67,38 @@ public class CartFragment extends BaseLazyFragment {
             mToolbar.setNavigationIcon(null);
         }
 
-        initView(view);
+        initView();
     }
 
-    private void initView(View view) {
+    private void initView() {
 
         priceTotal = findViewById(R.id.price_total);
 
 
-        findViewById(view, R.id.btn_go_pay).setOnClickListener(v -> {
-            IntentBuilder.Builder().startParentActivity(getActivity(), CheckOrderInfoFragment.class, true);
+        findViewById( R.id.btn_go_pay).setOnClickListener(v -> {
+            IntentBuilder.Builder()
+                    .putParcelableArrayListExtra(IntentBuilder.KEY_VALUE, (ArrayList<? extends Parcelable>) viewModel.getSelectedProducts())
+                    .startParentActivity(getActivity(), CheckOrderInfoFragment.class, true);
+        });
+
+        findViewById(R.id.choose_all).setOnClickListener(v -> {
+            v.setSelected(!v.isSelected());
+            if(v.isSelected()){
+                adapter.isChooseAll(true);
+            }else {
+                adapter.isChooseAll(false);
+            }
         });
 
 
 
-        initListView(view);
+        initListView();
 
 
     }
 
-    private void initListView(View view) {
-        recyclerView = findViewById(view, R.id.list);
+    private void initListView() {
+        recyclerView = findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.getRecyclerView();
         adapter = new CartAdapter();

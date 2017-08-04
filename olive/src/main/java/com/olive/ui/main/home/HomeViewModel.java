@@ -3,6 +3,7 @@ package com.olive.ui.main.home;
 import com.biz.base.BaseViewModel;
 import com.biz.http.HttpErrorException;
 import com.biz.util.Lists;
+import com.olive.model.CartModel;
 import com.olive.model.CategoryModel;
 import com.olive.model.NoticeModel;
 import com.olive.model.ProductsModel;
@@ -29,6 +30,7 @@ public class HomeViewModel extends BaseViewModel {
 
     private ArrayList<AdvertEntity> goodsList;
     private ArrayList<String> noticeList;
+    private List<ProductEntity> addProductList;
 
     public HomeViewModel(Object activity) {
         super(activity);
@@ -46,6 +48,14 @@ public class HomeViewModel extends BaseViewModel {
 
     public void getRecommendProductList(Action1<List<ProductEntity>> action1){
         submitRequestThrowError(ProductsModel.recommendProductList().map(r ->{
+            if(r.isOk()){
+                return r.data;
+            }else throw new HttpErrorException(r);
+        }),action1);
+    }
+
+    public void addCart(Action1<String> action1){
+        submitRequestThrowError(CartModel.addCart(addProductList).map(r -> {
             if(r.isOk()){
                 return r.data;
             }else throw new HttpErrorException(r);
@@ -78,5 +88,9 @@ public class HomeViewModel extends BaseViewModel {
 
     public ArrayList<String> getNoticeImageList() {
         return noticeList;
+    }
+
+    public void setAddProductList(ProductEntity product) {
+        this.addProductList = Lists.newArrayList(product);
     }
 }

@@ -91,4 +91,12 @@ public class CartViewModel extends BaseViewModel {
         return nos;
     }
 
+    public List<ProductEntity> getSelectedProducts(){
+        selectedPosition = adapter.getSelectedPotion();
+        List<ProductEntity> productEntities = Lists.newArrayList();
+        for(Integer position : selectedPosition){
+            productEntities.add(productEntities.get(position));
+        }
+        return productEntities;
+    }
 }

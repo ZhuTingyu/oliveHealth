@@ -53,7 +53,7 @@ public class CartAdapter extends BaseChooseAdapter<ProductEntity, BaseViewHolder
                 setSelected(holder.getAdapterPosition());
             }
             viewModel.getTotalPrice(aLong -> {
-                tvPrice.setText(PriceUtil.formatRMB(aLong));
+                setPrice(aLong);
             });
         });
 
@@ -74,7 +74,7 @@ public class CartAdapter extends BaseChooseAdapter<ProductEntity, BaseViewHolder
                         fragment.setProgressVisible(false);
                         replaceData(productEntities);
                         viewModel.getTotalPrice(aLong -> {
-                            tvPrice.setText(PriceUtil.formatRMB(aLong));
+                            setPrice(aLong);
                         });
                     });
                 });
@@ -91,7 +91,7 @@ public class CartAdapter extends BaseChooseAdapter<ProductEntity, BaseViewHolder
                 viewModel.getCartProductList(productEntities -> {
                     replaceData(productEntities);
                     viewModel.getTotalPrice(aLong -> {
-                        tvPrice.setText(PriceUtil.formatRMB(aLong));
+                        setPrice(aLong);
                     });
                 });
             });
@@ -101,6 +101,25 @@ public class CartAdapter extends BaseChooseAdapter<ProductEntity, BaseViewHolder
 
         });
 
+    }
+
+    public void isChooseAll(boolean isChooseAll){
+        for(int i = 0; i < mData.size(); i++){
+            sparseBooleanArray.put(i, isChooseAll);
+            notifyDataSetChanged();
+            viewModel.getTotalPrice(aLong -> {
+                setPrice(aLong);
+            });
+        }
+
+        if(!isChooseAll){
+            setPrice(0);
+        }
+
+    }
+
+    private void setPrice(long price){
+        tvPrice.setText(PriceUtil.formatRMB(price));
     }
 
     public void setViewModel(CartViewModel viewModel) {
