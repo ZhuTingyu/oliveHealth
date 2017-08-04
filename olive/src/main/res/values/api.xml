@@ -11,4 +11,7 @@
     <string name="api_products_detail">/products/detail</string>
     <string name="api_relevance_product_list">/products/relevanced/list</string>
     <string name="api_add_cart">/cart/products/add</string>
+    <string name="api_cart_product_list">/cart/products/</string>
+    <string name="api_cart_product_update_number">/cart/products/update</string>
+    <string name="api_cart_products_remove">/cart/products/remove</string>
 </resources>

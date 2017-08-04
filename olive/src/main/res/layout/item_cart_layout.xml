@@ -12,7 +12,7 @@
     android:background="@color/white"
     >
 
-    <android.support.v7.widget.AppCompatImageView
+    <android.support.v7.widget.AppCompatCheckBox
         android:id="@+id/checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
         android:layout_marginLeft="0dp"
         android:layout_centerVertical="true"
         android:layout_marginStart="8dp"
-        android:background="@drawable/ic_cart_choose_selector"
+        android:button="@drawable/ic_cart_choose_selector"
         android:layout_marginTop="8dp"/>
 
     <FrameLayout
@@ -95,56 +95,54 @@
             android:id="@+id/number_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="16dp"
             android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:gravity="center"
-            android:background="@drawable/shape_rect_gray_white_background">
+            android:background="@drawable/shape_rect_gray_white_background"
+            android:orientation="horizontal">
 
-            <android.support.v7.widget.AppCompatImageButton
+            <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/btn_min"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:background="?attr/selectableItemBackground"
                 android:scaleType="center"
+                android:layout_gravity="center"
+                android:background="?attr/selectableItemBackground"
                 app:srcCompat="@drawable/vector_goods_number_minus"
                 tools:src="@drawable/vector_goods_number_minus" />
 
             <View
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/divider_line"
-                />
+                android:background="@drawable/divider_line"/>
 
             <com.biz.widget.CountEditText
-                android:id="@+id/edit_count"
+                android:id="@+id/ed_count"
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
                 android:background="@null"
-                android:maxLines="1"
+                android:cursorVisible="false"
                 android:digits="1234567890"
-                android:focusable="false"
                 android:gravity="center"
                 android:inputType="number"
                 android:maxLength="4"
-                tools:text="1"
-                />
+                tools:text="1" />
 
             <View
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/divider_line"
-                />
+                android:background="@drawable/divider_line"/>
 
-            <android.support.v7.widget.AppCompatImageButton
+            <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/btn_add"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:background="?attr/selectableItemBackground"
-                android:scaleType="center"
+                tools:src="@drawable/vector_goods_number_add"
                 app:srcCompat="@drawable/vector_goods_number_add"
-                tools:src="@drawable/vector_goods_number_add" />
+                android:scaleType="center"/>
+
         </LinearLayout>
 
         <TextView

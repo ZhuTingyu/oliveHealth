@@ -39,14 +39,14 @@ public class ChooseRefundGoodsFragment extends BaseFragment {
         recyclerView = findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new CartAdapter();
-        adapter.setNewData(Lists.newArrayList("","","",""));
+        //adapter.setNewData(Lists.newArrayList("","","",""));
         recyclerView.setAdapter(adapter);
 
 
         findViewById(R.id.btn_sure).setOnClickListener(v -> {
-            String o = adapter.getItem(1);
+            //String o = adapter.getItem(1);
             Intent intent = new Intent();
-            intent.putExtra("info",o);
+            //intent.putExtra("info",o);
             getActivity().setIntent(intent);
             getActivity().finish();
         });

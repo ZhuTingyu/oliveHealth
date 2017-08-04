@@ -161,8 +161,7 @@ public class HomeFragment extends BaseLazyFragment {
         mNoticeAdapter = new HomeNoticeAdapter();
         mNoticeTitleList.setAdapter(mNoticeAdapter);
         mNoticeAdapter.setOnLoadMoreListener(() -> {
-            noticeViewModel.page++;
-            noticeViewModel.loadMore(o -> {
+            noticeViewModel.setLoadMore(o -> {
             });
         }, mNoticeTitleList.getRecyclerView());
         mNoticeAdapter.setOnItemClickListener((baseQuickAdapter, view1, i) -> {
