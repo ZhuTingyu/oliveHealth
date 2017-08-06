@@ -40,7 +40,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="left|center_vertical"
+            android:gravity="right|center_vertical"
             android:textColor="@color/color_333333"
             android:textSize="@dimen/big_font_16dp"
             tools:layout_editor_absoluteX="46dp"

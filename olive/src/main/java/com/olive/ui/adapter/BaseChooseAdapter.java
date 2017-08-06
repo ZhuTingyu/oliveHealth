@@ -59,7 +59,13 @@ public abstract class BaseChooseAdapter<T, K extends BaseViewHolder> extends Bas
 
     @Override
     public void replaceData(@NonNull Collection<? extends T> data) {
-        initBooleanList((List<T>) data);
+        if(mData.size() < data.size()){
+            for(int i = mData.size()+1; i <= data.size(); i++){
+                sparseBooleanArray.put(i, false);
+            }
+        }else if(mData.size() > data.size()) {
+            sparseBooleanArray.delete(sparseBooleanArray.indexOfValue(true));
+        }
         super.replaceData(data);
     }
 

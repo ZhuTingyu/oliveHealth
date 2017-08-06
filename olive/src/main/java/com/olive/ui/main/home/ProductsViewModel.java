@@ -33,6 +33,14 @@ public class ProductsViewModel extends BaseViewModel {
         }),action1);
     }
 
+    public void cancelProductFavorites(Action1<String> action1){
+        submitRequestThrowError(ProductsModel.cancelProductfavorites(productNo).map(r -> {
+            if(r.isOk()){
+                return r.data;
+            }else throw new HttpErrorException(r);
+        }),action1);
+    }
+
     public void addCart(Action1<String> action1){
         submitRequestThrowError(CartModel.addCart(addProductList).map(r -> {
             if(r.isOk()){

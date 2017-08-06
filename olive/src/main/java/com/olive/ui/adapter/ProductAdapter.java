@@ -4,6 +4,7 @@ import com.biz.util.Lists;
 import com.biz.util.PriceUtil;
 import com.biz.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.olive.R;
 import com.olive.model.entity.ProductEntity;
 import com.olive.ui.holder.ProductViewHolder;
 import com.olive.ui.main.home.ProductsViewModel;
@@ -49,12 +50,16 @@ public class ProductAdapter extends BaseQuickAdapter<ProductEntity, ProductViewH
             holder.tvProductPriceOld.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
         }
         if(holder.btnLike != null){
+            viewHolder.setProductNo(mData.get(holder.getAdapterPosition()).productNo);
             holder.btnLike.setOnClickListener(v -> {
                 v.setSelected(!v.isSelected());
                 if(v.isSelected()){
-                    viewHolder.setProductNo(mData.get(holder.getAdapterPosition()).productNo);
                     viewHolder.addProductFavorites(s -> {
-                        ToastUtils.showLong(mContext, s);
+                        ToastUtils.showLong(mContext, mContext.getString(R.string.text_add_favorites));
+                    });
+                }else {
+                    viewHolder.cancelProductFavorites(s -> {
+                        ToastUtils.showLong(mContext, mContext.getString(R.string.text_cancel_favorites));
                     });
                 }
             });
@@ -62,7 +67,7 @@ public class ProductAdapter extends BaseQuickAdapter<ProductEntity, ProductViewH
         holder.btnCart.setOnClickListener(v -> {
             viewHolder.setAddProductList(mData.get(holder.getAdapterPosition()));
             viewHolder.addCart(s -> {
-                ToastUtils.showLong(mContext, s);
+                ToastUtils.showLong(mContext, mContext.getString(R.string.text_join_cart_success));
             });
         });
 

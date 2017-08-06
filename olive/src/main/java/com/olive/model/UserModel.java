@@ -131,6 +131,10 @@ public class UserModel {
         return userInfo.token;
     }
 
+    public String getNickName() {
+        if (userInfo == null || userInfo.userId.length() < 0) return "";
+        return userInfo.nickname;
+    }
 
     public String getShopId() {
         if (userInfo == null) return "";

@@ -1,5 +1,6 @@
 package com.olive.ui.main.my.address;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,6 +24,13 @@ public class AddressManageFragment extends BaseFragment {
 
     private XRecyclerView recyclerView;
     private AddressManageAdapter adapter;
+    private AddressViewModel viewModel;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        viewModel = new AddressViewModel(context);
+    }
 
     @Nullable
     @Override
@@ -41,8 +49,14 @@ public class AddressManageFragment extends BaseFragment {
         recyclerView = findViewById(view, R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new AddressManageAdapter(this);
-        adapter.setNewData(Lists.newArrayList("","","","",""));
-        recyclerView.setAdapter(adapter);
+        adapter.setViewModel(viewModel);
+        adapter.bindToRecyclerView(recyclerView.getRecyclerView());
+        adapter.setOnItemClickListener((baseQuickAdapter, view1, i) -> {
+
+        });
+        viewModel.getAddressList(addressEntities -> {
+            adapter.setNewData(addressEntities);
+        });
 
         TextView btn = findViewById(view, R.id.btn_sure);
         btn.setText(getString(R.string.text_add_new_address));

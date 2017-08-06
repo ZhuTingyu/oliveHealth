@@ -68,7 +68,7 @@ public class OrderDetailsFragment extends BaseFragment {
         recyclerView = findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new CheckOrderAdapter();
-        adapter.setNewData(data);
+        //adapter.setNewData(data);
         recyclerView.setAdapter(adapter);
 
         initButton();

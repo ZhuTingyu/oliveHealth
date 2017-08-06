@@ -66,4 +66,13 @@ public class ProductsModel {
                 .url(R.string.api_products_favorites_add)
                 .requestPI();
     }
+
+    public static Observable<ResponseJson<String>> cancelProductfavorites(String productNo){
+        return HttpRequest.<ResponseJson<String>>builder()
+                .setToJsonType(new TypeToken<ResponseJson<String>>() {
+                }.getType())
+                .addBody("productNo", productNo)
+                .url(R.string.api_products_favorites_cancel)
+                .requestPI();
+    }
 }

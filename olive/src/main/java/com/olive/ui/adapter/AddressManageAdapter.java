@@ -6,14 +6,18 @@ import android.support.annotation.Nullable;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.biz.base.BaseActivity;
 import com.biz.base.BaseFragment;
 import com.biz.base.BaseViewHolder;
 import com.biz.util.DialogUtil;
 import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
+import com.biz.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.olive.R;
+import com.olive.model.entity.AddressEntity;
 import com.olive.ui.main.my.address.AddNewAddressFragment;
+import com.olive.ui.main.my.address.AddressViewModel;
 
 import java.util.List;
 
@@ -21,7 +25,9 @@ import java.util.List;
  * Created by TingYu Zhu on 2017/7/27.
  */
 
-public class AddressManageAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
+public class AddressManageAdapter extends BaseQuickAdapter<AddressEntity, BaseViewHolder> {
+
+    private AddressViewModel viewModel;
 
     private BaseFragment fragment;
 
@@ -31,24 +37,29 @@ public class AddressManageAdapter extends BaseQuickAdapter<String, BaseViewHolde
     }
 
     @Override
-    protected void convert(BaseViewHolder holder, String s) {
-        holder.setText(R.id.tv_name, "张三");
-        holder.setText(R.id.tv_phone, "1234567890");
-        holder.setText(R.id.tv_address, "四川省成都市高新区天府大道北段1700号环球中心E1-1801");
+    protected void convert(BaseViewHolder holder, AddressEntity addressEntity) {
+        holder.setText(R.id.tv_name, addressEntity.consignee);
+        holder.setText(R.id.tv_phone, addressEntity.mobile);
+        holder.setText(R.id.tv_address, addressEntity.detailAddress);
 
         CheckBox chooseDefault = holder.findViewById(R.id.cb_default);
         TextView tvEdit  = holder.findViewById(R.id.tv_edit);
         TextView tvDelete = holder.findViewById(R.id.tv_delete);
 
         chooseDefault.setOnCheckedChangeListener((buttonView, isChecked) -> {
-
+            CheckBox checkBox = (CheckBox) getViewByPosition(getRecyclerView(),0, R.id.cb_default);
+            checkBox.setChecked(false);
+            notifyItemMoved(holder.getAdapterPosition(), 0);
         });
+
+        chooseDefault.setChecked(addressEntity.isDefault == 1);
 
         tvEdit.setOnClickListener(v -> {
             IntentBuilder.Builder().startParentActivity(fragment.getBaseActivity(), AddNewAddressFragment.class, true);
         });
 
         tvDelete.setOnClickListener(v -> {
+            viewModel.setAddressId(addressEntity.id);
             createDialog();
         });
 
@@ -58,8 +69,16 @@ public class AddressManageAdapter extends BaseQuickAdapter<String, BaseViewHolde
         DialogUtil.createDialogView(fragment.getContext(),R.string.text_make_sure_delete_address
                 ,null,R.string.btn_cancel
                 ,(dialog, which) -> {
-
+                    BaseActivity activity = (BaseActivity) mContext;
+                    activity.setProgressVisible(true);
+                    viewModel.deleteAddress(s -> {
+                        activity.setProgressVisible(false);
+                        ToastUtils.showLong(mContext, mContext.getString(R.string.message_delete_success));
+                    });
                 },R.string.text_action_delete);
     }
 
+    public void setViewModel(AddressViewModel viewModel) {
+        this.viewModel = viewModel;
+    }
 }

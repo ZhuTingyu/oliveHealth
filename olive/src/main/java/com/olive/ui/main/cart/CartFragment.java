@@ -1,6 +1,7 @@
 package com.olive.ui.main.cart;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
@@ -76,9 +77,15 @@ public class CartFragment extends BaseLazyFragment {
 
 
         findViewById( R.id.btn_go_pay).setOnClickListener(v -> {
-            IntentBuilder.Builder()
-                    .putParcelableArrayListExtra(IntentBuilder.KEY_VALUE, (ArrayList<? extends Parcelable>) viewModel.getSelectedProducts())
-                    .startParentActivity(getActivity(), CheckOrderInfoFragment.class, true);
+            if(viewModel.isCanGoPay()){
+                IntentBuilder.Builder()
+                        .putExtra(IntentBuilder.KEY_VALUE, viewModel.getTotalPrice())
+                        .putParcelableArrayListExtra(IntentBuilder.KEY_DATA, (ArrayList<? extends Parcelable>) viewModel.getSelectedProducts())
+                        .startParentActivity(getActivity(), CheckOrderInfoFragment.class, true);
+            }else {
+                error(getString(R.string.message_not_choose_product));
+            }
+
         });
 
         findViewById(R.id.choose_all).setOnClickListener(v -> {
@@ -129,5 +136,10 @@ public class CartFragment extends BaseLazyFragment {
                     return false;
                 })
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

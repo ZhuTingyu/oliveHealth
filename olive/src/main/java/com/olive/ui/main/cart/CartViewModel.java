@@ -82,6 +82,10 @@ public class CartViewModel extends BaseViewModel {
         this.adapter = adapter;
     }
 
+    public long getTotalPrice() {
+        return totalPrice.longValue();
+    }
+
     private List<String> getSelectedProductsNo(){
         selectedPosition = adapter.getSelectedPotion();
         List<String> nos = Lists.newArrayList();
@@ -93,10 +97,15 @@ public class CartViewModel extends BaseViewModel {
 
     public List<ProductEntity> getSelectedProducts(){
         selectedPosition = adapter.getSelectedPotion();
-        List<ProductEntity> productEntities = Lists.newArrayList();
+        List<ProductEntity> chooseProductEntities = Lists.newArrayList();
         for(Integer position : selectedPosition){
-            productEntities.add(productEntities.get(position));
+            chooseProductEntities.add(productEntities.get(position));
         }
-        return productEntities;
+        return chooseProductEntities;
     }
+
+    public boolean isCanGoPay(){
+        return getSelectedProducts().size() > 0;
+    }
+
 }

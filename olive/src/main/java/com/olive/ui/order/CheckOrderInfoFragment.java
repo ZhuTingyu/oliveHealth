@@ -1,5 +1,7 @@
 package com.olive.ui.order;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,10 +14,13 @@ import com.biz.base.BaseFragment;
 import com.biz.base.BaseViewHolder;
 import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
+import com.biz.util.PriceUtil;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
+import com.olive.model.entity.AddressEntity;
 import com.olive.ui.adapter.CheckOrderAdapter;
 import com.olive.ui.main.my.address.AddressManageFragment;
+import com.olive.ui.order.viewModel.CheckInfoViewModel;
 
 /**
  * Created by TingYu Zhu on 2017/7/26.
@@ -23,10 +28,21 @@ import com.olive.ui.main.my.address.AddressManageFragment;
 
 public class CheckOrderInfoFragment extends BaseFragment {
 
+    private int ADDRESS_CODE = 0x123;
+
+
     private XRecyclerView recyclerView;
     private CheckOrderAdapter adapter;
     private TextView price;
     private TextView number;
+    private CheckInfoViewModel viewModel;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        viewModel = new CheckInfoViewModel(context);
+        initViewModel(viewModel);
+    }
 
     @Nullable
     @Override
@@ -45,26 +61,26 @@ public class CheckOrderInfoFragment extends BaseFragment {
         recyclerView = findViewById(view, R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new CheckOrderAdapter();
-        adapter.setNewData(Lists.newArrayList("","","","","",""));
+        adapter.setNewData(viewModel.getProductEntities());
         recyclerView.setAdapter(adapter);
 
         findViewById(view, R.id.btn_sure).setOnClickListener(v -> {
             IntentBuilder.Builder().startParentActivity(getActivity(), PayOrderFragment.class, true);
         });
 
-        initHeadView();
+        initHeadView(new AddressEntity());
         initFoodView();
     }
 
     private void initFoodView() {
         View footer = View.inflate(getContext(), R.layout.item_check_order_footer_layout,null);
         BaseViewHolder holder = new BaseViewHolder(footer);
-        holder.setText(R.id.text_price,"￥652.00");
-        holder.setText(R.id.text_product_number,"共3件商品，合计：");
+        holder.setText(R.id.text_price, PriceUtil.formatRMB(viewModel.getTotalPrice()));
+        holder.setText(R.id.text_product_number,getString(R.string.text_order_list_info_number, viewModel.getTotalCount()+""));
         adapter.addFooterView(footer);
     }
 
-    private void initHeadView() {
+    private void initHeadView(AddressEntity addressEntity) {
         View head = View.inflate(getContext(), R.layout.item_check_order_head_layout, null);
         BaseViewHolder holder = new BaseViewHolder(head);
         holder.setText(R.id.tv_shop_name,"成都市武侯区生活馆(门店)");
@@ -72,8 +88,17 @@ public class CheckOrderInfoFragment extends BaseFragment {
         holder.setText(R.id.tv_consignee_tel,"手机号：15899768766");
         holder.setText(R.id.tv_address,"地址：成都市环球中心E1-1801");
         head.setOnClickListener(v -> {
-            IntentBuilder.Builder().startParentActivity(getActivity(), AddressManageFragment.class, true);
+            IntentBuilder.Builder()
+                    .startParentActivity(getActivity(), AddressManageFragment.class, ADDRESS_CODE);
         });
         adapter.addHeaderView(head);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(ADDRESS_CODE == requestCode){
+
+        }
     }
 }

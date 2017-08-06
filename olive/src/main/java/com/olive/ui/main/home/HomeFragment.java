@@ -118,14 +118,6 @@ public class HomeFragment extends BaseLazyFragment {
                     .putExtra(IntentBuilder.KEY_VALUE, adapter.getItem(i).productNo)
                     .startParentActivity(getActivity(), ProductDetailsFragment.class, true);
         });
-
-        mAdapter.setOnItemClickListener((baseQuickAdapter, view, i) -> {
-            ProductAdapter adapter = (ProductAdapter) baseQuickAdapter;
-            viewModel.setAddProductList(adapter.getItem(i));
-            viewModel.addCart(s -> {
-                ToastUtils.showLong(getActivity(), s);
-            });
-        });
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.addHeaderView(createBannerView());
         mRecyclerView.setRefreshListener(() -> {

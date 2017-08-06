@@ -17,6 +17,9 @@
     <string name="text_one_key_to_join">一键加入</string>
     <string name="text_customer_service">联系客服</string>
     <string name="text_join_cart">加入购物车</string>
+    <string name="text_join_cart_success">加入购物车成功</string>
+    <string name="text_add_favorites">成功加入收藏</string>
+    <string name="text_cancel_favorites">成功取消收藏</string>
     <string name="text_buy_now">立即购买</string>
 
     <string name="text_make_sure_order">确认订单</string>
@@ -215,6 +218,8 @@
     <string name="message_input_username_or_password">请输入账号和密码</string>
     <string name="message_input_search_key_word">请输入搜索关键字</string>
     <string name="message_add_cart_min_number">不能小于订单基数，基数为：%1$s</string>
+    <string name="message_not_choose_product">请选择要买的商品</string>
+    <string name="message_delete_success">删除成功</string>
 
 
 </resources>

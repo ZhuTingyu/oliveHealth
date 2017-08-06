@@ -5,14 +5,22 @@
     <string name="api_advert_list">/ad/ads</string>
     <string name="api_notice_list">/infobulletin/list</string>
     <string name="api_notice_detail">/infobulletin/detail</string>
+
     <string name="api_recommend_product_list">/products/recommends</string>
     <string name="api_category_ist">/categories/list</string>
     <string name="api_products_list">/products/list</string>
     <string name="api_products_detail">/products/detail</string>
     <string name="api_products_favorites_add">/products/favorites/add</string>
+    <string name="api_products_favorites_cancel">/favorite/cancel</string>
     <string name="api_relevance_product_list">/products/relevanced/list</string>
+
     <string name="api_add_cart">/cart/products/add</string>
     <string name="api_cart_product_list">/cart/products/</string>
     <string name="api_cart_product_update_number">/cart/products/update</string>
     <string name="api_cart_products_remove">/cart/products/remove</string>
+
+    <string name="api_address_list">/address/list</string>
+    <string name="api_address_delete">/address/delete</string>
+
+
 </resources>
