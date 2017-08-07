@@ -72,7 +72,6 @@ public class CheckOrderInfoFragment extends BaseFragment {
         recyclerView.setAdapter(adapter);
 
         TextView ok = findViewById(R.id.btn_sure);
-        Boolean isHaveDebt = false;
 
         viewModel.getAccountInfo(account -> {
             accountEntity = account;
@@ -83,7 +82,7 @@ public class CheckOrderInfoFragment extends BaseFragment {
                 ok.setOnClickListener(v -> {
                     IntentBuilder.Builder()
                             .putExtra(IntentBuilder.KEY_DATA, accountEntity)
-                            .startParentActivity(getActivity(), PayFragment.class, true);
+                            .startParentActivity(getActivity(), PayDebtFragment.class, true);
                 });
             } else {
                 ok.setOnClickListener(v -> {

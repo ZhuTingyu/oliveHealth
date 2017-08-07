@@ -133,6 +133,9 @@
     <string name="text_back_cart">返回购物车</string>
     <string name="text_already_pay">您已经付款成功</string>
     <string name="text_pay_failed">付款失败</string>
+    <string name="text_pay_detail">付款详情</string>
+    <string name="text_input_account_pay_password">请输入账户支付密码</string>
+    <string name="text_make_sure_pay">确定付款</string>
 
 
     <string name="title_find_password">找回密码</string>
@@ -191,6 +194,7 @@
     <string name="text_number_out_goods">销售量：%1$s</string>
 
     <string name="title_my_account">我的账户</string>
+    <string name="text_account_number">账户（%1$s）</string>
     <string name="text_account_balance">账户余额</string>
     <string name="text_account_consume_money">消费总金额</string>
     <string name="text_account_debt">欠款</string>

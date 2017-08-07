@@ -8,6 +8,7 @@ import com.biz.base.BaseViewHolder;
 import com.biz.util.Lists;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.olive.R;
+import com.olive.model.entity.BankEntity;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
  * Created by TingYu Zhu on 2017/7/27.
  */
 
-public class PayOrderAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
+public class PayOrderAdapter extends BaseQuickAdapter<BankEntity, BaseViewHolder> {
 
     private RecyclerView recyclerView;
     private int choosePosition = 1;
@@ -26,15 +27,19 @@ public class PayOrderAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
     }
 
     @Override
-    protected void convert(BaseViewHolder holder, String s) {
+    protected void convert(BaseViewHolder holder, BankEntity bankEntity) {
         holder.setImageResource(R.id.bank_icon, R.drawable.vector_category_all);
         TextView view = holder.findViewById(R.id.bank_name);
-        view.setText("中国银行（2323）");
+        view.setText(bankEntity.bankName+"("+getCardNumberFour(bankEntity.cardNumber)+")");
         view.setOnClickListener(v -> {
             TextView textView = (TextView) getViewByPosition(recyclerView, choosePosition, R.id.bank_name);
             textView.setCompoundDrawablesWithIntrinsicBounds(null,null,null,null);
             choosePosition = holder.getAdapterPosition();
             holder.setViewDrawableRight(view, R.drawable.vector_address_manage_choose);
         });
+    }
+
+    private String getCardNumberFour(String number){
+        return number.substring(number.length()-5, number.length() -1);
     }
 }
