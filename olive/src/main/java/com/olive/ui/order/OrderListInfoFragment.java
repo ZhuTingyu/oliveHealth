@@ -1,6 +1,7 @@
 package com.olive.ui.order;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +15,7 @@ import com.biz.util.Lists;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
 import com.olive.ui.adapter.OrderInfoListAdapter;
+import com.olive.ui.order.viewModel.OrderListViewModel;
 
 import java.util.List;
 
@@ -24,12 +26,19 @@ import java.util.List;
 @SuppressLint("ValidFragment")
 public class OrderListInfoFragment extends BaseFragment {
 
-    public static final String KEY_TYPE = "type";
 
-    private String type;
+
     private XRecyclerView recyclerView;
     private OrderInfoListAdapter adapter;
     private List<Object> data;
+
+    private OrderListViewModel viewModel;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        viewModel = new OrderListViewModel(this);
+    }
 
     @Nullable
     @Override
@@ -40,32 +49,15 @@ public class OrderListInfoFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        type = getArguments().getString(KEY_TYPE);
-        initData();
         initView();
     }
 
-    private void initData() {
-        if(getString(R.string.text_order_all).equals(type)){
-            //全部
-        }else if(getString(R.string.text_waiting_pay).equals(type)){
-            //待支付
-        }else if(getString(R.string.text_wait_send).equals(type)){
-            //待发货
-        }else if(getString(R.string.text_wait_receive).equals(type)){
-            //待收货
-        }else if(getString(R.string.text_order_complete).equals(type)){
-            //已完成
-        }else if(getString(R.string.text_order_cancel).equals(type)){
-            //已经取消
-        }
-        data = Lists.newArrayList("","","","","");
-    }
+
 
     private void initView() {
         recyclerView = findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new OrderInfoListAdapter(type);
+        adapter = new OrderInfoListAdapter(viewModel.getTypeName());
         adapter.setNewData(data);
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener((baseQuickAdapter, view, i) -> {

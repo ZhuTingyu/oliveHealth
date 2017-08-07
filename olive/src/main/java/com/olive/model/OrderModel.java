@@ -4,6 +4,7 @@ import com.biz.http.ResponseJson;
 import com.google.gson.reflect.TypeToken;
 import com.olive.R;
 import com.olive.model.entity.OrderEntity;
+import com.olive.model.entity.OrderListEntity;
 import com.olive.model.entity.ProductEntity;
 import com.olive.util.HttpRequest;
 
@@ -27,5 +28,16 @@ public class OrderModel {
                 .url(R.string.api_order_create)
                 .requestPI();
     }
+
+    public static Observable<ResponseJson<OrderListEntity>> orderList(int page, int status){
+        return HttpRequest.<ResponseJson<OrderListEntity>>builder()
+                .setToJsonType(new TypeToken<ResponseJson<OrderListEntity>>() {
+                }.getType())
+                .addBody("page", page)
+                .addBody("status", status)
+                .url(R.string.api_order_list)
+                .requestPI();
+    }
+
 
 }
