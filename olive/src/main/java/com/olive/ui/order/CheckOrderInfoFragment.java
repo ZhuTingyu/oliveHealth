@@ -13,14 +13,15 @@ import android.widget.TextView;
 import com.biz.base.BaseFragment;
 import com.biz.base.BaseViewHolder;
 import com.biz.util.IntentBuilder;
-import com.biz.util.Lists;
 import com.biz.util.PriceUtil;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
 import com.olive.model.UserModel;
+import com.olive.model.entity.AccountEntity;
 import com.olive.model.entity.AddressEntity;
 import com.olive.ui.adapter.CheckOrderAdapter;
 import com.olive.ui.main.my.address.AddressManageFragment;
+import com.olive.ui.main.my.address.AddressViewModel;
 import com.olive.ui.order.viewModel.CheckInfoViewModel;
 
 /**
@@ -37,12 +38,16 @@ public class CheckOrderInfoFragment extends BaseFragment {
     private TextView price;
     private TextView number;
     private CheckInfoViewModel viewModel;
+    private AddressViewModel addressViewModel;
     private View head;
+    private AddressEntity addressEntity;
+    private AccountEntity accountEntity;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         viewModel = new CheckInfoViewModel(context);
+        addressViewModel = new AddressViewModel(context);
         initViewModel(viewModel);
     }
 
@@ -56,29 +61,54 @@ public class CheckOrderInfoFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setTitle(getString(R.string.text_order_sure));
-        initView(view);
+        initView();
     }
 
-    private void initView(View view) {
-        recyclerView = findViewById(view, R.id.list);
+    private void initView() {
+        recyclerView = findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new CheckOrderAdapter();
         adapter.setNewData(viewModel.getProductEntities());
         recyclerView.setAdapter(adapter);
 
-        findViewById(view, R.id.btn_sure).setOnClickListener(v -> {
-            IntentBuilder.Builder().startParentActivity(getActivity(), PayOrderFragment.class, true);
-        });
+        TextView ok = findViewById(R.id.btn_sure);
+        Boolean isHaveDebt = false;
 
+        viewModel.getAccountInfo(account -> {
+            accountEntity = account;
+            if (viewModel.isHasDebt()) {
+                findViewById(R.id.rl_debt).setVisibility(View.VISIBLE);
+                TextView debt = findViewById(R.id.text_debt);
+                debt.setText(PriceUtil.formatRMB(accountEntity.debt));
+                ok.setOnClickListener(v -> {
+                    IntentBuilder.Builder()
+                            .putExtra(IntentBuilder.KEY_DATA, accountEntity)
+                            .startParentActivity(getActivity(), PayFragment.class, true);
+                });
+            } else {
+                ok.setOnClickListener(v -> {
+                    setProgressVisible(true);
+                    viewModel.setAddressId(addressEntity.id);
+                    viewModel.createOrder(orderEntity -> {
+                        setProgressVisible(false);
+                        IntentBuilder.Builder()
+                                .putExtra(IntentBuilder.KEY_VALUE, accountEntity)
+                                .putExtra(IntentBuilder.KEY_DATA, orderEntity)
+                                .startParentActivity(getActivity(), PayFragment.class, true);
+                    });
+
+                });
+            }
+        });
         initHeadView();
         initFoodView();
     }
 
     private void initFoodView() {
-        View footer = View.inflate(getContext(), R.layout.item_check_order_footer_layout,null);
+        View footer = View.inflate(getContext(), R.layout.item_check_order_footer_layout, null);
         BaseViewHolder holder = new BaseViewHolder(footer);
         holder.setText(R.id.text_price, PriceUtil.formatRMB(viewModel.getTotalPrice()));
-        holder.setText(R.id.text_product_number,getString(R.string.text_order_list_info_number, viewModel.getTotalCount()+""));
+        holder.setText(R.id.text_product_number, getString(R.string.text_order_list_info_number, viewModel.getTotalCount() + ""));
         adapter.addFooterView(footer);
     }
 
@@ -89,22 +119,29 @@ public class CheckOrderInfoFragment extends BaseFragment {
                     .startParentActivity(getActivity(), AddressManageFragment.class, ADDRESS_CODE);
         });
         adapter.addHeaderView(head);
+
+        addressViewModel.getAddressList(addressEntities -> {
+            if (addressViewModel.getDefaultAddress() != null) {
+                addressEntity = addressViewModel.getDefaultAddress();
+                bindHeadData(addressEntity);
+            }
+        });
     }
 
-    private void bindHeadData(AddressEntity addressEntity){
+    private void bindHeadData(AddressEntity addressEntity) {
         BaseViewHolder holder = new BaseViewHolder(head);
         holder.setText(R.id.tv_shop_name, UserModel.getInstance().getNickName());
         holder.setText(R.id.tv_consignee_name, getString(R.string.text_receiver_name_, addressEntity.consignee));
-        holder.setText(R.id.tv_consignee_tel,getString(R.string.text_phone_, addressEntity.mobile));
-        holder.setText(R.id.tv_address,getString(R.string.text_address_detail_, addressEntity.detailAddress));
+        holder.setText(R.id.tv_consignee_tel, getString(R.string.text_phone_, addressEntity.mobile));
+        holder.setText(R.id.tv_address, getString(R.string.text_address_detail_, addressEntity.detailAddress));
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(ADDRESS_CODE == requestCode && data != null){
-            AddressEntity addressEntity = data.getParcelableExtra(IntentBuilder.KEY_DATA);
-            if(addressEntity != null){
+        if (ADDRESS_CODE == requestCode && data != null) {
+            addressEntity = data.getParcelableExtra(IntentBuilder.KEY_DATA);
+            if (addressEntity != null) {
                 bindHeadData(addressEntity);
             }
         }

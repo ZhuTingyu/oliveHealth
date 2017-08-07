@@ -1,12 +1,8 @@
 package com.olive.ui.adapter;
 
-import android.app.Activity;
-import android.content.Context;
-import android.support.annotation.Nullable;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import com.biz.base.BaseActivity;
 import com.biz.base.BaseFragment;
 import com.biz.base.BaseViewHolder;
 import com.biz.util.DialogUtil;
@@ -16,10 +12,8 @@ import com.biz.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.olive.R;
 import com.olive.model.entity.AddressEntity;
-import com.olive.ui.main.my.address.AddNewAddressFragment;
+import com.olive.ui.main.my.address.EditAddressFragment;
 import com.olive.ui.main.my.address.AddressViewModel;
-
-import java.util.List;
 
 /**
  * Created by TingYu Zhu on 2017/7/27.
@@ -53,7 +47,7 @@ public class AddressManageAdapter extends BaseQuickAdapter<AddressEntity, BaseVi
         chooseDefault.setChecked(addressEntity.isDefault == 1);
 
         tvEdit.setOnClickListener(v -> {
-            IntentBuilder.Builder().startParentActivity(fragment.getBaseActivity(), AddNewAddressFragment.class, true);
+            IntentBuilder.Builder().startParentActivity(fragment.getBaseActivity(), EditAddressFragment.class, true);
         });
 
         tvDelete.setOnClickListener(v -> {

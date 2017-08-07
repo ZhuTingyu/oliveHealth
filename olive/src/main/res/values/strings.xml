@@ -117,10 +117,10 @@
 
     <string name="title_pay_order">订单支付</string>
     <string name="text_order_created">订单已生成！</string>
-    <string name="text_order_number">订单编号：</string>
+    <string name="text_order_number">订单编号：%1$s</string>
     <string name="text_order_price">订单金额</string>
     <string name="text_order_price_1">订单金额：</string>
-    <string name="text_pay_by_account_vacancies">账户余额付款</string>
+    <string name="text_pay_by_account_vacancies">账户余额付款（%1$s）</string>
     <string name="text_input_price">请输入账户余额付款金额</string>
     <string name="text_need_pay">还需要支付:</string>
     <string name="text_pay_way">支付方式</string>

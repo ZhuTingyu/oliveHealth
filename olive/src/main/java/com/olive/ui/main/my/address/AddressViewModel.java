@@ -18,7 +18,7 @@ import rx.functions.Action1;
 public class AddressViewModel extends BaseViewModel {
 
     private int addressId;
-    private AddressEntity addressEntity;
+    protected AddressEntity addressEntity;
     private static final int IS_DEFAULT = 1;
     private static final int NOT_DEFAULT  = 0;
 
@@ -71,7 +71,7 @@ public class AddressViewModel extends BaseViewModel {
         addressEntity.isDefault = NOT_DEFAULT;
     }
 
-    private AddressEntity getDefaultAddress(){
+    public AddressEntity getDefaultAddress(){
         for(AddressEntity entity : addressEntities){
             if(entity.isDefault == IS_DEFAULT){
                 return entity;

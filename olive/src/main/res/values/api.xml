@@ -23,5 +23,11 @@
     <string name="api_address_delete">/address/delete</string>
     <string name="api_address_update">/address/update</string>
 
+    <string name="api_account_info">/account/info</string>
+
+    <string name="api_order_create">/order/create</string>
+
+
+
 
 </resources>

@@ -161,7 +161,6 @@
         android:layout_height="50dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="0dp"
         android:background="@null"
         android:drawablePadding="@dimen/activity_vertical_margin"
         android:drawableRight="@drawable/ic_arrow_right_gray"
@@ -172,7 +171,8 @@
         android:textSize="@dimen/big_font_16dp"
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_address_"
         app:layout_constraintLeft_toRightOf="@+id/tv_address_"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_editor_absoluteY="163dp" />
 
     <include
         android:id="@+id/include4"
@@ -200,12 +200,12 @@
         android:textColor="@color/color_666666"
         android:textSize="@dimen/big_font_16dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include4" />
+        app:layout_constraintTop_toBottomOf="@+id/include4"/>
 
     <EditText
         android:id="@+id/tv_address1"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="16dp"
         android:background="@null"
@@ -215,7 +215,8 @@
         app:layout_constraintLeft_toRightOf="@+id/tv_address_1"
         app:layout_constraintRight_toRightOf="parent"
         tools:text="环球中心E1"
-        android:gravity="end"/>
+        android:gravity="end"
+        tools:layout_editor_absoluteY="236dp" />
 
     <include
         android:id="@+id/include5"
