@@ -7,6 +7,8 @@ import com.olive.model.entity.AddressEntity;
 
 import java.util.List;
 
+import rx.Observable;
+import rx.Observer;
 import rx.functions.Action1;
 
 /**
@@ -16,6 +18,12 @@ import rx.functions.Action1;
 public class AddressViewModel extends BaseViewModel {
 
     private int addressId;
+    private AddressEntity addressEntity;
+    private static final int IS_DEFAULT = 1;
+    private static final int NOT_DEFAULT  = 0;
+
+    private List<AddressEntity> addressEntities;
+
 
     public AddressViewModel(Object activity) {
         super(activity);
@@ -24,7 +32,8 @@ public class AddressViewModel extends BaseViewModel {
     public void getAddressList(Action1<List<AddressEntity>> action1){
         submitRequestThrowError(AddressModel.AddressList().map(r -> {
             if(r.isOk()){
-                return r.data;
+                addressEntities = r.data;
+                return addressEntities;
             }else throw new HttpErrorException(r);
         }),action1);
     }
@@ -37,8 +46,47 @@ public class AddressViewModel extends BaseViewModel {
         }),action1);
     }
 
+    public void updateAddress(Action1<AddressEntity> action1){
+        submitRequestThrowError(AddressModel.AddressUpdate(addressEntity).map(r -> {
+            if(r.isOk()){
+                return r.data;
+            }else throw new HttpErrorException(r);
+        }),action1);
+    }
+
+
+    public void setAddressEntity(AddressEntity addressEntity) {
+        this.addressEntity = addressEntity;
+    }
 
     public void setAddressId(int addressId) {
         this.addressId = addressId;
+    }
+
+    public void setIsDefault(){
+        addressEntity.isDefault = IS_DEFAULT;
+    }
+
+    public void setNotDefault(){
+        addressEntity.isDefault = NOT_DEFAULT;
+    }
+
+    private AddressEntity getDefaultAddress(){
+        for(AddressEntity entity : addressEntities){
+            if(entity.isDefault == IS_DEFAULT){
+                return entity;
+            }
+        }
+        return null;
+    }
+
+    public void cancelDefaultAddress(Action1<AddressEntity> action1){
+        addressEntity = getDefaultAddress();
+        if(addressEntity != null){
+            setNotDefault();
+            updateAddress(action1);
+        }else {
+            Observable.just(new Object()).subscribe((Observer<? super Object>) action1);
+        }
     }
 }

@@ -21,6 +21,7 @@
 
     <string name="api_address_list">/address/list</string>
     <string name="api_address_delete">/address/delete</string>
+    <string name="api_address_update">/address/update</string>
 
 
 </resources>

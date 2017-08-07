@@ -83,12 +83,12 @@
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="9dp"
-        android:textColor="@color/color_333333"
+        android:textColor="@color/color_tab_selector"
         android:button="@drawable/ic_check_address_selector"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include"
-        android:text="@string/text_default_address"
+        android:text="@string/text_set_default_address"
         tools:text="默认地址" />
 
     <TextView

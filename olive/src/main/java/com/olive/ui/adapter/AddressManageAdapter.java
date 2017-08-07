@@ -46,10 +46,8 @@ public class AddressManageAdapter extends BaseQuickAdapter<AddressEntity, BaseVi
         TextView tvEdit  = holder.findViewById(R.id.tv_edit);
         TextView tvDelete = holder.findViewById(R.id.tv_delete);
 
-        chooseDefault.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            CheckBox checkBox = (CheckBox) getViewByPosition(getRecyclerView(),0, R.id.cb_default);
-            checkBox.setChecked(false);
-            notifyItemMoved(holder.getAdapterPosition(), 0);
+        chooseDefault.setOnClickListener(v -> {
+            setDefaultAddress(holder);
         });
 
         chooseDefault.setChecked(addressEntity.isDefault == 1);
@@ -69,10 +67,9 @@ public class AddressManageAdapter extends BaseQuickAdapter<AddressEntity, BaseVi
         DialogUtil.createDialogView(fragment.getContext(),R.string.text_make_sure_delete_address
                 ,null,R.string.btn_cancel
                 ,(dialog, which) -> {
-                    BaseActivity activity = (BaseActivity) mContext;
-                    activity.setProgressVisible(true);
+                    fragment.setProgressVisible(true);
                     viewModel.deleteAddress(s -> {
-                        activity.setProgressVisible(false);
+                        fragment.setProgressVisible(false);
                         ToastUtils.showLong(mContext, mContext.getString(R.string.message_delete_success));
                     });
                 },R.string.text_action_delete);
@@ -80,5 +77,24 @@ public class AddressManageAdapter extends BaseQuickAdapter<AddressEntity, BaseVi
 
     public void setViewModel(AddressViewModel viewModel) {
         this.viewModel = viewModel;
+    }
+
+    public void setDefaultAddress(BaseViewHolder holder){
+        fragment.setProgressVisible(true);
+        viewModel.cancelDefaultAddress(addressEntity -> {
+            viewModel.setAddressEntity(getItem(holder.getAdapterPosition()));
+            viewModel.setIsDefault();
+            viewModel.updateAddress(s -> {
+                fragment.setProgressVisible(false);
+                CheckBox checkBox = (CheckBox) getViewByPosition(getRecyclerView(),0, R.id.cb_default);
+                checkBox.setChecked(false);
+                checkBox.setText(fragment.getString(R.string.text_set_default_address));
+
+                CheckBox chooseCheckBox = (CheckBox) getViewByPosition(getRecyclerView(), holder.getAdapterPosition(), R.id.cb_default);
+                chooseCheckBox.setText(fragment.getString(R.string.text_default_address));
+
+                notifyItemMoved(holder.getAdapterPosition(), 0);
+            });
+        });
     }
 }

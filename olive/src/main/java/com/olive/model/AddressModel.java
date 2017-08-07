@@ -33,4 +33,20 @@ public class AddressModel {
                 .requestPI();
     }
 
+    public static Observable<ResponseJson<AddressEntity>> AddressUpdate(AddressEntity entity){
+        return HttpRequest.<ResponseJson<AddressEntity>>builder()
+                .setToJsonType(new TypeToken<ResponseJson<AddressEntity>>() {
+                }.getType())
+                .addBody("id", entity.id)
+                .addBody("consignee", entity.consignee)
+                .addBody("mobile", entity.mobile)
+                .addBody("provinceCode", entity.province)
+                .addBody("cityCode", entity.city)
+                .addBody("districtCode", entity.district)
+                .addBody("detailAddress", entity.detailAddress)
+                .addBody("isDefault", entity.isDefault)
+                .url(R.string.api_address_update)
+                .requestPI();
+    }
+
 }

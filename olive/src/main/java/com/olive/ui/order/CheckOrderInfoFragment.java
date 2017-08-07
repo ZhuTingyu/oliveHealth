@@ -17,6 +17,7 @@ import com.biz.util.Lists;
 import com.biz.util.PriceUtil;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
+import com.olive.model.UserModel;
 import com.olive.model.entity.AddressEntity;
 import com.olive.ui.adapter.CheckOrderAdapter;
 import com.olive.ui.main.my.address.AddressManageFragment;
@@ -36,6 +37,7 @@ public class CheckOrderInfoFragment extends BaseFragment {
     private TextView price;
     private TextView number;
     private CheckInfoViewModel viewModel;
+    private View head;
 
     @Override
     public void onAttach(Context context) {
@@ -68,7 +70,7 @@ public class CheckOrderInfoFragment extends BaseFragment {
             IntentBuilder.Builder().startParentActivity(getActivity(), PayOrderFragment.class, true);
         });
 
-        initHeadView(new AddressEntity());
+        initHeadView();
         initFoodView();
     }
 
@@ -80,13 +82,8 @@ public class CheckOrderInfoFragment extends BaseFragment {
         adapter.addFooterView(footer);
     }
 
-    private void initHeadView(AddressEntity addressEntity) {
-        View head = View.inflate(getContext(), R.layout.item_check_order_head_layout, null);
-        BaseViewHolder holder = new BaseViewHolder(head);
-        holder.setText(R.id.tv_shop_name,"成都市武侯区生活馆(门店)");
-        holder.setText(R.id.tv_consignee_name,"收货人：胡萝卜");
-        holder.setText(R.id.tv_consignee_tel,"手机号：15899768766");
-        holder.setText(R.id.tv_address,"地址：成都市环球中心E1-1801");
+    private void initHeadView() {
+        head = View.inflate(getContext(), R.layout.item_check_order_head_layout, null);
         head.setOnClickListener(v -> {
             IntentBuilder.Builder()
                     .startParentActivity(getActivity(), AddressManageFragment.class, ADDRESS_CODE);
@@ -94,11 +91,22 @@ public class CheckOrderInfoFragment extends BaseFragment {
         adapter.addHeaderView(head);
     }
 
+    private void bindHeadData(AddressEntity addressEntity){
+        BaseViewHolder holder = new BaseViewHolder(head);
+        holder.setText(R.id.tv_shop_name, UserModel.getInstance().getNickName());
+        holder.setText(R.id.tv_consignee_name, getString(R.string.text_receiver_name_, addressEntity.consignee));
+        holder.setText(R.id.tv_consignee_tel,getString(R.string.text_phone_, addressEntity.mobile));
+        holder.setText(R.id.tv_address,getString(R.string.text_address_detail_, addressEntity.detailAddress));
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(ADDRESS_CODE == requestCode){
-
+        if(ADDRESS_CODE == requestCode && data != null){
+            AddressEntity addressEntity = data.getParcelableExtra(IntentBuilder.KEY_DATA);
+            if(addressEntity != null){
+                bindHeadData(addressEntity);
+            }
         }
     }
 }

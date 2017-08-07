@@ -1,6 +1,7 @@
 package com.olive.ui.main.my.address;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.biz.base.BaseFragment;
 import com.biz.util.DialogUtil;
+import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
@@ -25,6 +27,8 @@ public class AddressManageFragment extends BaseFragment {
     private XRecyclerView recyclerView;
     private AddressManageAdapter adapter;
     private AddressViewModel viewModel;
+
+    public static int ADDRESS_RESULT = 0x234;
 
     @Override
     public void onAttach(Context context) {
@@ -52,7 +56,10 @@ public class AddressManageFragment extends BaseFragment {
         adapter.setViewModel(viewModel);
         adapter.bindToRecyclerView(recyclerView.getRecyclerView());
         adapter.setOnItemClickListener((baseQuickAdapter, view1, i) -> {
-
+            Intent intent = new Intent();
+            intent.putExtra(IntentBuilder.KEY_DATA, adapter.getItem(i));
+            getBaseActivity().setResult(ADDRESS_RESULT,intent);
+            getBaseActivity().finish();
         });
         viewModel.getAddressList(addressEntities -> {
             adapter.setNewData(addressEntities);
