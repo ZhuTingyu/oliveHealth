@@ -41,7 +41,7 @@ public class RefundMoneyFragment extends BaseFragment {
     private void initView() {
         recyclerView = findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new PayOrderAdapter(recyclerView.getRecyclerView());
+        adapter = new PayOrderAdapter(getContext());
         //adapter.setNewData(Lists.newArrayList("","","",""));
         recyclerView.setAdapter(adapter);
 

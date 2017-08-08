@@ -136,6 +136,11 @@ public class UserModel {
         return userInfo.nickname;
     }
 
+    public String getMobile() {
+        if (userInfo == null || userInfo.userId.length() < 0) return "";
+        return userInfo.mobile;
+    }
+
     public String getShopId() {
         if (userInfo == null) return "";
         return userInfo.account;

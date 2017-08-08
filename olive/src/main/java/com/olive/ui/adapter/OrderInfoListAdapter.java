@@ -16,6 +16,9 @@ import com.biz.util.PriceUtil;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.olive.R;
+import com.olive.model.entity.OrderEntity;
+import com.olive.model.entity.OrderListEntity;
+import com.olive.model.entity.ProductEntity;
 import com.olive.util.LoadImageUtil;
 
 import org.w3c.dom.Text;
@@ -26,7 +29,7 @@ import java.util.List;
  * Created by TingYu Zhu on 2017/7/28.
  */
 
-public class OrderInfoListAdapter extends BaseQuickAdapter<Object, BaseViewHolder> {
+public class OrderInfoListAdapter extends BaseQuickAdapter<OrderListEntity, BaseViewHolder> {
     private String type;
 
     public OrderInfoListAdapter(String type) {
@@ -35,7 +38,7 @@ public class OrderInfoListAdapter extends BaseQuickAdapter<Object, BaseViewHolde
     }
 
     @Override
-    protected void convert(BaseViewHolder holder, Object o) {
+    protected void convert(BaseViewHolder holder, OrderListEntity orderListEntity) {
         holder.setText(R.id.order_status, "待付款");
 
         LinearLayout linearLayout = holder.findViewById(R.id.list);
@@ -47,19 +50,21 @@ public class OrderInfoListAdapter extends BaseQuickAdapter<Object, BaseViewHolde
             recyclerView.setAdapter(adapter);
         }*/
 
-        for(int i = 0; i < 2; i++){
+        List<ProductEntity> products = orderListEntity.products;
+
+        for(ProductEntity productEntity : products){
             View view = LayoutInflater.from(mContext).inflate(R.layout.item_cart_layout, linearLayout ,false);
             BaseViewHolder holder1 = new BaseViewHolder(view);
             LoadImageUtil.Builder()
-                    .load("http://img13.360buyimg.com/imgzone/jfs/t6517/304/1921907774/343777/df918f69/595a01f6Ne19fc737.jpg").http().build()
+                    .load(productEntity.imgLogo).http().build()
                     .displayImage(holder1.getView(R.id.icon_img));
-            holder1.setText(R.id.title, "产品名称");
-            holder1.setText(R.id.title_line_2, "规格：1000mg*100粒");
-            holder1.setText(R.id.title_line_3, "¥ 7908.00");
+            holder1.setText(R.id.title, productEntity.productName);
+            holder1.setText(R.id.title_line_2, mContext.getString(R.string.text_product_specification, productEntity.standard));
+            holder1.setText(R.id.title_line_3, PriceUtil.formatRMB(productEntity.price));
             holder1.getView(R.id.checkbox).setVisibility(View.GONE);
             holder1.getView(R.id.number_layout).setVisibility(View.GONE);
             holder1.getView(R.id.text_product_number).setVisibility(View.VISIBLE);
-            holder1.setText(R.id.text_product_number, "x3");
+            holder1.setText(R.id.text_product_number, "x"+productEntity.quantity);
             linearLayout.addView(view);
         }
 

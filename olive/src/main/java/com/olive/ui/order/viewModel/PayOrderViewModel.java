@@ -25,7 +25,8 @@ public class PayOrderViewModel extends BaseViewModel {
     public void getBankCards(Action1<List<BankEntity>> action1){
         submitRequestThrowError(AccountModel.bankCards().map(r -> {
             if(r.isOk()){
-               return r.data;
+                List<BankEntity> entityList = r.data;
+               return entityList;
             }else throw new HttpErrorException(r);
         }),action1);
     }

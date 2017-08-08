@@ -20,6 +20,7 @@ import com.olive.R;
 import com.olive.ui.main.MainActivity;
 import com.olive.ui.main.cart.CartFragment;
 import com.olive.ui.main.my.FavoriteFragment;
+import com.olive.ui.order.viewModel.OrderListViewModel;
 
 import java.util.List;
 
@@ -66,7 +67,7 @@ public class OrderActivity extends BaseActivity {
         for(int i = 0; i < mTitles.size(); i++){
             OrderListInfoFragment fragment = new OrderListInfoFragment();
             Bundle bundle = new Bundle();
-            bundle.putString(OrderListInfoFragment.KEY_TYPE,mTitles.get(i));
+            bundle.putString(OrderListViewModel.KEY_TYPE,mTitles.get(i));
             fragment.setArguments(bundle);
             mFragments.add(fragment);
         }

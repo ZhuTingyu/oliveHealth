@@ -38,6 +38,12 @@ public abstract class BaseChooseAdapter<T, K extends BaseViewHolder> extends Bas
         sparseBooleanArray.put(position, true);
     }
 
+    public  void setSingleSelected(int position){
+        sparseBooleanArray.clear();
+        sparseBooleanArray.put(position, true);
+        notifyDataSetChanged();
+    }
+
     public void cancelSelected(int position){
         sparseBooleanArray.put(position, false);
     }

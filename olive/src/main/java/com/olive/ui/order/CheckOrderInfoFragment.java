@@ -81,7 +81,7 @@ public class CheckOrderInfoFragment extends BaseFragment {
                 debt.setText(PriceUtil.formatRMB(accountEntity.debt));
                 ok.setOnClickListener(v -> {
                     IntentBuilder.Builder()
-                            .putExtra(IntentBuilder.KEY_DATA, accountEntity)
+                            .putExtra(IntentBuilder.KEY_VALUE, accountEntity)
                             .startParentActivity(getActivity(), PayDebtFragment.class, true);
                 });
             } else {

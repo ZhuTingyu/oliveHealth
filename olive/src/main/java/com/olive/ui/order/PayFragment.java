@@ -70,7 +70,7 @@ public class PayFragment extends BaseFragment {
     protected  void initView() {
         recyclerView = findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new PayOrderAdapter(recyclerView.getRecyclerView());
+        adapter = new PayOrderAdapter(getContext());
         recyclerView.setAdapter(adapter);
 
         viewModel.getBankCards(bankEntities -> {
@@ -95,8 +95,8 @@ public class PayFragment extends BaseFragment {
         etVacancies = findViewById(head,R.id.input_account_vacancies);
 
         tvOrderNumber.setText(getString(R.string.text_order_number, orderEntity.orderNo));
-        tvPayPrice.setText(getString(R.string.text_pay_by_account_vacancies, PriceUtil.formatRMB(orderEntity.amount)));
-        tvVacancies.setText(PriceUtil.formatRMB(accountEntity.balance));
+        tvPayPrice.setText(PriceUtil.formatRMB(orderEntity.amount));
+        tvVacancies.setText(getString(R.string.text_pay_by_account_vacancies,PriceUtil.formatRMB(accountEntity.balance)));
         tvNeedPayPrice.setText(PriceUtil.formatRMB(orderEntity.amount));
 
 
@@ -124,7 +124,7 @@ public class PayFragment extends BaseFragment {
         TextView payPrice = (TextView) dialog.findViewById(R.id.pay_price);
         TextView btnOk = (TextView) dialog.findViewById(R.id.btn_ok);
 
-        userNumber.setText(getString(R.string.text_account_number, UserModel.getInstance().getUserId()));
+        userNumber.setText(getString(R.string.text_account_number, UserModel.getInstance().getMobile()));
         payWay.setText(getString(R.string.text_account_balance));
         payPrice.setText(orderEntity.amount+"");
 

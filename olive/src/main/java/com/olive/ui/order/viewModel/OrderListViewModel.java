@@ -8,6 +8,8 @@ import com.olive.model.OrderModel;
 import com.olive.model.entity.OrderListEntity;
 import com.olive.ui.BaseLoadMoreViewModel;
 
+import java.util.List;
+
 import rx.functions.Action1;
 
 /**
@@ -24,7 +26,7 @@ public class OrderListViewModel extends BaseLoadMoreViewModel {
     private static final int TYPE_ORDER_COMPLETE = 4;//已完成订单，
     private static final int TYPE_ORDER_CANCEL = -1;//已取消订单
 
-    private static final String KEY_TYPE = "type";
+    public static final String KEY_TYPE = "type";
     private String typeName;
     private int typeCode;
 
@@ -35,7 +37,7 @@ public class OrderListViewModel extends BaseLoadMoreViewModel {
         initTypeCode();
     }
 
-    public void getOrderList(Action1<OrderListEntity> action1){
+    public void getOrderList(Action1<List<OrderListEntity>> action1){
         submitRequestThrowError(OrderModel.orderList(page, typeCode).map(r -> {
             if(r.isOk()){
                 return r.data;
@@ -67,7 +69,10 @@ public class OrderListViewModel extends BaseLoadMoreViewModel {
 
     @Override
     public void setLoadMore(Action1<Object> action1) {
-
+        page++;
+        getOrderList(orderListEntities-> {
+            loadMore(orderListEntities,action1);
+        });
     }
 
     public String getTypeName() {

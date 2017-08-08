@@ -29,9 +29,9 @@ public class OrderModel {
                 .requestPI();
     }
 
-    public static Observable<ResponseJson<OrderListEntity>> orderList(int page, int status){
-        return HttpRequest.<ResponseJson<OrderListEntity>>builder()
-                .setToJsonType(new TypeToken<ResponseJson<OrderListEntity>>() {
+    public static Observable<ResponseJson<List<OrderListEntity>>> orderList(int page, int status){
+        return HttpRequest.<ResponseJson<List<OrderListEntity>>>builder()
+                .setToJsonType(new TypeToken<ResponseJson<List<OrderListEntity>>>() {
                 }.getType())
                 .addBody("page", page)
                 .addBody("status", status)

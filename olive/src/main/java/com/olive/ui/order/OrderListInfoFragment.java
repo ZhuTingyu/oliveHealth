@@ -13,6 +13,7 @@ import com.biz.base.BaseFragment;
 import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
 import com.biz.widget.recyclerview.XRecyclerView;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.olive.R;
 import com.olive.ui.adapter.OrderInfoListAdapter;
 import com.olive.ui.order.viewModel.OrderListViewModel;
@@ -58,13 +59,22 @@ public class OrderListInfoFragment extends BaseFragment {
         recyclerView = findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new OrderInfoListAdapter(viewModel.getTypeName());
-        adapter.setNewData(data);
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener((baseQuickAdapter, view, i) -> {
-            //TODO data里面的type
             IntentBuilder.Builder()
                     .putExtra(IntentBuilder.KEY_TYPE, "")
                     .startParentActivity(getActivity(), OrderDetailsFragment.class, true);
         });
+
+        adapter.setOnLoadMoreListener(()->{
+           viewModel.setLoadMore(o -> {
+
+           });
+        },recyclerView.getRecyclerView());
+
+        viewModel.getOrderList(orderListEntity -> {
+            adapter.setNewData(data);
+        });
+
     }
 }

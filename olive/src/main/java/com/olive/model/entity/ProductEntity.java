@@ -21,6 +21,7 @@ import java.util.List;
 public class ProductEntity implements Parcelable {
     public String productNo;  //商品编码
     public String name;   //商品名称
+    public String productName;   //商品名称
     public String standard;   //规格
     public String unit;   //单位
     public int orderCardinality; //订单基数
@@ -48,6 +49,7 @@ public class ProductEntity implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.productNo);
         dest.writeString(this.name);
+        dest.writeString(this.productName);
         dest.writeString(this.standard);
         dest.writeString(this.unit);
         dest.writeInt(this.orderCardinality);
@@ -70,6 +72,7 @@ public class ProductEntity implements Parcelable {
     protected ProductEntity(Parcel in) {
         this.productNo = in.readString();
         this.name = in.readString();
+        this.productName = in.readString();
         this.standard = in.readString();
         this.unit = in.readString();
         this.orderCardinality = in.readInt();

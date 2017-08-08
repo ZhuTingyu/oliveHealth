@@ -136,6 +136,20 @@
     <string name="text_pay_detail">付款详情</string>
     <string name="text_input_account_pay_password">请输入账户支付密码</string>
     <string name="text_make_sure_pay">确定付款</string>
+    <string name="text_bank_pay">%1$s卡支付</string>
+    <string name="text_ali_pay">支付宝支付</string>
+    <string name="text_wei_pay">微信支付</string>
+    <string-array name="array_bank_pay">
+        <item>中国银行</item>
+        <item>中国工商银行</item>
+        <item>建设银行</item>
+    </string-array>
+
+    <string-array name="array_fixation_pay">
+        <item>@string/text_wei_pay</item>
+        <item>@string/text_ali_pay</item>
+    </string-array>
+
 
 
     <string name="title_find_password">找回密码</string>
