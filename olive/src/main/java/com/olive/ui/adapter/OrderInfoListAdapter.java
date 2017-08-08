@@ -1,27 +1,27 @@
 package com.olive.ui.adapter;
 
+import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.biz.base.BaseFragment;
 import com.biz.base.BaseViewHolder;
+import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
 import com.biz.util.PriceUtil;
-import com.biz.widget.recyclerview.XRecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.olive.R;
 import com.olive.model.entity.OrderEntity;
-import com.olive.model.entity.OrderListEntity;
 import com.olive.model.entity.ProductEntity;
+import com.olive.ui.order.PayDebtFragment;
+import com.olive.ui.order.BasePayFragment;
+import com.olive.ui.order.PayOrderFragment;
+import com.olive.ui.order.viewModel.OrderListViewModel;
+import com.olive.ui.order.viewModel.OrderViewModel;
 import com.olive.util.LoadImageUtil;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -29,17 +29,20 @@ import java.util.List;
  * Created by TingYu Zhu on 2017/7/28.
  */
 
-public class OrderInfoListAdapter extends BaseQuickAdapter<OrderListEntity, BaseViewHolder> {
-    private String type;
+public class OrderInfoListAdapter extends BaseQuickAdapter<OrderEntity, BaseViewHolder> {
 
-    public OrderInfoListAdapter(String type) {
+    private OrderListViewModel viewModel;
+    private OrderViewModel orderViewModel;
+    private BaseFragment fragment;
+
+    public OrderInfoListAdapter(BaseFragment fragment) {
         super(R.layout.item_order_list_info_layout, Lists.newArrayList());
-        this.type = type;
+        this.fragment = fragment;
+        orderViewModel = new OrderViewModel(fragment);
     }
 
     @Override
-    protected void convert(BaseViewHolder holder, OrderListEntity orderListEntity) {
-        holder.setText(R.id.order_status, "待付款");
+    protected void convert(BaseViewHolder holder, OrderEntity orderEntity) {
 
         LinearLayout linearLayout = holder.findViewById(R.id.list);
         /*recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
@@ -50,10 +53,11 @@ public class OrderInfoListAdapter extends BaseQuickAdapter<OrderListEntity, Base
             recyclerView.setAdapter(adapter);
         }*/
 
-        List<ProductEntity> products = orderListEntity.products;
 
-        for(ProductEntity productEntity : products){
-            View view = LayoutInflater.from(mContext).inflate(R.layout.item_cart_layout, linearLayout ,false);
+        List<ProductEntity> products = orderEntity.products;
+
+        for (ProductEntity productEntity : products) {
+            View view = LayoutInflater.from(mContext).inflate(R.layout.item_cart_layout, linearLayout, false);
             BaseViewHolder holder1 = new BaseViewHolder(view);
             LoadImageUtil.Builder()
                     .load(productEntity.imgLogo).http().build()
@@ -64,34 +68,108 @@ public class OrderInfoListAdapter extends BaseQuickAdapter<OrderListEntity, Base
             holder1.getView(R.id.checkbox).setVisibility(View.GONE);
             holder1.getView(R.id.number_layout).setVisibility(View.GONE);
             holder1.getView(R.id.text_product_number).setVisibility(View.VISIBLE);
-            holder1.setText(R.id.text_product_number, "x"+productEntity.quantity);
+            holder1.setText(R.id.text_product_number, "x" + productEntity.quantity);
             linearLayout.addView(view);
         }
 
+        holder.setText(R.id.price, PriceUtil.formatRMB(orderEntity.amount));
+        holder.setText(R.id.number, mContext.getString(R.string.text_order_list_info_number, getTotalCount(products) + ""));
 
 
-
+        TextView status = holder.findViewById(R.id.order_status);
         TextView leftBtn = holder.findViewById(R.id.btn_left);
         TextView rightBtn = holder.findViewById(R.id.btn_right);
 
-        leftBtn.setOnClickListener(v -> {
+        String statusString = viewModel.getOrderStatus(orderEntity);
+        status.setText(statusString);
 
+        if (mContext.getString(R.string.text_waiting_pay).equals(statusString)) {
+            //待支付
+            initWaitPay(holder, leftBtn, rightBtn, orderEntity);
+        } else if (mContext.getString(R.string.text_wait_send).equals(statusString)) {
+            //待发货
+            initWaitSend(leftBtn, rightBtn);
+        } else if (mContext.getString(R.string.text_wait_receive).equals(statusString)) {
+            //待收货
+            initWaitReceive(leftBtn, rightBtn, orderEntity);
+        } else if (mContext.getString(R.string.text_order_complete).equals(statusString)) {
+            //已完成
+            initComplete(leftBtn, rightBtn);
+        } else if (mContext.getString(R.string.text_order_cancel).equals(statusString)) {
+            //已经取消
+            initCancel(leftBtn, rightBtn, orderEntity);
+        }
+    }
+
+    private void initCancel(TextView leftBtn, TextView rightBtn, OrderEntity orderEntity) {
+        leftBtn.setVisibility(View.GONE);
+        rightBtn.setText(R.string.text_buy_again);
+        rightBtn.setOnClickListener(v -> {
+            //TODO 再次购买
+        });
+    }
+
+    private void initWaitReceive(TextView leftBtn, TextView rightBtn, OrderEntity orderEntity) {
+        leftBtn.setVisibility(View.GONE);
+        rightBtn.setText(mContext.getString(R.string.text_make_sure_receive));
+        rightBtn.setOnClickListener(v -> {
+            fragment.setProgressVisible(true);
+            orderViewModel.setOrderNo(orderEntity.orderNo);
+            orderViewModel.confirmOrder(s -> {
+                fragment.setProgressVisible(false);
+            });
+        });
+    }
+
+    private void initComplete(TextView leftBtn, TextView rightBtn) {
+        leftBtn.setVisibility(View.GONE);
+        rightBtn.setVisibility(View.GONE);
+    }
+
+    private void initWaitSend(TextView leftBtn, TextView rightBtn) {
+        leftBtn.setVisibility(View.GONE);
+        rightBtn.setVisibility(View.GONE);
+    }
+
+    private void initWaitPay(BaseViewHolder holder, TextView leftBtn, TextView rightBtn, OrderEntity orderEntity) {
+        leftBtn.setOnClickListener(v -> {
+            fragment.setProgressVisible(true);
+            orderViewModel.setOrderNo(orderEntity.orderNo);
+            orderViewModel.cancelOrder(s -> {
+                fragment.setProgressVisible(false);
+                remove(holder.getAdapterPosition());
+                //TODO 刷新 已经取消列表的数据
+            });
         });
 
         rightBtn.setOnClickListener(v -> {
-
+            payOrder(orderEntity);
         });
 
-        if(mContext.getString(R.string.text_waiting_pay).equals(type)){
-            //待支付
-        }else if(mContext.getString(R.string.text_wait_send).equals(type)){
-            //待发货
-        }else if(mContext.getString(R.string.text_wait_receive).equals(type)){
-            //待收货
-        }else if(mContext.getString(R.string.text_order_complete).equals(type)){
-            //已完成
-        }else if(mContext.getString(R.string.text_order_cancel).equals(type)){
-            //已经取消
+    }
+
+    public void setViewModel(OrderListViewModel viewModel) {
+        this.viewModel = viewModel;
+    }
+
+    public int getTotalCount(List<ProductEntity> productEntities) {
+        int count = 0;
+        for (ProductEntity productEntity : productEntities) {
+            count += productEntity.quantity;
+        }
+        return count;
+    }
+
+    private void payOrder(OrderEntity orderEntity) {
+        if (viewModel.isHasDebt(orderEntity)) {
+            IntentBuilder.Builder()
+                    .startParentActivity((Activity) mContext, PayDebtFragment.class, true);
+        } else {
+            IntentBuilder.Builder()
+                    .putExtra(IntentBuilder.KEY_DATA, orderEntity)
+                    .startParentActivity((Activity) mContext, PayOrderFragment.class, true);
+
         }
     }
+
 }

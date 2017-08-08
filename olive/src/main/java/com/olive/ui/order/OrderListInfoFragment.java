@@ -24,14 +24,11 @@ import java.util.List;
  * Created by TingYu Zhu on 2017/7/28.
  */
 
-@SuppressLint("ValidFragment")
 public class OrderListInfoFragment extends BaseFragment {
-
 
 
     private XRecyclerView recyclerView;
     private OrderInfoListAdapter adapter;
-    private List<Object> data;
 
     private OrderListViewModel viewModel;
 
@@ -54,11 +51,11 @@ public class OrderListInfoFragment extends BaseFragment {
     }
 
 
-
     private void initView() {
         recyclerView = findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new OrderInfoListAdapter(viewModel.getTypeName());
+        adapter = new OrderInfoListAdapter(this);
+        adapter.setViewModel(viewModel);
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener((baseQuickAdapter, view, i) -> {
             IntentBuilder.Builder()
@@ -66,14 +63,14 @@ public class OrderListInfoFragment extends BaseFragment {
                     .startParentActivity(getActivity(), OrderDetailsFragment.class, true);
         });
 
-        adapter.setOnLoadMoreListener(()->{
-           viewModel.setLoadMore(o -> {
+        adapter.setOnLoadMoreListener(() -> {
+            viewModel.setLoadMore(o -> {
 
-           });
-        },recyclerView.getRecyclerView());
+            });
+        }, recyclerView.getRecyclerView());
 
-        viewModel.getOrderList(orderListEntity -> {
-            adapter.setNewData(data);
+        viewModel.getOrderList(orderEntities -> {
+            adapter.setNewData(orderEntities);
         });
 
     }

@@ -30,7 +30,7 @@ import com.olive.ui.order.viewModel.PayOrderViewModel;
  * Created by TingYu Zhu on 2017/7/27.
  */
 
-public class PayFragment extends BaseFragment {
+public class BasePayFragment extends BaseFragment {
 
     private XRecyclerView recyclerView;
     private PayOrderAdapter adapter;
@@ -42,8 +42,8 @@ public class PayFragment extends BaseFragment {
     protected TextView tvVacancies;
     protected EditText etVacancies;
 
-    private OrderEntity orderEntity;
-    private AccountEntity accountEntity;
+    protected OrderEntity orderEntity;
+    protected AccountEntity accountEntity;
 
     @Override
     public void onAttach(Context context) {
@@ -93,11 +93,6 @@ public class PayFragment extends BaseFragment {
         tvVacancies = findViewById(head,R.id.account_vacancies);
         tvNeedPayPrice = findViewById(head,R.id.need_pay);
         etVacancies = findViewById(head,R.id.input_account_vacancies);
-
-        tvOrderNumber.setText(getString(R.string.text_order_number, orderEntity.orderNo));
-        tvPayPrice.setText(PriceUtil.formatRMB(orderEntity.amount));
-        tvVacancies.setText(getString(R.string.text_pay_by_account_vacancies,PriceUtil.formatRMB(accountEntity.balance)));
-        tvNeedPayPrice.setText(PriceUtil.formatRMB(orderEntity.amount));
 
 
         etVacancies.clearFocus();

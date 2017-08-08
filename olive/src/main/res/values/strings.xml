@@ -139,6 +139,7 @@
     <string name="text_bank_pay">%1$s卡支付</string>
     <string name="text_ali_pay">支付宝支付</string>
     <string name="text_wei_pay">微信支付</string>
+    <string name="text_make_sure_receive">确认收货</string>
     <string-array name="array_bank_pay">
         <item>中国银行</item>
         <item>中国工商银行</item>

@@ -16,6 +16,7 @@ import com.biz.util.IntentBuilder;
 import com.biz.util.PriceUtil;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
+import com.olive.model.OrderModel;
 import com.olive.model.UserModel;
 import com.olive.model.entity.AccountEntity;
 import com.olive.model.entity.AddressEntity;
@@ -23,6 +24,7 @@ import com.olive.ui.adapter.CheckOrderAdapter;
 import com.olive.ui.main.my.address.AddressManageFragment;
 import com.olive.ui.main.my.address.AddressViewModel;
 import com.olive.ui.order.viewModel.CheckInfoViewModel;
+import com.olive.ui.order.viewModel.OrderViewModel;
 
 /**
  * Created by TingYu Zhu on 2017/7/26.
@@ -38,6 +40,7 @@ public class CheckOrderInfoFragment extends BaseFragment {
     private TextView price;
     private TextView number;
     private CheckInfoViewModel viewModel;
+    private OrderViewModel orderViewModel;
     private AddressViewModel addressViewModel;
     private View head;
     private AddressEntity addressEntity;
@@ -48,6 +51,7 @@ public class CheckOrderInfoFragment extends BaseFragment {
         super.onAttach(context);
         viewModel = new CheckInfoViewModel(context);
         addressViewModel = new AddressViewModel(context);
+        orderViewModel = new OrderViewModel(context);
         initViewModel(viewModel);
     }
 
@@ -87,13 +91,14 @@ public class CheckOrderInfoFragment extends BaseFragment {
             } else {
                 ok.setOnClickListener(v -> {
                     setProgressVisible(true);
-                    viewModel.setAddressId(addressEntity.id);
-                    viewModel.createOrder(orderEntity -> {
+                    orderViewModel.setProductEntities(viewModel.getProductEntities());
+                    orderViewModel.setAddressId(addressEntity.id);
+                    orderViewModel.createOrder(orderEntity -> {
                         setProgressVisible(false);
                         IntentBuilder.Builder()
                                 .putExtra(IntentBuilder.KEY_VALUE, accountEntity)
                                 .putExtra(IntentBuilder.KEY_DATA, orderEntity)
-                                .startParentActivity(getActivity(), PayFragment.class, true);
+                                .startParentActivity(getActivity(), BasePayFragment.class, true);
                     });
 
                 });

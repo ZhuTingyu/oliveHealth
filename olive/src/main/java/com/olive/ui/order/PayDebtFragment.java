@@ -8,7 +8,7 @@ import com.olive.R;
  * Created by TingYu Zhu on 2017/8/7.
  */
 
-public class PayDebtFragment extends PayFragment {
+public class PayDebtFragment extends BasePayFragment {
 
     @Override
     protected void initHeadView() {
