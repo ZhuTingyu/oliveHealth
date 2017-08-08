@@ -19,6 +19,20 @@ public class OrderEntity implements Parcelable {
     public int allowDebt; //是否欠款：0：否，1：是
     public List<ProductEntity> products;
 
+    //详情
+    public int useBalancePay;   //是否用余额支付，0：否，1：是
+    public long balancePayAmount;    //余额支付金额
+    public int payType; //支付方式  //1:支付宝，2：微信，3：中国银行，4：中国建设银行，5：中国工商银行，6：中国农业银行
+    public long payTime; //支付时间
+    public String expressNo;    //物流单号
+    public String expressInfo; //物流信息
+    public long expressTime;  //发货时间
+    public String outTradeNo;   //交易编号
+    public long createTime;   //创建时间
+    public String consigneeName;   //收货人
+    public String mobile;//手机号
+    public String address; //收货地址
+
 
     @Override
     public int describeContents() {

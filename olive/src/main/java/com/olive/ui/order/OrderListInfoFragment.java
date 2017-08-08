@@ -59,7 +59,7 @@ public class OrderListInfoFragment extends BaseFragment {
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener((baseQuickAdapter, view, i) -> {
             IntentBuilder.Builder()
-                    .putExtra(IntentBuilder.KEY_TYPE, "")
+                    .putExtra(IntentBuilder.KEY_VALUE, adapter.getItem(i).orderNo)
                     .startParentActivity(getActivity(), OrderDetailsFragment.class, true);
         });
 

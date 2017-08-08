@@ -26,19 +26,7 @@ public class OrderListViewModel extends BaseLoadMoreViewModel {
     private static final int TYPE_ORDER_COMPLETE = 4;//已完成订单，
     private static final int TYPE_ORDER_CANCEL = -1;//已取消订单
 
-    private static final int PAY_STATUS_PAY = 1; // 支付状态 已支付
-    private static final int PAY_STATUS_NOT_PAY = 0;// 支付状态 未支付
 
-    private static final int EXPRESS_STATUS_DEFALUT = 0;//物流状态  默认 （未支付）
-    private static final int EXPRESS_STATUS_WAIT_SEND    = 1;//物流状态  待发货
-    private static final int EXPRESS_STATUS_WAIT_RECEIVE    = 2;//物流状态  待收货
-    private static final int EXPRESS_STATUS_COMPLETE    = 3;//物流状态  已经完成（签收）
-
-    private static final int ORDER_STATUS_NORMAL   = 1;//订单状态 正常状态
-    private static final int ORDER_STATUS_CANCEL   = -1;//订单状态 已取消
-
-    private static final int ALLOW_NOT_DEBT = 1; //有欠款
-    private static final int ALLOW_DEBT = 0; //没有欠款
 
 
     public static final String KEY_TYPE = "type";
@@ -94,31 +82,4 @@ public class OrderListViewModel extends BaseLoadMoreViewModel {
         return typeName;
     }
 
-    public String getOrderStatus(OrderEntity orderEntity){
-
-        String status = "";
-
-        if(orderEntity.payStatus == PAY_STATUS_PAY){
-            if(orderEntity.expressStatus == EXPRESS_STATUS_WAIT_SEND){
-                status = getActivity().getString(R.string.text_wait_send);
-            }else if(orderEntity.expressStatus == EXPRESS_STATUS_WAIT_RECEIVE){
-                status = getActivity().getString(R.string.text_wait_receive);
-            }else if(orderEntity.expressStatus == EXPRESS_STATUS_COMPLETE) {
-                status = getActivity().getString(R.string.text_order_complete);
-            }
-
-        }else {
-            if(orderEntity.orderStatus == ORDER_STATUS_NORMAL){
-                status = getString(R.string.text_waiting_pay);
-            }else {
-                status =  getString(R.string.text_order_cancel);
-            }
-        }
-
-        return status;
-    }
-
-    public boolean isHasDebt(OrderEntity orderEntity){
-        return orderEntity.allowDebt == ALLOW_NOT_DEBT;
-    }
 }

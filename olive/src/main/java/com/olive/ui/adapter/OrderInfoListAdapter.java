@@ -80,7 +80,7 @@ public class OrderInfoListAdapter extends BaseQuickAdapter<OrderEntity, BaseView
         TextView leftBtn = holder.findViewById(R.id.btn_left);
         TextView rightBtn = holder.findViewById(R.id.btn_right);
 
-        String statusString = viewModel.getOrderStatus(orderEntity);
+        String statusString = orderViewModel.getOrderStatus(orderEntity);
         status.setText(statusString);
 
         if (mContext.getString(R.string.text_waiting_pay).equals(statusString)) {
@@ -161,7 +161,7 @@ public class OrderInfoListAdapter extends BaseQuickAdapter<OrderEntity, BaseView
     }
 
     private void payOrder(OrderEntity orderEntity) {
-        if (viewModel.isHasDebt(orderEntity)) {
+        if (orderViewModel.isHasDebt(orderEntity)) {
             IntentBuilder.Builder()
                     .startParentActivity((Activity) mContext, PayDebtFragment.class, true);
         } else {

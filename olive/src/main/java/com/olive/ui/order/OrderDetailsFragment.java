@@ -1,5 +1,6 @@
 package com.olive.ui.order;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,11 +16,19 @@ import com.biz.base.BaseViewHolder;
 import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
 import com.biz.util.PriceUtil;
+import com.biz.util.TimeUtil;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
+import com.olive.model.UserModel;
+import com.olive.model.entity.OrderEntity;
 import com.olive.ui.adapter.CheckOrderAdapter;
 import com.olive.ui.adapter.BaseLineTextListAdapter;
 import com.olive.ui.adapter.OrderFootAdapter;
+import com.olive.ui.main.my.address.AddressViewModel;
+import com.olive.ui.order.viewModel.OrderDetailViewModel;
+import com.olive.ui.order.viewModel.OrderViewModel;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -30,8 +39,20 @@ import java.util.List;
 public class OrderDetailsFragment extends BaseFragment {
     private XRecyclerView recyclerView;
     private CheckOrderAdapter adapter;
-    private String type;
+    private String status;
     private List<Object> data;
+    private OrderEntity orderEntity;
+
+    private OrderDetailViewModel viewModel;
+    private OrderViewModel orderViewModel;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        viewModel = new OrderDetailViewModel(context);
+        orderViewModel = new OrderViewModel(context);
+        initViewModel(viewModel);
+    }
 
     @Nullable
     @Override
@@ -42,33 +63,25 @@ public class OrderDetailsFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        type = getActivity().getIntent().getStringExtra(IntentBuilder.KEY_TYPE);
         setTitle(getString(R.string.title_order_detail));
         initData();
-        initView();
     }
 
 
     private void initData() {
-        if(getString(R.string.text_waiting_pay).equals(type)){
-
-        }else if(getString(R.string.text_wait_send).equals(type)){
-            //待发货
-        }else if(getString(R.string.text_wait_receive).equals(type)){
-            //待收货
-        }else if(getString(R.string.text_order_complete).equals(type)){
-            //已完成
-        }else if(getString(R.string.text_order_cancel).equals(type)){
-
-        }
-        data = Lists.newArrayList("","","","");
+        viewModel.getOrderDetail(orderEntity -> {
+            this.orderEntity = orderEntity;
+            status = orderViewModel.getOrderStatus(orderEntity);
+            orderViewModel.setOrderNo(orderEntity.orderNo);
+            initView();
+        });
     }
 
     private void initView() {
         recyclerView = findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new CheckOrderAdapter();
-        //adapter.setNewData(data);
+        adapter.setNewData(orderEntity.products);
         recyclerView.setAdapter(adapter);
 
         initButton();
@@ -78,46 +91,76 @@ public class OrderDetailsFragment extends BaseFragment {
     }
 
     private void initButton() {
-        if(getString(R.string.text_waiting_pay).equals(type)){
+
+        LinearLayout btns = findViewById(R.id.ll_btn);
+        TextView btnLeft = findViewById(R.id.btn_left);
+        TextView btnRight = findViewById(R.id.btn_right);
+        TextView btnOk = findViewById(R.id.btn_sure);
+
+        if (getString(R.string.text_waiting_pay).equals(status)) {
             //待支付
-            findViewById(R.id.btn_sure).setOnClickListener(v -> {
-
+            btnLeft.setOnClickListener(v -> {
+                setProgressVisible(true);
+                orderViewModel.cancelOrder(s -> {
+                    setProgressVisible(false);
+                });
             });
 
-            findViewById(R.id.btn_cancel).setOnClickListener(v -> {
-
+            btnRight.setOnClickListener(v -> {
+                if (orderViewModel.isHasDebt(orderEntity)) {
+                    IntentBuilder.Builder()
+                            .putExtra(IntentBuilder.KEY_DATA, orderEntity)
+                            .startParentActivity(getBaseActivity(), PayDebtFragment.class, true);
+                } else {
+                    IntentBuilder.Builder()
+                            .putExtra(IntentBuilder.KEY_DATA, orderEntity)
+                            .startParentActivity(getBaseActivity(), PayOrderFragment.class, true);
+                }
             });
 
-        }else if(getString(R.string.text_wait_send).equals(type)){
+        } else if (getString(R.string.text_wait_send).equals(status)) {
             //待发货
-        }else if(getString(R.string.text_wait_receive).equals(type)){
+            btns.setVisibility(View.GONE);
+        } else if (getString(R.string.text_wait_receive).equals(status)) {
             //待收货
-        }else if(getString(R.string.text_order_complete).equals(type)){
+            btns.setVisibility(View.GONE);
+            btnOk.setVisibility(View.VISIBLE);
+            btnOk.setText(getString(R.string.text_make_sure_receive));
+            btnOk.setOnClickListener(v -> {
+                setProgressVisible(true);
+                orderViewModel.confirmOrder(s -> {
+                    setProgressVisible(false);
+                });
+            });
+        } else if (getString(R.string.text_order_complete).equals(status)) {
             //已完成
-        }else if(getString(R.string.text_order_cancel).equals(type)){
-            findViewById(R.id.ll_btn).setVisibility(View.GONE);
-            TextView btnOk = findViewById(R.id.btn_sure);
+            btns.setVisibility(View.GONE);
+            btnOk.setVisibility(View.GONE);
+
+        } else if (getString(R.string.text_order_cancel).equals(status)) {
+            btns.setVisibility(View.GONE);
             btnOk.setText(getString(R.string.text_buy_again));
             btnOk.setVisibility(View.VISIBLE);
             btnOk.setOnClickListener(v -> {
-
+                IntentBuilder.Builder().putExtra(IntentBuilder.KEY_DATA, orderEntity)
+                        .startParentActivity(getBaseActivity(), CheckOrderInfoFragment.class, true);
             });
         }
     }
 
     private void initFoodView() {
         View footView = LayoutInflater.from(getContext()).inflate(R.layout.item_order_details_foot_layout, null);
-        XRecyclerView footList  = (XRecyclerView) footView.findViewById(R.id.list);
+        XRecyclerView footList = (XRecyclerView) footView.findViewById(R.id.list);
         footList.setLayoutManager(new LinearLayoutManager(getContext()));
         OrderFootAdapter footAdapter = new OrderFootAdapter(getContext().getResources().getStringArray(R.array.array_order_details));
-        footAdapter.setNewData(Lists.newArrayList("","","","","","",""));
+        footAdapter.setNewData(getOrderInfo());
         footList.setAdapter(footAdapter);
 
         TextView number = (TextView) footView.findViewById(R.id.number);
         TextView price = (TextView) footView.findViewById(R.id.price);
 
-        number.setText(getContext().getString(R.string.text_products_total_money,1+""));
-        price.setText(PriceUtil.formatRMB(123123));
+        number.setText(getContext().getString(R.string.text_products_total_money, viewModel.getTotalCount(orderEntity.products) + ""));
+        price.setText(PriceUtil.formatRMB(orderEntity.amount));
 
         adapter.addFooterView(footView);
     }
@@ -125,11 +168,26 @@ public class OrderDetailsFragment extends BaseFragment {
     private void initHeadView() {
         View head = View.inflate(getContext(), R.layout.item_order_details_head_layout, null);
         BaseViewHolder holder = new BaseViewHolder(head);
-        holder.setText(R.id.status, type);
-        holder.setText(R.id.address, "成都武侯区“生活馆");
-        holder.setText(R.id.name, "刘德华");
-        holder.setText(R.id.phone, "1231231231");
-        holder.setText(R.id.address_1,"成都市天府大道北段环球中心 E1-1-1513");
+        holder.setText(R.id.status, status);
+        holder.setText(R.id.address, UserModel.getInstance().getNickName());
+        holder.setText(R.id.name, orderEntity.consigneeName);
+        holder.setText(R.id.phone, orderEntity.mobile);
+        holder.setText(R.id.address_1, orderEntity.address);
         adapter.addHeaderView(head);
     }
+
+    private List<String> getOrderInfo() {
+        List<String> list = Lists.newArrayList();
+        list.add(orderEntity.expressNo);
+        list.add(orderEntity.expressInfo);
+        //TODO 物流价格
+        list.add("");
+        list.add(orderEntity.orderNo);
+        list.add(orderEntity.outTradeNo);
+        list.add(TimeUtil.format(orderEntity.createTime, TimeUtil.FORMAT_YYYYMMDDHHMMSS));
+        //TODO 收货时间??
+        list.add(TimeUtil.format(orderEntity.expressTime, TimeUtil.FORMAT_YYYYMMDDHHMMSS));
+        return list;
+    }
+
 }

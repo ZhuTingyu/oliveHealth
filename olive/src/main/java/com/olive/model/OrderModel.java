@@ -56,5 +56,14 @@ public class OrderModel {
                 .requestPI();
     }
 
+    public static Observable<ResponseJson<OrderEntity>> orderDetail(String orderNo){
+        return HttpRequest.<ResponseJson<OrderEntity>>builder()
+                .setToJsonType(new TypeToken<ResponseJson<OrderEntity>>() {
+                }.getType())
+                .addBody("orderNo", orderNo)
+                .url(R.string.api_order_detail)
+                .requestPI();
+    }
+
 
 }
