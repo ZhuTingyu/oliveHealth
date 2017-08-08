@@ -1,7 +1,6 @@
 package com.olive.ui.order;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,9 +16,6 @@ import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
 import com.biz.util.Utils;
 import com.olive.R;
-import com.olive.ui.main.MainActivity;
-import com.olive.ui.main.cart.CartFragment;
-import com.olive.ui.main.my.FavoriteFragment;
 import com.olive.ui.order.viewModel.OrderListViewModel;
 
 import java.util.List;

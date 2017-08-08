@@ -1,4 +1,4 @@
-package com.olive.ui.main.my;
+package com.olive.ui.main.my.favorite;
 
 import com.biz.base.BaseFragment;
 import com.biz.util.Lists;
@@ -36,11 +36,14 @@ public class FavoriteFragment extends BaseFragment {
 
     private XRecyclerView mRecyclerView;
     private ProductAdapter mAdapter;
+    private FavoriteViewModel viewModel;
 
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        viewModel = new FavoriteViewModel(context);
+        initViewModel(viewModel);
     }
 
     @Nullable
@@ -56,8 +59,10 @@ public class FavoriteFragment extends BaseFragment {
         mRecyclerView = getView(R.id.list);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         mAdapter = new ProductAdapter(R.layout.item_product_grid_layout);
-        mAdapter.setNewData(Lists.newArrayList(new ProductEntity(),new ProductEntity(),new ProductEntity(),new ProductEntity()));
         mRecyclerView.setAdapter(mAdapter);
+        viewModel.getFavoriteList(productEntities -> {
+            mAdapter.setNewData(productEntities);
+        });
 
 
 

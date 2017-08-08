@@ -6,7 +6,6 @@ import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
 import com.biz.util.Utils;
 import com.olive.R;
-import com.olive.ui.main.my.FavoriteFragment;
 
 import android.app.Activity;
 import android.net.Uri;

@@ -1,5 +1,6 @@
 package com.olive.ui.holder;
 
+import com.biz.base.BaseActivity;
 import com.biz.base.BaseViewHolder;
 import com.biz.widget.CustomDraweeView;
 import com.olive.R;
@@ -44,7 +45,7 @@ public class ProductViewHolder extends BaseViewHolder {
         btnCart = (AppCompatImageView) findViewById(R.id.btn_cart);
         btnLike = (AppCompatImageView) findViewById(R.id.btn_like);
 
-        Activity activity = (Activity) itemView.getContext();
+        BaseActivity activity = (BaseActivity) itemView.getContext();
         if (activity.getTitle().equals(getString(R.string.text_my_favor))){
             btnLike.setVisibility(View.GONE);
         }

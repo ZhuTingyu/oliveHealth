@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.olive.R;
 import com.olive.ui.adapter.UserAdapter;
 import com.olive.ui.login.LoginActivity;
+import com.olive.ui.main.my.favorite.FavoriteFragment;
 import com.olive.ui.order.OrderActivity;
 import com.olive.ui.refund.RefundActivity;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;

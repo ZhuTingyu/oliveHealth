@@ -26,7 +26,7 @@ public class ProductsViewModel extends BaseViewModel {
     }
 
     public void addProductFavorites(Action1<String> action1){
-        submitRequestThrowError(ProductsModel.addProductfavorites(productNo).map(r -> {
+        submitRequestThrowError(ProductsModel.addProductFavorites(productNo).map(r -> {
             if(r.isOk()){
                 return r.data;
             }else throw new HttpErrorException(r);
@@ -34,7 +34,7 @@ public class ProductsViewModel extends BaseViewModel {
     }
 
     public void cancelProductFavorites(Action1<String> action1){
-        submitRequestThrowError(ProductsModel.cancelProductfavorites(productNo).map(r -> {
+        submitRequestThrowError(ProductsModel.cancelProductFavorites(productNo).map(r -> {
             if(r.isOk()){
                 return r.data;
             }else throw new HttpErrorException(r);

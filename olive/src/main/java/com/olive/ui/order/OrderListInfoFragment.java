@@ -36,6 +36,7 @@ public class OrderListInfoFragment extends BaseFragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         viewModel = new OrderListViewModel(this);
+        initViewModel(viewModel);
     }
 
     @Nullable

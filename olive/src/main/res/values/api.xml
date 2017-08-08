@@ -32,6 +32,8 @@
     <string name="api_order_confirm">order/comfirmOrder</string>
     <string name="api_order_detail">order/orderDetail</string>
 
+    <string name="api_favorite_list">favorite/favoriteList</string>
+
 
 
 

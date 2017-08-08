@@ -58,7 +58,7 @@ public class ProductsModel {
                 .requestPI();
     }
 
-    public static Observable<ResponseJson<String>> addProductfavorites(String productNo){
+    public static Observable<ResponseJson<String>> addProductFavorites(String productNo){
         return HttpRequest.<ResponseJson<String>>builder()
                 .setToJsonType(new TypeToken<ResponseJson<String>>() {
                 }.getType())
@@ -67,7 +67,7 @@ public class ProductsModel {
                 .requestPI();
     }
 
-    public static Observable<ResponseJson<String>> cancelProductfavorites(String productNo){
+    public static Observable<ResponseJson<String>> cancelProductFavorites(String productNo){
         return HttpRequest.<ResponseJson<String>>builder()
                 .setToJsonType(new TypeToken<ResponseJson<String>>() {
                 }.getType())
@@ -75,4 +75,13 @@ public class ProductsModel {
                 .url(R.string.api_products_favorites_cancel)
                 .requestPI();
     }
+
+    public static Observable<ResponseJson<List<ProductEntity>>> favoriteList(){
+        return HttpRequest.<ResponseJson<List<ProductEntity>>>builder()
+                .setToJsonType(new TypeToken<ResponseJson<List<ProductEntity>>>() {
+                }.getType())
+                .url(R.string.api_favorite_list)
+                .requestPI();
+    }
+
 }
