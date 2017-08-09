@@ -30,7 +30,7 @@ public class OrderModel {
 
     public static Observable<ResponseJson<List<OrderEntity>>> orderList(int page, int status){
         return HttpRequest.<ResponseJson<List<OrderEntity>>>builder()
-                .setToJsonType(new TypeToken<ResponseJson<List<OrderModel>>>() {
+                .setToJsonType(new TypeToken<ResponseJson<List<OrderEntity>>>() {
                 }.getType())
                 .addBody("page", page)
                 .addBody("status", status)

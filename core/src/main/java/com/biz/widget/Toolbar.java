@@ -124,4 +124,8 @@ public class Toolbar extends android.support.v7.widget.Toolbar {
         mTitleText.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 17);
         addView(mTitleText);
     }
+
+    public TextView getmTitleText() {
+        return mTitleText;
+    }
 }

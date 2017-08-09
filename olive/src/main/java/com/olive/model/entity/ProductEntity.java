@@ -32,6 +32,7 @@ public class ProductEntity implements Parcelable {
     public long saleEndDate; //促销结束时间
     public String images;//商品展示图片（英文逗号分隔）
     public String imgLogo;  //商品logo
+    public String imageLogo;  //商品logo
     public int favorited;   //是否已收藏  0：否， 1：是
 
     //购物车商品属性
@@ -60,6 +61,7 @@ public class ProductEntity implements Parcelable {
         dest.writeLong(this.saleEndDate);
         dest.writeString(this.images);
         dest.writeString(this.imgLogo);
+        dest.writeString(this.imageLogo);
         dest.writeInt(this.favorited);
         dest.writeInt(this.quantity);
         dest.writeLong(this.price);
@@ -83,6 +85,7 @@ public class ProductEntity implements Parcelable {
         this.saleEndDate = in.readLong();
         this.images = in.readString();
         this.imgLogo = in.readString();
+        this.imageLogo = in.readString();
         this.favorited = in.readInt();
         this.quantity = in.readInt();
         this.price = in.readLong();

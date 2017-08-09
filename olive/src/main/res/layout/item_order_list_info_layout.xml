@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:textSize="16dp"
         android:textColor="@color/orange_light"
         tools:text="待发货"/>
@@ -23,7 +23,7 @@
     <LinearLayout
         android:id="@+id/list"
         android:orientation="vertical"
-        android:layout_below="@id/status"
+        android:layout_below="@+id/order_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -54,7 +54,7 @@
             tools:text="共1件商品，实付："/>
 
         <TextView
-            android:id="@+id/btn_left"
+            android:id="@+id/btn_right"
             android:layout_width="64dp"
             android:layout_height="28dp"
             android:layout_below="@id/number"
@@ -66,12 +66,12 @@
             android:text="@string/text_go_pay"/>
 
         <TextView
-            android:id="@+id/btn_right"
+            android:id="@+id/btn_left"
             android:layout_width="64dp"
             android:layout_height="28dp"
             android:layout_below="@id/number"
             android:layout_marginTop="8dp"
-            android:layout_toLeftOf="@id/btn_left"
+            android:layout_toLeftOf="@+id/btn_right"
             android:textColor="@color/color_red"
             android:gravity="center"
             android:background="@drawable/btn_red_selector"

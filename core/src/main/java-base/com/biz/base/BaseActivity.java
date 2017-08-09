@@ -258,4 +258,8 @@ public class BaseActivity extends RxBaseActivity {
 
     }
 
+    @Nullable
+    public Toolbar getmToolbar() {
+        return mToolbar;
+    }
 }

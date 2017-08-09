@@ -2,11 +2,12 @@ package com.olive.ui.holder;
 
 import com.biz.base.BaseActivity;
 import com.biz.base.BaseViewHolder;
+import com.biz.base.FragmentParentActivity;
 import com.biz.widget.CustomDraweeView;
+import com.biz.widget.Toolbar;
 import com.olive.R;
 import com.olive.widget.LabelView;
 
-import android.app.Activity;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
 import android.widget.TextView;
@@ -46,9 +47,14 @@ public class ProductViewHolder extends BaseViewHolder {
         btnLike = (AppCompatImageView) findViewById(R.id.btn_like);
 
         BaseActivity activity = (BaseActivity) itemView.getContext();
-        if (activity.getTitle().equals(getString(R.string.text_my_favor))){
-            btnLike.setVisibility(View.GONE);
+        if(FragmentParentActivity.class.isInstance(activity)){
+            Toolbar toolbar = (Toolbar) activity.getmToolbar();
+            String title = toolbar.getmTitleText().getText().toString();
+            if ( title.equals(getString(R.string.text_my_favor))){
+                if(btnLike != null){
+                    btnLike.setVisibility(View.GONE);
+                }
+            }
         }
-
     }
 }

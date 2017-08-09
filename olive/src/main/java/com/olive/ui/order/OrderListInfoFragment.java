@@ -56,13 +56,14 @@ public class OrderListInfoFragment extends BaseFragment {
         recyclerView = findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new OrderInfoListAdapter(this);
-        adapter.setViewModel(viewModel);
         recyclerView.setAdapter(adapter);
         adapter.setOnItemClickListener((baseQuickAdapter, view, i) -> {
             IntentBuilder.Builder()
                     .putExtra(IntentBuilder.KEY_VALUE, adapter.getItem(i).orderNo)
                     .startParentActivity(getActivity(), OrderDetailsFragment.class, true);
         });
+
+        viewModel.setRecyclerView(recyclerView);
 
         adapter.setOnLoadMoreListener(() -> {
             viewModel.setLoadMore(o -> {

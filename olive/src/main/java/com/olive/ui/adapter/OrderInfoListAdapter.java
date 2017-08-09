@@ -1,7 +1,6 @@
 package com.olive.ui.adapter;
 
 import android.app.Activity;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -17,9 +16,7 @@ import com.olive.R;
 import com.olive.model.entity.OrderEntity;
 import com.olive.model.entity.ProductEntity;
 import com.olive.ui.order.PayDebtFragment;
-import com.olive.ui.order.BasePayFragment;
 import com.olive.ui.order.PayOrderFragment;
-import com.olive.ui.order.viewModel.OrderListViewModel;
 import com.olive.ui.order.viewModel.OrderViewModel;
 import com.olive.util.LoadImageUtil;
 
@@ -31,7 +28,6 @@ import java.util.List;
 
 public class OrderInfoListAdapter extends BaseQuickAdapter<OrderEntity, BaseViewHolder> {
 
-    private OrderListViewModel viewModel;
     private OrderViewModel orderViewModel;
     private BaseFragment fragment;
 
@@ -55,12 +51,12 @@ public class OrderInfoListAdapter extends BaseQuickAdapter<OrderEntity, BaseView
 
 
         List<ProductEntity> products = orderEntity.products;
-
+        linearLayout.removeAllViews();
         for (ProductEntity productEntity : products) {
             View view = LayoutInflater.from(mContext).inflate(R.layout.item_cart_layout, linearLayout, false);
             BaseViewHolder holder1 = new BaseViewHolder(view);
             LoadImageUtil.Builder()
-                    .load(productEntity.imgLogo).http().build()
+                    .load(productEntity.imageLogo).http().build()
                     .displayImage(holder1.getView(R.id.icon_img));
             holder1.setText(R.id.title, productEntity.productName);
             holder1.setText(R.id.title_line_2, mContext.getString(R.string.text_product_specification, productEntity.standard));
@@ -146,10 +142,6 @@ public class OrderInfoListAdapter extends BaseQuickAdapter<OrderEntity, BaseView
             payOrder(orderEntity);
         });
 
-    }
-
-    public void setViewModel(OrderListViewModel viewModel) {
-        this.viewModel = viewModel;
     }
 
     public int getTotalCount(List<ProductEntity> productEntities) {
