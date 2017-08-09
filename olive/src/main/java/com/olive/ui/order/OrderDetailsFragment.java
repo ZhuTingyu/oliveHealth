@@ -80,6 +80,7 @@ public class OrderDetailsFragment extends BaseFragment {
     private void initView() {
         recyclerView = findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setFocusable(false);
         adapter = new CheckOrderAdapter();
         adapter.setNewData(orderEntity.products);
         recyclerView.setAdapter(adapter);

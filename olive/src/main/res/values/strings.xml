@@ -116,10 +116,12 @@
     <string name="text_make_sure_delete_address">确认删除该地址吗？</string>
 
     <string name="title_pay_order">订单支付</string>
+    <string name="title_refund_goods_and_money">退款退货</string>
     <string name="text_order_created">订单已生成！</string>
     <string name="text_order_number">订单编号：%1$s</string>
     <string name="text_order_price">订单金额</string>
     <string name="text_order_price_1">订单金额：</string>
+    <string name="text_refund_price">退款金额：</string>
     <string name="text_pay_by_account_vacancies">账户余额付款（%1$s）</string>
     <string name="text_input_price">请输入账户余额付款金额</string>
     <string name="text_need_pay">还需要支付:</string>
@@ -243,6 +245,7 @@
     <string name="message_add_cart_min_number">不能小于订单基数，基数为：%1$s</string>
     <string name="message_not_choose_product">请选择要买的商品</string>
     <string name="message_delete_success">删除成功</string>
+    <string name="message_login_invalid">登录已经过期</string>
 
 
 </resources>

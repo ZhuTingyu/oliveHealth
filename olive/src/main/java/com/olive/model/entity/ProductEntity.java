@@ -40,6 +40,13 @@ public class ProductEntity implements Parcelable {
     public long price;//价格（分）
     public int productStauts; //0:新品，1：销售中，2:已下架（只有状态是销售中的才能加入订单）
 
+    //库存信息属性
+    public int saleQuantity;     //销售量
+    public int stockQuantity;  //进货量
+
+
+    public ProductEntity() {
+    }
 
     @Override
     public int describeContents() {
@@ -66,9 +73,8 @@ public class ProductEntity implements Parcelable {
         dest.writeInt(this.quantity);
         dest.writeLong(this.price);
         dest.writeInt(this.productStauts);
-    }
-
-    public ProductEntity() {
+        dest.writeInt(this.saleQuantity);
+        dest.writeInt(this.stockQuantity);
     }
 
     protected ProductEntity(Parcel in) {
@@ -90,9 +96,11 @@ public class ProductEntity implements Parcelable {
         this.quantity = in.readInt();
         this.price = in.readLong();
         this.productStauts = in.readInt();
+        this.saleQuantity = in.readInt();
+        this.stockQuantity = in.readInt();
     }
 
-    public static final Parcelable.Creator<ProductEntity> CREATOR = new Parcelable.Creator<ProductEntity>() {
+    public static final Creator<ProductEntity> CREATOR = new Creator<ProductEntity>() {
         @Override
         public ProductEntity createFromParcel(Parcel source) {
             return new ProductEntity(source);

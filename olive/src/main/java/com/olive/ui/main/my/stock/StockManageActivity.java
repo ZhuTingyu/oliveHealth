@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.biz.base.BaseActivity;
 import com.biz.util.IntentBuilder;
 import com.olive.R;
 import com.olive.ui.search.SearchActivity;
@@ -16,7 +17,7 @@ import com.olive.ui.search.SearchFragment;
  * Created by TingYu Zhu on 2017/7/30.
  */
 
-public class StockManageActivity extends SearchActivity {
+public class StockManageActivity extends BaseActivity {
 
 
     public static final void startStock(Activity activity) {

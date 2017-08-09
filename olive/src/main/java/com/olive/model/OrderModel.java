@@ -65,5 +65,20 @@ public class OrderModel {
                 .requestPI();
     }
 
+    public static Observable<ResponseJson<List<OrderEntity>>> orderConsumeDetail(int page){
+        return HttpRequest.<ResponseJson<List<OrderEntity>>>builder()
+                .setToJsonType(new TypeToken<ResponseJson<List<OrderEntity>>>() {
+                }.getType())
+                .addBody("page", page)
+                .url(R.string.api_consumer_detail)
+                .requestPI();
+    }
 
+    public static Observable<ResponseJson<List<OrderEntity>>> orderDebtDetail(){
+        return HttpRequest.<ResponseJson<List<OrderEntity>>>builder()
+                .setToJsonType(new TypeToken<ResponseJson<List<OrderEntity>>>() {
+                }.getType())
+                .url(R.string.api_debt_detail)
+                .requestPI();
+    }
 }

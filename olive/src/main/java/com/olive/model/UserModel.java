@@ -45,7 +45,7 @@ public class UserModel {
     private static UserModel userModel;
     private UserEntity userInfo;
     private final CompositeSubscription subscription = new CompositeSubscription();
-    private String hisUserId;
+    private String hisAccount;
 
     public UserEntity getUserInfo() {
         if (userInfo == null) {
@@ -79,7 +79,7 @@ public class UserModel {
                 }
             }
         }
-        hisUserId = getUserId();
+        hisAccount = getShopId();
     }
 
     public boolean isLogin() {
@@ -146,6 +146,10 @@ public class UserModel {
         return userInfo.account;
     }
 
+    public String getHisAccount() {
+        return hisAccount;
+    }
+
     public synchronized void setUserInfo(UserEntity userInfo) {
         LogUtil.print(";");
         List<ConfigBean> list = DatabaseLoader.
@@ -182,14 +186,14 @@ public class UserModel {
         }
         DatabaseLoader.getDaoSession().getConfigBeanDao().insertOrReplaceInTx(list, true);
         this.userInfo = userInfo;
-        hisUserId = getUserId();
+        hisAccount = getShopId();
     }
 
     public synchronized void loginOut() {
-        loginOutUser().subscribeOn(Schedulers.newThread())
+        /*loginOutUser().subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe(b -> {
         }, throwable -> {
-        });
+        });*/
         List<ConfigBean> list = DatabaseLoader.
                 getDaoSession().getConfigBeanDao().queryBuilder().where(ConfigBeanDao.Properties.Type.eq(DatabaseType.TYPE_USER)).list();
         if (list != null && list.size() > 0) {
@@ -201,7 +205,7 @@ public class UserModel {
         }
         DatabaseLoader.
                 getDaoSession().getConfigBeanDao().insertOrReplaceInTx(list);
-        hisUserId = getUserId();
+        hisAccount = getShopId();
         this.userInfo = null;
     }
 

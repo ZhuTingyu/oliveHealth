@@ -9,10 +9,12 @@ import com.biz.widget.banner.ConvenientBanner;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.olive.R;
+import com.olive.model.UserModel;
 import com.olive.model.entity.NoticeEntity;
 import com.olive.ui.adapter.HomeNoticeAdapter;
 import com.olive.ui.adapter.ProductAdapter;
 import com.olive.ui.holder.ImageHolderView;
+import com.olive.ui.login.LoginActivity;
 import com.olive.ui.notice.NoticeDetailFragment;
 import com.olive.ui.notice.NoticeListFragment;
 import com.olive.ui.notice.NoticeViewModel;
@@ -197,11 +199,25 @@ public class HomeFragment extends BaseLazyFragment {
     private void initGirdView(View view) {
         gridview = (ExpandGridView) view.findViewById(R.id.gridview);
         gridview.setNumColumns(5);
+        HomeCategoryAdapter adapter = new HomeCategoryAdapter(getActivity());
         viewModel.getCategoryList(categoryEntities -> {
-            HomeCategoryAdapter adapter = new HomeCategoryAdapter(getActivity());
             adapter.setList(categoryEntities);
             gridview.setAdapter(adapter);
         });
+        gridview.setOnItemClickListener((parent, view1, position, id) -> {
+            IntentBuilder.Builder(getActivity(), SearchActivity.class).
+                    putExtra(IntentBuilder.KEY_DATA, adapter.getItem(position).code).startActivity();
+        });
     }
 
+    @Override
+    public void error(int code, String error) {
+        if(code == 1004){
+            UserModel.getInstance().loginOut();
+            IntentBuilder.Builder(getActivity(), LoginActivity.class)
+                    .putExtra(IntentBuilder.KEY_TYPE, LoginActivity.TYPE_LOGIN_INVALID)
+                    .startActivity();
+            getActivity().finish();
+        }
+    }
 }

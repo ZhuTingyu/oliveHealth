@@ -24,8 +24,16 @@ public class CheckOrderAdapter extends BaseQuickAdapter<ProductEntity, BaseViewH
 
     @Override
     protected void convert(BaseViewHolder holder, ProductEntity productEntity) {
+
+        String imgUrl;
+        if (productEntity.imgLogo != null && !productEntity.imgLogo.isEmpty()) {
+            imgUrl = productEntity.imgLogo;
+        } else {
+            imgUrl = productEntity.imageLogo;
+        }
+
         LoadImageUtil.Builder()
-                .load(productEntity.imgLogo).http().build()
+                .load(imgUrl).http().build()
                 .displayImage(holder.getView(R.id.icon_img));
         holder.setText(R.id.title, productEntity.name);
         holder.setText(R.id.title_line_2, mContext.getString(R.string.text_product_specification, productEntity.standard));
@@ -33,6 +41,6 @@ public class CheckOrderAdapter extends BaseQuickAdapter<ProductEntity, BaseViewH
         holder.getView(R.id.checkbox).setVisibility(View.GONE);
         holder.getView(R.id.number_layout).setVisibility(View.GONE);
         holder.getView(R.id.text_product_number).setVisibility(View.VISIBLE);
-        holder.setText(R.id.text_product_number, "x"+productEntity.quantity);
+        holder.setText(R.id.text_product_number, "x" + productEntity.quantity);
     }
 }

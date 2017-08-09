@@ -1,5 +1,6 @@
 package com.olive.ui.main.my.account;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -8,14 +9,26 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.biz.base.BaseFragment;
+import com.biz.util.IntentBuilder;
 import com.biz.util.PriceUtil;
 import com.olive.R;
+import com.olive.ui.main.my.account.viewModel.AccountViewModel;
 
 /**
  * Created by TingYu Zhu on 2017/7/30.
  */
 
-public class MyAccoutFragment extends BaseFragment {
+public class MyAccountFragment extends BaseFragment {
+
+    private AccountViewModel viewModel;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        viewModel = new AccountViewModel(context);
+        initViewModel(viewModel);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -33,16 +46,22 @@ public class MyAccoutFragment extends BaseFragment {
         TextView consume = findViewById(R.id.consume);
         TextView debt = findViewById(R.id.debt);
 
-        balance.setText(PriceUtil.formatRMB(123123));
-        consume.setText(PriceUtil.formatRMB(123123));
-        debt.setText(PriceUtil.formatRMB(123123));
+        viewModel.getAccountInfo(accountEntity -> {
+            balance.setText(PriceUtil.formatRMB(accountEntity.balance));
+            consume.setText(PriceUtil.formatRMB(accountEntity.consumeAmount));
+            debt.setText(PriceUtil.formatRMB(accountEntity.debt));
+        });
 
         findViewById(R.id.rl_consume).setOnClickListener(v -> {
-
+            IntentBuilder.Builder()
+                    .putExtra(IntentBuilder.KEY_TYPE, ConsumeDetailFragment.TYPE_CONSUME)
+                    .startParentActivity(getActivity(), ConsumeDetailFragment.class, true);
         });
 
         findViewById(R.id.rl_debt).setOnClickListener(v -> {
-
+            IntentBuilder.Builder()
+                    .putExtra(IntentBuilder.KEY_TYPE, ConsumeDetailFragment.TYPE_REFUND)
+                    .startParentActivity(getActivity(), ConsumeDetailFragment.class, true);
         });
     }
 }

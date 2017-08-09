@@ -84,4 +84,13 @@ public class ProductsModel {
                 .requestPI();
     }
 
+    public static Observable<ResponseJson<List<ProductEntity>>> stockList(String key){
+        return HttpRequest.<ResponseJson<List<ProductEntity>>>builder()
+                .setToJsonType(new TypeToken<ResponseJson<List<ProductEntity>>>() {
+                }.getType())
+                .addBody("key",key)
+                .url(R.string.api_stock_list)
+                .requestPI();
+    }
+
 }

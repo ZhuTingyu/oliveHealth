@@ -16,13 +16,15 @@
         android:id="@+id/balance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="24dp"
         android:layout_alignParentRight="true"
         android:padding="16dp" />
 
 
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:background="@drawable/divider_nav_gray"
         android:layout_below="@id/text" />
 
     <RelativeLayout
@@ -49,9 +51,10 @@
 
     </RelativeLayout>
 
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:background="@drawable/divider_nav_gray"
         android:layout_below="@+id/rl_consume" />
 
 
@@ -80,9 +83,10 @@
 
     </RelativeLayout>
 
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:background="@drawable/divider_nav_gray"
         android:layout_below="@id/rl_debt" />
 
 

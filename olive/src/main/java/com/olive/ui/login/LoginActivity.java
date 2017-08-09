@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.EditText;
 
+import java.nio.IntBuffer;
+
 /**
  * Title: LoginActivity
  * Description:
@@ -29,6 +31,10 @@ public class LoginActivity extends BaseActivity {
     private EditText etUserName;
     private EditText etPassword;
 
+    public static final int TYPE_LOGIN_INVALID = 0;
+
+    private int type;
+
 
     public static final void startLogin(Activity activity) {
         IntentBuilder.Builder()
@@ -43,11 +49,19 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login_layout);
         viewModel = new LoginViewModel(this);
         initViewModel(viewModel);
+        type = getIntent().getIntExtra(IntentBuilder.KEY_TYPE,1);
         mToolbar.setTitle(getString(R.string.text_login));
-        if(UserModel.getInstance().isLogin()){
-            MainActivity.startMainWithAnim(getActivity(), 0);
-        }
+
         initView();
+
+        if(type == TYPE_LOGIN_INVALID){
+            error(getString(R.string.message_login_invalid));
+            etUserName.setText(UserModel.getInstance().getHisAccount());
+        }else {
+            if(UserModel.getInstance().isLogin()){
+                MainActivity.startMainWithAnim(getActivity(), 0);
+            }
+        }
     }
 
     private void initView() {

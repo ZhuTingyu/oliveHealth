@@ -52,6 +52,7 @@ public class SearchFragment extends BaseFragment {
         super.onAttach(context);
         searchView = getView(getActivity(), R.id.edit_search);
         viewModel = new SearchViewModel(context);
+        initViewModel(viewModel);
     }
 
     @Nullable
@@ -73,7 +74,6 @@ public class SearchFragment extends BaseFragment {
         mAdapter = new ProductAdapter(R.layout.item_product_grid_layout);
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnLoadMoreListener(()->{
-            setProgressVisible(true);
             viewModel.setLoadMore(o -> {
                 setProgressVisible(false);
             });

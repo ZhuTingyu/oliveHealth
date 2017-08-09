@@ -29,10 +29,17 @@ public class OrderEntity implements Parcelable {
     public long expressTime;  //发货时间
     public String outTradeNo;   //交易编号
     public long createTime;   //创建时间
+    public long orderTime;//订单时间
     public String consigneeName;   //收货人
     public String mobile;//手机号
     public String address; //收货地址
 
+    //明细
+    public int type;
+
+
+    public OrderEntity() {
+    }
 
     @Override
     public int describeContents() {
@@ -48,9 +55,20 @@ public class OrderEntity implements Parcelable {
         dest.writeInt(this.orderStatus);
         dest.writeInt(this.allowDebt);
         dest.writeTypedList(this.products);
-    }
-
-    public OrderEntity() {
+        dest.writeInt(this.useBalancePay);
+        dest.writeLong(this.balancePayAmount);
+        dest.writeInt(this.payType);
+        dest.writeLong(this.payTime);
+        dest.writeString(this.expressNo);
+        dest.writeString(this.expressInfo);
+        dest.writeLong(this.expressTime);
+        dest.writeString(this.outTradeNo);
+        dest.writeLong(this.createTime);
+        dest.writeLong(this.orderTime);
+        dest.writeString(this.consigneeName);
+        dest.writeString(this.mobile);
+        dest.writeString(this.address);
+        dest.writeInt(this.type);
     }
 
     protected OrderEntity(Parcel in) {
@@ -61,9 +79,23 @@ public class OrderEntity implements Parcelable {
         this.orderStatus = in.readInt();
         this.allowDebt = in.readInt();
         this.products = in.createTypedArrayList(ProductEntity.CREATOR);
+        this.useBalancePay = in.readInt();
+        this.balancePayAmount = in.readLong();
+        this.payType = in.readInt();
+        this.payTime = in.readLong();
+        this.expressNo = in.readString();
+        this.expressInfo = in.readString();
+        this.expressTime = in.readLong();
+        this.outTradeNo = in.readString();
+        this.createTime = in.readLong();
+        this.orderTime = in.readLong();
+        this.consigneeName = in.readString();
+        this.mobile = in.readString();
+        this.address = in.readString();
+        this.type = in.readInt();
     }
 
-    public static final Parcelable.Creator<OrderEntity> CREATOR = new Parcelable.Creator<OrderEntity>() {
+    public static final Creator<OrderEntity> CREATOR = new Creator<OrderEntity>() {
         @Override
         public OrderEntity createFromParcel(Parcel source) {
             return new OrderEntity(source);

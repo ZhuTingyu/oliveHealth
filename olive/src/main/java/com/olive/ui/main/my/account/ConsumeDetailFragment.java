@@ -1,5 +1,6 @@
 package com.olive.ui.main.my.account;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +15,7 @@ import com.biz.util.Lists;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
 import com.olive.ui.adapter.ConsumeDetailAdapter;
+import com.olive.ui.main.my.account.viewModel.ConsumeViewModel;
 
 /**
  * Created by TingYu Zhu on 2017/7/30.
@@ -27,6 +29,16 @@ public class ConsumeDetailFragment extends BaseFragment {
 
     private XRecyclerView recyclerView;
     private ConsumeDetailAdapter adapter;
+    private ConsumeViewModel viewModel;
+
+    private String type;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        viewModel = new ConsumeViewModel(context);
+        initViewModel(viewModel);
+    }
 
     @Nullable
     @Override
@@ -37,7 +49,7 @@ public class ConsumeDetailFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        String type = getActivity().getIntent().getStringExtra(IntentBuilder.KEY_TYPE);
+        type = getActivity().getIntent().getStringExtra(IntentBuilder.KEY_TYPE);
         if(type != null && TYPE_CONSUME.equals(type)){
             setTitle(getString(R.string.title_consume_detail));
         }else {
@@ -50,7 +62,23 @@ public class ConsumeDetailFragment extends BaseFragment {
         recyclerView = findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new ConsumeDetailAdapter();
-        adapter.setNewData(Lists.newArrayList("","","",""));
         recyclerView.setAdapter(adapter);
+
+        if(type != null && TYPE_CONSUME.equals(type)){
+            viewModel.getConsumerDetails(orderEntities -> {
+                adapter.setNewData(orderEntities);
+            });
+
+            adapter.setOnLoadMoreListener(() ->{
+                viewModel.setLoadMore(o -> {
+
+                });
+            },recyclerView.getRecyclerView());
+
+        }else {
+            viewModel.getDebtDetails(orderEntities -> {
+                adapter.setNewData(orderEntities);
+            });
+        }
     }
 }

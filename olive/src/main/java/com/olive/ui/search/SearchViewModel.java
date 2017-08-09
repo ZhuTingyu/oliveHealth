@@ -36,6 +36,7 @@ public class SearchViewModel extends BaseLoadMoreViewModel {
     public SearchViewModel(Object activity) {
         super(activity);
         keyWord = getActivity().getIntent().getStringExtra(IntentBuilder.KEY_VALUE);
+        categoryCode = getActivity().getIntent().getStringExtra(IntentBuilder.KEY_DATA);
     }
 
     public void getProductList(Action1<List<ProductEntity>> action1) {

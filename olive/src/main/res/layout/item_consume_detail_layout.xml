@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@color/white"
+    android:layout_marginBottom="2dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -21,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <view
+    <View
         android:layout_height="1dp"
         android:layout_width="match_parent"
         android:layout_below="@id/date"
@@ -34,14 +35,10 @@
         android:layout_below="@id/date"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"/>
 
-        <include layout="@layout/item_line_text_layout"/>
-        <include layout="@layout/item_line_text_layout"/>
 
-    </LinearLayout>
-
-    <view
+    <View
         android:layout_height="1dp"
         android:layout_width="match_parent"
         android:layout_below="@id/ll_info"

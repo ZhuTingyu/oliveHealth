@@ -31,8 +31,14 @@
     <string name="api_order_cancel">/order/cancelOrder</string>
     <string name="api_order_confirm">/order/comfirmOrder</string>
     <string name="api_order_detail">/order/orderDetail</string>
+    <string name="api_consumer_detail">/order/consumerDetails</string>
+    <string name="api_debt_detail">/order/debtOrderList</string>
 
     <string name="api_favorite_list">/favorite/favoriteList</string>
+
+    <string name="api_stock_list">/stock/stockList</string>
+
+
 
 
 
