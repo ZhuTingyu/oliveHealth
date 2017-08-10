@@ -114,9 +114,13 @@
                 android:orientation="horizontal"
                 android:paddingTop="16dp">
 
-                <include layout="@layout/item_icon_del_layout" />
+                <include
+                    android:id="@+id/upload1"
+                    layout="@layout/item_icon_del_layout" />
 
-                <include layout="@layout/item_icon_del_layout" />
+                <include
+                    android:id="@+id/upload2"
+                    layout="@layout/item_icon_del_layout" />
 
             </LinearLayout>
 

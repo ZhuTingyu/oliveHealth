@@ -23,7 +23,7 @@ import java.util.Map;
 public class PayOrderAdapter extends BaseChooseAdapter<BankEntity, BaseViewHolder> {
 
     private RecyclerView recyclerView;
-    private int choosePosition = 1;
+    private int fixationPosition = 0;
 
     private List<Integer> payWayIcon = Lists.newArrayList(R.drawable.vector_china_bank
             , R.drawable.vector_icbc
@@ -68,9 +68,13 @@ public class PayOrderAdapter extends BaseChooseAdapter<BankEntity, BaseViewHolde
     protected void convert(BaseViewHolder holder, BankEntity bankEntity) {
         TextView view = holder.findViewById(R.id.bank_name);
         AppCompatImageView icon = holder.findViewById(R.id.icon);
-        if (holder.getAdapterPosition() > mData.size()) {
-            view.setText(fixationPayWayName[holder.getAdapterPosition() - mData.size()]);
-            icon.setImageResource(fixationPayIcon.get(holder.getAdapterPosition() - mData.size()));
+        if (bankEntity.cardNumber == null || bankEntity.cardNumber.isEmpty()) {
+            if(fixationPosition == 3){
+                fixationPosition = 0;
+            }
+            view.setText(fixationPayWayName[fixationPosition]);
+            icon.setImageResource(fixationPayIcon.get(fixationPosition));
+            fixationPosition++;
         } else {
             view.setText(mContext.getString(R.string.text_bank_pay, bankEntity.bankName) + "(" + getCardNumberFour(bankEntity.cardNumber) + ")");
             holder.setImageResource(R.id.icon, way.get(bankEntity.bankName));
@@ -85,6 +89,8 @@ public class PayOrderAdapter extends BaseChooseAdapter<BankEntity, BaseViewHolde
 
         if (sparseBooleanArray.get(holder.getAdapterPosition(), false)) {
             holder.setViewDrawableRight(view, R.drawable.vector_address_manage_choose);
+        }else {
+            view.setCompoundDrawablesWithIntrinsicBounds(null,null,null,null);
         }
 
     }
@@ -93,8 +99,9 @@ public class PayOrderAdapter extends BaseChooseAdapter<BankEntity, BaseViewHolde
         return number.substring(number.length() - 5, number.length() - 1);
     }
 
-    private void addFixationPay(){
-
+    @Override
+    public void setSingleSelected(int position) {
+        fixationPosition = 0;
+        super.setSingleSelected(position);
     }
-
 }

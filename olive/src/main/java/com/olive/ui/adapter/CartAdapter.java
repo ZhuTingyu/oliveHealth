@@ -2,6 +2,7 @@ package com.olive.ui.adapter;
 
 
 import android.support.v7.widget.AppCompatCheckBox;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.biz.base.BaseFragment;
@@ -23,8 +24,9 @@ public class CartAdapter extends BaseChooseAdapter<ProductEntity, BaseViewHolder
 
     private CartViewModel viewModel;
     private BaseFragment fragment;
-    private int productNumber;
+    private onNumberChangeListener onNumberChangeListener;
     private TextView tvPrice;
+    private onCheckClickListener onCheckClickListener;
 
     public CartAdapter() {
         super(R.layout.item_cart_layout, Lists.newArrayList());
@@ -45,16 +47,7 @@ public class CartAdapter extends BaseChooseAdapter<ProductEntity, BaseViewHolder
         AppCompatCheckBox checkBox = holder.getView(R.id.checkbox);
 
         checkBox.setOnClickListener(v -> {
-            if(isSelected(holder.getAdapterPosition())){
-                checkBox.setChecked(false);
-                cancelSelected(holder.getAdapterPosition());
-            }else {
-                checkBox.setChecked(true);
-                setSelected(holder.getAdapterPosition());
-            }
-            viewModel.getTotalPrice(aLong -> {
-                setPrice(aLong);
-            });
+            onCheckClickListener.click(checkBox, holder.getAdapterPosition());
         });
 
         checkBox.setChecked(sparseBooleanArray.get(holder.getAdapterPosition()));
@@ -62,39 +55,11 @@ public class CartAdapter extends BaseChooseAdapter<ProductEntity, BaseViewHolder
 
 
         holder.getView(R.id.btn_min).setOnClickListener(v -> {
-            if (productEntity.quantity <= productEntity.orderCardinality) {
-                fragment.error(mContext.getString(R.string.message_add_cart_min_number, productEntity.orderCardinality + ""));
-            } else {
-                fragment.setProgressVisible(true);
-                productNumber = productEntity.quantity - productEntity.orderCardinality;
-                viewModel.setProductNo(productEntity.productNo);
-                viewModel.setQuantity(productNumber);
-                viewModel.updateProductNumber(s -> {
-                    viewModel.getCartProductList(productEntities -> {
-                        fragment.setProgressVisible(false);
-                        replaceData(productEntities);
-                        viewModel.getTotalPrice(aLong -> {
-                            setPrice(aLong);
-                        });
-                    });
-                });
-            }
+            onNumberChangeListener.min(productEntity);
         });
 
         holder.getView(R.id.btn_add).setOnClickListener(v -> {
-            fragment.setProgressVisible(true);
-            productNumber = productEntity.quantity + productEntity.orderCardinality;
-            viewModel.setProductNo(productEntity.productNo);
-            viewModel.setQuantity(productNumber);
-            viewModel.updateProductNumber(s -> {
-                fragment.setProgressVisible(false);
-                viewModel.getCartProductList(productEntities -> {
-                    replaceData(productEntities);
-                    viewModel.getTotalPrice(aLong -> {
-                        setPrice(aLong);
-                    });
-                });
-            });
+            onNumberChangeListener.add(productEntity);
         });
 
         holder.getView(R.id.ed_count).setOnClickListener(v -> {
@@ -132,6 +97,23 @@ public class CartAdapter extends BaseChooseAdapter<ProductEntity, BaseViewHolder
 
     public void setTvPrice(TextView tvPrice) {
         this.tvPrice = tvPrice;
+    }
+
+    public interface onNumberChangeListener{
+        void add(ProductEntity productEntity);
+        void min(ProductEntity productEntity);
+    }
+
+    public interface onCheckClickListener{
+        void click(CheckBox checkBox, int position);
+    }
+
+    public void setOnNumberChangeListener(onNumberChangeListener listener){
+        this.onNumberChangeListener = listener;
+    }
+
+    public void setOnCheckClickListener(onCheckClickListener listener){
+        this.onCheckClickListener = listener;
     }
 
 }

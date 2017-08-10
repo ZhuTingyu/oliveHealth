@@ -6,6 +6,7 @@ import com.biz.http.ResponseJson;
 import com.google.gson.reflect.TypeToken;
 import com.olive.R;
 import com.olive.model.entity.AdvertEntity;
+import com.olive.model.entity.OrderEntity;
 import com.olive.model.entity.ProductEntity;
 import com.olive.util.HttpRequest;
 
@@ -90,6 +91,14 @@ public class ProductsModel {
                 }.getType())
                 .addBody("key",key)
                 .url(R.string.api_stock_list)
+                .requestPI();
+    }
+
+    public static Observable<ResponseJson<List<ProductEntity>>> chooseRefundProductsList(){
+        return HttpRequest.<ResponseJson<List<ProductEntity>>>builder()
+                .setToJsonType(new TypeToken<ResponseJson<List<ProductEntity>>>() {
+                }.getType())
+                .url(R.string.api_refund_choose_product_list)
                 .requestPI();
     }
 

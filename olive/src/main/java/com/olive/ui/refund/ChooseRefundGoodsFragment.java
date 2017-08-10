@@ -1,5 +1,6 @@
 package com.olive.ui.refund;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,20 +8,30 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 
 import com.biz.base.BaseFragment;
 import com.biz.util.Lists;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
+import com.olive.model.entity.ProductEntity;
 import com.olive.ui.adapter.CartAdapter;
+import com.olive.ui.refund.viewModel.ChooseRefundGoodViewModel;
 
 /**
  * Created by TingYu Zhu on 2017/7/30.
  */
 
-public class ChooseRefundGoodsFragment extends BaseFragment {
+public class ChooseRefundGoodsFragment extends BaseFragment implements CartAdapter.onCheckClickListener, CartAdapter.onNumberChangeListener {
     private XRecyclerView recyclerView;
     private CartAdapter adapter;
+    private ChooseRefundGoodViewModel viewModel;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        viewModel = new ChooseRefundGoodViewModel(context);
+    }
 
     @Nullable
     @Override
@@ -39,8 +50,12 @@ public class ChooseRefundGoodsFragment extends BaseFragment {
         recyclerView = findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new CartAdapter();
-        //adapter.setNewData(Lists.newArrayList("","","",""));
+        adapter.setOnNumberChangeListener(this);
+        adapter.setOnCheckClickListener(this);
         recyclerView.setAdapter(adapter);
+        viewModel.chooseRefundProductsList(productEntities -> {
+            adapter.setNewData(productEntities);
+        });
 
 
         findViewById(R.id.btn_sure).setOnClickListener(v -> {
@@ -50,6 +65,21 @@ public class ChooseRefundGoodsFragment extends BaseFragment {
             getActivity().setIntent(intent);
             getActivity().finish();
         });
+
+    }
+
+    @Override
+    public void click(CheckBox checkBox, int position) {
+        adapter.setSingleSelected(position);
+    }
+
+    @Override
+    public void add(ProductEntity productEntity) {
+
+    }
+
+    @Override
+    public void min(ProductEntity productEntity) {
 
     }
 }

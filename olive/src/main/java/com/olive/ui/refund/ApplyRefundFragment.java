@@ -1,5 +1,6 @@
 package com.olive.ui.refund;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.ArrayRes;
@@ -23,7 +24,9 @@ import com.biz.util.RxUtil;
 import com.biz.util.Utils;
 import com.biz.widget.ExpandGridView;
 import com.olive.R;
+import com.olive.model.entity.ProductEntity;
 import com.olive.ui.adapter.BottomSheetAdapter;
+import com.olive.ui.refund.viewModel.ApplyRefundViewModel;
 import com.olive.util.LoadImageUtil;
 
 import java.util.List;
@@ -43,8 +46,20 @@ public class ApplyRefundFragment extends BaseFragment {
     private static final int CAMERA = 0;
     private static final int GALLERY = 1;
 
+    private View uploadImg1;
+    private View uploadImg2;
+
 
     private EditText describe;
+
+    private ApplyRefundViewModel viewModel;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        viewModel = new ApplyRefundViewModel(context);
+        initViewModel(viewModel);
+    }
 
     @Nullable
     @Override
@@ -63,19 +78,38 @@ public class ApplyRefundFragment extends BaseFragment {
         TextView chooseGoods = findViewById(R.id.choose_goods);
         TextView reason = findViewById(R.id.reason);
         TextView ok = findViewById(R.id.btn_sure);
+        uploadImg1 = findViewById(R.id.upload1);
+        uploadImg2 = findViewById(R.id.upload2);
         describe = findViewById(R.id.describe);
 
         chooseGoods.setOnClickListener(v -> {
             IntentBuilder.Builder()
-                    .startParentActivity(getActivity(), ChooseRefundGoodsFragment.class,CHOOSE_GOODS__SUCCESS_REQUEST);
+                    .startParentActivity(getActivity(), ChooseRefundGoodsFragment.class, CHOOSE_GOODS__SUCCESS_REQUEST);
         });
 
         reason.setOnClickListener(v -> {
             List<String> list = Lists.newArrayList(getContext().getResources().getStringArray(R.array.array_reason));
-            select(list,p -> {
+            select(list, p -> {
                 reason.setText(list.get(p));
             });
         });
+
+        List<String> list = Lists.newArrayList(getContext().getResources().getStringArray(R.array.array_photo));
+
+        uploadImg1.setOnClickListener(v -> {
+            select(list, p -> {
+                if (list.get(p).equals(list.get(0))) {
+                    goCamera();
+                } else {
+                    goGallery();
+                }
+            });
+        });
+
+        uploadImg2.setOnClickListener(v -> {
+
+        });
+
 
         bindUi(RxUtil.click(ok), o -> {
 
@@ -85,14 +119,33 @@ public class ApplyRefundFragment extends BaseFragment {
     }
 
 
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        initGoodsInfoView();
+        if (requestCode == CHOOSE_GOODS__SUCCESS_REQUEST) {
+            if(data != null){
+                ProductEntity productEntity  = data.getParcelableExtra(IntentBuilder.KEY_DATA);
+                if(productEntity != null){
+                    initGoodsInfoView(productEntity);
+                }
+            }
+        } else if (requestCode == CAMERA_SUCCESS_REQUEST) {
+            if(data == null){
+                viewModel.uploadImg(s -> {
+
+                });
+            }
+        } else if (requestCode == PHOTO_SUCCESS_REQUEST){
+            if(data != null){
+                viewModel.setFileUri(data.getStringArrayListExtra(MultiImageSelector.EXTRA_RESULT).get(0));
+                viewModel.uploadImg(s -> {
+
+                });
+            }
+        }
     }
 
-    private void initGoodsInfoView(){
+    private void initGoodsInfoView(ProductEntity productEntity) {
 
         RelativeLayout info = findViewById(R.id.goods_info);
         info.setVisibility(View.VISIBLE);
@@ -111,26 +164,24 @@ public class ApplyRefundFragment extends BaseFragment {
         holder.setText(R.id.text_product_number, "x3");
 
         RelativeLayout rl = findViewById(R.id.rl_info);
-        rl.setPadding(0,0, Utils.dip2px(24),0);
+        rl.setPadding(0, 0, Utils.dip2px(24), 0);
 
         holder.findViewById(R.id.right_icon).setVisibility(View.VISIBLE);
 
         info.setOnClickListener(v -> {
             IntentBuilder.Builder()
-                    .startParentActivity(getActivity(), ChooseRefundGoodsFragment.class,CHOOSE_GOODS__SUCCESS_REQUEST);
+                    .startParentActivity(getActivity(), ChooseRefundGoodsFragment.class, CHOOSE_GOODS__SUCCESS_REQUEST);
         });
     }
 
     public void select(List<String> list, BottomSheetAdapter.OnItemClickListener onItemClickListener) {
-        BottomSheetAdapter.createBottomSheet(getContext(),list,onItemClickListener);
+        BottomSheetAdapter.createBottomSheet(getContext(), list, onItemClickListener);
     }
 
     private void goCamera() {
 
         PhotoUtil.photo(this, uri -> {
-                /*if (uri != null && viewModel != null) {
-                    viewModel.setUri(uri);
-                }*/
+            viewModel.setFileUri(PhotoUtil.getPath(getActivity(),uri));
         });
 
     }

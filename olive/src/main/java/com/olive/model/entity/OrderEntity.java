@@ -37,6 +37,12 @@ public class OrderEntity implements Parcelable {
     //明细
     public int type;
 
+    //退货
+
+    public int status;
+    public long orderDate; //退货时间
+    public String note;
+
 
     public OrderEntity() {
     }
@@ -69,6 +75,9 @@ public class OrderEntity implements Parcelable {
         dest.writeString(this.mobile);
         dest.writeString(this.address);
         dest.writeInt(this.type);
+        dest.writeInt(this.status);
+        dest.writeLong(this.orderDate);
+        dest.writeString(this.note);
     }
 
     protected OrderEntity(Parcel in) {
@@ -93,6 +102,9 @@ public class OrderEntity implements Parcelable {
         this.mobile = in.readString();
         this.address = in.readString();
         this.type = in.readInt();
+        this.status = in.readInt();
+        this.orderDate = in.readLong();
+        this.note = in.readString();
     }
 
     public static final Creator<OrderEntity> CREATOR = new Creator<OrderEntity>() {

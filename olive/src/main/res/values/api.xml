@@ -14,6 +14,7 @@
     <string name="api_products_favorites_cancel">/favorite/cancel</string>
     <string name="api_relevance_product_list">/products/relevanced/list</string>
 
+
     <string name="api_add_cart">/cart/products/add</string>
     <string name="api_cart_product_list">/cart/products/</string>
     <string name="api_cart_product_update_number">/cart/products/update</string>
@@ -37,6 +38,18 @@
     <string name="api_favorite_list">/favorite/favoriteList</string>
 
     <string name="api_stock_list">/stock/stockList</string>
+
+
+    <string name="api_refund_apply_list">/refund/applyList</string>
+    <string name="api_refund_list">/refund/refundList</string>
+    <string name="api_refund_choose_product_list">/products/refundable</string>
+
+
+    <string name="api_upload_image">/files/images/upload</string>
+
+
+
+
 
 
 

@@ -12,13 +12,21 @@ import com.biz.util.Lists;
 import com.biz.util.TimeUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.olive.R;
+import com.olive.model.entity.OrderEntity;
+import com.olive.model.entity.ProductEntity;
 import com.olive.ui.refund.LookRefundCheckResult;
+
+import java.util.List;
 
 /**
  * Created by TingYu Zhu on 2017/7/29.
  */
 
-public class RefundAdapter extends BaseQuickAdapter<Object, BaseViewHolder> {
+public class RefundAdapter extends BaseQuickAdapter<OrderEntity, BaseViewHolder> {
+
+    private static final int STATUS_WAIT_CHECK = 1;
+    private static final int STATUS_PASS_CHECK = 2;
+    private static final int STATUS_NOT_PASS_CHECK = 3;
 
     private Activity context;
     private String type;
@@ -30,16 +38,30 @@ public class RefundAdapter extends BaseQuickAdapter<Object, BaseViewHolder> {
     }
 
     @Override
-    protected void convert(BaseViewHolder holder, Object o) {
-        holder.setText(R.id.status,"待退款");
+    protected void convert(BaseViewHolder holder, OrderEntity orderEntity) {
 
+        String status = "";
+
+        if(orderEntity.status == STATUS_WAIT_CHECK){
+            status = mContext.getString(R.string.text_refund_wait_check);
+        }else if(orderEntity.status == STATUS_PASS_CHECK){
+            status = mContext.getString(R.string.text_refund_pass_check);
+        }else if(orderEntity.status == STATUS_NOT_PASS_CHECK){
+            status = mContext.getString(R.string.text_refund_not_pass_check);
+        }
+
+        holder.setText(R.id.status,status);
+
+        List<ProductEntity> productEntities = orderEntity.products;
         LinearLayout linearLayout = holder.findViewById(R.id.ll_info);
-        for(int i = 0; i < 3; i++){
+        linearLayout.removeAllViews();
+
+        for(ProductEntity productEntity : productEntities){
             View view = LayoutInflater.from(context).inflate(R.layout.item_line_text_layout, linearLayout,false);
             TextView name = (TextView) view.findViewById(R.id.name);
             TextView number = (TextView) view.findViewById(R.id.number);
-            name.setText("汤臣倍健 鱼油软胶囊");
-            number.setText("x2");
+            name.setText(productEntity.name);
+            number.setText("x"+productEntity.quantity);
             linearLayout.addView(view);
         }
 
@@ -66,12 +88,18 @@ public class RefundAdapter extends BaseQuickAdapter<Object, BaseViewHolder> {
             service.setVisibility(View.GONE);
             look.setVisibility(View.GONE);
 
-            date.setText(TimeUtil.format(1501296465, TimeUtil.FORMAT_YYYYMMDD));
-            totalNumber.setText(context.getString(R.string.text_products_total_number,3+""));
-            remark.setText("【订单审核备注】方法方法方法方法方法方法\n" +
-                    "方法方法方法方法方法方法方法方法方法\n" +
-                    "方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法方法");
+            date.setText(TimeUtil.format(orderEntity.orderDate, TimeUtil.FORMAT_YYYYMMDD));
+            totalNumber.setText(context.getString(R.string.text_products_total_number,getTotalCount(productEntities)+""));
+            remark.setText(mContext.getString(R.string.text_refund_check_note, orderEntity.note));
         }
 
+    }
+
+    public int getTotalCount(List<ProductEntity> productEntities) {
+        int count = 0;
+        for (ProductEntity productEntity : productEntities) {
+            count += productEntity.quantity;
+        }
+        return count;
     }
 }

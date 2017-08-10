@@ -15,7 +15,7 @@ public class PayOrderFragment extends BasePayFragment {
         super.initHeadView();
         tvOrderNumber.setText(getString(R.string.text_order_number, orderEntity.orderNo));
         tvPayPrice.setText(PriceUtil.formatRMB(orderEntity.amount));
-        tvVacancies.setText(getString(R.string.text_pay_by_account_vacancies,PriceUtil.formatRMB(accountEntity.balance)));
+        tvVacancies.setText(getString(R.string.text_pay_by_account_vacancies, PriceUtil.formatRMB(accountEntity.balance))+"");
         tvNeedPayPrice.setText(PriceUtil.formatRMB(orderEntity.amount));
     }
 }

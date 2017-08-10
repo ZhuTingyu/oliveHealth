@@ -98,7 +98,7 @@ public class CheckOrderInfoFragment extends BaseFragment {
                         IntentBuilder.Builder()
                                 .putExtra(IntentBuilder.KEY_VALUE, accountEntity)
                                 .putExtra(IntentBuilder.KEY_DATA, orderEntity)
-                                .startParentActivity(getActivity(), BasePayFragment.class, true);
+                                .startParentActivity(getActivity(), PayOrderFragment.class, true);
                     });
 
                 });

@@ -75,9 +75,4 @@ public abstract class BaseChooseAdapter<T, K extends BaseViewHolder> extends Bas
         super.replaceData(data);
     }
 
-    @Override
-    public void setNewData(@Nullable List<T> data) {
-        initBooleanList(data);
-        super.setNewData(data);
-    }
 }

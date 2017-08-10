@@ -82,7 +82,7 @@
         android:layout_marginTop="16dp"
         android:layout_below="@id/total_number"
         android:maxLines="6"
-        android:minLines="6"
+        android:minLines="1"
         android:layout_marginLeft="8dp"
         android:layout_alignParentRight="true"
         android:visibility="gone"

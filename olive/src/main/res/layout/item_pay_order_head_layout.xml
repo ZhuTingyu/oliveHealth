@@ -25,7 +25,6 @@
         android:layout_marginTop="16dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:text="@string/text_order_number"
         android:textColor="@color/dark_gray" />
 
     <View
@@ -57,7 +56,6 @@
         android:layout_marginTop="10dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:text="@string/text_order_price"
         android:textColor="@color/red_light"
         android:textSize="16dp"
         tools:text="￥345.23" />
@@ -73,9 +71,9 @@
             android:id="@+id/account_vacancies"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/text_pay_by_account_vacancies"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
+            tools:text="账户余额付款（1233333331）"
             android:layout_centerVertical="true"
             android:textSize="16dp"/>
 

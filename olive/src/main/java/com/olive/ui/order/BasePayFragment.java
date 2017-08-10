@@ -21,6 +21,7 @@ import com.jungly.gridpasswordview.GridPasswordView;
 import com.olive.R;
 import com.olive.model.UserModel;
 import com.olive.model.entity.AccountEntity;
+import com.olive.model.entity.BankEntity;
 import com.olive.model.entity.OrderEntity;
 import com.olive.ui.adapter.PayOrderAdapter;
 import com.olive.ui.main.my.UserViewModel;
@@ -74,6 +75,8 @@ public class BasePayFragment extends BaseFragment {
         recyclerView.setAdapter(adapter);
 
         viewModel.getBankCards(bankEntities -> {
+            bankEntities.add(new BankEntity());
+            bankEntities.add(new BankEntity());
             adapter.setNewData(bankEntities);
         });
 

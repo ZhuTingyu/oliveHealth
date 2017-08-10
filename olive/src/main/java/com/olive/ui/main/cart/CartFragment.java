@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.biz.base.BaseLazyFragment;
@@ -18,6 +19,7 @@ import com.biz.util.Lists;
 import com.biz.util.PriceUtil;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
+import com.olive.model.entity.ProductEntity;
 import com.olive.ui.adapter.CartAdapter;
 import com.olive.ui.order.CheckOrderInfoFragment;
 
@@ -34,12 +36,14 @@ import java.util.ArrayList;
  * @version 1.0
  */
 
-public class CartFragment extends BaseLazyFragment {
+public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumberChangeListener, CartAdapter.onCheckClickListener {
 
     private XRecyclerView recyclerView;
     private CartAdapter adapter;
     private CartViewModel viewModel;
     private TextView priceTotal;
+    private int productNumber;
+
 
     @Override
     public void onAttach(Context context) {
@@ -112,6 +116,8 @@ public class CartFragment extends BaseLazyFragment {
         adapter.setFragment(this);
         adapter.setViewModel(viewModel);
         adapter.setTvPrice(priceTotal);
+        adapter.setOnCheckClickListener(this);
+        adapter.setOnNumberChangeListener(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setRefreshListener(() -> {
             viewModel.getCartProductList(productEntities -> {
@@ -141,5 +147,57 @@ public class CartFragment extends BaseLazyFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void add(ProductEntity productEntity) {
+        setProgressVisible(true);
+        productNumber = productEntity.quantity + productEntity.orderCardinality;
+        viewModel.setProductNo(productEntity.productNo);
+        viewModel.setQuantity(productNumber);
+        viewModel.updateProductNumber(s -> {
+            setProgressVisible(false);
+            viewModel.getCartProductList(productEntities -> {
+                adapter.replaceData(productEntities);
+                viewModel.getTotalPrice(aLong -> {
+                    priceTotal.setText(PriceUtil.formatRMB(aLong));
+                });
+            });
+        });
+    }
+
+    @Override
+    public void min(ProductEntity productEntity) {
+        if (productEntity.quantity <= productEntity.orderCardinality) {
+            error(getString(R.string.message_add_cart_min_number, productEntity.orderCardinality + ""));
+        } else {
+            setProgressVisible(true);
+            productNumber = productEntity.quantity - productEntity.orderCardinality;
+            viewModel.setProductNo(productEntity.productNo);
+            viewModel.setQuantity(productNumber);
+            viewModel.updateProductNumber(s -> {
+                viewModel.getCartProductList(productEntities -> {
+                    setProgressVisible(false);
+                    adapter.replaceData(productEntities);
+                    viewModel.getTotalPrice(aLong -> {
+                        priceTotal.setText(PriceUtil.formatRMB(aLong));
+                    });
+                });
+            });
+        }
+    }
+
+    @Override
+    public void click(CheckBox checkBox, int position) {
+        if(adapter.isSelected(position)){
+            checkBox.setChecked(false);
+            adapter.cancelSelected(position);
+        }else {
+            checkBox.setChecked(true);
+             adapter.setSelected(position);
+        }
+        viewModel.getTotalPrice(aLong -> {
+            priceTotal.setText(PriceUtil.formatRMB(aLong));
+        });
     }
 }

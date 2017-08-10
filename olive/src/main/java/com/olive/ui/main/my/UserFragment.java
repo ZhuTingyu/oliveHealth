@@ -1,11 +1,13 @@
 package com.olive.ui.main.my;
 
 import com.biz.base.BaseLazyFragment;
+import com.biz.image.upload.UploadImageUtil;
 import com.biz.util.ActivityStackManager;
 import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.olive.R;
+import com.olive.model.UserModel;
 import com.olive.ui.adapter.UserAdapter;
 import com.olive.ui.login.LoginActivity;
 import com.olive.ui.main.my.account.MyAccountFragment;
@@ -13,6 +15,7 @@ import com.olive.ui.main.my.favorite.FavoriteFragment;
 import com.olive.ui.main.my.stock.StockManageActivity;
 import com.olive.ui.order.OrderActivity;
 import com.olive.ui.refund.RefundActivity;
+import com.sina.weibo.sdk.utils.ImageUtils;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import android.os.Bundle;
@@ -69,9 +72,9 @@ public class UserFragment  extends BaseLazyFragment  {
 
         getView(footer, R.id.btn).setOnClickListener(v -> {
             //EXIT
+            UserModel.getInstance().loginOut();
             LoginActivity.startLogin(getActivity());
             ActivityStackManager.finish();
-
         });
 
         adapter.addFooterView(footer);

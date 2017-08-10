@@ -1,6 +1,7 @@
 package com.olive.ui.refund;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,12 +16,12 @@ import com.biz.util.Lists;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
 import com.olive.ui.adapter.RefundAdapter;
+import com.olive.ui.refund.viewModel.RefundListViewModel;
 
 /**
  * Created by TingYu Zhu on 2017/7/28.
  */
 
-@SuppressLint("ValidFragment")
 public class RefundBaseFragment extends BaseFragment {
 
     public static final String KEY_TYPE = "type";
@@ -30,7 +31,13 @@ public class RefundBaseFragment extends BaseFragment {
     private XRecyclerView recyclerView;
     private RefundAdapter adapter;
 
+    private RefundListViewModel viewModel;
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        viewModel = new RefundListViewModel(context);
+    }
 
     @Nullable
     @Override
@@ -49,16 +56,25 @@ public class RefundBaseFragment extends BaseFragment {
         recyclerView = findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new RefundAdapter(getActivity(), type);
-        adapter.setNewData(Lists.newArrayList("","","",""));
         recyclerView.setAdapter(adapter);
         TextView btn = findViewById(R.id.btn_sure);
         btn.setText(getString(R.string.title_apply_refund));
 
         if(getString(R.string.text_refund_apply).equals(type)){
+
+            viewModel.getRefundApplyList(orderEntities -> {
+                adapter.setNewData(orderEntities);
+            });
+
             btn.setOnClickListener(v -> {
                 IntentBuilder.Builder().startParentActivity(getActivity(), ApplyRefundFragment.class, true);
             });
         }else {
+
+            viewModel.getRefundList(orderEntities -> {
+                adapter.setNewData(orderEntities);
+            });
+
             btn.setVisibility(View.GONE);
         }
     }
