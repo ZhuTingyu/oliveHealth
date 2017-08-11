@@ -3,6 +3,7 @@ package com.olive.ui.refund;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
@@ -11,12 +12,16 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 
 import com.biz.base.BaseFragment;
+import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
 import com.olive.model.entity.ProductEntity;
 import com.olive.ui.adapter.CartAdapter;
 import com.olive.ui.refund.viewModel.ChooseRefundGoodViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by TingYu Zhu on 2017/7/30.
@@ -59,10 +64,9 @@ public class ChooseRefundGoodsFragment extends BaseFragment implements CartAdapt
 
 
         findViewById(R.id.btn_sure).setOnClickListener(v -> {
-            //String o = adapter.getItem(1);
             Intent intent = new Intent();
-            //intent.putExtra("info",o);
             getActivity().setIntent(intent);
+            intent.putParcelableArrayListExtra(IntentBuilder.KEY_DATA, (ArrayList<? extends Parcelable>) viewModel.getSelectedProducts());
             getActivity().finish();
         });
 
@@ -70,16 +74,17 @@ public class ChooseRefundGoodsFragment extends BaseFragment implements CartAdapt
 
     @Override
     public void click(CheckBox checkBox, int position) {
-        adapter.setSingleSelected(position);
+        adapter.setSelected(position);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
     public void add(ProductEntity productEntity) {
-
+        viewModel.countAdd(productEntity);
     }
 
     @Override
     public void min(ProductEntity productEntity) {
-
+        viewModel.countMin(productEntity);
     }
 }

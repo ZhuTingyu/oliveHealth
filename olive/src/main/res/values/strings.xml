@@ -250,6 +250,7 @@
     <string name="message_not_choose_product">请选择要买的商品</string>
     <string name="message_delete_success">删除成功</string>
     <string name="message_login_invalid">登录已经过期</string>
+    <string name="message_products_count_can_not_is_0">商品数量不能为0</string>
 
 
 </resources>

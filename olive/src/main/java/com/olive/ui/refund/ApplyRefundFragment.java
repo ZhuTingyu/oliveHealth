@@ -92,22 +92,30 @@ public class ApplyRefundFragment extends BaseFragment {
         imgsLinearLayout = findViewById(R.id.ll_img);
         describe = findViewById(R.id.describe);
 
+        bindUi(RxUtil.textChanges(describe), viewModel.setDescription());
+
         chooseGoods.setOnClickListener(v -> {
             IntentBuilder.Builder()
                     .startParentActivity(getActivity(), ChooseRefundGoodsFragment.class, CHOOSE_GOODS__SUCCESS_REQUEST);
         });
 
         reason.setOnClickListener(v -> {
-            List<String> list = Lists.newArrayList(getContext().getResources().getStringArray(R.array.array_reason));
-            select(list, p -> {
-                reason.setText(list.get(p));
+            viewModel.getRefundReason(refundReasonEntities -> {
+                List<String> list = Lists.newArrayList(getContext().getResources().getStringArray(R.array.array_reason));
+                select(list, p -> {
+                    reason.setText(list.get(p));
+                    viewModel.setRefundReasonId(refundReasonEntities.get(p).id);
+                });
             });
+
         });
 
         initUploadImages();
 
         bindUi(RxUtil.click(ok), o -> {
+            viewModel.applyRefund(s -> {
 
+            });
         });
 
 
@@ -149,9 +157,10 @@ public class ApplyRefundFragment extends BaseFragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CHOOSE_GOODS__SUCCESS_REQUEST) {
             if (data != null) {
-                ProductEntity productEntity = data.getParcelableExtra(IntentBuilder.KEY_DATA);
-                if (productEntity != null) {
-                    initGoodsInfoView(productEntity);
+                List<ProductEntity> productEntities = data.getParcelableArrayListExtra(IntentBuilder.KEY_DATA);
+                if (productEntities != null && !productEntities.isEmpty()) {
+                    initGoodsInfoView(productEntities);
+                    viewModel.setChooseRefundProduct(productEntities);
                 }
             }
         } else if (requestCode == CAMERA_SUCCESS_REQUEST) {
@@ -176,33 +185,38 @@ public class ApplyRefundFragment extends BaseFragment {
         }
     }
 
-    private void initGoodsInfoView(ProductEntity productEntity) {
+    private void initGoodsInfoView(List<ProductEntity> productEntities) {
 
-        RelativeLayout info = findViewById(R.id.goods_info);
+        LinearLayout info = findViewById(R.id.goods_info);
         info.setVisibility(View.VISIBLE);
 
-        BaseViewHolder holder = new BaseViewHolder(info);
+        for(ProductEntity productEntity : productEntities){
+            View view = LayoutInflater.from(getContext()).inflate(R.layout.item_cart_layout, info, false);
+            BaseViewHolder holder = new BaseViewHolder(view);
 
-        LoadImageUtil.Builder()
-                .load(productEntity.imgLogo).http().build()
-                .displayImage(holder.getView(R.id.icon_img));
-        holder.setText(R.id.title, productEntity.name);
-        holder.setText(R.id.title_line_2, getString(R.string.text_product_specification, productEntity.standard));
-        holder.setText(R.id.title_line_3, PriceUtil.formatRMB(productEntity.price));
-        holder.getView(R.id.checkbox).setVisibility(View.GONE);
-        holder.getView(R.id.number_layout).setVisibility(View.GONE);
-        holder.getView(R.id.text_product_number).setVisibility(View.VISIBLE);
-        holder.setText(R.id.text_product_number, "x" + productEntity.quantity);
+            LoadImageUtil.Builder()
+                    .load(productEntity.imgLogo).http().build()
+                    .displayImage(holder.getView(R.id.icon_img));
+            holder.setText(R.id.title, productEntity.name);
+            holder.setText(R.id.title_line_2, getString(R.string.text_product_specification, productEntity.standard));
+            holder.setText(R.id.title_line_3, PriceUtil.formatRMB(productEntity.price));
+            holder.getView(R.id.checkbox).setVisibility(View.GONE);
+            holder.getView(R.id.number_layout).setVisibility(View.GONE);
+            holder.getView(R.id.text_product_number).setVisibility(View.VISIBLE);
+            holder.setText(R.id.text_product_number, "x" + productEntity.quantity);
 
-        RelativeLayout rl = findViewById(R.id.rl_info);
-        rl.setPadding(0, 0, Utils.dip2px(24), 0);
+            RelativeLayout rl = findViewById(R.id.rl_info);
+            rl.setPadding(0, 0, Utils.dip2px(24), 0);
 
-        holder.findViewById(R.id.right_icon).setVisibility(View.VISIBLE);
+            holder.findViewById(R.id.right_icon).setVisibility(View.VISIBLE);
 
+           info.addView(view);
+        }
         info.setOnClickListener(v -> {
             IntentBuilder.Builder()
                     .startParentActivity(getActivity(), ChooseRefundGoodsFragment.class, CHOOSE_GOODS__SUCCESS_REQUEST);
         });
+
     }
 
     public void select(List<String> list, BottomSheetAdapter.OnItemClickListener onItemClickListener) {

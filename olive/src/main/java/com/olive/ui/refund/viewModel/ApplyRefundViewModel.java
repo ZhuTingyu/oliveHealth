@@ -7,7 +7,9 @@ import com.biz.util.Lists;
 import com.biz.util.StringUtils;
 import com.olive.R;
 import com.olive.model.ProductsModel;
+import com.olive.model.RefundModel;
 import com.olive.model.entity.ProductEntity;
+import com.olive.model.entity.RefundReasonEntity;
 import com.olive.util.UploadImageUtil;
 
 import java.util.List;
@@ -24,6 +26,16 @@ public class ApplyRefundViewModel extends BaseViewModel {
 
     private String[] imgUrls;
 
+    private List<RefundReasonEntity> refundReasonEntities;
+
+    private List<String> refundNameList;
+
+    private int refundReasonId;
+
+    private List<ProductEntity>  chooseRefundProducts;
+
+    private String description;
+
     public ApplyRefundViewModel(Object activity) {
         super(activity);
         imgUrls = new String[2];
@@ -35,6 +47,23 @@ public class ApplyRefundViewModel extends BaseViewModel {
                 return r.data;
             }else throw new HttpErrorException(r);
         }),action1);
+    }
+
+    public void getRefundReason(Action1<List<RefundReasonEntity>> action1){
+        submitRequestThrowError(RefundModel.applyRefundReasons().map(r -> {
+            if(r.isOk()){
+                refundReasonEntities = r.data;
+                return refundReasonEntities;
+            }else throw new HttpErrorException(r);
+        }), action1);
+    }
+
+    public void applyRefund(Action1<String> action1){
+        submitRequestThrowError(RefundModel.applyRefund(chooseRefundProducts, refundReasonId, getImgUrlsString(), description).map(r -> {
+            if(r.isOk()){
+                return r.data;
+            }else throw new HttpErrorException(r);
+        }), action1);
     }
 
     public void setFileUri(String fileUri) {
@@ -49,9 +78,29 @@ public class ApplyRefundViewModel extends BaseViewModel {
         imgUrls[position] = url;
     }
 
-    private void getImgUrlsString(){
-        StringBuffer sb = new StringBuffer();
-        sb.append(imgUrls[0]).append(",").append(imgUrls[1]);
+    private List<String> getImgUrlsString(){
+        return Lists.newArrayList(imgUrls);
     }
 
+    private List<String> getRefundNameList(){
+        refundNameList = Lists.newArrayList();
+        for(RefundReasonEntity refundReasonEntity : refundReasonEntities){
+            refundNameList.add(refundReasonEntity.description);
+        }
+        return refundNameList;
+    }
+
+    public void setRefundReasonId(int refundReasonId) {
+        this.refundReasonId = refundReasonId;
+    }
+
+    public void setChooseRefundProduct(List<ProductEntity> chooseRefundProducts) {
+        this.chooseRefundProducts = chooseRefundProducts;
+    }
+
+    public Action1<String> setDescription() {
+        return s -> {
+            this.description = s;
+        };
+    }
 }
