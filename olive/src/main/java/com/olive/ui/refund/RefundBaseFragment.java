@@ -69,6 +69,14 @@ public class RefundBaseFragment extends BaseFragment {
             btn.setOnClickListener(v -> {
                 IntentBuilder.Builder().startParentActivity(getActivity(), ApplyRefundFragment.class, true);
             });
+
+            adapter.setOnItemClickListener((baseQuickAdapter, view, i) -> {
+                IntentBuilder.Builder()
+                        .putExtra(IntentBuilder.KEY_VALUE, adapter.getItem(i).orderNo)
+                        .startParentActivity(getActivity(), LookApplyDetailFragament.class, true);
+
+            });
+
         }else {
 
             viewModel.getRefundList(orderEntities -> {

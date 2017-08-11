@@ -55,15 +55,21 @@ public class ApplyRefundFragment extends BaseFragment {
     private static final int GALLERY = 1;
 
     private List<View> uploadImgs;
+    protected List<RelativeLayout> productInfoViews;
 
 
-    private EditText describe;
+    protected EditText describe;
 
     private ApplyRefundViewModel viewModel;
 
-    LinearLayout imgsLinearLayout;
+    protected LinearLayout imgsLinearLayout;
+    protected LinearLayout info;
 
     private int current;
+
+    private TextView chooseGoods;
+    protected TextView reason;
+    protected TextView ok;
 
     @Override
     public void onAttach(Context context) {
@@ -83,15 +89,16 @@ public class ApplyRefundFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         setTitle(getString(R.string.title_apply_refund));
         initView();
-    }
 
-    private void initView() {
-        TextView chooseGoods = findViewById(R.id.choose_goods);
-        TextView reason = findViewById(R.id.reason);
-        TextView ok = findViewById(R.id.btn_sure);
+        chooseGoods = findViewById(R.id.choose_goods);
+        reason = findViewById(R.id.reason);
+        ok = findViewById(R.id.btn_sure);
         imgsLinearLayout = findViewById(R.id.ll_img);
         describe = findViewById(R.id.describe);
 
+    }
+
+    protected void initView() {
         bindUi(RxUtil.textChanges(describe), viewModel.setDescription());
 
         chooseGoods.setOnClickListener(v -> {
@@ -143,7 +150,7 @@ public class ApplyRefundFragment extends BaseFragment {
 
     }
 
-    private void setImg(View view, String url) {
+    protected void setImg(View view, String url) {
         AppCompatImageView imageView = (AppCompatImageView) view.findViewById(R.id.icon);
         imageView.setImageBitmap(BitmapUtil.getCropBitmapFromFile(url, 70, 70).get());
         view.findViewById(R.id.del).setOnClickListener(v -> {
@@ -185,10 +192,11 @@ public class ApplyRefundFragment extends BaseFragment {
         }
     }
 
-    private void initGoodsInfoView(List<ProductEntity> productEntities) {
+    protected void initGoodsInfoView(List<ProductEntity> productEntities) {
 
-        LinearLayout info = findViewById(R.id.goods_info);
+        info = findViewById(R.id.goods_info);
         info.setVisibility(View.VISIBLE);
+        productInfoViews = Lists.newArrayList();
 
         for(ProductEntity productEntity : productEntities){
             View view = LayoutInflater.from(getContext()).inflate(R.layout.item_cart_layout, info, false);
@@ -205,12 +213,13 @@ public class ApplyRefundFragment extends BaseFragment {
             holder.getView(R.id.text_product_number).setVisibility(View.VISIBLE);
             holder.setText(R.id.text_product_number, "x" + productEntity.quantity);
 
-            RelativeLayout rl = findViewById(R.id.rl_info);
+            RelativeLayout rl = findViewById(view,R.id.rl_info);
             rl.setPadding(0, 0, Utils.dip2px(24), 0);
 
             holder.findViewById(R.id.right_icon).setVisibility(View.VISIBLE);
 
            info.addView(view);
+            productInfoViews.add(rl);
         }
         info.setOnClickListener(v -> {
             IntentBuilder.Builder()

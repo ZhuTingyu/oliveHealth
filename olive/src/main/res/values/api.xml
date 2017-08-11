@@ -45,6 +45,7 @@
     <string name="api_refund_choose_product_list">/products/refundable</string>
     <string name="api_refund_apply">/refund/applyRefund</string>
     <string name="api_refund_apply_reasons">/refund/refundReasons</string>
+    <string name="api_refund_apply_detail">/refund/applyDetail</string>
 
 
     <string name="api_upload_image">/files/images/upload</string>

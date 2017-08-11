@@ -52,4 +52,13 @@ public class RefundModel {
                 .url(R.string.api_refund_apply_reasons)
                 .requestPI();
     }
+
+    public static Observable<ResponseJson<OrderEntity>> applyRefundDetail(String orderNo){
+        return HttpRequest.<ResponseJson<OrderEntity>>builder()
+                .setToJsonType(new TypeToken<ResponseJson<OrderEntity>>() {
+                }.getType())
+                .addBody("orderNo", orderNo)
+                .url(R.string.api_refund_apply_reasons)
+                .requestPI();
+    }
 }
