@@ -14,7 +14,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.olive.R;
 import com.olive.model.entity.OrderEntity;
 import com.olive.model.entity.ProductEntity;
-import com.olive.ui.refund.LookRefundCheckResult;
+import com.olive.ui.refund.LookRefundCheckResultFragment;
 
 import java.util.List;
 
@@ -73,7 +73,7 @@ public class RefundAdapter extends BaseQuickAdapter<OrderEntity, BaseViewHolder>
         });
 
         look.setOnClickListener(v -> {
-            IntentBuilder.Builder().startParentActivity(context, LookRefundCheckResult.class, true);
+            IntentBuilder.Builder().startParentActivity(context, LookRefundCheckResultFragment.class, true);
         });
 
 

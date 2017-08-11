@@ -3,6 +3,8 @@ package com.olive.ui.refund.viewModel;
 import com.biz.base.BaseViewModel;
 import com.biz.http.HttpErrorException;
 import com.biz.http.ResponseJson;
+import com.biz.util.Lists;
+import com.biz.util.StringUtils;
 import com.olive.R;
 import com.olive.model.ProductsModel;
 import com.olive.model.entity.ProductEntity;
@@ -20,8 +22,11 @@ public class ApplyRefundViewModel extends BaseViewModel {
 
     private String fileUri;
 
+    private String[] imgUrls;
+
     public ApplyRefundViewModel(Object activity) {
         super(activity);
+        imgUrls = new String[2];
     }
 
     public void uploadImg(Action1<String> action1){
@@ -35,4 +40,18 @@ public class ApplyRefundViewModel extends BaseViewModel {
     public void setFileUri(String fileUri) {
         this.fileUri = fileUri;
     }
+
+    public String getFileUri() {
+        return fileUri;
+    }
+
+    public void setImgUrl(int position, String url){
+        imgUrls[position] = url;
+    }
+
+    private void getImgUrlsString(){
+        StringBuffer sb = new StringBuffer();
+        sb.append(imgUrls[0]).append(",").append(imgUrls[1]);
+    }
+
 }

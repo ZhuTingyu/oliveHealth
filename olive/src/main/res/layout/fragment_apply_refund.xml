@@ -108,20 +108,12 @@
 
 
             <LinearLayout
+                android:id="@+id/ll_img"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:orientation="horizontal"
                 android:paddingTop="16dp">
-
-                <include
-                    android:id="@+id/upload1"
-                    layout="@layout/item_icon_del_layout" />
-
-                <include
-                    android:id="@+id/upload2"
-                    layout="@layout/item_icon_del_layout" />
-
             </LinearLayout>
 
 

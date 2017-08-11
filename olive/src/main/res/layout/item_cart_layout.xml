@@ -44,7 +44,7 @@
 
 
     <RelativeLayout
-        android:id="@id/rl_info"
+        android:id="@+id/rl_info"
         android:layout_toRightOf="@id/icon"
         android:layout_marginRight="8dp"
         android:layout_marginLeft="8dp"
@@ -162,8 +162,8 @@
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/right_icon"
         android:layout_height="match_parent"
-        android:layout_width="24dp"
         android:layout_alignParentRight="true"
+        android:layout_width="24dp"
         android:visibility="gone"
         tools:src="@drawable/ic_arrow_right_gray"
         app:srcCompat="@drawable/ic_arrow_right_gray"/>

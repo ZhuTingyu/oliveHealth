@@ -1,10 +1,13 @@
 package com.olive.util;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import com.biz.http.ResponseJson;
 import com.biz.http.cache.HttpUrlCache;
 import com.biz.http.sign.Signer;
+import com.biz.util.BitmapUtil;
 import com.biz.util.FileUtil;
 import com.biz.util.GsonUtil;
 import com.biz.util.LogUtil;
@@ -45,6 +48,8 @@ public class UploadImageUtil {
             String postUrl = temp.getUrl(HttpUrlCache.getInstance().getMasterHeadUrl());
 
             File file = new File(fileUrl);
+            Bitmap bitmap = BitmapFactory.decodeFile(fileUrl);
+            
 
             RequestBody fileBody = RequestBody.create(MediaType.parse("application/octet-stream"), file);
             RequestBody requestBody = new MultipartBody.Builder()
@@ -68,6 +73,7 @@ public class UploadImageUtil {
             okHttpClient.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
+                    LogUtil.print("upload" + e.toString());
                 }
 
 
@@ -92,6 +98,19 @@ public class UploadImageUtil {
                         }
                     } else {
                         LogUtil.print("error code:" + response.code() + " url:" + url);
+                    }
+
+                    try {
+                        if (call != null) {
+                            call.cancel();
+                        }
+                        if (is != null) {
+                            is.close();
+                        }
+                        if (bos != null) {
+                            bos.close();
+                        }
+                    } catch (IOException e) {
                     }
                     ResponseJson<String> responseJson = GsonUtil.fromJson(result, new TypeToken<ResponseJson<String>>() {}.getType());
                     subscriber.onNext(responseJson);

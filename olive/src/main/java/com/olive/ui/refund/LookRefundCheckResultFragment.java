@@ -14,7 +14,7 @@ import com.olive.R;
  * Created by TingYu Zhu on 2017/7/29.
  */
 
-public class LookRefundCheckResult extends BaseFragment {
+public class LookRefundCheckResultFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
