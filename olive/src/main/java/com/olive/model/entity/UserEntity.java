@@ -14,7 +14,11 @@ public class UserEntity implements Parcelable {
     public String mobile;   //手机号码
     public String account;   //商城登录账号
     public String token;   //验证token
+    public String password;
 
+
+    public UserEntity() {
+    }
 
     @Override
     public int describeContents() {
@@ -29,9 +33,7 @@ public class UserEntity implements Parcelable {
         dest.writeString(this.mobile);
         dest.writeString(this.account);
         dest.writeString(this.token);
-    }
-
-    public UserEntity() {
+        dest.writeString(this.password);
     }
 
     protected UserEntity(Parcel in) {
@@ -41,9 +43,10 @@ public class UserEntity implements Parcelable {
         this.mobile = in.readString();
         this.account = in.readString();
         this.token = in.readString();
+        this.password = in.readString();
     }
 
-    public static final Parcelable.Creator<UserEntity> CREATOR = new Parcelable.Creator<UserEntity>() {
+    public static final Creator<UserEntity> CREATOR = new Creator<UserEntity>() {
         @Override
         public UserEntity createFromParcel(Parcel source) {
             return new UserEntity(source);

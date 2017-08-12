@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.biz.base.BaseFragment;
+import com.biz.util.IntentBuilder;
 import com.biz.util.RxUtil;
 import com.olive.R;
 
@@ -19,6 +20,7 @@ import com.olive.R;
 
 public class FindPassword2Fragment extends BasePasswordFragment {
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -27,11 +29,21 @@ public class FindPassword2Fragment extends BasePasswordFragment {
 
     @Override
     protected void initView() {
-        super.initView();
+        viewModel.setMobile(getBaseActivity().getIntent().getStringExtra(IntentBuilder.KEY_VALUE));
         setTitle(getString(R.string.title_find_password));
+        initBtnCode();
+        viewModel.setType(PasswordViewModel.TYPE_CODE_FIND_PASSWORD);
         initPasswordView();
         tvOk.setOnClickListener(v -> {
+            viewModel.isPasswordValid(s -> {
+                if(PasswordViewModel.INFO_VALID.equals(s)){
+                    viewModel.changPassword(s1 -> {
 
+                    });
+                }else {
+                    error(s);
+                }
+            });
         });
     }
 }

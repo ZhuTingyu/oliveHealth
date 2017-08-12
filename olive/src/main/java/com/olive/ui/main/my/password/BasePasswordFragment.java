@@ -18,9 +18,9 @@ import com.olive.R;
 
 public class BasePasswordFragment extends BaseFragment {
 
-    protected EditText userName;
+    protected EditText mobile;
     protected EditText code;
-    protected TextView tvCode;
+    protected TextView btnCode;
     protected TextView tvOk;
     protected CustomCountDownTimer countDownTimer;
     protected EditText password;
@@ -41,16 +41,10 @@ public class BasePasswordFragment extends BaseFragment {
     }
 
     protected void initView() {
-        userName = findViewById(R.id.username);
-        tvCode = findViewById(R.id.btn_code);
+        mobile = findViewById(R.id.mobile);
         tvOk = findViewById(R.id.btn_ok);
-        countDownTimer = new CustomCountDownTimer(getActivity(),
-                tvCode, R.string.text_send_code, R.string.btn_resend_count, 60000, 1000);
 
-
-
-        bindData(RxUtil.textChanges(userName), viewModel.setUserName());
-        bindData(RxUtil.textChanges(code), viewModel.setCode());
+        bindData(RxUtil.textChanges(mobile), viewModel.setMobile());
 
     }
 
@@ -60,5 +54,25 @@ public class BasePasswordFragment extends BaseFragment {
 
         bindData(RxUtil.textChanges(password), viewModel.setPassword());
         bindData(RxUtil.textChanges(newPassword), viewModel.setNewPassword());
+    }
+
+    protected void initBtnCode(){
+        code = findViewById(R.id.code);
+        bindData(RxUtil.textChanges(code), viewModel.setAuthCode());
+        countDownTimer = new CustomCountDownTimer(getActivity(),
+                btnCode, R.string.text_send_code, R.string.btn_resend_count, 60000, 1000);
+        btnCode = findViewById(R.id.btn_code);
+
+        bindUi(RxUtil.click(btnCode), o -> {
+            viewModel.isMobileValid(s -> {
+                if(PasswordViewModel.INFO_VALID.equals(s)){
+                    viewModel.sendCode(s1 -> {
+
+                    });
+                }else {
+                    error(s);
+                }
+            });
+        });
     }
 }

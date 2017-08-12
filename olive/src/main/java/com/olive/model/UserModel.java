@@ -45,7 +45,7 @@ public class UserModel {
     private static UserModel userModel;
     private UserEntity userInfo;
     private final CompositeSubscription subscription = new CompositeSubscription();
-    private String hisAccount;
+    public String hisMobile;
 
     public UserEntity getUserInfo() {
         if (userInfo == null) {
@@ -79,7 +79,7 @@ public class UserModel {
                 }
             }
         }
-        hisAccount = getShopId();
+        hisMobile = getMobile();
     }
 
     public boolean isLogin() {
@@ -141,16 +141,12 @@ public class UserModel {
         return userInfo.mobile;
     }
 
-    public String getShopId() {
+    public String getPassword() {
         if (userInfo == null) return "";
-        return userInfo.account;
+        return userInfo.password;
     }
 
-    public String getHisAccount() {
-        return hisAccount;
-    }
-
-    public synchronized void setUserInfo(UserEntity userInfo) {
+    public synchronized void setUserInfo(UserEntity userInfo, String password) {
         LogUtil.print(";");
         List<ConfigBean> list = DatabaseLoader.
                 getDaoSession()
@@ -162,6 +158,7 @@ public class UserModel {
         if (list != null && list.size() > 0) {
             for (ConfigBean configBean : list) {
                 if (userInfo != null && userInfo.userId == configBean.getUserId()) {
+                    userInfo.password = password;
                     configBean.setCache(GsonUtil.toJson(userInfo));
                     configBean.setKey(userInfo.mobile);
                     configBean.setTs(System.currentTimeMillis());
@@ -186,7 +183,7 @@ public class UserModel {
         }
         DatabaseLoader.getDaoSession().getConfigBeanDao().insertOrReplaceInTx(list, true);
         this.userInfo = userInfo;
-        hisAccount = getShopId();
+        hisMobile = getMobile();
     }
 
     public synchronized void loginOut() {
@@ -205,7 +202,7 @@ public class UserModel {
         }
         DatabaseLoader.
                 getDaoSession().getConfigBeanDao().insertOrReplaceInTx(list);
-        hisAccount = getShopId();
+        hisMobile = getMobile();
         this.userInfo = null;
     }
 
@@ -217,7 +214,7 @@ public class UserModel {
                 .setToJsonType(new TypeToken<ResponseJson<UserEntity>>() {}.getType())
                 .requestPI().map(r -> {
                     if (r.isOk()) {
-                        UserModel.getInstance().setUserInfo(r.data);
+                        UserModel.getInstance().setUserInfo(r.data, MD5.toMD5(password).toUpperCase());
                     }
                     return r;
                 });

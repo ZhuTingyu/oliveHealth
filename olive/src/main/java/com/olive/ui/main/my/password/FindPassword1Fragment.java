@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.biz.base.BaseFragment;
+import com.biz.util.IntentBuilder;
 import com.olive.R;
 
 /**
@@ -28,8 +29,20 @@ public class FindPassword1Fragment extends BasePasswordFragment {
     protected void initView() {
         super.initView();
         setTitle(getString(R.string.title_find_password));
+        initBtnCode();
+        viewModel.setType(PasswordViewModel.TYPE_CODE_FIND_PASSWORD);
         tvOk.setOnClickListener(v -> {
-
+            viewModel.isInfoValid(s -> {
+                if(PasswordViewModel.INFO_VALID.equals(s)){
+                    viewModel.validateCode(s1 -> {
+                        IntentBuilder.Builder()
+                                .putExtra(IntentBuilder.KEY_VALUE, viewModel.mobile)
+                                .startParentActivity(getActivity(), FindPassword2Fragment.class, true);
+                    });
+                }else {
+                    error(s);
+                }
+            });
         });
     }
 }

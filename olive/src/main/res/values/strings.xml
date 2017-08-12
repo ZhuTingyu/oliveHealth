@@ -251,6 +251,14 @@
     <string name="message_delete_success">删除成功</string>
     <string name="message_login_invalid">登录已经过期</string>
     <string name="message_products_count_can_not_is_0">商品数量不能为0</string>
+    <string name="message_input_valid_mobile">请输入有效账号</string>
+    <string name="message_input_valid_code">请输入有效验证码</string>
+    <string name="message_input_password">请输入密码</string>
+    <string name="message_password_not_same">密码不一致</string>
+    <string name="message_old_password_error">原密码错误</string>
+    <string name="message_send_code_success">请求验证码成功</string>
+    <string name="message_info_is_valid">信息有效</string>
+    <string name="message_modify_success">修改成功</string>
 
 
 </resources>

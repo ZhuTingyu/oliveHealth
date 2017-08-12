@@ -11,16 +11,13 @@ import android.widget.TextView;
 import com.biz.util.RxUtil;
 import com.biz.widget.CustomCountDownTimer;
 import com.olive.R;
+import com.olive.model.UserModel;
 
 /**
  * Created by TingYu Zhu on 2017/7/28.
  */
 
 public class ResetPayPasswordFragment extends BasePasswordFragment {
-
-    protected EditText code;
-    protected TextView tvCode;
-    protected TextView tvOk;
 
     @Nullable
     @Override
@@ -30,16 +27,28 @@ public class ResetPayPasswordFragment extends BasePasswordFragment {
 
     @Override
     protected void initView() {
+
+
+        viewModel.setMobile(UserModel.getInstance().getMobile());
+
+        initBtnCode();
+        viewModel.setType(PasswordViewModel.TYPE_CODE_RESET_PAY_PASSWORD);
+
         initPasswordView();
-        tvCode = findViewById(R.id.btn_code);
+
         tvOk = findViewById(R.id.btn_ok);
-        countDownTimer = new CustomCountDownTimer(getActivity(),
-                tvCode, R.string.text_send_code, R.string.btn_resend_count, 60000, 1000);
-
-        bindData(RxUtil.textChanges(code), viewModel.setCode());
-
         tvOk.setOnClickListener(v -> {
+            viewModel.isOldAndNewPasswordValid(s -> {
+                if(PasswordViewModel.INFO_VALID.equals(s)){
+                    viewModel.changPassword(s1 -> {
+                        viewModel.resetPassword(s2 -> {
 
+                        });
+                    });
+                }else {
+                    error(s);
+                }
+            });
         });
     }
 }

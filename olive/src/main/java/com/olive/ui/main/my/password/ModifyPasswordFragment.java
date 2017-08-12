@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.biz.util.RxUtil;
+import com.biz.util.ToastUtils;
 import com.olive.R;
 
 /**
@@ -25,8 +26,29 @@ public class ModifyPasswordFragment extends BasePasswordFragment {
         super.initView();
         setTitle(getString(R.string.title_modify_password));
         initPasswordView();
+        initBtnCode();
+        bindUi(RxUtil.textChanges(password), viewModel.setPassword());
+        bindUi(RxUtil.textChanges(newPassword), viewModel.setNewPassword());
+
+        viewModel.setType(PasswordViewModel.TYPE_CODE_MODIFY_PASSWORD);
+
         tvOk.setOnClickListener(v -> {
 
+            viewModel.isInfoValid(s -> {
+                if (PasswordViewModel.INFO_VALID.equals(s)) {
+                    viewModel.isPasswordValid(s1 -> {
+                        if (PasswordViewModel.INFO_VALID.equals(s1)){
+                            viewModel.changPassword(s2 -> {
+
+                            });
+                        }else {
+                            error(s);
+                        }
+                    });
+                } else {
+                    error(s);
+                }
+            });
         });
     }
 }

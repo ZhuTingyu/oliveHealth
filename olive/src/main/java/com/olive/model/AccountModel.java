@@ -35,4 +35,48 @@ public class AccountModel {
                 .requestPI();
     }
 
+    public static Observable<ResponseJson<String>> changePassword(String mobile, String authCode, String password, String newPassword){
+        return HttpRequest.<ResponseJson<String>>builder()
+                .setToJsonType(new TypeToken<ResponseJson<String>>() {
+                }.getType())
+                .addBody("mobile", mobile)
+                .addBody("authCode", authCode)
+                .addBody("password", password)
+                .addBody("newPassword", newPassword)
+                .url(R.string.api_account_change_password)
+                .requestPI();
+    }
+
+    public static Observable<ResponseJson<String>> sendCode(String mobile, int type){
+        return HttpRequest.<ResponseJson<String>>builder()
+                .setToJsonType(new TypeToken<ResponseJson<String>>() {
+                }.getType())
+                .addBody("mobile", mobile)
+                .addBody("type", type)
+                .url(R.string.api_account_change_password)
+                .requestPI();
+    }
+
+    public static Observable<ResponseJson<String>> validateCode(String mobile, String authCode, int type){
+        return HttpRequest.<ResponseJson<String>>builder()
+                .setToJsonType(new TypeToken<ResponseJson<String>>() {
+                }.getType())
+                .addBody("mobile", mobile)
+                .addBody("authCode", authCode)
+                .addBody("type", type)
+                .url(R.string.api_account_change_password)
+                .requestPI();
+    }
+
+    public static Observable<ResponseJson<String>> resetPassword(String mobile, String authCode, String newPassword){
+        return HttpRequest.<ResponseJson<String>>builder()
+                .setToJsonType(new TypeToken<ResponseJson<String>>() {
+                }.getType())
+                .addBody("mobile", mobile)
+                .addBody("authCode", authCode)
+                .addBody("newPassword", newPassword)
+                .url(R.string.api_account_reset_password)
+                .requestPI();
+    }
+
 }

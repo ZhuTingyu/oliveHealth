@@ -12,6 +12,7 @@ import com.olive.ui.adapter.UserAdapter;
 import com.olive.ui.login.LoginActivity;
 import com.olive.ui.main.my.account.MyAccountFragment;
 import com.olive.ui.main.my.favorite.FavoriteFragment;
+import com.olive.ui.main.my.password.ModifyPasswordFragment;
 import com.olive.ui.main.my.stock.StockManageActivity;
 import com.olive.ui.order.OrderActivity;
 import com.olive.ui.refund.RefundActivity;
@@ -101,7 +102,7 @@ public class UserFragment  extends BaseLazyFragment  {
         }else if (equalsString(s, R.string.text_my_address)){
 
         }else if (equalsString(s, R.string.text_my_password)){
-
+            IntentBuilder.Builder().startParentActivity(getActivity(), ModifyPasswordFragment.class, true);
         }else if (equalsString(s, R.string.text_my_password_pay)){
 
         }else if (equalsString(s, R.string.text_system_info)){
