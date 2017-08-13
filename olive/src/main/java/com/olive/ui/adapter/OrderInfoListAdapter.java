@@ -15,6 +15,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.olive.R;
 import com.olive.model.entity.OrderEntity;
 import com.olive.model.entity.ProductEntity;
+import com.olive.ui.main.my.account.viewModel.AccountViewModel;
 import com.olive.ui.order.PayDebtFragment;
 import com.olive.ui.order.PayOrderFragment;
 import com.olive.ui.order.viewModel.OrderViewModel;
@@ -29,12 +30,14 @@ import java.util.List;
 public class OrderInfoListAdapter extends BaseQuickAdapter<OrderEntity, BaseViewHolder> {
 
     private OrderViewModel orderViewModel;
+    private AccountViewModel accountViewModel;
     private BaseFragment fragment;
 
     public OrderInfoListAdapter(BaseFragment fragment) {
         super(R.layout.item_order_list_info_layout, Lists.newArrayList());
         this.fragment = fragment;
         orderViewModel = new OrderViewModel(fragment);
+        accountViewModel = new AccountViewModel(fragment);
     }
 
     @Override
@@ -153,15 +156,21 @@ public class OrderInfoListAdapter extends BaseQuickAdapter<OrderEntity, BaseView
     }
 
     private void payOrder(OrderEntity orderEntity) {
-        if (orderViewModel.isHasDebt(orderEntity)) {
-            IntentBuilder.Builder()
-                    .startParentActivity((Activity) mContext, PayDebtFragment.class, true);
-        } else {
-            IntentBuilder.Builder()
-                    .putExtra(IntentBuilder.KEY_DATA, orderEntity)
-                    .startParentActivity((Activity) mContext, PayOrderFragment.class, true);
 
-        }
+        accountViewModel.getAccountInfo(accountEntity -> {
+            if (orderViewModel.isHasDebt(orderEntity)) {
+                IntentBuilder.Builder()
+                        .putExtra(IntentBuilder.KEY_VALUE, accountEntity)
+                        .putExtra(IntentBuilder.KEY_DATA, orderEntity)
+                        .startParentActivity((Activity) mContext, PayDebtFragment.class, true);
+            } else {
+                IntentBuilder.Builder()
+                        .putExtra(IntentBuilder.KEY_VALUE, accountEntity)
+                        .putExtra(IntentBuilder.KEY_DATA, orderEntity)
+                        .startParentActivity((Activity) mContext, PayOrderFragment.class, true);
+
+            }
+        });
     }
 
 }

@@ -53,7 +53,7 @@ public class AccountModel {
                 }.getType())
                 .addBody("mobile", mobile)
                 .addBody("type", type)
-                .url(R.string.api_account_change_password)
+                .url(R.string.api_account_send_code)
                 .requestPI();
     }
 

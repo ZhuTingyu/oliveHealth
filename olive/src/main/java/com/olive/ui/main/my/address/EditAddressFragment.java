@@ -9,13 +9,15 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.bigkoo.pickerview.OptionsPickerView;
 import com.biz.base.BaseFragment;
 import com.biz.util.IntentBuilder;
+import com.biz.util.Lists;
+import com.biz.util.LogUtil;
 import com.biz.util.RxUtil;
 import com.olive.R;
 import com.olive.model.entity.AddressEntity;
 
-import cn.qqtheme.framework.picker.AddressPicker;
 
 
 /**
@@ -27,13 +29,16 @@ public class EditAddressFragment extends BaseFragment {
     private EditText receiver;
     private EditText phone;
     private EditText area;
-    private EditText address;
     private EditText address1;
     private TextView btnOk;
 
     private AddressEntity addressEntity;
 
     private EditAddressViewModel viewModel;
+
+    private OptionsPickerView pickerView;
+
+
 
     @Override
     public void onAttach(Context context) {
@@ -57,6 +62,10 @@ public class EditAddressFragment extends BaseFragment {
         }else {
             setTitle(getString(R.string.title_edit_address));
         }
+        initPickerView();
+        viewModel.initCityList(o -> {
+
+        });
         initView();
 
     }
@@ -66,11 +75,9 @@ public class EditAddressFragment extends BaseFragment {
         receiver = findViewById(R.id.tv_receiver);
         phone = findViewById(R.id.tv_phone);
         area = findViewById(R.id.tv_area);
-        //address = findViewById(R.id.tv_address);
-        address1 = findViewById(R.id.tv_address1);
         btnOk = findViewById(R.id.btn_ok);
+        address1 = findViewById(R.id.tv_address1);
         area.setFocusableInTouchMode(false);
-        address.setFocusableInTouchMode(false);
 
         bindUi(RxUtil.textChanges(receiver), viewModel.setConsignee());
         bindUi(RxUtil.textChanges(phone), viewModel.setMobile());
@@ -81,10 +88,16 @@ public class EditAddressFragment extends BaseFragment {
             receiver.setText(addressEntity.consignee);
             phone.setText(addressEntity.mobile);
             area.setText(addressEntity.provinceText+" "+addressEntity.cityText+" "+addressEntity.districtText);
-            address.setText("玉林街道");
             address1.setText(addressEntity.detailAddress);
         }
 
+        area.setOnClickListener(v -> {
+            pickerView.show();
+        });
+
+    }
+
+    private void initPickerView(){
 
     }
 }

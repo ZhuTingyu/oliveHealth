@@ -31,7 +31,6 @@ public class FindPassword2Fragment extends BasePasswordFragment {
     protected void initView() {
         viewModel.setMobile(getBaseActivity().getIntent().getStringExtra(IntentBuilder.KEY_VALUE));
         setTitle(getString(R.string.title_find_password));
-        initBtnCode();
         viewModel.setType(PasswordViewModel.TYPE_CODE_FIND_PASSWORD);
         initPasswordView();
         tvOk.setOnClickListener(v -> {

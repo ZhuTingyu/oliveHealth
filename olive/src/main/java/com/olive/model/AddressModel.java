@@ -29,6 +29,7 @@ public class AddressModel {
         return HttpRequest.<ResponseJson<String>>builder()
                 .setToJsonType(new TypeToken<ResponseJson<String>>() {
                 }.getType())
+                .addBody("id",id)
                 .url(R.string.api_address_delete)
                 .requestPI();
     }

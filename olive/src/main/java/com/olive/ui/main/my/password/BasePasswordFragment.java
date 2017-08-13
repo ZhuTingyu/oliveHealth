@@ -58,16 +58,16 @@ public class BasePasswordFragment extends BaseFragment {
 
     protected void initBtnCode(){
         code = findViewById(R.id.code);
+        btnCode = findViewById(R.id.btn_code);
         bindData(RxUtil.textChanges(code), viewModel.setAuthCode());
         countDownTimer = new CustomCountDownTimer(getActivity(),
                 btnCode, R.string.text_send_code, R.string.btn_resend_count, 60000, 1000);
-        btnCode = findViewById(R.id.btn_code);
 
         bindUi(RxUtil.click(btnCode), o -> {
             viewModel.isMobileValid(s -> {
                 if(PasswordViewModel.INFO_VALID.equals(s)){
                     viewModel.sendCode(s1 -> {
-
+                        countDownTimer.start();
                     });
                 }else {
                     error(s);

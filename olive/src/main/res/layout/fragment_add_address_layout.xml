@@ -152,6 +152,7 @@
         android:text="@string/text_street"
         android:textColor="@color/color_666666"
         android:textSize="@dimen/big_font_16dp"
+        android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include3" />
 
@@ -169,6 +170,7 @@
         android:textColor="@color/color_333333"
         android:textColorHint="@color/color_hint"
         android:textSize="@dimen/big_font_16dp"
+        android:visibility="gone"
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_address_"
         app:layout_constraintLeft_toRightOf="@+id/tv_address_"
         app:layout_constraintRight_toRightOf="parent"
@@ -184,6 +186,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:visibility="gone"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_address_" />

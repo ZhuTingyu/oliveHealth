@@ -82,10 +82,10 @@ public class ApplyRefundViewModel extends BaseViewModel {
         return Lists.newArrayList(imgUrls);
     }
 
-    private List<String> getRefundNameList(){
+    public List<String> getRefundNameList(){
         refundNameList = Lists.newArrayList();
         for(RefundReasonEntity refundReasonEntity : refundReasonEntities){
-            refundNameList.add(refundReasonEntity.description);
+            refundNameList.add(refundReasonEntity.desc);
         }
         return refundNameList;
     }

@@ -51,14 +51,9 @@
     <string name="api_refund_apply_reasons">/refund/refundReasons</string>
     <string name="api_refund_apply_detail">/refund/applyDetail</string>
 
-
     <string name="api_upload_image">/files/images/upload</string>
 
-
-
-
-
-
+    <string name="api_cities_list">/cities/list</string>
 
 
 

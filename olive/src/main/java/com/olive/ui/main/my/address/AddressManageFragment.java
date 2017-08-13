@@ -34,6 +34,7 @@ public class AddressManageFragment extends BaseFragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         viewModel = new AddressViewModel(context);
+        initViewModel(viewModel);
     }
 
     @Nullable

@@ -8,5 +8,5 @@ public class RefundReasonEntity {
 
     public int id;    //ID
     public String reason; //原因
-    public String description;   //说明
+    public String desc;   //说明
 }

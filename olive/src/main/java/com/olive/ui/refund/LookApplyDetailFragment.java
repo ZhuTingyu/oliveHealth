@@ -1,6 +1,7 @@
 package com.olive.ui.refund;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,7 +17,7 @@ import java.util.List;
  * Created by TingYu Zhu on 2017/8/11.
  */
 
-public class LookApplyDetailFragament extends ApplyRefundFragment {
+public class LookApplyDetailFragment extends ApplyRefundFragment {
 
     private LookApplyDetailViewModel viewModel;
 
@@ -29,15 +30,13 @@ public class LookApplyDetailFragament extends ApplyRefundFragment {
     @Override
     protected void initView() {
         viewModel.getApplyRefundDetail(orderEntity -> {
-            initGoodsInfoView(orderEntity.products);
-            for (int i = 0; i < productInfoViews.size(); i++) {
-                productInfoViews.get(i).setPadding(0, 0, 0, 0);
-            }
+            initGoodsInfoView(orderEntity.products, true);
             reason.setText(orderEntity.reason);
             setRight(reason);
             describe.setText(orderEntity.description);
             describe.setFocusableInTouchMode(false);
             initImageView(IdsUtil.getList(orderEntity.image, ",", false));
+            ok.setVisibility(View.GONE);
         });
     }
 
@@ -50,7 +49,7 @@ public class LookApplyDetailFragament extends ApplyRefundFragment {
         }
     }
 
-    private void setRight(TextView view) {
+       private void setRight(TextView view) {
         view.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
     }
 }

@@ -21,8 +21,7 @@
                 android:background="?attr/selectableItemBackground"
                 android:gravity="center"
                 android:text="@string/text_send_code"
-                android:textColor="@color/color_333333"
-                android:textSize="16dp"/>
+                android:textColor="@color/color_333333"/>
 
         <View
                 android:id="@+id/line"

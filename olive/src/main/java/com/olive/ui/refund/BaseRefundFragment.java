@@ -1,6 +1,5 @@
 package com.olive.ui.refund;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 
 import com.biz.base.BaseFragment;
 import com.biz.util.IntentBuilder;
-import com.biz.util.Lists;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
 import com.olive.ui.adapter.RefundAdapter;
@@ -22,7 +20,7 @@ import com.olive.ui.refund.viewModel.RefundListViewModel;
  * Created by TingYu Zhu on 2017/7/28.
  */
 
-public class RefundBaseFragment extends BaseFragment {
+public class BaseRefundFragment extends BaseFragment {
 
     public static final String KEY_TYPE = "type";
 
@@ -73,7 +71,7 @@ public class RefundBaseFragment extends BaseFragment {
             adapter.setOnItemClickListener((baseQuickAdapter, view, i) -> {
                 IntentBuilder.Builder()
                         .putExtra(IntentBuilder.KEY_VALUE, adapter.getItem(i).orderNo)
-                        .startParentActivity(getActivity(), LookApplyDetailFragament.class, true);
+                        .startParentActivity(getActivity(), LookApplyDetailFragment.class, true);
 
             });
 

@@ -80,7 +80,6 @@ public class SearchFragment extends BaseFragment {
         },mRecyclerView.getRecyclerView());
         viewModel.setRecyclerView(mRecyclerView);
 
-        setProgressVisible(true);
         viewModel.getProductList(productEntities -> {
             mAdapter.setNewData(productEntities);
         });

@@ -88,7 +88,6 @@ public class ApplyRefundFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setTitle(getString(R.string.title_apply_refund));
-        initView();
 
         chooseGoods = findViewById(R.id.choose_goods);
         reason = findViewById(R.id.reason);
@@ -96,6 +95,7 @@ public class ApplyRefundFragment extends BaseFragment {
         imgsLinearLayout = findViewById(R.id.ll_img);
         describe = findViewById(R.id.describe);
 
+        initView();
     }
 
     protected void initView() {
@@ -108,9 +108,8 @@ public class ApplyRefundFragment extends BaseFragment {
 
         reason.setOnClickListener(v -> {
             viewModel.getRefundReason(refundReasonEntities -> {
-                List<String> list = Lists.newArrayList(getContext().getResources().getStringArray(R.array.array_reason));
-                select(list, p -> {
-                    reason.setText(list.get(p));
+                select(viewModel.getRefundNameList(), p -> {
+                    reason.setText(viewModel.getRefundNameList().get(p));
                     viewModel.setRefundReasonId(refundReasonEntities.get(p).id);
                 });
             });
@@ -166,7 +165,7 @@ public class ApplyRefundFragment extends BaseFragment {
             if (data != null) {
                 List<ProductEntity> productEntities = data.getParcelableArrayListExtra(IntentBuilder.KEY_DATA);
                 if (productEntities != null && !productEntities.isEmpty()) {
-                    initGoodsInfoView(productEntities);
+                    initGoodsInfoView(productEntities, false);
                     viewModel.setChooseRefundProduct(productEntities);
                 }
             }
@@ -192,18 +191,18 @@ public class ApplyRefundFragment extends BaseFragment {
         }
     }
 
-    protected void initGoodsInfoView(List<ProductEntity> productEntities) {
+    protected void initGoodsInfoView(List<ProductEntity> productEntities, boolean isLook) {
 
         info = findViewById(R.id.goods_info);
         info.setVisibility(View.VISIBLE);
         productInfoViews = Lists.newArrayList();
 
-        for(ProductEntity productEntity : productEntities){
+        for (ProductEntity productEntity : productEntities) {
             View view = LayoutInflater.from(getContext()).inflate(R.layout.item_cart_layout, info, false);
             BaseViewHolder holder = new BaseViewHolder(view);
 
             LoadImageUtil.Builder()
-                    .load(productEntity.imgLogo).http().build()
+                    .load(productEntity.imageLogo).http().build()
                     .displayImage(holder.getView(R.id.icon_img));
             holder.setText(R.id.title, productEntity.name);
             holder.setText(R.id.title_line_2, getString(R.string.text_product_specification, productEntity.standard));
@@ -212,19 +211,23 @@ public class ApplyRefundFragment extends BaseFragment {
             holder.getView(R.id.number_layout).setVisibility(View.GONE);
             holder.getView(R.id.text_product_number).setVisibility(View.VISIBLE);
             holder.setText(R.id.text_product_number, "x" + productEntity.quantity);
+            if(!isLook){
+                RelativeLayout rl = findViewById(view, R.id.rl_info);
+                rl.setPadding(0, 0, Utils.dip2px(24), 0);
+                holder.findViewById(R.id.right_icon).setVisibility(View.VISIBLE);
+            }
 
-            RelativeLayout rl = findViewById(view,R.id.rl_info);
-            rl.setPadding(0, 0, Utils.dip2px(24), 0);
 
-            holder.findViewById(R.id.right_icon).setVisibility(View.VISIBLE);
-
-           info.addView(view);
-            productInfoViews.add(rl);
+            info.addView(view);
         }
-        info.setOnClickListener(v -> {
-            IntentBuilder.Builder()
-                    .startParentActivity(getActivity(), ChooseRefundGoodsFragment.class, CHOOSE_GOODS__SUCCESS_REQUEST);
-        });
+
+        if(!isLook){
+            info.setOnClickListener(v -> {
+                IntentBuilder.Builder()
+                        .startParentActivity(getActivity(), ChooseRefundGoodsFragment.class, CHOOSE_GOODS__SUCCESS_REQUEST);
+            });
+        }
+
 
     }
 

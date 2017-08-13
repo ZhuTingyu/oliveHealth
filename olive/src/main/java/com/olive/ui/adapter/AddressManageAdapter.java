@@ -51,17 +51,17 @@ public class AddressManageAdapter extends BaseQuickAdapter<AddressEntity, BaseVi
         });
 
         tvDelete.setOnClickListener(v -> {
-            viewModel.setAddressId(addressEntity.id);
-            createDialog();
+            createDialog(addressEntity);
         });
 
     }
 
-    private void createDialog(){
+    private void createDialog(AddressEntity addressEntity){
         DialogUtil.createDialogView(fragment.getContext(),R.string.text_make_sure_delete_address
                 ,null,R.string.btn_cancel
                 ,(dialog, which) -> {
                     fragment.setProgressVisible(true);
+                    viewModel.setAddressId(addressEntity.id);
                     viewModel.deleteAddress(s -> {
                         fragment.setProgressVisible(false);
                         ToastUtils.showLong(mContext, mContext.getString(R.string.message_delete_success));

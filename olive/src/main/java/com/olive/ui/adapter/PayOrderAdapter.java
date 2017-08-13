@@ -69,7 +69,7 @@ public class PayOrderAdapter extends BaseChooseAdapter<BankEntity, BaseViewHolde
         TextView view = holder.findViewById(R.id.bank_name);
         AppCompatImageView icon = holder.findViewById(R.id.icon);
         if (bankEntity.cardNumber == null || bankEntity.cardNumber.isEmpty()) {
-            if(fixationPosition == 3){
+            if(fixationPosition == 2){
                 fixationPosition = 0;
             }
             view.setText(fixationPayWayName[fixationPosition]);

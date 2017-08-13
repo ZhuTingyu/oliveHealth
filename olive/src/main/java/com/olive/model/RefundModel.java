@@ -58,7 +58,7 @@ public class RefundModel {
                 .setToJsonType(new TypeToken<ResponseJson<OrderEntity>>() {
                 }.getType())
                 .addBody("orderNo", orderNo)
-                .url(R.string.api_refund_apply_reasons)
+                .url(R.string.api_refund_apply_detail)
                 .requestPI();
     }
 }

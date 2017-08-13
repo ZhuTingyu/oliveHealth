@@ -11,9 +11,7 @@ dependencies {
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.jungly:gridPasswordView:0.3'
     compile 'com.github.lovetuzitong:MultiImageSelector:1.2'
-    compile('cn.qqtheme.framework:WheelPicker:1.5.1') {
-        exclude group: 'com.android.support'
-    }
+    compile 'com.contrarywind:Android-PickerView:3.2.6'
 
 }
 

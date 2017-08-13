@@ -54,9 +54,9 @@ public class RefundActivity extends BaseActivity {
         mFragments.add(new FavoriteFragment());*/
 
         for(int i = 0; i < mTitles.size(); i++){
-            RefundBaseFragment fragment = new RefundBaseFragment();
+            BaseRefundFragment fragment = new BaseRefundFragment();
             Bundle bundle = new Bundle();
-            bundle.putString(RefundBaseFragment.KEY_TYPE, mTitles.get(i));
+            bundle.putString(BaseRefundFragment.KEY_TYPE, mTitles.get(i));
             fragment.setArguments(bundle);
             mFragments.add(fragment);
         }
