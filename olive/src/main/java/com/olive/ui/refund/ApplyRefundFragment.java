@@ -94,6 +94,7 @@ public class ApplyRefundFragment extends BaseFragment {
         ok = findViewById(R.id.btn_sure);
         imgsLinearLayout = findViewById(R.id.ll_img);
         describe = findViewById(R.id.describe);
+        describe.clearFocus();
 
         initView();
     }

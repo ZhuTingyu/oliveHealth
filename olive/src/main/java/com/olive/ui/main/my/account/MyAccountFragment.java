@@ -45,6 +45,7 @@ public class MyAccountFragment extends BaseFragment {
         TextView balance = findViewById(R.id.balance);
         TextView consume = findViewById(R.id.consume);
         TextView debt = findViewById(R.id.debt);
+        TextView btnOk = findViewById(R.id.btn_ok);
 
         viewModel.getAccountInfo(accountEntity -> {
             balance.setText(PriceUtil.formatRMB(accountEntity.balance));
@@ -62,6 +63,10 @@ public class MyAccountFragment extends BaseFragment {
             IntentBuilder.Builder()
                     .putExtra(IntentBuilder.KEY_TYPE, ConsumeDetailFragment.TYPE_REFUND)
                     .startParentActivity(getActivity(), ConsumeDetailFragment.class, true);
+        });
+
+        btnOk.setOnClickListener(v -> {
+
         });
     }
 }

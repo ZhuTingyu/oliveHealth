@@ -33,8 +33,8 @@ public class LookApplyDetailFragment extends ApplyRefundFragment {
             initGoodsInfoView(orderEntity.products, true);
             reason.setText(orderEntity.reason);
             setRight(reason);
-            describe.setText(orderEntity.description);
             describe.setFocusableInTouchMode(false);
+            describe.setText(orderEntity.description);
             initImageView(IdsUtil.getList(orderEntity.image, ",", false));
             ok.setVisibility(View.GONE);
         });

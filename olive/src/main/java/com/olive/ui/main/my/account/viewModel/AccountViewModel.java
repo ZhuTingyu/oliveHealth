@@ -14,6 +14,8 @@ import rx.functions.Action1;
 
 public class AccountViewModel extends BaseViewModel {
 
+    public AccountEntity accountEntity;
+
     public AccountViewModel(Object activity) {
         super(activity);
     }
@@ -21,7 +23,8 @@ public class AccountViewModel extends BaseViewModel {
     public void getAccountInfo(Action1<AccountEntity> action1){
         submitRequestThrowError(AccountModel.account().map(r -> {
             if (r.isOk()){
-                return r.data;
+                accountEntity = r.data;
+                return accountEntity;
             }else throw new HttpErrorException(r);
         }),action1);
     }

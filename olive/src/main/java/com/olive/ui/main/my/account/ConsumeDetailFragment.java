@@ -63,6 +63,7 @@ public class ConsumeDetailFragment extends BaseFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new ConsumeDetailAdapter();
         recyclerView.setAdapter(adapter);
+        viewModel.setRecyclerView(recyclerView);
 
         if(type != null && TYPE_CONSUME.equals(type)){
             viewModel.getConsumerDetails(orderEntities -> {
