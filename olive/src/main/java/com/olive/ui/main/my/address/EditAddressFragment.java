@@ -15,9 +15,11 @@ import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
 import com.biz.util.LogUtil;
 import com.biz.util.RxUtil;
+import com.biz.util.ToastUtils;
+import com.biz.widget.picker.WheelView;
 import com.olive.R;
 import com.olive.model.entity.AddressEntity;
-
+import com.olive.widget.AddressPicker;
 
 
 /**
@@ -36,8 +38,7 @@ public class EditAddressFragment extends BaseFragment {
 
     private EditAddressViewModel viewModel;
 
-    private OptionsPickerView pickerView;
-
+    private AddressPicker picker;
 
 
     @Override
@@ -62,10 +63,6 @@ public class EditAddressFragment extends BaseFragment {
         }else {
             setTitle(getString(R.string.title_edit_address));
         }
-        initPickerView();
-        viewModel.initCityList(o -> {
-
-        });
         initView();
 
     }
@@ -84,6 +81,10 @@ public class EditAddressFragment extends BaseFragment {
         bindUi(RxUtil.textChanges(area), viewModel.setArea());
         bindUi(RxUtil.textChanges(address1), viewModel.setDetailAddress());
 
+        area.setOnClickListener(v -> {
+            initPickerView();
+        });
+
         if(addressEntity != null){
             receiver.setText(addressEntity.consignee);
             phone.setText(addressEntity.mobile);
@@ -91,13 +92,65 @@ public class EditAddressFragment extends BaseFragment {
             address1.setText(addressEntity.detailAddress);
         }
 
-        area.setOnClickListener(v -> {
-            pickerView.show();
-        });
+        btnOk.setOnClickListener(v -> {
+            if(addressEntity != null){
 
+            }else {
+                viewModel.checkAddressInfo(s -> {
+                    if(getString(R.string.message_info_is_valid).equals(s)){
+                        viewModel.addAddress(addressEntity1 -> {
+                            ToastUtils.showLong(getActivity(),getString(R.string.message_add_address_success));
+                            getActivity().finish();
+                        });
+                    }else {
+                        error(s);
+                    }
+                });
+            }
+        });
     }
 
-    private void initPickerView(){
+    protected void initPickerView(){
 
+        viewModel.cleanAreaData();
+
+        picker = new AddressPicker(getActivity());
+
+        viewModel.getCityList(EditAddressViewModel.TYPE_PROVINCE , stringList -> {
+            picker.setProvinceItems(stringList,viewModel.positionProvince);
+        });
+
+        picker.setOnWheelViewsListener(new AddressPicker.OnWheelViewsListener() {
+
+            @Override
+            public void onProvince(boolean isUserScroll, int selectedIndex, String item) {
+                viewModel.positionProvince = selectedIndex;
+                viewModel.positionCounty = 0;
+                viewModel.setCode(viewModel.provinceList.get(selectedIndex).code);
+                viewModel.getCityList(EditAddressViewModel.TYPE_CITY, stringList -> {
+                    picker.cityView.setItems(stringList, isUserScroll ? 0 : viewModel.positionCity);
+                });
+            }
+
+            @Override
+            public void onCity(boolean isUserScroll, int selectedIndex, String item) {
+                viewModel.positionCity = selectedIndex;
+                viewModel.setCode(viewModel.cityList.get(selectedIndex).code);
+                viewModel.getCityList(EditAddressViewModel.TYPE_COUNTY, stringList -> {
+                    picker.countyView.setItems(stringList, isUserScroll ? 0 : viewModel.positionCounty);
+                });
+            }
+
+            @Override
+            public void onCounty(boolean isUserScroll, int selectedIndex, String item) {
+                viewModel.positionCounty = selectedIndex;
+            }
+        });
+
+        picker.setOnAddressPickListener(() -> {
+            area.setText(viewModel.getAreaString());
+        });
+
+        picker.show();
     }
 }

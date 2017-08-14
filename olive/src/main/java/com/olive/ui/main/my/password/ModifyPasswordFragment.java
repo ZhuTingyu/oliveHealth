@@ -39,7 +39,8 @@ public class ModifyPasswordFragment extends BasePasswordFragment {
                     viewModel.isPasswordValid(s1 -> {
                         if (PasswordViewModel.INFO_VALID.equals(s1)){
                             viewModel.changPassword(s2 -> {
-
+                                ToastUtils.showLong(getActivity(), getString(R.string.message_modify_success));
+                                getActivity().finish();
                             });
                         }else {
                             error(s);

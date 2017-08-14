@@ -68,6 +68,9 @@ public class AddressManageFragment extends BaseFragment {
 
         TextView btn = findViewById(view, R.id.btn_sure);
         btn.setText(getString(R.string.text_add_new_address));
+        btn.setOnClickListener(v -> {
+            IntentBuilder.Builder().startParentActivity(getBaseActivity(), EditAddressFragment.class, true);
+        });
     }
 
 }

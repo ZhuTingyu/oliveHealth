@@ -50,4 +50,18 @@ public class AddressModel {
                 .requestPI();
     }
 
+    public static Observable<ResponseJson<AddressEntity>> AddressAdd(AddressEntity entity){
+        return HttpRequest.<ResponseJson<AddressEntity>>builder()
+                .setToJsonType(new TypeToken<ResponseJson<AddressEntity>>() {
+                }.getType())
+                .addBody("consignee", entity.consignee)
+                .addBody("mobile", entity.mobile)
+                .addBody("provinceCode", entity.province)
+                .addBody("cityCode", entity.city)
+                .addBody("districtCode", entity.district)
+                .addBody("detailAddress", entity.detailAddress)
+                .url(R.string.api_address_add)
+                .requestPI();
+    }
+
 }

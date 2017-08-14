@@ -259,6 +259,8 @@
     <string name="message_send_code_success">请求验证码成功</string>
     <string name="message_info_is_valid">信息有效</string>
     <string name="message_modify_success">修改成功</string>
+    <string name="message_perfect_info">请完善信息</string>
+    <string name="message_add_address_success">添加地址成功</string>
 
 
 </resources>
