@@ -25,6 +25,7 @@ import com.olive.model.entity.BankEntity;
 import com.olive.model.entity.OrderEntity;
 import com.olive.ui.adapter.PayOrderAdapter;
 import com.olive.ui.main.my.UserViewModel;
+import com.olive.ui.main.my.account.viewModel.AccountViewModel;
 import com.olive.ui.order.viewModel.PayOrderViewModel;
 
 /**
@@ -36,6 +37,7 @@ public class BasePayFragment extends BaseFragment {
     private XRecyclerView recyclerView;
     private PayOrderAdapter adapter;
     private PayOrderViewModel viewModel;
+    private AccountViewModel accountViewModel;
 
     protected TextView tvOrderNumber;
     protected TextView tvPayPrice;
@@ -65,7 +67,14 @@ public class BasePayFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setTitle(getString(R.string.title_pay_order));
-        initView();
+        if(accountEntity == null){
+            setProgressVisible(true);
+            accountViewModel.getAccountInfo(accountEntity1 -> {
+                setProgressVisible(false);
+                accountEntity = accountEntity1;
+                initView();
+            });
+        }
     }
 
     protected  void initView() {

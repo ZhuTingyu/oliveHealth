@@ -35,7 +35,7 @@ public class CheckOrderAdapter extends BaseQuickAdapter<ProductEntity, BaseViewH
         LoadImageUtil.Builder()
                 .load(imgUrl).http().build()
                 .displayImage(holder.getView(R.id.icon_img));
-        holder.setText(R.id.title, productEntity.name);
+        holder.setText(R.id.title, productEntity.name == null ? productEntity.productName : productEntity.name);
         holder.setText(R.id.title_line_2, mContext.getString(R.string.text_product_specification, productEntity.standard));
         holder.setText(R.id.title_line_3, PriceUtil.formatRMB(productEntity.price));
         holder.getView(R.id.checkbox).setVisibility(View.GONE);

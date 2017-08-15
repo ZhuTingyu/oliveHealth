@@ -34,7 +34,7 @@ public class PayOrderAdapter extends BaseChooseAdapter<BankEntity, BaseViewHolde
 
 
     private String[] fixationPayWayName;
-    private List<Integer> fixationPayIcon = Lists.newArrayList(R.drawable.vector_wei_pay, R.drawable.vector_alipay);
+    private List<Integer> fixationPayIcon = Lists.newArrayList(R.drawable.vector_pay_wei, R.drawable.vector_alipay);
 
 
     private Map<String, Integer> way;

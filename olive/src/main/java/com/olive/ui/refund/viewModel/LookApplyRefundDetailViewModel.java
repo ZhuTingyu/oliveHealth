@@ -12,11 +12,15 @@ import rx.functions.Action1;
  * Created by TingYu Zhu on 2017/8/11.
  */
 
-public class LookApplyDetailViewModel extends BaseViewModel {
+public class LookApplyRefundDetailViewModel extends BaseViewModel {
 
     String orderNo;
 
-    public LookApplyDetailViewModel(Object activity) {
+    public static final int STATUS_WAIT_CHECK = 1;
+    public static final int STATUS_PASS_CHECK = 2;
+    public static final int STATUS_NOT_PASS_CHECK = 3;
+
+    public LookApplyRefundDetailViewModel(Object activity) {
         super(activity);
         orderNo = getActivity().getIntent().getStringExtra(IntentBuilder.KEY_VALUE);
     }

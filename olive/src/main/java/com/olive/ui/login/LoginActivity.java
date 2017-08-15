@@ -6,11 +6,13 @@ import com.biz.util.RxUtil;
 import com.olive.R;
 import com.olive.model.UserModel;
 import com.olive.ui.main.MainActivity;
+import com.olive.ui.main.my.password.FindPassword1Fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.nio.IntBuffer;
 
@@ -30,6 +32,7 @@ public class LoginActivity extends BaseActivity {
     private LoginViewModel viewModel;
     private EditText etUserName;
     private EditText etPassword;
+    private TextView tvForgetPassword;
 
     public static final int TYPE_LOGIN_INVALID = 0;
 
@@ -67,9 +70,15 @@ public class LoginActivity extends BaseActivity {
     private void initView() {
         etUserName = (EditText) findViewById(R.id.username);
         etPassword = (EditText) findViewById(R.id.password);
+        tvForgetPassword = (TextView) findViewById(R.id.text_forget_password);
+
 
         bindUi(RxUtil.textChanges(etUserName), viewModel.setUserName());
         bindUi(RxUtil.textChanges(etPassword), viewModel.setPassword());
+
+        tvForgetPassword.setOnClickListener(v -> {
+            IntentBuilder.Builder().startParentActivity(this, FindPassword1Fragment.class, true);
+        });
 
         findViewById(R.id.btn_ok).setOnClickListener(v -> {
             viewModel.isCanLogin(aBoolean -> {

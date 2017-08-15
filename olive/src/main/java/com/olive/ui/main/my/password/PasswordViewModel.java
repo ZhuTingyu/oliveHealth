@@ -23,7 +23,7 @@ public class PasswordViewModel extends BaseViewModel {
 
 
     public String mobile;
-    private String authCode;
+    public String authCode;
     private String password;
     private String newPassword;
 
@@ -92,21 +92,17 @@ public class PasswordViewModel extends BaseViewModel {
 
     public void isInfoValid(Action1<String> action1) {
         final String[] message = new String[1];
-        isMobileValid(s -> {
-            if (s.equals(INFO_VALID)) {
-                isCodeValid(s1 -> {
-                    if (s1.equals(INFO_VALID)) {
-
-                        message[0] = INFO_VALID;
-
-                    } else {
-                        message[0] = s1;
-                    }
+        if(isMobileValid()){
+            if(isCodeValid()){
+                isOldAndNewPasswordValid(s -> {
+                    message[0] = s;
                 });
-            } else {
-                message[0] = s;
+            }else {
+                message[0] = getString(R.string.message_input_valid_code);
             }
-        });
+        }else {
+            message[0] = getString(R.string.message_input_valid_mobile);
+        }
 
         Observable.just(message[0]).subscribe(action1);
 
@@ -128,26 +124,22 @@ public class PasswordViewModel extends BaseViewModel {
         if (!isStringValid(password) || !isStringValid(newPassword)) {
             message = getActivity().getString(R.string.message_input_password);
             if (!UserModel.getInstance().getPassword().equals(password)) {
-                message = getActivity().getString(R.string.message_password_not_same);
+                message = getActivity().getString(R.string.message_old_password_error);
             }
         }
         Observable.just(message).subscribe(action1);
     }
 
-    public void isMobileValid(Action1<String> action1) {
-        String message = INFO_VALID;
+    public boolean isMobileValid() {
         if (!isStringValid(mobile) || mobile.length() < 11) {
-            message = getActivity().getString(R.string.message_input_valid_mobile);
-        }
-        Observable.just(message).subscribe(action1);
+            return false;
+        }else return true;
     }
 
-    public void isCodeValid(Action1<String> action1) {
-        String message = INFO_VALID;
+    public boolean isCodeValid() {
         if (!isStringValid(authCode) || authCode.length() < 6) {
-            message = getActivity().getString(R.string.message_input_valid_code);
-        }
-        Observable.just(message).subscribe(action1);
+            return false;
+        }else return true;
     }
 
     private boolean isStringValid(String string) {
@@ -162,5 +154,13 @@ public class PasswordViewModel extends BaseViewModel {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public void setAuthCode(String authCode) {
+        this.authCode = authCode;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

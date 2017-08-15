@@ -1,6 +1,7 @@
 package com.olive.ui.adapter;
 
 import com.biz.util.Lists;
+import com.biz.util.LogUtil;
 import com.biz.util.PriceUtil;
 import com.biz.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -50,7 +51,7 @@ public class ProductAdapter extends BaseQuickAdapter<ProductEntity, ProductViewH
             holder.tvProductPriceOld.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
         }
         if(holder.btnLike != null){
-            viewHolder.setProductNo(mData.get(holder.getAdapterPosition()).productNo);
+            viewHolder.setProductNo(mData.get(holder.getAdapterPosition() - 1).productNo);
             holder.btnLike.setOnClickListener(v -> {
                 v.setSelected(!v.isSelected());
                 if(v.isSelected()){

@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.biz.util.IdsUtil;
 import com.biz.util.Utils;
 import com.biz.widget.CustomDraweeView;
-import com.olive.ui.refund.viewModel.LookApplyDetailViewModel;
+import com.olive.ui.refund.viewModel.LookApplyRefundDetailViewModel;
 import com.olive.util.LoadImageUtil;
 
 import java.util.List;
@@ -19,12 +19,12 @@ import java.util.List;
 
 public class LookApplyDetailFragment extends ApplyRefundFragment {
 
-    private LookApplyDetailViewModel viewModel;
+    private LookApplyRefundDetailViewModel viewModel;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        viewModel = new LookApplyDetailViewModel(context);
+        viewModel = new LookApplyRefundDetailViewModel(context);
     }
 
     @Override

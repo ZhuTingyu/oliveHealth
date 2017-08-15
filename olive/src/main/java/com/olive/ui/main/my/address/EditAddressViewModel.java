@@ -134,10 +134,6 @@ public class EditAddressViewModel extends AddressViewModel {
             countyList.clear();
         }
 
-        positionProvince = 0;
-        positionCity = 0;
-        positionCounty = 0;
-
         code = null;
 
     }

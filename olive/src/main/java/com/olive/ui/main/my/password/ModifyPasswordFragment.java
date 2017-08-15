@@ -52,4 +52,9 @@ public class ModifyPasswordFragment extends BasePasswordFragment {
             });
         });
     }
+
+    @Override
+    protected void sendCodeSuccess() {
+
+    }
 }

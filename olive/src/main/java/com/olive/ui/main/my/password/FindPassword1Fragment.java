@@ -32,17 +32,21 @@ public class FindPassword1Fragment extends BasePasswordFragment {
         initBtnCode();
         viewModel.setType(PasswordViewModel.TYPE_CODE_FIND_PASSWORD);
         tvOk.setOnClickListener(v -> {
-            viewModel.isInfoValid(s -> {
-                if(PasswordViewModel.INFO_VALID.equals(s)){
-                    viewModel.validateCode(s1 -> {
-                        IntentBuilder.Builder()
-                                .putExtra(IntentBuilder.KEY_VALUE, viewModel.mobile)
-                                .startParentActivity(getActivity(), FindPassword2Fragment.class, true);
-                    });
-                }else {
-                    error(s);
-                }
-            });
+            if(viewModel.isMobileValid() && viewModel.isCodeValid()){
+                viewModel.validateCode(s -> {
+                    IntentBuilder.Builder()
+                            .putExtra(IntentBuilder.KEY_DATA, viewModel.authCode)
+                            .putExtra(IntentBuilder.KEY_VALUE, viewModel.mobile)
+                            .startParentActivity(getActivity(), FindPassword2Fragment.class, true);
+                });
+            }else {
+                error(getString(R.string.message_perfect_info));
+            }
         });
+    }
+
+    @Override
+    protected void sendCodeSuccess() {
+
     }
 }

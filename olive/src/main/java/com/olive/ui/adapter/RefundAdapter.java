@@ -15,6 +15,7 @@ import com.olive.R;
 import com.olive.model.entity.OrderEntity;
 import com.olive.model.entity.ProductEntity;
 import com.olive.ui.refund.LookRefundCheckResultFragment;
+import com.olive.ui.refund.viewModel.LookApplyRefundDetailViewModel;
 
 import java.util.List;
 
@@ -24,9 +25,7 @@ import java.util.List;
 
 public class RefundAdapter extends BaseQuickAdapter<OrderEntity, BaseViewHolder> {
 
-    private static final int STATUS_WAIT_CHECK = 1;
-    private static final int STATUS_PASS_CHECK = 2;
-    private static final int STATUS_NOT_PASS_CHECK = 3;
+
 
     private Activity context;
     private String type;
@@ -42,11 +41,11 @@ public class RefundAdapter extends BaseQuickAdapter<OrderEntity, BaseViewHolder>
 
         String status = "";
 
-        if(orderEntity.status == STATUS_WAIT_CHECK){
+        if(orderEntity.status == LookApplyRefundDetailViewModel.STATUS_WAIT_CHECK){
             status = mContext.getString(R.string.text_refund_wait_check);
-        }else if(orderEntity.status == STATUS_PASS_CHECK){
+        }else if(orderEntity.status == LookApplyRefundDetailViewModel.STATUS_PASS_CHECK){
             status = mContext.getString(R.string.text_refund_pass_check);
-        }else if(orderEntity.status == STATUS_NOT_PASS_CHECK){
+        }else if(orderEntity.status == LookApplyRefundDetailViewModel.STATUS_NOT_PASS_CHECK){
             status = mContext.getString(R.string.text_refund_not_pass_check);
         }
 
@@ -73,7 +72,9 @@ public class RefundAdapter extends BaseQuickAdapter<OrderEntity, BaseViewHolder>
         });
 
         look.setOnClickListener(v -> {
-            IntentBuilder.Builder().startParentActivity(context, LookRefundCheckResultFragment.class, true);
+            IntentBuilder.Builder()
+                    .putExtra(IntentBuilder.KEY_VALUE, orderEntity.orderNo)
+                    .startParentActivity(context, LookRefundCheckResultFragment.class, true);
         });
 
 

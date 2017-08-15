@@ -16,6 +16,7 @@ import com.olive.R;
 import com.olive.model.entity.OrderEntity;
 import com.olive.model.entity.ProductEntity;
 import com.olive.ui.main.my.account.viewModel.AccountViewModel;
+import com.olive.ui.main.my.address.AddressViewModel;
 import com.olive.ui.order.PayDebtFragment;
 import com.olive.ui.order.PayOrderFragment;
 import com.olive.ui.order.viewModel.OrderViewModel;
@@ -32,12 +33,14 @@ public class OrderInfoListAdapter extends BaseQuickAdapter<OrderEntity, BaseView
     private OrderViewModel orderViewModel;
     private AccountViewModel accountViewModel;
     private BaseFragment fragment;
+    private AddressViewModel addressViewModel;
 
     public OrderInfoListAdapter(BaseFragment fragment) {
         super(R.layout.item_order_list_info_layout, Lists.newArrayList());
         this.fragment = fragment;
         orderViewModel = new OrderViewModel(fragment);
         accountViewModel = new AccountViewModel(fragment);
+        addressViewModel = new AddressViewModel(fragment);
     }
 
     @Override
@@ -104,7 +107,15 @@ public class OrderInfoListAdapter extends BaseQuickAdapter<OrderEntity, BaseView
         leftBtn.setVisibility(View.GONE);
         rightBtn.setText(R.string.text_buy_again);
         rightBtn.setOnClickListener(v -> {
-            //TODO 再次购买
+            addressViewModel.getAddressList(addressEntities -> {
+                orderViewModel.setAddressId(addressViewModel.getDefaultAddress().id);
+                orderViewModel.setProductEntities(orderEntity.products);
+                orderViewModel.createOrder(orderEntity1 -> {
+                    IntentBuilder.Builder()
+                            .putExtra(IntentBuilder.KEY_DATA, orderEntity1)
+                            .startParentActivity(fragment.getActivity(), PayOrderFragment.class, true);
+                });
+            });
         });
     }
 

@@ -38,6 +38,7 @@ public class MyAccountFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setTitle(getString(R.string.title_my_account));
         initView();
     }
 

@@ -1,6 +1,7 @@
 package com.olive.model;
 
 import com.biz.http.ResponseJson;
+import com.biz.util.MD5;
 import com.google.gson.reflect.TypeToken;
 import com.olive.R;
 import com.olive.model.entity.AccountEntity;
@@ -41,8 +42,8 @@ public class AccountModel {
                 }.getType())
                 .addBody("mobile", mobile)
                 .addBody("authCode", authCode)
-                .addBody("password", password)
-                .addBody("newPassword", newPassword)
+                .addBody("password", MD5.toMD5(password).toUpperCase())
+                .addBody("newPassword", MD5.toMD5(newPassword).toUpperCase())
                 .url(R.string.api_account_change_password)
                 .requestPI();
     }
@@ -64,7 +65,7 @@ public class AccountModel {
                 .addBody("mobile", mobile)
                 .addBody("authCode", authCode)
                 .addBody("type", type)
-                .url(R.string.api_account_change_password)
+                .url(R.string.api_account_code_validate)
                 .requestPI();
     }
 

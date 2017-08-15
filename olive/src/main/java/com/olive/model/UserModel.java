@@ -214,7 +214,7 @@ public class UserModel {
                 .setToJsonType(new TypeToken<ResponseJson<UserEntity>>() {}.getType())
                 .requestPI().map(r -> {
                     if (r.isOk()) {
-                        UserModel.getInstance().setUserInfo(r.data, MD5.toMD5(password).toUpperCase());
+                        UserModel.getInstance().setUserInfo(r.data, password);
                     }
                     return r;
                 });

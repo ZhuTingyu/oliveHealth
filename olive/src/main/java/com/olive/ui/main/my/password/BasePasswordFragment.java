@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.biz.base.BaseFragment;
 import com.biz.util.RxUtil;
+import com.biz.util.ToastUtils;
 import com.biz.widget.CustomCountDownTimer;
 import com.olive.R;
 
@@ -16,7 +17,7 @@ import com.olive.R;
  * Created by TingYu Zhu on 2017/7/28.
  */
 
-public class BasePasswordFragment extends BaseFragment {
+public abstract class BasePasswordFragment extends BaseFragment {
 
     protected EditText mobile;
     protected EditText code;
@@ -48,7 +49,7 @@ public class BasePasswordFragment extends BaseFragment {
 
     }
 
-    protected void initPasswordView(){
+    protected void initPasswordView() {
         password = findViewById(R.id.password);
         newPassword = findViewById(R.id.new_password);
 
@@ -56,23 +57,25 @@ public class BasePasswordFragment extends BaseFragment {
         bindData(RxUtil.textChanges(newPassword), viewModel.setNewPassword());
     }
 
-    protected void initBtnCode(){
+    protected void initBtnCode() {
         code = findViewById(R.id.code);
         btnCode = findViewById(R.id.btn_code);
         bindData(RxUtil.textChanges(code), viewModel.setAuthCode());
         countDownTimer = new CustomCountDownTimer(getActivity(),
                 btnCode, R.string.text_send_code, R.string.btn_resend_count, 60000, 1000);
 
-        bindUi(RxUtil.click(btnCode), o -> {
-            viewModel.isMobileValid(s -> {
-                if(PasswordViewModel.INFO_VALID.equals(s)){
-                    viewModel.sendCode(s1 -> {
-                        countDownTimer.start();
-                    });
-                }else {
-                    error(s);
-                }
-            });
+        btnCode.setOnClickListener(v -> {
+           if(viewModel.isMobileValid()){
+               viewModel.sendCode(s -> {
+                   ToastUtils.showLong(getActivity(), getString(R.string.message_send_code_success));
+                   sendCodeSuccess();
+               });
+           }else {
+               error(getString(R.string.message_input_valid_mobile));
+           }
         });
     }
+
+    protected abstract void sendCodeSuccess();
+
 }
