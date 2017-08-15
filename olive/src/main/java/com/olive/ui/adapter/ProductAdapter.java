@@ -13,6 +13,7 @@ import com.olive.util.LoadImageUtil;
 
 import android.graphics.Paint;
 import android.support.annotation.LayoutRes;
+import android.util.Log;
 import android.view.View;
 
 /**
@@ -51,9 +52,9 @@ public class ProductAdapter extends BaseQuickAdapter<ProductEntity, ProductViewH
             holder.tvProductPriceOld.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
         }
         if(holder.btnLike != null){
-            viewHolder.setProductNo(mData.get(holder.getAdapterPosition() - 1).productNo);
             holder.btnLike.setOnClickListener(v -> {
                 v.setSelected(!v.isSelected());
+                viewHolder.setProductNo(mData.get(holder.getAdapterPosition() - getHeaderLayoutCount()).productNo);
                 if(v.isSelected()){
                     viewHolder.addProductFavorites(s -> {
                         ToastUtils.showLong(mContext, mContext.getString(R.string.text_add_favorites));

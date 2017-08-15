@@ -34,7 +34,7 @@ public class PasswordViewModel extends BaseViewModel {
     }
 
     public void changPassword(Action1<String> action1) {
-        submitRequestThrowError(AccountModel.changePassword(mobile, authCode, password, newPassword).map(r -> {
+        submitRequestThrowError(AccountModel.changePassword(mobile, authCode, newPassword).map(r -> {
             if (r.isOk()) {
                 return r.data;
             } else throw new HttpErrorException(r);
@@ -65,6 +65,14 @@ public class PasswordViewModel extends BaseViewModel {
         }), action1);
     }
 
+    public void resetPayPassword(Action1<String> action1){
+        submitRequestThrowError(AccountModel.resetPayPassword(mobile, authCode, newPassword).map(r -> {
+            if(r.isOk()){
+                return r.data;
+            }else throw new HttpErrorException(r);
+        }),action1);
+    }
+
     public Action1<String> setMobile() {
         return s -> {
             this.mobile = s;
@@ -77,15 +85,16 @@ public class PasswordViewModel extends BaseViewModel {
         };
     }
 
-    public Action1<String> setPassword() {
-        return s -> {
-            this.password = s;
-        };
-    }
 
     public Action1<String> setNewPassword() {
         return s -> {
-            this.newPassword = s;
+            this.newPassword = s + getString(R.string.string_password_suffix);
+        };
+    }
+
+    public Action1<String> setPassword() {
+        return s -> {
+            this.password = s + getString(R.string.string_password_suffix);
         };
     }
 
@@ -163,4 +172,6 @@ public class PasswordViewModel extends BaseViewModel {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
 }

@@ -74,6 +74,8 @@ public class BasePayFragment extends BaseFragment {
                 accountEntity = accountEntity1;
                 initView();
             });
+        }else {
+            initView();
         }
     }
 

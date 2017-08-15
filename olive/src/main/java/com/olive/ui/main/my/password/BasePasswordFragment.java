@@ -53,8 +53,8 @@ public abstract class BasePasswordFragment extends BaseFragment {
         password = findViewById(R.id.password);
         newPassword = findViewById(R.id.new_password);
 
-        bindData(RxUtil.textChanges(password), viewModel.setPassword());
         bindData(RxUtil.textChanges(newPassword), viewModel.setNewPassword());
+        bindData(RxUtil.textChanges(password), viewModel.setPassword());
     }
 
     protected void initBtnCode() {
@@ -67,6 +67,7 @@ public abstract class BasePasswordFragment extends BaseFragment {
         btnCode.setOnClickListener(v -> {
            if(viewModel.isMobileValid()){
                viewModel.sendCode(s -> {
+                   countDownTimer.start();
                    ToastUtils.showLong(getActivity(), getString(R.string.message_send_code_success));
                    sendCodeSuccess();
                });

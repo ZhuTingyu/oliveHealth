@@ -27,7 +27,6 @@ public class ModifyPasswordFragment extends BasePasswordFragment {
         setTitle(getString(R.string.title_modify_password));
         initPasswordView();
         initBtnCode();
-        bindUi(RxUtil.textChanges(password), viewModel.setPassword());
         bindUi(RxUtil.textChanges(newPassword), viewModel.setNewPassword());
 
         viewModel.setType(PasswordViewModel.TYPE_CODE_MODIFY_PASSWORD);
@@ -36,15 +35,9 @@ public class ModifyPasswordFragment extends BasePasswordFragment {
 
             viewModel.isInfoValid(s -> {
                 if (PasswordViewModel.INFO_VALID.equals(s)) {
-                    viewModel.isPasswordValid(s1 -> {
-                        if (PasswordViewModel.INFO_VALID.equals(s1)){
-                            viewModel.changPassword(s2 -> {
-                                ToastUtils.showLong(getActivity(), getString(R.string.message_modify_success));
-                                getActivity().finish();
-                            });
-                        }else {
-                            error(s);
-                        }
+                    viewModel.changPassword(s2 -> {
+                        ToastUtils.showLong(getActivity(), getString(R.string.message_modify_success));
+                        getActivity().finish();
                     });
                 } else {
                     error(s);

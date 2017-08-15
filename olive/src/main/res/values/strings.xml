@@ -262,6 +262,8 @@
     <string name="message_perfect_info">请完善信息</string>
     <string name="message_add_address_success">添加地址成功</string>
     <string name="message_send_code_status_with_mobile">验证码已发至 %1$s</string>
+    
+    <string name="string_password_suffix">dms</string>
 
 
 </resources>

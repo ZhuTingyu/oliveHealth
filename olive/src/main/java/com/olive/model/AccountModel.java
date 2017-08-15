@@ -36,13 +36,13 @@ public class AccountModel {
                 .requestPI();
     }
 
-    public static Observable<ResponseJson<String>> changePassword(String mobile, String authCode, String password, String newPassword){
+    public static Observable<ResponseJson<String>> changePassword(String mobile, String authCode,String newPassword){
         return HttpRequest.<ResponseJson<String>>builder()
                 .setToJsonType(new TypeToken<ResponseJson<String>>() {
                 }.getType())
                 .addBody("mobile", mobile)
                 .addBody("authCode", authCode)
-                .addBody("password", MD5.toMD5(password).toUpperCase())
+                .addBody("password", MD5.toMD5(UserModel.getInstance().getPassword()).toUpperCase())
                 .addBody("newPassword", MD5.toMD5(newPassword).toUpperCase())
                 .url(R.string.api_account_change_password)
                 .requestPI();
@@ -75,8 +75,19 @@ public class AccountModel {
                 }.getType())
                 .addBody("mobile", mobile)
                 .addBody("authCode", authCode)
-                .addBody("newPassword", newPassword)
+                .addBody("newPassword", MD5.toMD5(newPassword).toUpperCase())
                 .url(R.string.api_account_reset_password)
+                .requestPI();
+    }
+
+    public static Observable<ResponseJson<String>> resetPayPassword(String mobile, String authCode, String newPassword){
+        return HttpRequest.<ResponseJson<String>>builder()
+                .setToJsonType(new TypeToken<ResponseJson<String>>() {
+                }.getType())
+                .addBody("mobile", mobile)
+                .addBody("authCode", authCode)
+                .addBody("newPassword", MD5.toMD5(newPassword).toUpperCase())
+                .url(R.string.api_account_reset_pay_password)
                 .requestPI();
     }
 

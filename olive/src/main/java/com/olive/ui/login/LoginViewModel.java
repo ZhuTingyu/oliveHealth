@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.biz.base.BaseViewModel;
 import com.biz.http.HttpErrorException;
+import com.olive.R;
 import com.olive.model.UserModel;
 import com.olive.model.entity.UserEntity;
 
@@ -26,7 +27,7 @@ public class LoginViewModel extends BaseViewModel {
 
     public  void login(Action1<UserEntity> onNext){
 
-        submitRequestThrowError(UserModel.login(userName, password + "dms").map(r ->{
+        submitRequestThrowError(UserModel.login(userName, password + getString(R.string.string_password_suffix)).map(r ->{
             if(r.isOk()){
                 submitRequest(UserModel.saveLoginMobile(userName), b -> {
                 });

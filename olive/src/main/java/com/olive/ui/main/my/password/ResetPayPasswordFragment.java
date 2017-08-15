@@ -35,16 +35,32 @@ public class ResetPayPasswordFragment extends BasePasswordFragment {
 
         viewModel.setMobile(UserModel.getInstance().getMobile());
 
-        initBtnCode();
+        code = findViewById(R.id.code);
+        btnCode = findViewById(R.id.btn_code);
+        bindData(RxUtil.textChanges(code), viewModel.setAuthCode());
+        countDownTimer = new CustomCountDownTimer(getActivity(),
+                btnCode, R.string.text_send_code, R.string.btn_resend_count, 60000, 1000);
+
+        btnCode.setOnClickListener(v -> {
+            if(viewModel.isMobileValid()){
+                viewModel.sendCode(s -> {
+                    countDownTimer.start();
+                    ToastUtils.showLong(getActivity(), getString(R.string.message_send_code_success));
+                    sendCodeSuccess();
+                });
+            }else {
+                error(getString(R.string.message_input_valid_mobile));
+            }
+        });
         viewModel.setType(PasswordViewModel.TYPE_CODE_RESET_PAY_PASSWORD);
 
         initPasswordView();
 
         tvOk = findViewById(R.id.btn_ok);
         tvOk.setOnClickListener(v -> {
-            viewModel.isOldAndNewPasswordValid(s -> {
+            viewModel.isPasswordValid(s -> {
                 if(PasswordViewModel.INFO_VALID.equals(s)){
-                    viewModel.changPassword(s1 -> {
+                    viewModel.resetPayPassword(s1 -> {
                         viewModel.resetPassword(s2 -> {
                             ToastUtils.showLong(getContext(), getString(R.string.message_modify_success));
                             getActivity().finish();

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.biz.base.BaseFragment;
 import com.biz.util.IntentBuilder;
 import com.biz.util.RxUtil;
+import com.biz.util.ToastUtils;
 import com.olive.R;
 import com.olive.model.UserModel;
 
@@ -35,12 +36,13 @@ public class FindPassword2Fragment extends BasePasswordFragment {
         setTitle(getString(R.string.title_find_password));
         viewModel.setType(PasswordViewModel.TYPE_CODE_FIND_PASSWORD);
         initPasswordView();
+        tvOk = findViewById(R.id.btn_ok);
         tvOk.setOnClickListener(v -> {
             viewModel.isPasswordValid(s -> {
-                viewModel.setPassword(UserModel.getInstance().getPassword());
                 if(PasswordViewModel.INFO_VALID.equals(s)){
-                    viewModel.changPassword(s1 -> {
-
+                    viewModel.resetPassword(s1 -> {
+                        ToastUtils.showLong(getActivity(), getString(R.string.message_modify_success));
+                        getActivity().finish();
                     });
                 }else {
                     error(s);
