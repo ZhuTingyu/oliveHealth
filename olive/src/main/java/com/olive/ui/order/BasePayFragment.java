@@ -18,6 +18,7 @@ import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
 import com.biz.util.PriceUtil;
 import com.biz.util.RxUtil;
+import com.biz.util.ToastUtils;
 import com.biz.util.ValidUtil;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.jungly.gridpasswordview.GridPasswordView;
@@ -42,7 +43,7 @@ public abstract class BasePayFragment extends BaseFragment {
 
     private XRecyclerView recyclerView;
     private PayOrderAdapter adapter;
-    private PayOrderViewModel viewModel;
+    protected PayOrderViewModel viewModel;
     private AccountViewModel accountViewModel;
 
     protected TextView tvOrderNumber;
@@ -51,8 +52,6 @@ public abstract class BasePayFragment extends BaseFragment {
     protected TextView tvVacancies;
     protected EditText etVacancies;
 
-    protected OrderEntity orderEntity;
-    protected AccountEntity accountEntity;
 
     @Override
     public void onAttach(Context context) {
@@ -61,9 +60,7 @@ public abstract class BasePayFragment extends BaseFragment {
         viewModel = new PayOrderViewModel(context);
         accountViewModel = new AccountViewModel(context);
         initViewModel(viewModel);
-        orderEntity = getBaseActivity().getIntent().getParcelableExtra(IntentBuilder.KEY_DATA);
-        accountEntity = getBaseActivity().getIntent().getParcelableExtra(IntentBuilder.KEY_VALUE);
-        viewModel.setOrderEntity(orderEntity);
+
     }
 
     @Nullable
@@ -76,11 +73,11 @@ public abstract class BasePayFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setTitle(getString(R.string.title_pay_order));
-        if (accountEntity == null) {
+        if (viewModel.accountEntity == null) {
             setProgressVisible(true);
             accountViewModel.getAccountInfo(accountEntity1 -> {
                 setProgressVisible(false);
-                accountEntity = accountEntity1;
+                viewModel.accountEntity = accountEntity1;
                 initView();
             });
         } else {
@@ -145,7 +142,7 @@ public abstract class BasePayFragment extends BaseFragment {
 
         userNumber.setText(getString(R.string.text_account_number, UserModel.getInstance().getMobile()));
         payWay.setText(getString(R.string.text_account_balance));
-        payPrice.setText(orderEntity.amount + "");
+        payPrice.setText(viewModel.orderEntity.amount + "");
 
         btnOk.setOnClickListener(v -> {
 
@@ -168,8 +165,32 @@ public abstract class BasePayFragment extends BaseFragment {
 
     private void payOrder(GridPasswordView passwordView, TextView passwordError) {
         viewModel.setPayPassword(passwordView.getPassWord());
-        viewModel.getAliPayOrderInfoAndPay(s -> {
 
+        if(viewModel.isPayWithBalance()){
+            submitOrder();
+        }else if(viewModel.isPayWithAli()){
+
+            viewModel.getAliPayOrderInfoAndPay(s -> {
+                if(getString(R.string.message_pay_success).equals(s)){
+                    submitOrder();
+                }else {
+                    error(s);
+                }
+            });
+
+        }else if(viewModel.isPayWithWei()){
+            // TODO: 2017/8/17 微信支付
+        }else {
+            // TODO: 2017/8/17 银行卡支付
+        }
+
+    }
+
+    private void submitOrder(){
+        viewModel.payOrder(s -> {
+            ToastUtils.showLong(getActivity(), getString(R.string.message_pay_success));
+            getActivity().finish();
         });
     }
+
 }

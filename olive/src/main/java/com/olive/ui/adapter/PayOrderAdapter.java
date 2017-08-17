@@ -26,7 +26,7 @@ public class PayOrderAdapter extends BaseChooseAdapter<BankEntity, BaseViewHolde
     private RecyclerView recyclerView;
     private int fixationPosition = 0;
     private PayOrderViewModel viewModel;
-    private String payWay;
+    public String payWay;
 
     private List<Integer> payWayIcon = Lists.newArrayList(R.drawable.vector_china_bank
             , R.drawable.vector_icbc
@@ -101,14 +101,14 @@ public class PayOrderAdapter extends BaseChooseAdapter<BankEntity, BaseViewHolde
         if(bankEntity.cardNumber == null || bankEntity.cardNumber.isEmpty()){
             if(position == mData.size() - 2){
                 payWay = fixationPayWayName[0];
-                viewModel.setPayType(PayOrderViewModel.PAY_TYPE_WEI);
+                viewModel.setPayType(PayOrderViewModel.PAY_TYPE_WEI, bankEntity.id);
             }else {
                 payWay = fixationPayWayName[1];
-                viewModel.setPayType(PayOrderViewModel.PAY_TYPE_ALI);
+                viewModel.setPayType(PayOrderViewModel.PAY_TYPE_ALI, bankEntity.id);
             }
         }else {
             payWay = bankEntity.bankName;
-            viewModel.setPayType(PayOrderViewModel.PAY_TYPE_BANK);
+            viewModel.setPayType(PayOrderViewModel.PAY_TYPE_BANK, bankEntity.id);
         }
     }
 

@@ -2,6 +2,9 @@ package com.olive.model.entity;
 
 import android.text.TextUtils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class AliPayResult {
     private String resultStatus;
     private String result;
@@ -57,5 +60,18 @@ public class AliPayResult {
      */
     public String getResult() {
         return result;
+    }
+
+    public String getTradeNumber(){
+        JSONObject res = null;
+        String tradeNumber = "";
+        try {
+            res = new JSONObject(getResult());
+            res = res.getJSONObject("alipay_trade_app_pay_response");
+            tradeNumber = res.getString("trade_no");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return tradeNumber;
     }
 }

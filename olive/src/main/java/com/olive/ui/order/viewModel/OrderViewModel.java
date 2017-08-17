@@ -57,7 +57,7 @@ public class OrderViewModel extends BaseViewModel {
     }
 
     public void confirmOrder(Action1<String> action1){
-        submitRequestThrowError(OrderModel.confireOrder(orderNo).map(r -> {
+        submitRequestThrowError(OrderModel.confirmOrder(orderNo).map(r -> {
             if(r.isOk()){
                 return r.data;
             }else throw new HttpErrorException(r);

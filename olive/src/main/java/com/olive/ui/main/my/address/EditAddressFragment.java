@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.bigkoo.pickerview.OptionsPickerView;
 import com.biz.base.BaseFragment;
 import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
