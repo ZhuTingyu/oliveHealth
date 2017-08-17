@@ -40,6 +40,9 @@
     <string name="api_order_detail">/order/orderDetail</string>
     <string name="api_consumer_detail">/order/consumerDetails</string>
     <string name="api_debt_detail">/order/debtOrderList</string>
+    <string name="api_pay_order">/order/pay</string>
+
+    <string name="api_pay_order_alipay_order_info">/payment/alipay/app/orderStr</string>
 
     <string name="api_favorite_list">/favorite/favoriteList</string>
 

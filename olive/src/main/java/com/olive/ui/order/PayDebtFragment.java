@@ -19,4 +19,5 @@ public class PayDebtFragment extends BasePayFragment {
         findViewById(R.id.divider1).setVisibility(View.GONE);
 
     }
+
 }

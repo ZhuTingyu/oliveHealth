@@ -11,6 +11,7 @@ import com.biz.util.Lists;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.olive.R;
 import com.olive.model.entity.BankEntity;
+import com.olive.ui.order.viewModel.PayOrderViewModel;
 
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +25,8 @@ public class PayOrderAdapter extends BaseChooseAdapter<BankEntity, BaseViewHolde
 
     private RecyclerView recyclerView;
     private int fixationPosition = 0;
+    private PayOrderViewModel viewModel;
+    private String payWay;
 
     private List<Integer> payWayIcon = Lists.newArrayList(R.drawable.vector_china_bank
             , R.drawable.vector_icbc
@@ -80,11 +83,9 @@ public class PayOrderAdapter extends BaseChooseAdapter<BankEntity, BaseViewHolde
             holder.setImageResource(R.id.icon, way.get(bankEntity.bankName));
         }
         view.setOnClickListener(v -> {
-            /*TextView textView = (TextView) getViewByPosition(recyclerView, choosePosition, R.id.bank_name);
-            textView.setCompoundDrawablesWithIntrinsicBounds(null,null,null,null);
-            choosePosition = holder.getAdapterPosition();
-            holder.setViewDrawableRight(view, R.drawable.vector_address_manage_choose);*/
-            setSingleSelected((holder.getAdapterPosition()));
+            int position = holder.getAdapterPosition();
+            setSingleSelected(position);
+            setPayType(position - 1);
         });
 
         if (sparseBooleanArray.get(holder.getAdapterPosition(), false)) {
@@ -95,6 +96,22 @@ public class PayOrderAdapter extends BaseChooseAdapter<BankEntity, BaseViewHolde
 
     }
 
+    private void setPayType(int position) {
+        BankEntity bankEntity = getItem(position);
+        if(bankEntity.cardNumber == null || bankEntity.cardNumber.isEmpty()){
+            if(position == mData.size() - 2){
+                payWay = fixationPayWayName[0];
+                viewModel.setPayType(PayOrderViewModel.PAY_TYPE_WEI);
+            }else {
+                payWay = fixationPayWayName[1];
+                viewModel.setPayType(PayOrderViewModel.PAY_TYPE_ALI);
+            }
+        }else {
+            payWay = bankEntity.bankName;
+            viewModel.setPayType(PayOrderViewModel.PAY_TYPE_BANK);
+        }
+    }
+
     private String getCardNumberFour(String number) {
         return number.substring(number.length() - 5, number.length() - 1);
     }
@@ -103,5 +120,9 @@ public class PayOrderAdapter extends BaseChooseAdapter<BankEntity, BaseViewHolde
     public void setSingleSelected(int position) {
         fixationPosition = 0;
         super.setSingleSelected(position);
+    }
+
+    public void setViewModel(PayOrderViewModel viewModel) {
+        this.viewModel = viewModel;
     }
 }

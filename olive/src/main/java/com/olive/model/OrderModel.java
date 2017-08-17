@@ -1,8 +1,14 @@
 package com.olive.model;
 
+import android.app.Activity;
+
+import com.alipay.sdk.app.PayTask;
 import com.biz.http.ResponseJson;
+import com.biz.util.GsonUtil;
+import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.olive.R;
+import com.olive.model.entity.AliPayResult;
 import com.olive.model.entity.OrderEntity;
 import com.olive.model.entity.ProductEntity;
 import com.olive.util.HttpRequest;
@@ -79,6 +85,25 @@ public class OrderModel {
                 .setToJsonType(new TypeToken<ResponseJson<List<OrderEntity>>>() {
                 }.getType())
                 .url(R.string.api_debt_detail)
+                .requestPI();
+    }
+
+    public static Observable<AliPayResult> payAlipay(String orderInfo, Activity activity) {
+        return Observable.create(subscriber -> {
+            PayTask alipay = new PayTask(activity);
+            String result = alipay.pay(orderInfo, true);
+            subscriber.onNext(result);
+            subscriber.onCompleted();
+        }).map(s -> new AliPayResult((String) s));
+    }
+
+    public static Observable<ResponseJson<String>> AlipayOrderInfo(String orderNo ,int balancePayAmount) {
+        return HttpRequest.<ResponseJson<String>>builder()
+                .setToJsonType(new TypeToken<ResponseJson<String>>() {
+                }.getType())
+                .addBody("orderNo", orderNo)
+                .addBody("balancePayAmount", balancePayAmount)
+                .url(R.string.api_pay_order_alipay_order_info)
                 .requestPI();
     }
 }

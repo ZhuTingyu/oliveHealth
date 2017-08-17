@@ -123,7 +123,7 @@
     <string name="text_order_price_1">订单金额：</string>
     <string name="text_refund_price">退款金额：</string>
     <string name="text_pay_by_account_vacancies">账户余额付款（%1$s）</string>
-    <string name="text_input_price">请输入账户余额付款金额</string>
+    <string name="text_input_price">请输入付款金额</string>
     <string name="text_need_pay">还需要支付:</string>
     <string name="text_pay_way">支付方式</string>
     <string name="text_need_pay_price">需支付</string>
@@ -262,8 +262,15 @@
     <string name="message_perfect_info">请完善信息</string>
     <string name="message_add_address_success">添加地址成功</string>
     <string name="message_send_code_status_with_mobile">验证码已发至 %1$s</string>
-    
+    <string name="message_pay_success">支付成功</string>
+
     <string name="string_password_suffix">dms</string>
+
+    <string name="resultcode_alipay_ERROR_8000">正在处理中！</string>
+    <string name="resultcode_alipay_ERROR_4000">订单支付失败！</string>
+    <string name="resultcode_alipay_ERROR_6001">您取消了本笔订单支付！</string>
+    <string name="resultcode_alipay_ERROR_6002">网络连接出错！</string>
+
 
 
 </resources>

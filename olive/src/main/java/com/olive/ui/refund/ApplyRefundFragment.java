@@ -35,6 +35,7 @@ import com.olive.ui.adapter.BottomSheetAdapter;
 import com.olive.ui.refund.viewModel.ApplyRefundViewModel;
 import com.olive.util.LoadImageUtil;
 
+import java.io.File;
 import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.List;
@@ -197,7 +198,7 @@ public class ApplyRefundFragment extends BaseFragment {
         info = findViewById(R.id.goods_info);
         info.setVisibility(View.VISIBLE);
         productInfoViews = Lists.newArrayList();
-
+        // TODO: 2017/8/16 提取viewHolder
         for (ProductEntity productEntity : productEntities) {
             View view = LayoutInflater.from(getContext()).inflate(R.layout.item_cart_layout, info, false);
             BaseViewHolder holder = new BaseViewHolder(view);

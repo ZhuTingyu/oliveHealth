@@ -47,7 +47,9 @@ public class AddressManageAdapter extends BaseQuickAdapter<AddressEntity, BaseVi
         chooseDefault.setChecked(addressEntity.isDefault == 1);
 
         tvEdit.setOnClickListener(v -> {
-            IntentBuilder.Builder().startParentActivity(fragment.getBaseActivity(), EditAddressFragment.class, true);
+            IntentBuilder.Builder()
+                    .putExtra(IntentBuilder.KEY_DATA, addressEntity)
+                    .startParentActivity(fragment.getBaseActivity(), EditAddressFragment.class, true);
         });
 
         tvDelete.setOnClickListener(v -> {

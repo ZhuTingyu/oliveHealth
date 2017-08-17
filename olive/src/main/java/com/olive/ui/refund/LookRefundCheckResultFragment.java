@@ -54,7 +54,7 @@ public class LookRefundCheckResultFragment extends BaseFragment {
                 imageView.setImageResource(R.drawable.vector_pay_failed);
             }
             holder.setText(R.id.result,status);
-            holder.setText(R.id.remark,orderEntity.description);
+            holder.setText(R.id.remark,orderEntity.approveDes);
             holder.setText(R.id.remark2,"审核成功");
             holder.findViewById(R.id.btn_ok).setOnClickListener(v -> {
                 getActivity().finish();

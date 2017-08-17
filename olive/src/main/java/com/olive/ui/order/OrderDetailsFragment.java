@@ -179,15 +179,14 @@ public class OrderDetailsFragment extends BaseFragment {
 
     private List<String> getOrderInfo() {
         List<String> list = Lists.newArrayList();
-        list.add(orderEntity.expressNo);
+        list.add(orderEntity.outTradeNo);
         list.add(orderEntity.expressInfo);
         //TODO 物流价格
-        list.add("");
+        list.add("12");
         list.add(orderEntity.orderNo);
         list.add(orderEntity.outTradeNo);
         list.add(TimeUtil.format(orderEntity.createTime, TimeUtil.FORMAT_YYYYMMDDHHMMSS));
-        //TODO 收货时间??
-        list.add(TimeUtil.format(orderEntity.expressTime, TimeUtil.FORMAT_YYYYMMDDHHMMSS));
+        list.add(TimeUtil.format(orderEntity.payTime, TimeUtil.FORMAT_YYYYMMDDHHMMSS));
         return list;
     }
 

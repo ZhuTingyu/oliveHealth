@@ -84,8 +84,10 @@
             android:layout_alignParentRight="true"
             android:hint="@string/text_input_price"
             android:layout_centerVertical="true"
+            android:digits="@string/text_digits_number"
             android:background="@null"
             android:padding="0dp"
+            android:maxLength="9"
             android:layout_marginRight="8dp"
             android:textSize="16dp"/>
 

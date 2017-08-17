@@ -11,11 +11,14 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.alipay.sdk.app.EnvUtils;
 import com.biz.base.BaseFragment;
 import com.biz.base.BaseViewHolder;
 import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
 import com.biz.util.PriceUtil;
+import com.biz.util.RxUtil;
+import com.biz.util.ValidUtil;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.jungly.gridpasswordview.GridPasswordView;
 import com.olive.R;
@@ -28,11 +31,14 @@ import com.olive.ui.main.my.UserViewModel;
 import com.olive.ui.main.my.account.viewModel.AccountViewModel;
 import com.olive.ui.order.viewModel.PayOrderViewModel;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 /**
  * Created by TingYu Zhu on 2017/7/27.
  */
 
-public class BasePayFragment extends BaseFragment {
+public abstract class BasePayFragment extends BaseFragment {
 
     private XRecyclerView recyclerView;
     private PayOrderAdapter adapter;
@@ -51,10 +57,13 @@ public class BasePayFragment extends BaseFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        EnvUtils.setEnv(EnvUtils.EnvEnum.SANDBOX);
         viewModel = new PayOrderViewModel(context);
+        accountViewModel = new AccountViewModel(context);
         initViewModel(viewModel);
         orderEntity = getBaseActivity().getIntent().getParcelableExtra(IntentBuilder.KEY_DATA);
         accountEntity = getBaseActivity().getIntent().getParcelableExtra(IntentBuilder.KEY_VALUE);
+        viewModel.setOrderEntity(orderEntity);
     }
 
     @Nullable
@@ -67,22 +76,23 @@ public class BasePayFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setTitle(getString(R.string.title_pay_order));
-        if(accountEntity == null){
+        if (accountEntity == null) {
             setProgressVisible(true);
             accountViewModel.getAccountInfo(accountEntity1 -> {
                 setProgressVisible(false);
                 accountEntity = accountEntity1;
                 initView();
             });
-        }else {
+        } else {
             initView();
         }
     }
 
-    protected  void initView() {
+    protected void initView() {
         recyclerView = findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new PayOrderAdapter(getContext());
+        adapter.setViewModel(viewModel);
         recyclerView.setAdapter(adapter);
 
         viewModel.getBankCards(bankEntities -> {
@@ -102,18 +112,18 @@ public class BasePayFragment extends BaseFragment {
     protected void initHeadView() {
         View head = View.inflate(getContext(), R.layout.item_pay_order_head_layout, null);
 
-        tvOrderNumber = findViewById(head,R.id.order_number);
-        tvPayPrice = findViewById(head,R.id.order_price);
-        tvVacancies = findViewById(head,R.id.account_vacancies);
-        tvNeedPayPrice = findViewById(head,R.id.need_pay);
-        etVacancies = findViewById(head,R.id.input_account_vacancies);
-
+        tvOrderNumber = findViewById(head, R.id.order_number);
+        tvPayPrice = findViewById(head, R.id.order_price);
+        tvVacancies = findViewById(head, R.id.account_vacancies);
+        tvNeedPayPrice = findViewById(head, R.id.need_pay);
+        etVacancies = findViewById(head, R.id.input_account_vacancies);
+        bindUi(RxUtil.textChanges(etVacancies), viewModel.setBalancePayAmount());
 
         etVacancies.clearFocus();
         adapter.addHeaderView(head);
     }
 
-    private void createDialog(){
+    private void createDialog() {
         BottomSheetDialog dialog = new BottomSheetDialog(getContext());
         dialog.setContentView(R.layout.dailog_pay_for_order_layout);
         dialog.show();
@@ -135,7 +145,7 @@ public class BasePayFragment extends BaseFragment {
 
         userNumber.setText(getString(R.string.text_account_number, UserModel.getInstance().getMobile()));
         payWay.setText(getString(R.string.text_account_balance));
-        payPrice.setText(orderEntity.amount+"");
+        payPrice.setText(orderEntity.amount + "");
 
         btnOk.setOnClickListener(v -> {
 
@@ -143,7 +153,7 @@ public class BasePayFragment extends BaseFragment {
             dialog.findViewById(R.id.rl_info).setVisibility(View.GONE);
 
             TextView forgetPassword = (TextView) dialog.findViewById(R.id.text_forget_password);
-            forgetPassword.setVisibility(View.GONE);
+            forgetPassword.setVisibility(View.VISIBLE);
 
             GridPasswordView passwordView = (GridPasswordView) dialog.findViewById(R.id.password);
             passwordView.setVisibility(View.VISIBLE);
@@ -151,8 +161,15 @@ public class BasePayFragment extends BaseFragment {
             TextView passwordError = (TextView) dialog.findViewById(R.id.text3);
             btnOk.setText(getString(R.string.text_make_sure_pay));
             btnOk.setOnClickListener(v1 -> {
-
+                payOrder(passwordView, passwordError);
             });
+        });
+    }
+
+    private void payOrder(GridPasswordView passwordView, TextView passwordError) {
+        viewModel.setPayPassword(passwordView.getPassWord());
+        viewModel.getAliPayOrderInfoAndPay(s -> {
+
         });
     }
 }

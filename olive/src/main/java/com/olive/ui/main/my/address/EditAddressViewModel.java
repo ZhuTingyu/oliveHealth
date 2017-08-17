@@ -70,6 +70,14 @@ public class EditAddressViewModel extends AddressViewModel {
         }), action1);
     }
 
+    public void updateAddress(Action1<AddressEntity> action1){
+        submitRequestThrowError(AddressModel.AddressUpdate(getNewAddress()).map(r -> {
+            if(r.isOk()){
+                return r.data;
+            }else throw new HttpErrorException(r);
+        }),action1);
+    }
+
     public AddressEntity getNewAddress() {
         AddressEntity entity = new AddressEntity();
         entity.consignee = consignee;
