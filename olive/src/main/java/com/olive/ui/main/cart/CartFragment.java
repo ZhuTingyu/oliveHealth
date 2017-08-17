@@ -24,6 +24,8 @@ import com.olive.ui.adapter.CartAdapter;
 import com.olive.ui.order.CheckOrderInfoFragment;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Title: CartFragment
@@ -44,11 +46,17 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
     private TextView priceTotal;
     private int productNumber;
 
+    private boolean isBuyAgain;
+    private int buyAgainProductsNumber;
+
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         viewModel = new CartViewModel(context);
+        isBuyAgain = getActivity().getIntent().getBooleanExtra(IntentBuilder.KEY_BOOLEAN_KUAIHE, false);
+        buyAgainProductsNumber = getActivity().getIntent().getIntExtra(IntentBuilder.KEY_VALUE, 0);
+
     }
 
     @Override
@@ -80,13 +88,13 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
         priceTotal = findViewById(R.id.price_total);
 
 
-        findViewById( R.id.btn_go_pay).setOnClickListener(v -> {
-            if(viewModel.isCanGoPay()){
+        findViewById(R.id.btn_go_pay).setOnClickListener(v -> {
+            if (viewModel.isCanGoPay()) {
                 IntentBuilder.Builder()
                         .putExtra(IntentBuilder.KEY_VALUE, viewModel.getTotalPrice())
                         .putParcelableArrayListExtra(IntentBuilder.KEY_DATA, (ArrayList<? extends Parcelable>) viewModel.getSelectedProducts())
                         .startParentActivity(getActivity(), CheckOrderInfoFragment.class, true);
-            }else {
+            } else {
                 error(getString(R.string.message_not_choose_product));
             }
 
@@ -94,13 +102,12 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
 
         findViewById(R.id.choose_all).setOnClickListener(v -> {
             v.setSelected(!v.isSelected());
-            if(v.isSelected()){
+            if (v.isSelected()) {
                 adapter.isChooseAll(true);
-            }else {
+            } else {
                 adapter.isChooseAll(false);
             }
         });
-
 
 
         initListView();
@@ -116,17 +123,24 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
         adapter.setFragment(this);
         adapter.setViewModel(viewModel);
         adapter.setTvPrice(priceTotal);
+        adapter.setBuyAgainProductsNumber(buyAgainProductsNumber);
         adapter.setOnCheckClickListener(this);
         adapter.setOnNumberChangeListener(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setRefreshListener(() -> {
             viewModel.getCartProductList(productEntities -> {
+                if (isBuyAgain) {
+                    setBuyAgain(productEntities);
+                }
                 adapter.replaceData(productEntities);
                 recyclerView.setRefreshing(false);
             });
         });
 
         viewModel.getCartProductList(productEntities -> {
+            if (isBuyAgain) {
+                setBuyAgain(productEntities);
+            }
             adapter.setNewData(productEntities);
         });
 
@@ -144,9 +158,27 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
     }
 
+    private void setBuyAgain(List<ProductEntity> productEntityList) {
+        adapter.chooseBuyAgainProducts();
+        Collections.reverse(productEntityList);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    protected void onVisible() {
+        super.onVisible();
+        setProgressVisible(true);
+        viewModel.getCartProductList(productEntities -> {
+            setProgressVisible(false);
+            if (isBuyAgain) {
+                setBuyAgain(productEntities);
+            }
+            adapter.replaceData(productEntities);
+        });
     }
 
     @Override
@@ -189,12 +221,12 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
 
     @Override
     public void click(CheckBox checkBox, int position) {
-        if(adapter.isSelected(position)){
+        if (adapter.isSelected(position)) {
             checkBox.setChecked(false);
             adapter.cancelSelected(position);
-        }else {
+        } else {
             checkBox.setChecked(true);
-             adapter.setSelected(position);
+            adapter.setSelected(position);
         }
         viewModel.getTotalPrice(aLong -> {
             priceTotal.setText(PriceUtil.formatRMB(aLong));

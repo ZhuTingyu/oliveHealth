@@ -27,6 +27,7 @@ public class CartAdapter extends BaseChooseAdapter<ProductEntity, BaseViewHolder
     private onNumberChangeListener onNumberChangeListener;
     private TextView tvPrice;
     private onCheckClickListener onCheckClickListener;
+    private int buyAgainProductsNumber;
 
     public CartAdapter() {
         super(R.layout.item_cart_layout, Lists.newArrayList());
@@ -83,6 +84,12 @@ public class CartAdapter extends BaseChooseAdapter<ProductEntity, BaseViewHolder
 
     }
 
+    public void chooseBuyAgainProducts(){
+        for(int i = 0; i < buyAgainProductsNumber; i++){
+            sparseBooleanArray.put(i, true);
+        }
+    }
+
     private void setPrice(long price){
         tvPrice.setText(PriceUtil.formatRMB(price));
     }
@@ -97,6 +104,10 @@ public class CartAdapter extends BaseChooseAdapter<ProductEntity, BaseViewHolder
 
     public void setTvPrice(TextView tvPrice) {
         this.tvPrice = tvPrice;
+    }
+
+    public void setBuyAgainProductsNumber(int buyAgainProductsNumber) {
+        this.buyAgainProductsNumber = buyAgainProductsNumber;
     }
 
     public interface onNumberChangeListener{

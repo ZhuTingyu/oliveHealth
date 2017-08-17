@@ -15,6 +15,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.olive.R;
 import com.olive.model.entity.OrderEntity;
 import com.olive.model.entity.ProductEntity;
+import com.olive.ui.holder.ProductViewHolder;
+import com.olive.ui.main.cart.CartFragment;
+import com.olive.ui.main.cart.CartViewModel;
+import com.olive.ui.main.home.ProductsViewModel;
 import com.olive.ui.main.my.account.viewModel.AccountViewModel;
 import com.olive.ui.main.my.address.AddressViewModel;
 import com.olive.ui.order.PayDebtFragment;
@@ -33,14 +37,14 @@ public class OrderInfoListAdapter extends BaseQuickAdapter<OrderEntity, BaseView
     private OrderViewModel orderViewModel;
     private AccountViewModel accountViewModel;
     private BaseFragment fragment;
-    private AddressViewModel addressViewModel;
+    private ProductsViewModel productsViewModel;
 
     public OrderInfoListAdapter(BaseFragment fragment) {
         super(R.layout.item_order_list_info_layout, Lists.newArrayList());
         this.fragment = fragment;
         orderViewModel = new OrderViewModel(fragment);
         accountViewModel = new AccountViewModel(fragment);
-        addressViewModel = new AddressViewModel(fragment);
+        productsViewModel = new ProductsViewModel(fragment);
     }
 
     @Override
@@ -107,14 +111,13 @@ public class OrderInfoListAdapter extends BaseQuickAdapter<OrderEntity, BaseView
         leftBtn.setVisibility(View.GONE);
         rightBtn.setText(R.string.text_buy_again);
         rightBtn.setOnClickListener(v -> {
-            addressViewModel.getAddressList(addressEntities -> {
-                orderViewModel.setAddressId(addressViewModel.getDefaultAddress().id);
-                orderViewModel.setProductEntities(orderEntity.products);
-                orderViewModel.createOrder(orderEntity1 -> {
-                    IntentBuilder.Builder()
-                            .putExtra(IntentBuilder.KEY_DATA, orderEntity1)
-                            .startParentActivity(fragment.getActivity(), PayOrderFragment.class, true);
-                });
+            productsViewModel.setAddProductList(orderEntity.products);
+            productsViewModel.addCart(s -> {
+                IntentBuilder.Builder()
+                        .putExtra(IntentBuilder.KEY_BOOLEAN_KUAIHE, true)
+                        .putExtra(IntentBuilder.KEY_VALUE, orderEntity.products.size())
+                        .putExtra(IntentBuilder.KEY_BOOLEAN, true)
+                        .startParentActivity(fragment.getActivity(), CartFragment.class, false);
             });
         });
     }

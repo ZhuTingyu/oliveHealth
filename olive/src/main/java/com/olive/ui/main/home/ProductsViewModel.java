@@ -56,4 +56,8 @@ public class ProductsViewModel extends BaseViewModel {
     public void setAddProductList(ProductEntity product) {
         this.addProductList = Lists.newArrayList(product);
     }
+
+    public void setAddProductList(List<ProductEntity> products) {
+        this.addProductList = products;
+    }
 }
