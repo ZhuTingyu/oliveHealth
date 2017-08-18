@@ -141,8 +141,8 @@ public abstract class BasePayFragment extends BaseFragment {
         TextView btnOk = (TextView) dialog.findViewById(R.id.btn_ok);
 
         userNumber.setText(getString(R.string.text_account_number, UserModel.getInstance().getMobile()));
-        payWay.setText(getString(R.string.text_account_balance));
-        payPrice.setText(viewModel.orderEntity.amount + "");
+        payWay.setText(adapter.payWay);
+        payPrice.setText(PriceUtil.formatRMB(viewModel.orderEntity.amount ));
 
         btnOk.setOnClickListener(v -> {
 
@@ -158,32 +158,40 @@ public abstract class BasePayFragment extends BaseFragment {
             TextView passwordError = (TextView) dialog.findViewById(R.id.text3);
             btnOk.setText(getString(R.string.text_make_sure_pay));
             btnOk.setOnClickListener(v1 -> {
-                payOrder(passwordView, passwordError);
+                checkPayPassword(passwordView, passwordError);
             });
         });
     }
 
-    private void payOrder(GridPasswordView passwordView, TextView passwordError) {
-        viewModel.setPayPassword(passwordView.getPassWord());
+    private void checkPayPassword(GridPasswordView passwordView, TextView passwordError){
+        viewModel.setPayPassword(passwordView.getPassWord() + getString(R.string.string_password_suffix));
+        viewModel.checkPayPassword(s -> {
+            if(s == PayOrderViewModel.PAY_PASSWORD_CORRECT){
+                payOrder();
+            }else {
+                passwordError.setVisibility(View.VISIBLE);
+            }
+        });
+    }
 
-        if(viewModel.isPayWithBalance()){
+    private void payOrder() {
+        if(viewModel.isPayHasBalance() && viewModel.isBalanceEnough()){
             submitOrder();
-        }else if(viewModel.isPayWithAli()){
-
-            viewModel.getAliPayOrderInfoAndPay(s -> {
-                if(getString(R.string.message_pay_success).equals(s)){
-                    submitOrder();
-                }else {
-                    error(s);
-                }
-            });
-
-        }else if(viewModel.isPayWithWei()){
-            viewModel.getWeiXinOrderInfoAndPay();
         }else {
-            // TODO: 2017/8/17 银行卡支付
+            if(viewModel.payType == PayOrderViewModel.PAY_TYPE_BALANCE){
+                error(getString(R.string.message_pay_price_not_enough));
+            }else {
+                if(viewModel.isPayWithAli()){
+                    viewModel.getAliPayOrderInfoAndPay(s -> {
+                        submitOrder();
+                    });
+                }else if(viewModel.isPayWithWei()){
+                    viewModel.getWeiXinOrderInfoAndPay();
+                }else {
+                    // TODO: 2017/8/18 银行支付 
+                }
+            }
         }
-
     }
 
     private void submitOrder(){

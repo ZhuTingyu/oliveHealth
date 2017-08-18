@@ -129,7 +129,7 @@
     <string name="text_need_pay_price">需支付</string>
     <string name="text_choose_way_for_pay">，请选择支付方式</string>
     <string name="text_forget_password">忘记密码</string>
-    <string name="text_notice_pay_password_error">支付密码错误！您还可输出两次</string>
+    <string name="text_notice_pay_password_error">支付密码错误！</string>
     <string name="text_notice_urge_pay">请尽快完成支付</string>
     <string name="text_pay_now">立即支付</string>
     <string name="text_back_cart">返回购物车</string>
@@ -263,6 +263,7 @@
     <string name="message_add_address_success">添加地址成功</string>
     <string name="message_send_code_status_with_mobile">验证码已发至 %1$s</string>
     <string name="message_pay_success">支付成功</string>
+    <string name="message_pay_price_not_enough">账户余额不足，请再添加其他支付方式</string>
 
     <string name="string_password_suffix">dms</string>
 

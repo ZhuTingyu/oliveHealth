@@ -126,5 +126,17 @@ public class CartAdapter extends BaseChooseAdapter<ProductEntity, BaseViewHolder
     public void setOnCheckClickListener(onCheckClickListener listener){
         this.onCheckClickListener = listener;
     }
+    
+    public void deleteChoose(){
+        for (int i = 0; i < sparseBooleanArray.size();) {
+            if(sparseBooleanArray.get(i)){
+                sparseBooleanArray.delete(i);
+                mData.remove(i);
+                continue;
+            }
+            i++;
+        }
+        notifyDataSetChanged();
+    }
 
 }

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.biz.base.BaseFragment;
 import com.biz.base.BaseLazyFragment;
 import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
@@ -59,10 +60,6 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
 
     }
 
-    @Override
-    public void lazyLoad() {
-
-    }
 
     @Nullable
     @Override
@@ -83,10 +80,14 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
         initView();
     }
 
+    @Override
+    public void lazyLoad() {
+
+    }
+
     private void initView() {
 
         priceTotal = findViewById(R.id.price_total);
-
 
         findViewById(R.id.btn_go_pay).setOnClickListener(v -> {
             if (viewModel.isCanGoPay()) {
@@ -109,9 +110,7 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
             }
         });
 
-
         initListView();
-
 
     }
 

@@ -49,7 +49,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     public void onResp(BaseResp resp) {
         LogUtil.print("onResp" + this+":"+ GsonUtil.toJson(resp));
         if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
-
+            
         } else {
 
         }

@@ -44,6 +44,7 @@
 
     <string name="api_pay_order_alipay_order_info">/payment/alipay/app/orderStr</string>
     <string name="api_pay_order_weixin_order_info">/payment/wx/app/orderStr</string>
+    <string name="api_pay_order_check_pay_password">/payment/password/check</string>
 
     <string name="api_favorite_list">/favorite/favoriteList</string>
 

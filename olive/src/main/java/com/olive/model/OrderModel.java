@@ -135,4 +135,13 @@ public class OrderModel {
                 .requestPI();
     }
 
+    public static Observable<ResponseJson<Integer>> checkPayPassword(String payPassword) {
+        return HttpRequest.<ResponseJson<Integer>>builder()
+                .setToJsonType(new TypeToken<ResponseJson<Integer>>() {
+                }.getType())
+                .addBody("payPassword", MD5.toMD5(payPassword).toUpperCase())
+                .url(R.string.api_pay_order_check_pay_password)
+                .requestPI();
+    }
+
 }

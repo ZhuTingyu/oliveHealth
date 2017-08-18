@@ -30,15 +30,19 @@ public class PayOrderViewModel extends BaseViewModel {
     public static final int PAY_TYPE_BANK = 0;
     public static final int PAY_TYPE_WEI = 1;
     public static final int PAY_TYPE_ALI = 2;
+    public static final int PAY_TYPE_BALANCE = -1;
+
+    public static final int PAY_PASSWORD_CORRECT = 1;
 
     private static final int PAY_NOT_IS_USE_BALANCE = 0;
     private static final int PAY_IS_USE_BALANCE = 1;
+
 
     public OrderEntity orderEntity;
     public AccountEntity accountEntity;
 
     private String payPassword;
-    public int payType;
+    public int payType = PAY_TYPE_BALANCE;
     private int balancePayAmount;
     private Integer bankCardId;
     private String outTradeNo;
@@ -115,7 +119,19 @@ public class PayOrderViewModel extends BaseViewModel {
         });
     }
 
-    public boolean isPayWithBalance(){
+    public void checkPayPassword(Action1<Integer> action1){
+        submitRequestThrowError(OrderModel.checkPayPassword(payPassword).map(r -> {
+            if(r.isOk()){
+                return r.data;
+            }else throw new HttpErrorException(r);
+        }),action1);
+    }
+
+    public boolean isPayHasBalance(){
+        return balancePayAmount != 0;
+    }
+
+    public boolean isBalanceEnough(){
         return orderEntity.amount <= accountEntity.balance && orderEntity.amount == balancePayAmount;
     }
 
@@ -153,7 +169,7 @@ public class PayOrderViewModel extends BaseViewModel {
 
 
     private void initMap(){
-        if(isPayWithBalance()){
+        if(isPayHasBalance()){
             payOrderParameterMap.put("balancePayAmount", balancePayAmount);
             payOrderParameterMap.put("useBalancePay", PAY_IS_USE_BALANCE);
         }else {
