@@ -40,6 +40,8 @@ public class EditAddressViewModel extends AddressViewModel {
     public List<CityEntity> cityList;
     public List<CityEntity> countyList;
 
+    private AddressEntity editAddressEntity;
+
     public EditAddressViewModel(Object activity) {
         super(activity);
         addressEntity = getActivity().getIntent().getParcelableExtra(IntentBuilder.KEY_DATA);
@@ -82,9 +84,9 @@ public class EditAddressViewModel extends AddressViewModel {
         AddressEntity entity = new AddressEntity();
         entity.consignee = consignee;
         entity.mobile = mobile;
-        entity.province = getCurrentProvince().code;
-        entity.city = getCurrentCity().code;
-        entity.district = getCurrentCounty().code;
+        entity.province = provinceList != null ? getCurrentProvince().code : editAddressEntity.province;
+        entity.city = cityList != null ? getCurrentCity().code : editAddressEntity.city;
+        entity.district = countyList != null ? getCurrentCounty().code : editAddressEntity.district;
         entity.detailAddress = detailAddress;
         return entity;
     }
@@ -179,5 +181,9 @@ public class EditAddressViewModel extends AddressViewModel {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public void setEditAddresEntity(AddressEntity editAddressEntity) {
+        this.editAddressEntity = editAddressEntity;
     }
 }

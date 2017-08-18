@@ -90,6 +90,7 @@ public class EditAddressFragment extends BaseFragment {
             phone.setText(addressEntity.mobile);
             area.setText(addressEntity.provinceText+" "+addressEntity.cityText+" "+addressEntity.districtText);
             address1.setText(addressEntity.detailAddress);
+            viewModel.setEditAddresEntity(addressEntity);
         }
 
         btnOk.setOnClickListener(v -> {
