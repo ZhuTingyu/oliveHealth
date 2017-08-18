@@ -179,7 +179,7 @@ public abstract class BasePayFragment extends BaseFragment {
             });
 
         }else if(viewModel.isPayWithWei()){
-            // TODO: 2017/8/17 微信支付
+            viewModel.getWeiXinOrderInfoAndPay();
         }else {
             // TODO: 2017/8/17 银行卡支付
         }

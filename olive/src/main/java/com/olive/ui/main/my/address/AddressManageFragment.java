@@ -29,6 +29,7 @@ public class AddressManageFragment extends BaseFragment {
     private AddressViewModel viewModel;
 
     public static int ADDRESS_RESULT = 0x234;
+    public static int ADDRESS_UPDATE_REQUEST = 0x235;
 
     @Override
     public void onAttach(Context context) {
@@ -73,4 +74,17 @@ public class AddressManageFragment extends BaseFragment {
         });
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == ADDRESS_UPDATE_REQUEST){
+            if(data != null && data.getBooleanExtra(IntentBuilder.KEY_BOOLEAN,false)){
+                setProgressVisible(true);
+                viewModel.getAddressList(addressEntities -> {
+                    setProgressVisible(false);
+                    adapter.replaceData(addressEntities);
+                });
+            }
+        }
+    }
 }

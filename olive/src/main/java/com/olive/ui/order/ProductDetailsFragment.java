@@ -240,8 +240,6 @@ public class ProductDetailsFragment extends BaseFragment {
                     viewModel.addCart(s -> {
                         ToastUtils.showLong(getBaseActivity(), s);
                         dialog.dismiss();
-                        //TODO 刷新首页购物车界面
-                        //EventBus.getDefault().post(new CartUpdateEvent(productId,productCount));
                     });
 
                     break;

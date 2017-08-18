@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import com.biz.base.BaseViewModel;
 import com.biz.base.RestErrorInfo;
 import com.biz.http.HttpErrorException;
+import com.biz.share.weixin.SendWX;
 import com.biz.util.IntentBuilder;
 import com.olive.R;
 import com.olive.model.AccountModel;
@@ -100,6 +101,17 @@ public class PayOrderViewModel extends BaseViewModel {
             return result;
         }), action1, throwable -> {
             error.onNext(new RestErrorInfo(getString(R.string.resultcode_alipay_ERROR_4000)));
+        });
+    }
+
+    public void getWeiXinOrderInfoAndPay(){
+        submitRequestThrowError(OrderModel.weiXinOrderInfo(orderEntity.orderNo, balancePayAmount).map(r -> {
+            if(r.isOk()){
+                return r.data;
+            }else throw new HttpErrorException(r);
+        }),weiXinPayEntity -> {
+            SendWX sendWX = new SendWX(getActivity());
+            sendWX.payWeiXin(weiXinPayEntity.getPayReq());
         });
     }
 

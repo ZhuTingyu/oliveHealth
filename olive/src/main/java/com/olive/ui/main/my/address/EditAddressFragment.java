@@ -1,6 +1,7 @@
 package com.olive.ui.main.my.address;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -56,7 +57,7 @@ public class EditAddressFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        addressEntity = getActivity().getIntent().getParcelableExtra(IntentBuilder.KEY_TYPE);
+        addressEntity = getActivity().getIntent().getParcelableExtra(IntentBuilder.KEY_DATA);
         if(addressEntity == null){
             setTitle(getString(R.string.title_add_new_address));
         }else {
@@ -93,7 +94,13 @@ public class EditAddressFragment extends BaseFragment {
 
         btnOk.setOnClickListener(v -> {
             if(addressEntity != null){
-
+                viewModel.updateAddress(addressEntity1 -> {
+                    ToastUtils.showLong(getActivity(), getString(R.string.message_modify_success));
+                    Intent intent = new Intent();
+                    intent.putExtra(IntentBuilder.KEY_BOOLEAN, true);
+                    getActivity().setIntent(intent);
+                    getActivity().finish();
+                });
             }else {
                 viewModel.checkAddressInfo(s -> {
                     if(getString(R.string.message_info_is_valid).equals(s)){

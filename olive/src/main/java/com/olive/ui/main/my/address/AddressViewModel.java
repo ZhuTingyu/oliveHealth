@@ -86,7 +86,7 @@ public class AddressViewModel extends BaseViewModel {
             setNotDefault();
             updateAddress(action1);
         }else {
-            Observable.just(new Object()).subscribe((Observer<? super Object>) action1);
+            Observable.just(addressEntity).subscribe(action1);
         }
     }
 }

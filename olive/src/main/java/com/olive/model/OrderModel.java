@@ -12,6 +12,7 @@ import com.olive.R;
 import com.olive.model.entity.AliPayResult;
 import com.olive.model.entity.OrderEntity;
 import com.olive.model.entity.ProductEntity;
+import com.olive.model.entity.WeiXinPayEntity;
 import com.olive.util.HttpRequest;
 
 import java.util.HashMap;
@@ -106,6 +107,16 @@ public class OrderModel {
                 .addBody("orderNo", orderNo)
                 .addBody("balancePayAmount", balancePayAmount)
                 .url(R.string.api_pay_order_alipay_order_info)
+                .requestPI();
+    }
+
+    public static Observable<ResponseJson<WeiXinPayEntity>> weiXinOrderInfo(String orderNo, int balancePayAmount) {
+        return HttpRequest.<ResponseJson<WeiXinPayEntity>>builder()
+                .setToJsonType(new TypeToken<ResponseJson<WeiXinPayEntity>>() {
+                }.getType())
+                .addBody("orderNo", orderNo)
+                .addBody("balancePayAmount", balancePayAmount)
+                .url(R.string.api_pay_order_weixin_order_info)
                 .requestPI();
     }
 

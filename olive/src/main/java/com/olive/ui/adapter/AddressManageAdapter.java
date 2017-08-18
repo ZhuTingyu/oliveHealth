@@ -12,6 +12,7 @@ import com.biz.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.olive.R;
 import com.olive.model.entity.AddressEntity;
+import com.olive.ui.main.my.address.AddressManageFragment;
 import com.olive.ui.main.my.address.EditAddressFragment;
 import com.olive.ui.main.my.address.AddressViewModel;
 
@@ -49,7 +50,7 @@ public class AddressManageAdapter extends BaseQuickAdapter<AddressEntity, BaseVi
         tvEdit.setOnClickListener(v -> {
             IntentBuilder.Builder()
                     .putExtra(IntentBuilder.KEY_DATA, addressEntity)
-                    .startParentActivity(fragment.getBaseActivity(), EditAddressFragment.class, true);
+                    .startParentActivity(fragment.getBaseActivity(), EditAddressFragment.class, AddressManageFragment.ADDRESS_UPDATE_REQUEST);
         });
 
         tvDelete.setOnClickListener(v -> {

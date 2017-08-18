@@ -6,11 +6,13 @@ import com.biz.util.PriceUtil;
 import com.biz.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.olive.R;
+import com.olive.app.OliveApplication;
 import com.olive.model.entity.ProductEntity;
 import com.olive.ui.holder.ProductViewHolder;
 import com.olive.ui.main.home.ProductsViewModel;
 import com.olive.util.LoadImageUtil;
 
+import android.app.Application;
 import android.graphics.Paint;
 import android.support.annotation.LayoutRes;
 import android.util.Log;
@@ -67,7 +69,7 @@ public class ProductAdapter extends BaseQuickAdapter<ProductEntity, ProductViewH
             });
         }
         holder.btnCart.setOnClickListener(v -> {
-            viewHolder.setAddProductList(mData.get(holder.getAdapterPosition()));
+            viewHolder.setAddProductList(mData.get(holder.getAdapterPosition() - getHeaderLayoutCount()));
             viewHolder.addCart(s -> {
                 ToastUtils.showLong(mContext, mContext.getString(R.string.text_join_cart_success));
             });
