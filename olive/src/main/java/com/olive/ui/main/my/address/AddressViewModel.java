@@ -19,8 +19,8 @@ public class AddressViewModel extends BaseViewModel {
 
     private int addressId;
     protected AddressEntity addressEntity;
-    private static final int IS_DEFAULT = 1;
-    private static final int NOT_DEFAULT  = 0;
+    public static final int IS_DEFAULT = 1;
+    public static final int NOT_DEFAULT  = 0;
 
     private List<AddressEntity> addressEntities;
 

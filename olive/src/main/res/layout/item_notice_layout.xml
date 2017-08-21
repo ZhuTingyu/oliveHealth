@@ -8,7 +8,7 @@
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="35dp"
+        android:layout_height="30dp"
         android:scaleType="centerInside"
         app:srcCompat="@drawable/vector_new" />
 
@@ -19,6 +19,5 @@
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="8dp"
         android:textColor="@color/color_666666"
-        android:textSize="16dp"
         tools:text="dddd" />
 </LinearLayout>

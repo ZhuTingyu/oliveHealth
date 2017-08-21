@@ -48,6 +48,7 @@ public class ProductAdapter extends BaseQuickAdapter<ProductEntity, ProductViewH
         if(item.salePrice == 0){
             holder.tvProductPrice.setText(PriceUtil.formatRMB(item.originalPrice));
             holder.tvProductPriceOld.setVisibility(View.GONE);
+            holder.iconLabel.setVisibility(View.GONE);
         }else {
             holder.tvProductPrice.setText(PriceUtil.formatRMB(item.salePrice));
             holder.tvProductPriceOld.setText(PriceUtil.formatRMB(item.originalPrice));

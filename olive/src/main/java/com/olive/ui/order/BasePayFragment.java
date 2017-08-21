@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ import com.olive.ui.adapter.PayOrderAdapter;
 import com.olive.ui.main.my.UserViewModel;
 import com.olive.ui.main.my.account.viewModel.AccountViewModel;
 import com.olive.ui.order.viewModel.PayOrderViewModel;
+import com.olive.util.CashierInputFilter;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -115,6 +117,8 @@ public abstract class BasePayFragment extends BaseFragment {
         tvNeedPayPrice = findViewById(head, R.id.need_pay);
         etVacancies = findViewById(head, R.id.input_account_vacancies);
         bindUi(RxUtil.textChanges(etVacancies), viewModel.setBalancePayAmount());
+        InputFilter[] filters={new CashierInputFilter(viewModel.orderEntity.amount)};
+        etVacancies.setFilters(filters);
 
         etVacancies.clearFocus();
         adapter.addHeaderView(head);

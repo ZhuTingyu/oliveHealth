@@ -160,7 +160,7 @@ public class PayOrderViewModel extends BaseViewModel {
     public Action1<String> setBalancePayAmount(){
         return s -> {
             if(!s.isEmpty()){
-                balancePayAmount = Integer.valueOf(s) * 100;
+                balancePayAmount = (int) (Float.valueOf(s) * 100);
             }else {
                 balancePayAmount = 0;
             }

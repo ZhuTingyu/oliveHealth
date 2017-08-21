@@ -1,64 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
-              android:descendantFocusability = "beforeDescendants"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="beforeDescendants"
+    android:orientation="vertical">
 
     <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="200dp">
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
 
         <com.biz.widget.banner.ConvenientBanner
             android:id="@+id/banner"
             android:layout_width="match_parent"
-            android:layout_height="200dp"/>
+            android:layout_height="200dp" />
 
 
     </FrameLayout>
 
     <com.biz.widget.ExpandGridView
-            android:id="@+id/gridview"
-            tools:visibility="gone"
-            android:background="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+        android:id="@+id/gridview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        tools:visibility="gone" />
 
 
     <RelativeLayout
-            android:background="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
 
         <android.support.v7.widget.AppCompatImageView
-                app:srcCompat="@drawable/vector_announcement"
-                android:id="@+id/icon_left"
-                android:scaleType="centerInside"
-                android:layout_width="100dp"
-                android:layout_height="70dp"/>
+            android:id="@+id/icon_left"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:padding="5dp"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/vector_announcement" />
 
         <com.biz.widget.recyclerview.XRecyclerView
             android:id="@+id/notice_list"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="60dp"
             android:layout_toRightOf="@id/icon_left"
             app:layout_empty="@layout/list_empty_layout"
             app:layout_moreProgress="@layout/view_load_more"
             app:mainLayoutId="@layout/refresh_recyclerview"
             app:recyclerClipToPadding="false"
             app:recyclerPadding="0dp"
-            app:scrollbarStyle="insideOverlay"/>
+            app:scrollbarStyle="insideOverlay" />
 
     </RelativeLayout>
 
     <TextView
-            android:text="@string/text_promotion"
-            android:gravity="center"
-            android:textSize="17dp"
-            android:textColor="@color/base_color"
-            android:textStyle="bold"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"/>
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="@string/text_promotion"
+        android:textColor="@color/base_color"
+        android:background="@color/white"
+        android:textSize="17dp"
+        android:textStyle="bold" />
 </LinearLayout>

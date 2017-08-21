@@ -112,6 +112,7 @@ public class HomeFragment extends BaseLazyFragment {
 
     private void initListView() {
         mRecyclerView = getView(R.id.list);
+        mRecyclerView.setBackgroundColor(getResources().getColor(R.color.white));
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         mAdapter = new ProductAdapter(R.layout.item_product_grid_layout);
         mAdapter.setOnItemClickListener((baseQuickAdapter, view1, i) -> {
@@ -182,10 +183,6 @@ public class HomeFragment extends BaseLazyFragment {
         View indicator = banner.findViewById(com.bigkoo.convenientbanner.R.id.loPageTurningPoint);
         ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) indicator.getLayoutParams();
         lp.bottomMargin = com.biz.util.Utils.dip2px(30);
-        List list = Lists.newArrayList(
-                "http://img.taopic.com/uploads/allimg/140326/235113-1403260G01561.jpg",
-                "http://img.taopic.com/uploads/allimg/140326/235113-1403260G01561.jpg",
-                "http://img.taopic.com/uploads/allimg/140326/235113-1403260G01561.jpg");
         viewModel.getAvertList(advertEntities -> {
             banner.setPages(
                     () -> new ImageHolderView(com.biz.util.Utils.dip2px(getActivity(), 180), ScalingUtils.ScaleType.FIT_XY), viewModel.getNoticeImageList())

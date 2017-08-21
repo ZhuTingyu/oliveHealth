@@ -83,7 +83,7 @@
             android:layout_alignParentRight="true"
             android:hint="@string/text_input_price"
             android:layout_centerVertical="true"
-            android:digits="@string/text_digits_number"
+            android:digits="@string/text_digits_price"
             android:background="@null"
             android:maxLength="9"
             android:maxLines="1"

@@ -98,8 +98,10 @@ public class CartViewModel extends BaseViewModel {
     public List<ProductEntity> getSelectedProducts(){
         selectedPosition = adapter.getSelectedPotion();
         List<ProductEntity> chooseProductEntities = Lists.newArrayList();
-        for(Integer position : selectedPosition){
-            chooseProductEntities.add(productEntities.get(position));
+        if(!selectedPosition.isEmpty()){
+            for(Integer position : selectedPosition){
+                chooseProductEntities.add(productEntities.get(position));
+            }
         }
         return chooseProductEntities;
     }

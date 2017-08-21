@@ -11,6 +11,7 @@ dependencies {
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.jungly:gridPasswordView:0.3'
     compile 'com.github.lovetuzitong:MultiImageSelector:1.2'
+    compile 'com.aldoapps:autoformatedittext:0.9.3'
 }
 
 

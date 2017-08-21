@@ -158,6 +158,7 @@
     <string name="title_find_password">找回密码</string>
     <string name="title_modify_password">修改密码</string>
     <string name="text_digits_number">1234567890</string>
+    <string name="text_digits_price">1234567890.</string>
     <string name="text_digits">1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</string>
     <string name="text_input_phone_or_username">请输入手机号或账号</string>
     <string name="text_input_code">请输入验证码</string>
