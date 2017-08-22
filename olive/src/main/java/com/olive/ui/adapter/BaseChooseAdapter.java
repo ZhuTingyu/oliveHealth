@@ -71,6 +71,7 @@ public abstract class BaseChooseAdapter<T, K extends BaseViewHolder> extends Bas
             }
         }else if(mData.size() > data.size()) {
             sparseBooleanArray.delete(sparseBooleanArray.indexOfValue(true));
+            initBooleanList((List<T>) data);
         }
         super.replaceData(data);
     }

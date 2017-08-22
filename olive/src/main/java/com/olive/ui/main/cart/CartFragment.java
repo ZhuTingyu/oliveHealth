@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -46,18 +47,24 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
     private CartViewModel viewModel;
     private TextView priceTotal;
     private int productNumber;
+    private boolean haveBack;
 
     private boolean isBuyAgain;
     private int buyAgainProductsNumber;
+
+    private AppCompatImageView chooseAll;
 
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         viewModel = new CartViewModel(context);
-        isBuyAgain = getActivity().getIntent().getBooleanExtra(IntentBuilder.KEY_BOOLEAN_KUAIHE, false);
-        buyAgainProductsNumber = getActivity().getIntent().getIntExtra(IntentBuilder.KEY_VALUE, 0);
-
+        Intent intent = getActivity().getIntent();
+        if(intent != null){
+            isBuyAgain = intent.getBooleanExtra(IntentBuilder.KEY_BOOLEAN_KUAIHE, false);
+            buyAgainProductsNumber = intent.getIntExtra(IntentBuilder.KEY_VALUE, 0);
+            haveBack = intent.getBooleanExtra(IntentBuilder.KEY_BOOLEAN, false);
+        }
     }
 
 
@@ -71,7 +78,6 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setTitle(getString(R.string.action_cart));
-        Boolean haveBack = getActivity().getIntent().getBooleanExtra(IntentBuilder.KEY_BOOLEAN, false);
         if (!haveBack) {
             mToolbar.setNavigationOnClickListener(null);
             mToolbar.setNavigationIcon(null);
@@ -91,6 +97,7 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
 
         findViewById(R.id.btn_go_pay).setOnClickListener(v -> {
             if (viewModel.isCanGoPay()) {
+                chooseAll.setSelected(false);
                 IntentBuilder.Builder()
                         .putExtra(IntentBuilder.KEY_VALUE, viewModel.getTotalPrice())
                         .putParcelableArrayListExtra(IntentBuilder.KEY_DATA, (ArrayList<? extends Parcelable>) viewModel.getSelectedProducts())
@@ -101,7 +108,9 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
 
         });
 
-        findViewById(R.id.choose_all).setOnClickListener(v -> {
+        chooseAll = findViewById(R.id.choose_all);
+
+        chooseAll.setOnClickListener(v -> {
             v.setSelected(!v.isSelected());
             if (v.isSelected()) {
                 adapter.isChooseAll(true);
@@ -150,6 +159,8 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
                     viewModel.removeCartProducts(s -> {
                         viewModel.getCartProductList(productEntities -> {
                             adapter.replaceData(productEntities);
+                            priceTotal.setText(PriceUtil.formatRMB(0));
+                            chooseAll.setSelected(false);
                         });
                     });
                     return false;

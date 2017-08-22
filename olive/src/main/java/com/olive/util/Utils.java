@@ -3,6 +3,8 @@ package com.olive.util;
 import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListAdapter;
 
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -46,4 +48,22 @@ public class Utils {
             }
         });
     }
+
+    public static void setListHeight(RecyclerView recyclerView){
+        // 获取ListView对应的Adapter
+        RecyclerView.Adapter adapter = recyclerView.getAdapter();
+        int totalHeight = 0;
+        for (int i = 0, len = adapter.getItemCount(); i < len; i++) {
+            // listAdapter.getCount()返回数据项的数目
+            View listItem = recyclerView.getLayoutManager().findViewByPosition(0);
+            // 计算子项View 的宽高
+            listItem.measure(0, 0);
+            // 统计所有子项的总高度
+            totalHeight += listItem.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = recyclerView.getLayoutParams();
+        params.height = totalHeight;
+        recyclerView.setLayoutParams(params);
+    }
+
 }

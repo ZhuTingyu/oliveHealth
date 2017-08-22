@@ -198,7 +198,6 @@ public class ApplyRefundFragment extends BaseFragment {
         info = findViewById(R.id.goods_info);
         info.setVisibility(View.VISIBLE);
         productInfoViews = Lists.newArrayList();
-        // TODO: 2017/8/16 提取viewHolder
         for (ProductEntity productEntity : productEntities) {
             View view = LayoutInflater.from(getContext()).inflate(R.layout.item_cart_layout, info, false);
             BaseViewHolder holder = new BaseViewHolder(view);

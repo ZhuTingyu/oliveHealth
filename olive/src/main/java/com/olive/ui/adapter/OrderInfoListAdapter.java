@@ -1,8 +1,11 @@
 package com.olive.ui.adapter;
 
 import android.app.Activity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -11,6 +14,7 @@ import com.biz.base.BaseViewHolder;
 import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
 import com.biz.util.PriceUtil;
+import com.biz.widget.recyclerview.XRecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.olive.R;
 import com.olive.model.entity.OrderEntity;
@@ -25,6 +29,7 @@ import com.olive.ui.order.PayDebtFragment;
 import com.olive.ui.order.PayOrderFragment;
 import com.olive.ui.order.viewModel.OrderViewModel;
 import com.olive.util.LoadImageUtil;
+import com.olive.util.Utils;
 
 import java.util.List;
 
@@ -49,17 +54,30 @@ public class OrderInfoListAdapter extends BaseQuickAdapter<OrderEntity, BaseView
 
     @Override
     protected void convert(BaseViewHolder holder, OrderEntity orderEntity) {
+        /*XRecyclerView recyclerView = holder.findViewById(R.id.list);
 
-        LinearLayout linearLayout = holder.findViewById(R.id.list);
-        /*recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        recyclerView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         CheckOrderAdapter adapter = new CheckOrderAdapter();
-        adapter.setNewData(Lists.newArrayList("","",""));
+        adapter.setNewData(orderEntity.products);
         if(recyclerView.getAdapter() == null){
             recyclerView.setAdapter(adapter);
-        }*/
+        }
+
+        recyclerView.getRecyclerView().addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
+            @Override
+            public void onChildViewAttachedToWindow(View view) {
+                Utils.setListHeight(recyclerView.getRecyclerView());
+            }
+
+            @Override
+            public void onChildViewDetachedFromWindow(View view) {
+
+            }
+        });*/
 
 
+
+        LinearLayout linearLayout = holder.findViewById(R.id.list);
         List<ProductEntity> products = orderEntity.products;
         linearLayout.removeAllViews();
         for (ProductEntity productEntity : products) {
@@ -79,7 +97,7 @@ public class OrderInfoListAdapter extends BaseQuickAdapter<OrderEntity, BaseView
         }
 
         holder.setText(R.id.price, PriceUtil.formatRMB(orderEntity.amount));
-        holder.setText(R.id.number, mContext.getString(R.string.text_order_list_info_number, getTotalCount(products) + ""));
+        holder.setText(R.id.number, mContext.getString(R.string.text_order_list_info_number, getTotalCount(orderEntity.products) + ""));
 
 
         TextView status = holder.findViewById(R.id.order_status);
