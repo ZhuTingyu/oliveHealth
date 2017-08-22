@@ -40,16 +40,20 @@ public class RefundAdapter extends BaseQuickAdapter<OrderEntity, BaseViewHolder>
     protected void convert(BaseViewHolder holder, OrderEntity orderEntity) {
 
         String status = "";
+        TextView tvStatus = holder.findViewById(R.id.status);
 
         if(orderEntity.status == LookApplyRefundDetailViewModel.STATUS_WAIT_CHECK){
             status = mContext.getString(R.string.text_refund_wait_check);
+            tvStatus.setTextColor(mContext.getResources().getColor(R.color.red_light));
         }else if(orderEntity.status == LookApplyRefundDetailViewModel.STATUS_PASS_CHECK){
             status = mContext.getString(R.string.text_refund_pass_check);
+            tvStatus.setTextColor(mContext.getResources().getColor(R.color.green_light));
         }else if(orderEntity.status == LookApplyRefundDetailViewModel.STATUS_NOT_PASS_CHECK){
             status = mContext.getString(R.string.text_refund_not_pass_check);
+            tvStatus.setTextColor(mContext.getResources().getColor(R.color.red_light));
         }
 
-        holder.setText(R.id.status,status);
+        tvStatus.setText(status);
 
         List<ProductEntity> productEntities = orderEntity.products;
         LinearLayout linearLayout = holder.findViewById(R.id.ll_info);

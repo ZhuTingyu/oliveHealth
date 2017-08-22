@@ -42,31 +42,29 @@ public class ResetPayPasswordFragment extends BasePasswordFragment {
                 btnCode, R.string.text_send_code, R.string.btn_resend_count, 60000, 1000);
 
         btnCode.setOnClickListener(v -> {
-            if(viewModel.isMobileValid()){
+            if (viewModel.isMobileValid()) {
+                viewModel.setType(PasswordViewModel.TYPE_CODE_RESET_PAY_PASSWORD);
                 viewModel.sendCode(s -> {
                     countDownTimer.start();
                     ToastUtils.showLong(getActivity(), getString(R.string.message_send_code_success));
                     sendCodeSuccess();
                 });
-            }else {
+            } else {
                 error(getString(R.string.message_input_valid_mobile));
             }
         });
-        viewModel.setType(PasswordViewModel.TYPE_CODE_RESET_PAY_PASSWORD);
 
         initPasswordView();
 
         tvOk = findViewById(R.id.btn_ok);
         tvOk.setOnClickListener(v -> {
             viewModel.isPasswordValid(s -> {
-                if(PasswordViewModel.INFO_VALID.equals(s)){
+                if (PasswordViewModel.INFO_VALID.equals(s)) {
                     viewModel.resetPayPassword(s1 -> {
-                        viewModel.resetPassword(s2 -> {
-                            ToastUtils.showLong(getContext(), getString(R.string.message_modify_success));
-                            getActivity().finish();
-                        });
+                        ToastUtils.showLong(getContext(), getString(R.string.message_modify_success));
+                        getActivity().finish();
                     });
-                }else {
+                } else {
                     error(s);
                 }
             });

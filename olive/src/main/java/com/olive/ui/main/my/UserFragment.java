@@ -28,6 +28,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -68,6 +69,9 @@ public class UserFragment  extends BaseLazyFragment  {
 
         adapter.setNewData(mList =Lists.newArrayList(getResources().getStringArray(R.array.array_my)));
         View header = View.inflate(getActivity(), R.layout.item_my_header_layout, null);
+
+        TextView title = (TextView) header.findViewById(R.id.title);
+        title.setText(UserModel.getInstance().getNickName());
 
         adapter.addHeaderView(header);
 

@@ -162,14 +162,16 @@ public abstract class BasePayFragment extends BaseFragment {
             TextView passwordError = (TextView) dialog.findViewById(R.id.text3);
             btnOk.setText(getString(R.string.text_make_sure_pay));
             btnOk.setOnClickListener(v1 -> {
+                setProgressVisible(true);
                 checkPayPassword(passwordView, passwordError);
             });
         });
     }
 
     private void checkPayPassword(GridPasswordView passwordView, TextView passwordError){
-        viewModel.setPayPassword(passwordView.getPassWord() + getString(R.string.string_password_suffix));
+        viewModel.setPayPassword(passwordView.getPassWord());
         viewModel.checkPayPassword(s -> {
+            setProgressVisible(false);
             if(s == PayOrderViewModel.PAY_PASSWORD_CORRECT){
                 payOrder();
             }else {

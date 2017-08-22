@@ -189,6 +189,7 @@
     <string name="text_refund_describe">退货描述</string>
     <string name="text_refund_describe_hint">请输入退货描述</string>
     <string name="text_refund_photo">退货描述</string>
+    <string name="text_refund_no_describe">暂无描述</string>
     <string name="text_refund_wait_check">待审核</string>
     <string name="text_refund_pass_check">审核通过</string>
     <string name="text_refund_not_pass_check">审核未通过</string>

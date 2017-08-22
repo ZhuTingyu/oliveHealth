@@ -75,7 +75,7 @@
             android:layout_marginTop="8dp"
             android:layout_alignParentRight="true"
             android:textColor="@color/white"
-            android:background="@drawable/shape_red_corner_background"
+            android:background="@drawable/btn_green_corner_selector"
             android:gravity="center"
             android:text="@string/text_go_pay"/>
 

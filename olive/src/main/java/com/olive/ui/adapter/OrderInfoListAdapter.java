@@ -110,18 +110,23 @@ public class OrderInfoListAdapter extends BaseQuickAdapter<OrderEntity, BaseView
         if (mContext.getString(R.string.text_waiting_pay).equals(statusString)) {
             //待支付
             initWaitPay(holder, leftBtn, rightBtn, orderEntity);
+            status.setTextColor(mContext.getResources().getColor(R.color.red_light));
         } else if (mContext.getString(R.string.text_wait_send).equals(statusString)) {
             //待发货
             initWaitSend(leftBtn, rightBtn);
+            status.setTextColor(mContext.getResources().getColor(R.color.orange_light));
         } else if (mContext.getString(R.string.text_wait_receive).equals(statusString)) {
             //待收货
             initWaitReceive(leftBtn, rightBtn, orderEntity);
+            status.setTextColor(mContext.getResources().getColor(R.color.blue_light));
         } else if (mContext.getString(R.string.text_order_complete).equals(statusString)) {
             //已完成
             initComplete(leftBtn, rightBtn);
+            status.setTextColor(mContext.getResources().getColor(R.color.green_light));
         } else if (mContext.getString(R.string.text_order_cancel).equals(statusString)) {
             //已经取消
             initCancel(leftBtn, rightBtn, orderEntity);
+            status.setTextColor(mContext.getResources().getColor(R.color.red_light));
         }
     }
 

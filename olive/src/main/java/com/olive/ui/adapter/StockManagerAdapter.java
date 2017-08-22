@@ -29,6 +29,6 @@ public class StockManagerAdapter extends BaseQuickAdapter<ProductEntity, BaseVie
         holder.setText(R.id.title, productEntity.productName);
         holder.setText(R.id.amount_in, mContext.getString(R.string.text_number_in_goods, productEntity.stockQuantity+""));
         holder.setText(R.id.amount_out,mContext.getString(R.string.text_number_out_goods, productEntity.saleQuantity+""));
-        holder.setText(R.id.number, productEntity.quantity);
+        holder.setText(R.id.number, productEntity.quantity + "");
     }
 }

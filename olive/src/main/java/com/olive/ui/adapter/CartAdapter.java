@@ -3,6 +3,7 @@ package com.olive.ui.adapter;
 
 import android.support.v7.widget.AppCompatCheckBox;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.biz.base.BaseFragment;
@@ -42,8 +43,9 @@ public class CartAdapter extends BaseChooseAdapter<ProductEntity, BaseViewHolder
         holder.setText(R.id.title_line_2, mContext.getString(R.string.text_product_specification, productEntity.standard));
         holder.setText(R.id.title_line_3, PriceUtil.formatRMB(productEntity.price));
 
-        CountEditText countEditText = holder.getView(R.id.ed_count);
+        EditText countEditText = holder.getView(R.id.ed_count);
         countEditText.setText(productEntity.quantity + "");
+        countEditText.setFocusableInTouchMode(false);
 
         AppCompatCheckBox checkBox = holder.getView(R.id.checkbox);
 
