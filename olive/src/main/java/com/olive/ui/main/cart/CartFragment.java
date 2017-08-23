@@ -63,7 +63,7 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
         super.onAttach(context);
         viewModel = new CartViewModel(context);
         Intent intent = getActivity().getIntent();
-        if(intent != null){
+        if (intent != null) {
             isBuyAgain = intent.getBooleanExtra(IntentBuilder.KEY_BOOLEAN_KUAIHE, false);
             buyAgainProductsNumber = intent.getIntExtra(IntentBuilder.KEY_VALUE, 0);
             haveBack = intent.getBooleanExtra(IntentBuilder.KEY_BOOLEAN, false);
@@ -101,10 +101,8 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
         EventBus.getDefault().unregister(this);
     }
 
-    public void onEvent(UpdateCartEvent event){
-        viewModel.getCartProductList(productEntities -> {
-            adapter.replaceData(productEntities);
-        });
+    public void onEvent(UpdateCartEvent event) {
+        updateCart();
     }
 
     private void initView() {
@@ -135,6 +133,20 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
             }
         });
 
+        mToolbar.getMenu().add(getString(R.string.text_action_delete))
+                .setOnMenuItemClickListener(item -> {
+                    viewModel.removeCartProducts(s -> {
+                        viewModel.getCartProductList(productEntities -> {
+                            adapter.replaceData(productEntities);
+                            priceTotal.setText(PriceUtil.formatRMB(0));
+                            chooseAll.setSelected(false);
+                        });
+                    });
+                    return false;
+                })
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+
         initListView();
 
     }
@@ -153,10 +165,7 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
         recyclerView.setAdapter(adapter);
         recyclerView.setRefreshListener(() -> {
             viewModel.getCartProductList(productEntities -> {
-                if (isBuyAgain) {
-                    setBuyAgain(productEntities);
-                }
-                adapter.replaceData(productEntities);
+                updateCart();
                 recyclerView.setRefreshing(false);
             });
         });
@@ -170,18 +179,7 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
 
         viewModel.setAdapter(adapter);
 
-        mToolbar.getMenu().add(getString(R.string.text_action_delete))
-                .setOnMenuItemClickListener(item -> {
-                    viewModel.removeCartProducts(s -> {
-                        viewModel.getCartProductList(productEntities -> {
-                            adapter.replaceData(productEntities);
-                            priceTotal.setText(PriceUtil.formatRMB(0));
-                            chooseAll.setSelected(false);
-                        });
-                    });
-                    return false;
-                })
-                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
     }
 
     private void setBuyAgain(List<ProductEntity> productEntityList) {
@@ -197,6 +195,10 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
     @Override
     protected void onVisible() {
         super.onVisible();
+        updateCart();
+    }
+
+    private void updateCart() {
         setProgressVisible(true);
         viewModel.getCartProductList(productEntities -> {
             setProgressVisible(false);
@@ -204,6 +206,9 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
                 setBuyAgain(productEntities);
             }
             adapter.replaceData(productEntities);
+        });
+        viewModel.getTotalPrice(aLong -> {
+            priceTotal.setText(PriceUtil.formatRMB(aLong));
         });
     }
 
@@ -214,13 +219,7 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
         viewModel.setProductNo(productEntity.productNo);
         viewModel.setQuantity(productNumber);
         viewModel.updateProductNumber(s -> {
-            setProgressVisible(false);
-            viewModel.getCartProductList(productEntities -> {
-                adapter.replaceData(productEntities);
-                viewModel.getTotalPrice(aLong -> {
-                    priceTotal.setText(PriceUtil.formatRMB(aLong));
-                });
-            });
+            updateCart();
         });
     }
 
@@ -234,13 +233,7 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
             viewModel.setProductNo(productEntity.productNo);
             viewModel.setQuantity(productNumber);
             viewModel.updateProductNumber(s -> {
-                viewModel.getCartProductList(productEntities -> {
-                    setProgressVisible(false);
-                    adapter.replaceData(productEntities);
-                    viewModel.getTotalPrice(aLong -> {
-                        priceTotal.setText(PriceUtil.formatRMB(aLong));
-                    });
-                });
+                updateCart();
             });
         }
     }

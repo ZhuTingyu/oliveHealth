@@ -6,6 +6,7 @@ import com.olive.model.ProductsModel;
 import com.olive.model.entity.CategoryEntity;
 import com.olive.model.entity.ProductEntity;
 import com.olive.ui.BaseLoadMoreViewModel;
+import com.olive.ui.main.home.ProductsViewModel;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ import rx.functions.Action1;
  * Created by TingYu Zhu on 2017/8/3.
  */
 
-public class CategoryViewModel extends BaseLoadMoreViewModel{
+public class CategoryViewModel extends ProductsViewModel {
 
     private static final int TYPE_ALL_CATEGORY = 0;
     private String keyWord;

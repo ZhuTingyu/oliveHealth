@@ -59,6 +59,7 @@ public class FavoriteFragment extends BaseFragment {
         mRecyclerView = getView(R.id.list);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         mAdapter = new ProductAdapter(R.layout.item_product_grid_layout);
+        mAdapter.setViewModel(viewModel);
         mRecyclerView.setAdapter(mAdapter);
         viewModel.getFavoriteList(productEntities -> {
             mAdapter.setNewData(productEntities);

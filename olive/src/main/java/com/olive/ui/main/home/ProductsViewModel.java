@@ -6,6 +6,7 @@ import com.biz.util.Lists;
 import com.olive.model.CartModel;
 import com.olive.model.ProductsModel;
 import com.olive.model.entity.ProductEntity;
+import com.olive.ui.BaseLoadMoreViewModel;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ import rx.functions.Action1;
  * Created by TingYu Zhu on 2017/8/4.
  */
 
-public class ProductsViewModel extends BaseViewModel {
+public abstract class ProductsViewModel extends BaseLoadMoreViewModel {
 
     private String productNo;
     private List<ProductEntity> addProductList;
@@ -24,6 +25,7 @@ public class ProductsViewModel extends BaseViewModel {
     public ProductsViewModel(Object activity) {
         super(activity);
     }
+
 
     public void addProductFavorites(Action1<String> action1){
         submitRequestThrowError(ProductsModel.addProductFavorites(productNo).map(r -> {

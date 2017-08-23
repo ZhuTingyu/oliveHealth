@@ -10,6 +10,7 @@ import com.olive.model.ProductsModel;
 import com.olive.model.entity.AdvertEntity;
 import com.olive.model.entity.CategoryEntity;
 import com.olive.model.entity.ProductEntity;
+import com.olive.ui.holder.ProductViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ import rx.functions.Action1;
  * Created by TingYu Zhu on 2017/8/1.
  */
 
-public class HomeViewModel extends BaseViewModel {
+public class HomeViewModel extends ProductsViewModel {
 
     public static final int TYPE_GOODS = 0;
     public static final int TYPE_NOTICE = 1;

@@ -31,11 +31,10 @@ import android.view.View;
 
 public class ProductAdapter extends BaseQuickAdapter<ProductEntity, ProductViewHolder> {
 
-    private ProductsViewModel viewHolder;
+    private ProductsViewModel viewModel;
 
     public ProductAdapter(@LayoutRes int id) {
         super(id, Lists.newArrayList());
-        viewHolder = new ProductsViewModel(mContext);
     }
 
     @Override
@@ -63,24 +62,28 @@ public class ProductAdapter extends BaseQuickAdapter<ProductEntity, ProductViewH
         if (holder.btnLike != null) {
             holder.btnLike.setOnClickListener(v -> {
                 v.setSelected(!v.isSelected());
-                viewHolder.setProductNo(mData.get(holder.getAdapterPosition() - getHeaderLayoutCount()).productNo);
+                viewModel.setProductNo(mData.get(holder.getAdapterPosition() - getHeaderLayoutCount()).productNo);
                 if (v.isSelected()) {
-                    viewHolder.addProductFavorites(s -> {
+                    viewModel.addProductFavorites(s -> {
                         ToastUtils.showLong(mContext, mContext.getString(R.string.text_add_favorites));
                     });
                 } else {
-                    viewHolder.cancelProductFavorites(s -> {
+                    viewModel.cancelProductFavorites(s -> {
                         ToastUtils.showLong(mContext, mContext.getString(R.string.text_cancel_favorites));
                     });
                 }
             });
         }
         holder.btnCart.setOnClickListener(v -> {
-            viewHolder.setAddProductList(mData.get(holder.getAdapterPosition() - getHeaderLayoutCount()));
-            viewHolder.addCart(s -> {
+            viewModel.setAddProductList(mData.get(holder.getAdapterPosition() - getHeaderLayoutCount()));
+            viewModel.addCart(s -> {
                 ToastUtils.showLong(mContext, mContext.getString(R.string.text_join_cart_success));
             });
         });
 
+    }
+
+    public void setViewModel(ProductsViewModel viewHolder) {
+        this.viewModel = viewHolder;
     }
 }
