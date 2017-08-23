@@ -26,7 +26,6 @@ public abstract class BaseLoadMoreViewModel extends BaseViewModel {
     public void loadMore(List entities, Action1<Object> action1) {
         Observable.just(new Object()).subscribe(action1);
         if (entities.isEmpty()) {
-            error.onNext(new RestErrorInfo(getString(R.string.message_no_more)));
             recyclerView.setLoadMore(true);
         } else {
             BaseQuickAdapter adapter = (BaseQuickAdapter) recyclerView.getAdapter();

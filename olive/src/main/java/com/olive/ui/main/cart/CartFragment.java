@@ -21,6 +21,7 @@ import com.biz.util.Lists;
 import com.biz.util.PriceUtil;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
+import com.olive.event.UpdateCartEvent;
 import com.olive.model.entity.ProductEntity;
 import com.olive.ui.adapter.CartAdapter;
 import com.olive.ui.order.CheckOrderInfoFragment;
@@ -28,6 +29,8 @@ import com.olive.ui.order.CheckOrderInfoFragment;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Title: CartFragment
@@ -65,6 +68,7 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
             buyAgainProductsNumber = intent.getIntExtra(IntentBuilder.KEY_VALUE, 0);
             haveBack = intent.getBooleanExtra(IntentBuilder.KEY_BOOLEAN, false);
         }
+        EventBus.getDefault().register(this);
     }
 
 
@@ -89,6 +93,18 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
     @Override
     public void lazyLoad() {
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
+    }
+
+    public void onEvent(UpdateCartEvent event){
+        viewModel.getCartProductList(productEntities -> {
+            adapter.replaceData(productEntities);
+        });
     }
 
     private void initView() {

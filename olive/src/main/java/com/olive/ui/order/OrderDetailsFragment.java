@@ -22,9 +22,7 @@ import com.olive.R;
 import com.olive.model.UserModel;
 import com.olive.model.entity.OrderEntity;
 import com.olive.ui.adapter.CheckOrderAdapter;
-import com.olive.ui.adapter.BaseLineTextListAdapter;
 import com.olive.ui.adapter.OrderFootAdapter;
-import com.olive.ui.main.my.address.AddressViewModel;
 import com.olive.ui.order.viewModel.OrderDetailViewModel;
 import com.olive.ui.order.viewModel.OrderViewModel;
 
@@ -70,7 +68,7 @@ public class OrderDetailsFragment extends BaseFragment {
 
     private void initData() {
         viewModel.getOrderDetail(orderEntity -> {
-            this.orderEntity = orderEntity;
+            this.orderEntity = viewModel.orderEntity;
             status = orderViewModel.getOrderStatus(orderEntity);
             orderViewModel.setOrderNo(orderEntity.orderNo);
             initView();
@@ -84,6 +82,7 @@ public class OrderDetailsFragment extends BaseFragment {
         adapter = new CheckOrderAdapter();
         adapter.setNewData(orderEntity.products);
         recyclerView.setAdapter(adapter);
+        recyclerView.setFocusable(false);
 
         initButton();
         initHeadView();
@@ -153,8 +152,8 @@ public class OrderDetailsFragment extends BaseFragment {
         View footView = LayoutInflater.from(getContext()).inflate(R.layout.item_order_details_foot_layout, null);
         XRecyclerView footList = (XRecyclerView) footView.findViewById(R.id.list);
         footList.setLayoutManager(new LinearLayoutManager(getContext()));
-        OrderFootAdapter footAdapter = new OrderFootAdapter(getContext().getResources().getStringArray(R.array.array_order_details));
-        footAdapter.setNewData(getOrderInfo());
+        OrderFootAdapter footAdapter = new OrderFootAdapter(viewModel.getOderInfoTitle());
+        footAdapter.setNewData(viewModel.getOrderInfo());
         footList.setAdapter(footAdapter);
 
         TextView number = (TextView) footView.findViewById(R.id.number);
@@ -177,17 +176,5 @@ public class OrderDetailsFragment extends BaseFragment {
         adapter.addHeaderView(head);
     }
 
-    private List<String> getOrderInfo() {
-        List<String> list = Lists.newArrayList();
-        list.add(orderEntity.outTradeNo);
-        list.add(orderEntity.expressInfo);
-        //TODO 物流价格
-        list.add("12");
-        list.add(orderEntity.orderNo);
-        list.add(orderEntity.outTradeNo);
-        list.add(TimeUtil.format(orderEntity.createTime, TimeUtil.FORMAT_YYYYMMDDHHMMSS));
-        list.add(TimeUtil.format(orderEntity.payTime, TimeUtil.FORMAT_YYYYMMDDHHMMSS));
-        return list;
-    }
 
 }

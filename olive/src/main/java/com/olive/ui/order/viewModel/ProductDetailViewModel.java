@@ -23,7 +23,7 @@ public class ProductDetailViewModel extends BaseViewModel {
     private String productNo;
     private int productNumber;
     private long totalPrice;
-    private ProductEntity productEntity;
+    public ProductEntity productEntity;
     private List<ProductEntity> addProductList;
     private List<ProductEntity> relevanceProductList;
 
@@ -80,10 +80,12 @@ public class ProductDetailViewModel extends BaseViewModel {
         addProductList = relevanceProductList;
     }
 
-
-
     public long getPrice() {
         return productEntity.salePrice != 0 ? productEntity.salePrice : productEntity.originalPrice;
+    }
+
+    public long getTotalPrice(){
+        return new BigDecimal(getPrice()).multiply(new BigDecimal(productEntity.quantity)).longValue();
     }
 
 }

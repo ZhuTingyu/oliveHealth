@@ -82,13 +82,12 @@ public class ProductDetailsFragment extends BaseFragment {
         initHeadData();
         initView();
         initBelowLayout();
-        recyclerView.setFocusable(false);
     }
 
 
     private void initHeadData() {
         viewModel.getProductDetail(productEntity -> {
-            this.productEntity = productEntity;
+            this.productEntity = viewModel.productEntity;
             initHeadView();
         });
     }
@@ -100,6 +99,8 @@ public class ProductDetailsFragment extends BaseFragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         adapter = new ProductAdapter(R.layout.item_cart_product_layout);
         recyclerView.setAdapter(adapter);
+        recyclerView.setFocusable(false);
+
 
         viewModel.getRelevanceProductList(productEntities -> {
             adapter.setNewData(productEntities);
@@ -223,6 +224,7 @@ public class ProductDetailsFragment extends BaseFragment {
                 productCount -= productEntity.orderCardinality;
             }
             edCount.setText(productCount + "");
+            productEntity.quantity = productCount;
         });
 
         //增多
@@ -230,6 +232,7 @@ public class ProductDetailsFragment extends BaseFragment {
         iconMore.setOnClickListener(l -> {
             productCount += productEntity.orderCardinality;
             edCount.setText(productCount + "");
+            productEntity.quantity = productCount;
         });
 
         TextView tvConfirm = (TextView) dialog.findViewById(R.id.tv_confirm);
@@ -244,7 +247,9 @@ public class ProductDetailsFragment extends BaseFragment {
 
                     break;
                 case TYPE_BUY:
-                        IntentBuilder.Builder().putParcelableArrayListExtra(IntentBuilder.KEY_VALUE, (ArrayList<? extends Parcelable>) viewModel.setAddCartCurrentProduct())
+                        IntentBuilder.Builder()
+                                .putParcelableArrayListExtra(IntentBuilder.KEY_DATA, (ArrayList<? extends Parcelable>) viewModel.setAddCartCurrentProduct())
+                                .putExtra(IntentBuilder.KEY_VALUE, viewModel.getTotalPrice())
                                 .startParentActivity(getActivity(), CheckOrderInfoFragment.class, true);
                         break;
             }

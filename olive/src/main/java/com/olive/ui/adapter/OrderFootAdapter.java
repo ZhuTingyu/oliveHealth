@@ -25,7 +25,7 @@ public class OrderFootAdapter extends BaseLineTextListAdapter{
     @Override
     protected void convert(BaseViewHolder holder, String s) {
         super.convert(holder, s);
-        if(holder.getAdapterPosition() == 2){
+        if(holder.getAdapterPosition() == 2 && mData.size() == 7){
             TextView number = holder.findViewById(R.id.number);
             number.setTextColor(mContext.getResources().getColor(R.color.color_red));
         }

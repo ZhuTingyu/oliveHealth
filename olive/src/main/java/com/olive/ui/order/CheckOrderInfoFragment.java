@@ -16,6 +16,7 @@ import com.biz.util.IntentBuilder;
 import com.biz.util.PriceUtil;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
+import com.olive.event.UpdateCartEvent;
 import com.olive.model.OrderModel;
 import com.olive.model.UserModel;
 import com.olive.model.entity.AccountEntity;
@@ -25,6 +26,8 @@ import com.olive.ui.main.my.address.AddressManageFragment;
 import com.olive.ui.main.my.address.AddressViewModel;
 import com.olive.ui.order.viewModel.CheckInfoViewModel;
 import com.olive.ui.order.viewModel.OrderViewModel;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by TingYu Zhu on 2017/7/26.
@@ -99,6 +102,8 @@ public class CheckOrderInfoFragment extends BaseFragment {
                                 .putExtra(IntentBuilder.KEY_VALUE, accountEntity)
                                 .putExtra(IntentBuilder.KEY_DATA, orderEntity)
                                 .startParentActivity(getActivity(), PayOrderFragment.class, true);
+                        EventBus.getDefault().post(new UpdateCartEvent());
+                        getActivity().finish();
                     });
 
                 });

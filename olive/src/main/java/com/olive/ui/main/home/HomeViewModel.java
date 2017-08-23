@@ -28,8 +28,9 @@ public class HomeViewModel extends BaseViewModel {
     public static final int TYPE_CATEGORY_HOME = 0;
 
 
-    private ArrayList<AdvertEntity> goodsList;
-    private ArrayList<String> noticeList;
+    private ArrayList<String> imageList;
+
+    public List<AdvertEntity> advertEntityList;
 
     public HomeViewModel(Object activity) {
         super(activity);
@@ -38,9 +39,9 @@ public class HomeViewModel extends BaseViewModel {
     public void getAvertList(Action1<List<AdvertEntity>> action1){
         submitRequestThrowError(NoticeModel.advertList().map(r -> {
             if(r.isOk()){
-                List<AdvertEntity> list = r.data;
-                getLists(list);
-                return r.data;
+                advertEntityList= r.data;
+                setImageList(advertEntityList);
+                return advertEntityList;
             }else throw new HttpErrorException(r);
         }),action1);
     }
@@ -62,25 +63,18 @@ public class HomeViewModel extends BaseViewModel {
         }),action1);
     }
 
-    private void getLists(List<AdvertEntity> list) {
-        goodsList = Lists.newArrayList();
-        noticeList = Lists.newArrayList();
+    private void setImageList(List<AdvertEntity> list) {
+        imageList = Lists.newArrayList();
         for(AdvertEntity entity : list){
-            if(TYPE_GOODS == entity.type){
-                goodsList.add(entity);
-            }else {
-                noticeList.add(entity.image);
-            }
+           imageList.add(entity.image);
         }
     }
 
-    public ArrayList<AdvertEntity> getGoodsList() {
-        return goodsList;
+    public ArrayList<String> getImageList() {
+        return imageList;
     }
 
-    public ArrayList<String> getNoticeImageList() {
-        return noticeList;
+    public boolean isGoodsAdvert(int position){
+        return advertEntityList.get(position).type == HomeViewModel.TYPE_GOODS;
     }
-
-
 }

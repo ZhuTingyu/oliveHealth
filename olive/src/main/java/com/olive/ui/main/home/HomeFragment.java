@@ -10,6 +10,7 @@ import com.biz.widget.recyclerview.XRecyclerView;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.olive.R;
 import com.olive.model.UserModel;
+import com.olive.model.entity.AdvertEntity;
 import com.olive.model.entity.NoticeEntity;
 import com.olive.ui.adapter.HomeNoticeAdapter;
 import com.olive.ui.adapter.ProductAdapter;
@@ -185,11 +186,23 @@ public class HomeFragment extends BaseLazyFragment {
         lp.bottomMargin = com.biz.util.Utils.dip2px(30);
         viewModel.getAvertList(advertEntities -> {
             banner.setPages(
-                    () -> new ImageHolderView(com.biz.util.Utils.dip2px(getActivity(), 180), ScalingUtils.ScaleType.FIT_XY), viewModel.getNoticeImageList())
+                    () -> new ImageHolderView(com.biz.util.Utils.dip2px(getActivity(), 180), ScalingUtils.ScaleType.FIT_XY), viewModel.getImageList())
                     .startTurning(3000)
                     .setPageIndicator(new int[]{R.drawable.ic_page_indicator, R.drawable.ic_page_indicator_focus})
                     .setPointViewVisible(true)
                     .setCanLoop(true);
+        });
+        banner.setOnItemClickListener(position -> {
+            String id = viewModel.advertEntityList.get(position).sourceId;
+            if(viewModel.isGoodsAdvert(position)){
+                IntentBuilder.Builder()
+                        .putExtra(IntentBuilder.KEY_VALUE, id)
+                        .startParentActivity(getActivity(), ProductDetailsFragment.class, true);
+            }else {
+                IntentBuilder.Builder()
+                        .putExtra(IntentBuilder.KEY_VALUE, id)
+                        .startParentActivity(getActivity(), NoticeDetailFragment.class, true);
+            }
         });
     }
 

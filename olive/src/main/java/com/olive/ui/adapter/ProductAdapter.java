@@ -45,24 +45,30 @@ public class ProductAdapter extends BaseQuickAdapter<ProductEntity, ProductViewH
                 .displayImage(holder.icon);
         holder.tvProductName.setText(item.name);
 
-        if(item.salePrice == 0){
+        if (item.salePrice == 0) {
             holder.tvProductPrice.setText(PriceUtil.formatRMB(item.originalPrice));
             holder.tvProductPriceOld.setVisibility(View.GONE);
-            holder.iconLabel.setVisibility(View.GONE);
-        }else {
+            if (holder.iconLabel != null) {
+                holder.iconLabel.setVisibility(View.GONE);
+            }
+        } else {
+            if (holder.iconLabel != null) {
+                holder.iconLabel.setVisibility(View.VISIBLE);
+            }
+            holder.tvProductPriceOld.setVisibility(View.VISIBLE);
             holder.tvProductPrice.setText(PriceUtil.formatRMB(item.salePrice));
             holder.tvProductPriceOld.setText(PriceUtil.formatRMB(item.originalPrice));
             holder.tvProductPriceOld.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
         }
-        if(holder.btnLike != null){
+        if (holder.btnLike != null) {
             holder.btnLike.setOnClickListener(v -> {
                 v.setSelected(!v.isSelected());
                 viewHolder.setProductNo(mData.get(holder.getAdapterPosition() - getHeaderLayoutCount()).productNo);
-                if(v.isSelected()){
+                if (v.isSelected()) {
                     viewHolder.addProductFavorites(s -> {
                         ToastUtils.showLong(mContext, mContext.getString(R.string.text_add_favorites));
                     });
-                }else {
+                } else {
                     viewHolder.cancelProductFavorites(s -> {
                         ToastUtils.showLong(mContext, mContext.getString(R.string.text_cancel_favorites));
                     });
