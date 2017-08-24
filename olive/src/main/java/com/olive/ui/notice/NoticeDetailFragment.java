@@ -44,8 +44,10 @@ public class NoticeDetailFragment extends BaseFragment {
     }
 
     private void initData() {
+        setProgressVisible(true);
         viewModel.getNoticeDetail(noticeDetailEntity -> {
             initView(noticeDetailEntity);
+            setProgressVisible(false);
         });
     }
 

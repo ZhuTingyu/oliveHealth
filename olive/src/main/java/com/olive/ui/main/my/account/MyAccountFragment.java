@@ -13,6 +13,7 @@ import com.biz.util.IntentBuilder;
 import com.biz.util.PriceUtil;
 import com.olive.R;
 import com.olive.ui.main.my.account.viewModel.AccountViewModel;
+import com.olive.ui.order.PayDebtFragment;
 
 /**
  * Created by TingYu Zhu on 2017/7/30.
@@ -67,7 +68,15 @@ public class MyAccountFragment extends BaseFragment {
         });
 
         btnOk.setOnClickListener(v -> {
-
+            viewModel.getDebtDetails(orderEntities -> {
+                if(orderEntities == null || orderEntities.isEmpty()){
+                    error(getString(R.string.message_account_no_debt));
+                }else {
+                    IntentBuilder.Builder()
+                            .putExtra(IntentBuilder.KEY_DATA, orderEntities.get(0))
+                            .startParentActivity(getActivity(), PayDebtFragment.class, true);
+                }
+            });
         });
     }
 }

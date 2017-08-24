@@ -12,7 +12,7 @@ import rx.functions.Action1;
  * Created by TingYu Zhu on 2017/8/9.
  */
 
-public class AccountViewModel extends BaseViewModel {
+public class AccountViewModel extends ConsumeViewModel {
 
     public AccountEntity accountEntity;
 

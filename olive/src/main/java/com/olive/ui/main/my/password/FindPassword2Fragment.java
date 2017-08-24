@@ -6,15 +6,13 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.TextView;
 
-import com.biz.base.BaseFragment;
 import com.biz.util.IntentBuilder;
 import com.biz.util.RxUtil;
 import com.biz.util.ToastUtils;
 import com.olive.R;
-import com.olive.model.UserModel;
+import com.olive.ui.main.my.password.viewmodel.FindPasswordViewModel;
+import com.olive.ui.main.my.password.viewmodel.PasswordViewModel;
 
 /**
  * Created by TingYu Zhu on 2017/7/28.
@@ -22,6 +20,11 @@ import com.olive.model.UserModel;
 
 public class FindPassword2Fragment extends BasePasswordFragment {
 
+    @Override
+    public void onAttach(Context context) {
+        viewModel = new FindPasswordViewModel(context);
+        super.onAttach(context);
+    }
 
     @Nullable
     @Override
@@ -38,17 +41,14 @@ public class FindPassword2Fragment extends BasePasswordFragment {
         initPasswordView();
         tvOk = findViewById(R.id.btn_ok);
         tvOk.setOnClickListener(v -> {
-            viewModel.isPasswordValid(s -> {
-                if(PasswordViewModel.INFO_VALID.equals(s)){
-                    viewModel.resetPassword(s1 -> {
-                        ToastUtils.showLong(getActivity(), getString(R.string.message_modify_success));
-                        getActivity().finish();
-                    });
-                }else {
-                    error(s);
-                }
+            viewModel.resetPassword(s1 -> {
+                ToastUtils.showLong(getActivity(), getString(R.string.message_modify_success));
+                getActivity().finish();
             });
         });
+
+        bindUi(viewModel.getIsValid(), RxUtil.enabled(tvOk));
+
     }
 
     @Override

@@ -15,16 +15,19 @@ import com.biz.util.Lists;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.olive.R;
+import com.olive.event.OrderListUpdateEvent;
 import com.olive.ui.adapter.OrderInfoListAdapter;
 import com.olive.ui.order.viewModel.OrderListViewModel;
 
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
+
 /**
  * Created by TingYu Zhu on 2017/7/28.
  */
 
-public class OrderListInfoFragment extends BaseFragment {
+public class BaseOrderListInfoFragment extends BaseFragment {
 
 
     private XRecyclerView recyclerView;
@@ -37,6 +40,7 @@ public class OrderListInfoFragment extends BaseFragment {
         super.onAttach(context);
         viewModel = new OrderListViewModel(this);
         initViewModel(viewModel);
+        EventBus.getDefault().register(this);
     }
 
     @Nullable
@@ -51,6 +55,11 @@ public class OrderListInfoFragment extends BaseFragment {
         initView();
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
+    }
 
     private void initView() {
         recyclerView = findViewById(R.id.list);
@@ -75,5 +84,14 @@ public class OrderListInfoFragment extends BaseFragment {
             adapter.setNewData(orderEntities);
         });
 
+    }
+
+    public void onEvent(OrderListUpdateEvent event){
+        if(event.typeCode == viewModel.typeCode){
+            viewModel.cleanPage();
+            viewModel.getOrderList(orderEntities -> {
+                adapter.setNewData(orderEntities);
+            });
+        }
     }
 }

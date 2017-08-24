@@ -12,6 +12,7 @@ import com.biz.util.RxUtil;
 import com.biz.util.ToastUtils;
 import com.biz.widget.CustomCountDownTimer;
 import com.olive.R;
+import com.olive.ui.main.my.password.viewmodel.PasswordViewModel;
 
 /**
  * Created by TingYu Zhu on 2017/7/28.
@@ -31,7 +32,6 @@ public abstract class BasePasswordFragment extends BaseFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        viewModel = new PasswordViewModel(context);
         initViewModel(viewModel);
     }
 
@@ -65,15 +65,11 @@ public abstract class BasePasswordFragment extends BaseFragment {
                 btnCode, R.string.text_send_code, R.string.btn_resend_count, 60000, 1000);
 
         btnCode.setOnClickListener(v -> {
-           if(viewModel.isMobileValid()){
-               viewModel.sendCode(s -> {
-                   countDownTimer.start();
-                   ToastUtils.showLong(getActivity(), getString(R.string.message_send_code_success));
-                   sendCodeSuccess();
-               });
-           }else {
-               error(getString(R.string.message_input_valid_mobile));
-           }
+            viewModel.sendCode(s -> {
+                countDownTimer.start();
+                ToastUtils.showLong(getActivity(), getString(R.string.message_send_code_success));
+                sendCodeSuccess();
+            });
         });
     }
 

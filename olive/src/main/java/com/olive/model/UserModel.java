@@ -1,5 +1,6 @@
 package com.olive.model;
 
+import android.app.Application;
 import android.text.TextUtils;
 
 import com.anye.greendao.gen.ConfigBeanDao;
@@ -15,6 +16,7 @@ import com.biz.util.MD5;
 import com.biz.util.Utils;
 import com.google.gson.reflect.TypeToken;
 import com.olive.R;
+import com.olive.app.OliveApplication;
 import com.olive.model.db.DatabaseLoader;
 import com.olive.model.entity.ConfigBean;
 import com.olive.model.entity.DatabaseType;
@@ -158,7 +160,6 @@ public class UserModel {
         if (list != null && list.size() > 0) {
             for (ConfigBean configBean : list) {
                 if (userInfo != null && userInfo.userId == configBean.getUserId()) {
-                    userInfo.password = password;
                     configBean.setCache(GsonUtil.toJson(userInfo));
                     configBean.setKey(userInfo.mobile);
                     configBean.setTs(System.currentTimeMillis());
@@ -173,6 +174,7 @@ public class UserModel {
         }
         if (!isExists && userInfo != null) {
             ConfigBean configBean = new ConfigBean();
+            userInfo.password = password;
             configBean.setCache(GsonUtil.toJson(userInfo));
             configBean.setKey(userInfo.mobile);
             configBean.setTs(System.currentTimeMillis());
@@ -210,7 +212,7 @@ public class UserModel {
         return HttpRequest.<ResponseJson<UserEntity>>builder()
                 .url(R.string.api_user_login)
                 .addBody("mobile", mobile)
-                .addBody("password", MD5.toMD5(password).toUpperCase())
+                .addBody("password", MD5.toMD5(password + OliveApplication.getAppContext().getString(R.string.string_password_suffix)).toUpperCase())
                 .setToJsonType(new TypeToken<ResponseJson<UserEntity>>() {}.getType())
                 .requestPI().map(r -> {
                     if (r.isOk()) {

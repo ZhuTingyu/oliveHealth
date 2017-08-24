@@ -69,6 +69,7 @@ public class StockManagerFragment extends BaseFragment {
                     setProgressVisible(true);
                     viewModel.getStockList(o -> {
                         setProgressVisible(false);
+                        adapter.setNewData(o);
                     });
                     dismissKeyboard();
                 }else {

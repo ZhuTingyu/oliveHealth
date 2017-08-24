@@ -17,6 +17,7 @@ import com.biz.util.PriceUtil;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.olive.R;
+import com.olive.event.OrderListUpdateEvent;
 import com.olive.model.entity.OrderEntity;
 import com.olive.model.entity.ProductEntity;
 import com.olive.ui.holder.ProductViewHolder;
@@ -27,11 +28,14 @@ import com.olive.ui.main.my.account.viewModel.AccountViewModel;
 import com.olive.ui.main.my.address.AddressViewModel;
 import com.olive.ui.order.PayDebtFragment;
 import com.olive.ui.order.PayOrderFragment;
+import com.olive.ui.order.viewModel.OrderListViewModel;
 import com.olive.ui.order.viewModel.OrderViewModel;
 import com.olive.util.LoadImageUtil;
 import com.olive.util.Utils;
 
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by TingYu Zhu on 2017/7/28.
@@ -174,7 +178,7 @@ public class OrderInfoListAdapter extends BaseQuickAdapter<OrderEntity, BaseView
             orderViewModel.cancelOrder(s -> {
                 fragment.setProgressVisible(false);
                 remove(holder.getAdapterPosition());
-                //TODO 刷新 已经取消列表的数据
+                EventBus.getDefault().post(new OrderListUpdateEvent(OrderListViewModel.TYPE_ORDER_CANCEL));
             });
         });
 

@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.biz.util.RxUtil;
@@ -13,6 +12,7 @@ import com.biz.util.ToastUtils;
 import com.biz.widget.CustomCountDownTimer;
 import com.olive.R;
 import com.olive.model.UserModel;
+import com.olive.ui.main.my.password.viewmodel.PasswordViewModel;
 
 /**
  * Created by TingYu Zhu on 2017/7/28.
@@ -42,31 +42,21 @@ public class ResetPayPasswordFragment extends BasePasswordFragment {
                 btnCode, R.string.text_send_code, R.string.btn_resend_count, 60000, 1000);
 
         btnCode.setOnClickListener(v -> {
-            if (viewModel.isMobileValid()) {
-                viewModel.setType(PasswordViewModel.TYPE_CODE_RESET_PAY_PASSWORD);
-                viewModel.sendCode(s -> {
-                    countDownTimer.start();
-                    ToastUtils.showLong(getActivity(), getString(R.string.message_send_code_success));
-                    sendCodeSuccess();
-                });
-            } else {
-                error(getString(R.string.message_input_valid_mobile));
-            }
+            viewModel.setType(PasswordViewModel.TYPE_CODE_RESET_PAY_PASSWORD);
+            viewModel.sendCode(s -> {
+                countDownTimer.start();
+                ToastUtils.showLong(getActivity(), getString(R.string.message_send_code_success));
+                sendCodeSuccess();
+            });
         });
 
         initPasswordView();
 
         tvOk = findViewById(R.id.btn_ok);
         tvOk.setOnClickListener(v -> {
-            viewModel.isPasswordValid(s -> {
-                if (PasswordViewModel.INFO_VALID.equals(s)) {
-                    viewModel.resetPayPassword(s1 -> {
-                        ToastUtils.showLong(getContext(), getString(R.string.message_modify_success));
-                        getActivity().finish();
-                    });
-                } else {
-                    error(s);
-                }
+            viewModel.resetPayPassword(s1 -> {
+                ToastUtils.showLong(getContext(), getString(R.string.message_modify_success));
+                getActivity().finish();
             });
         });
     }

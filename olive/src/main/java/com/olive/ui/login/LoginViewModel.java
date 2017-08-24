@@ -27,7 +27,7 @@ public class LoginViewModel extends BaseViewModel {
 
     public  void login(Action1<UserEntity> onNext){
 
-        submitRequestThrowError(UserModel.login(userName, password + getString(R.string.string_password_suffix)).map(r ->{
+        submitRequestThrowError(UserModel.login(userName, password).map(r ->{
             if(r.isOk()){
                 submitRequest(UserModel.saveLoginMobile(userName), b -> {
                 });

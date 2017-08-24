@@ -19,19 +19,19 @@ import rx.functions.Action1;
 public class OrderListViewModel extends BaseLoadMoreViewModel {
 
 
-    private static final int TYPE_ALL = 0; //全部（默认），
-    private static final int TYPE_WAIT_PAY = 1;//待付款，
-    private static final int TYPE_WAIT_SEND = 2;//待发货，e
-    private static final int TYPE_WAIT_RECEIVE = 3;//待收货 ，
-    private static final int TYPE_ORDER_COMPLETE = 4;//已完成订单，
-    private static final int TYPE_ORDER_CANCEL = -1;//已取消订单
+    public static final int TYPE_ALL = 0; //全部（默认），
+    public static final int TYPE_WAIT_PAY = 1;//待付款，
+    public static final int TYPE_WAIT_SEND = 2;//待发货，e
+    public static final int TYPE_WAIT_RECEIVE = 3;//待收货 ，
+    public static final int TYPE_ORDER_COMPLETE = 4;//已完成订单，
+    public static final int TYPE_ORDER_CANCEL = -1;//已取消订单
 
 
 
 
     public static final String KEY_TYPE = "type";
     private String typeName;
-    private int typeCode;
+    public int typeCode;
 
 
     public OrderListViewModel(BaseFragment fragment) {

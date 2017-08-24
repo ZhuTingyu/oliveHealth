@@ -4,6 +4,7 @@ import com.biz.http.ResponseJson;
 import com.biz.util.MD5;
 import com.google.gson.reflect.TypeToken;
 import com.olive.R;
+import com.olive.app.OliveApplication;
 import com.olive.model.entity.AccountEntity;
 import com.olive.model.entity.BankEntity;
 import com.olive.model.entity.OrderEntity;
@@ -42,8 +43,8 @@ public class AccountModel {
                 }.getType())
                 .addBody("mobile", mobile)
                 .addBody("authCode", authCode)
-                .addBody("password", MD5.toMD5(UserModel.getInstance().getPassword()).toUpperCase())
-                .addBody("newPassword", MD5.toMD5(newPassword).toUpperCase())
+                .addBody("password", MD5.toMD5(UserModel.getInstance().getPassword()+ OliveApplication.getAppContext().getString(R.string.string_password_suffix)).toUpperCase())
+                .addBody("newPassword", MD5.toMD5(newPassword+ OliveApplication.getAppContext().getString(R.string.string_password_suffix)).toUpperCase())
                 .url(R.string.api_account_change_password)
                 .requestPI();
     }
@@ -75,7 +76,7 @@ public class AccountModel {
                 }.getType())
                 .addBody("mobile", mobile)
                 .addBody("authCode", authCode)
-                .addBody("newPassword", MD5.toMD5(newPassword).toUpperCase())
+                .addBody("newPassword", MD5.toMD5(newPassword).toUpperCase()+ OliveApplication.getAppContext().getString(R.string.string_password_suffix))
                 .url(R.string.api_account_reset_password)
                 .requestPI();
     }
@@ -86,7 +87,7 @@ public class AccountModel {
                 }.getType())
                 .addBody("mobile", mobile)
                 .addBody("authCode", authCode)
-                .addBody("newPassword", MD5.toMD5(newPassword).toUpperCase())
+                .addBody("newPassword", MD5.toMD5(newPassword+ OliveApplication.getAppContext().getString(R.string.string_password_suffix)).toUpperCase())
                 .url(R.string.api_account_reset_pay_password)
                 .requestPI();
     }

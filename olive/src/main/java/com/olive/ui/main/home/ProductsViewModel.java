@@ -16,7 +16,7 @@ import rx.functions.Action1;
  * Created by TingYu Zhu on 2017/8/4.
  */
 
-public abstract class ProductsViewModel extends BaseLoadMoreViewModel {
+public  class ProductsViewModel extends BaseLoadMoreViewModel {
 
     private String productNo;
     private List<ProductEntity> addProductList;
@@ -24,6 +24,11 @@ public abstract class ProductsViewModel extends BaseLoadMoreViewModel {
 
     public ProductsViewModel(Object activity) {
         super(activity);
+    }
+
+    @Override
+    public void setLoadMore(Action1<Object> action1) {
+
     }
 
 
