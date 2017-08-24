@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 
 import com.biz.base.BaseFragment;
 import com.biz.util.Utils;
+import com.olive.R;
 
 /**
  * Created by TingYu Zhu on 2017/8/24.
@@ -32,6 +33,8 @@ public class CustomerServicesFragment extends BaseFragment{
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        mToolbar.setTitle(getString(R.string.text_contact_service));
 
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);

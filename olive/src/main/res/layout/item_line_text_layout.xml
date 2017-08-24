@@ -12,6 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16dp"
+        android:maxLines="1"
+        android:layout_marginRight="17dp"
         android:textColor="@color/color_333333"
         tools:text="汤臣倍健 鱼油软胶囊"/>
 

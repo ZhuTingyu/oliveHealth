@@ -16,6 +16,7 @@ import com.olive.model.entity.OrderEntity;
 import com.olive.model.entity.ProductEntity;
 import com.olive.ui.refund.LookRefundCheckResultFragment;
 import com.olive.ui.refund.viewModel.LookApplyRefundDetailViewModel;
+import com.olive.ui.service.CustomerServicesFragment;
 
 import java.util.List;
 
@@ -41,13 +42,17 @@ public class RefundAdapter extends BaseQuickAdapter<OrderEntity, BaseViewHolder>
 
         String status = "";
         TextView tvStatus = holder.findViewById(R.id.status);
+        TextView service = holder.findViewById(R.id.contact_service);
+        TextView look = holder.findViewById(R.id.look_result);
 
         if(orderEntity.status == LookApplyRefundDetailViewModel.STATUS_WAIT_CHECK){
             status = mContext.getString(R.string.text_refund_wait_check);
             tvStatus.setTextColor(mContext.getResources().getColor(R.color.red_light));
+            look.setVisibility(View.GONE);
         }else if(orderEntity.status == LookApplyRefundDetailViewModel.STATUS_PASS_CHECK){
             status = mContext.getString(R.string.text_refund_pass_check);
             tvStatus.setTextColor(mContext.getResources().getColor(R.color.green_light));
+            look.setVisibility(View.VISIBLE);
         }else if(orderEntity.status == LookApplyRefundDetailViewModel.STATUS_NOT_PASS_CHECK){
             status = mContext.getString(R.string.text_refund_not_pass_check);
             tvStatus.setTextColor(mContext.getResources().getColor(R.color.red_light));
@@ -68,11 +73,10 @@ public class RefundAdapter extends BaseQuickAdapter<OrderEntity, BaseViewHolder>
             linearLayout.addView(view);
         }
 
-        TextView service = holder.findViewById(R.id.contact_service);
-        TextView look = holder.findViewById(R.id.look_result);
+
 
         service.setOnClickListener(v -> {
-
+            IntentBuilder.Builder().startParentActivity(context, CustomerServicesFragment.class);
         });
 
         look.setOnClickListener(v -> {
