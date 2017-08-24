@@ -46,6 +46,7 @@
     <string name="text_my_stock">我的库存</string>
     <string name="text_my_account">我的帐户</string>
     <string name="text_my_address">收货地址</string>
+    <string name="text_my_address_is">收货地址：%1$s</string>
     <string name="text_my_password">修改登录密码</string>
     <string name="text_my_password_pay">重置支付密码</string>
     <string name="text_system_info">系统信息</string>
@@ -142,6 +143,7 @@
     <string name="text_ali_pay">支付宝支付</string>
     <string name="text_wei_pay">微信支付</string>
     <string name="text_make_sure_receive">确认收货</string>
+    <string name="text_pay_order_amount">实付款：%1$s</string>
     <string-array name="array_bank_pay">
         <item>中国银行</item>
         <item>中国工商银行</item>
@@ -229,6 +231,8 @@
     <string name="text_order_status">订单状态：</string>
     <string name="text_buy_again">再次购买</string>
     <string name="text_price_total">共：%1$s</string>
+
+    <string name="title_pay_failed">支付失败</string>
 
     <array name="array_order_details">
         <item>物流单号</item>

@@ -117,7 +117,7 @@ public abstract class BasePayFragment extends BaseFragment {
         tvNeedPayPrice = findViewById(head, R.id.need_pay);
         etVacancies = findViewById(head, R.id.input_account_vacancies);
         bindUi(RxUtil.textChanges(etVacancies), viewModel.setBalancePayAmount());
-        InputFilter[] filters={new CashierInputFilter(viewModel.orderEntity.amount)};
+        InputFilter[] filters = {new CashierInputFilter(viewModel.orderEntity.amount)};
         etVacancies.setFilters(filters);
 
         etVacancies.clearFocus();
@@ -146,7 +146,7 @@ public abstract class BasePayFragment extends BaseFragment {
 
         userNumber.setText(getString(R.string.text_account_number, UserModel.getInstance().getMobile()));
         payWay.setText(adapter.payWay);
-        payPrice.setText(PriceUtil.formatRMB(viewModel.orderEntity.amount ));
+        payPrice.setText(PriceUtil.formatRMB(viewModel.orderEntity.amount));
 
         btnOk.setOnClickListener(v -> {
 
@@ -168,41 +168,49 @@ public abstract class BasePayFragment extends BaseFragment {
         });
     }
 
-    private void checkPayPassword(GridPasswordView passwordView, TextView passwordError){
+    private void checkPayPassword(GridPasswordView passwordView, TextView passwordError) {
         viewModel.setPayPassword(passwordView.getPassWord());
         viewModel.checkPayPassword(s -> {
             setProgressVisible(false);
-            if(s == PayOrderViewModel.PAY_PASSWORD_CORRECT){
+            if (s == PayOrderViewModel.PAY_PASSWORD_CORRECT) {
                 payOrder();
-            }else {
+            } else {
                 passwordError.setVisibility(View.VISIBLE);
             }
         });
     }
 
     private void payOrder() {
-        if(viewModel.isPayHasBalance() && viewModel.isBalanceEnough()){
+        if (viewModel.isPayHasBalance() && viewModel.isBalanceEnough()) {
             submitOrder();
-        }else {
-            if(viewModel.payType == PayOrderViewModel.PAY_TYPE_BALANCE){
+        } else {
+            if (viewModel.payType == PayOrderViewModel.PAY_TYPE_BALANCE) {
                 error(getString(R.string.message_pay_price_not_enough));
-            }else {
-                if(viewModel.isPayWithAli()){
+            } else {
+                if (viewModel.isPayWithAli()) {
                     viewModel.getAliPayOrderInfoAndPay(s -> {
                         submitOrder();
                     });
-                }else if(viewModel.isPayWithWei()){
+                } else if (viewModel.isPayWithWei()) {
                     viewModel.getWeiXinOrderInfoAndPay();
-                }else {
+                } else {
                     // TODO: 2017/8/18 银行支付 
                 }
             }
         }
     }
 
-    private void submitOrder(){
+    private void submitOrder() {
         viewModel.payOrder(s -> {
-            ToastUtils.showLong(getActivity(), getString(R.string.message_pay_success));
+            IntentBuilder.Builder()
+                    .putExtra(IntentBuilder.KEY_BOOLEAN, true)
+                    .putExtra(IntentBuilder.KEY_VALUE, viewModel.orderEntity.amount)
+                    .startParentActivity(getActivity(), PayResultFragment.class);
+            getActivity().finish();
+        },throwable -> {
+            IntentBuilder.Builder()
+                    .putExtra(IntentBuilder.KEY_BOOLEAN, false)
+                    .startParentActivity(getActivity(), PayResultFragment.class);
             getActivity().finish();
         });
     }

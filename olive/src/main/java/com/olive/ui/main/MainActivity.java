@@ -39,6 +39,10 @@ import rx.Observable;
 
 public class MainActivity extends BaseActivity {
 
+
+    public static final int TAB_CART = 2;
+    public static final int TAB_HOME = 0;
+
     private BottomNavigationViewEx mBottomNavigationView;
     private ViewPager mViewPager;
     private BadgeView cartBadgeView;

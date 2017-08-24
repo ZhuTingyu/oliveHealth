@@ -206,9 +206,9 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
                 setBuyAgain(productEntities);
             }
             adapter.replaceData(productEntities);
-        });
-        viewModel.getTotalPrice(aLong -> {
-            priceTotal.setText(PriceUtil.formatRMB(aLong));
+            viewModel.getTotalPrice(aLong -> {
+                priceTotal.setText(PriceUtil.formatRMB(aLong));
+            });
         });
     }
 

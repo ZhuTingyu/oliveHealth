@@ -65,14 +65,14 @@ public class PayOrderViewModel extends BaseViewModel {
         }), action1);
     }
 
-    public void payOrder(Action1<String> action1){
+    public void payOrder(Action1<String> action1, Action1<Throwable> error){
         payOrderParameterMap.clear();
         initMap();
-        submitRequestThrowError(OrderModel.payOrder(payOrderParameterMap).map(r -> {
+        submitRequest(OrderModel.payOrder(payOrderParameterMap).map(r -> {
             if (r.isOk()) {
                 return r.data;
             } else throw new HttpErrorException(r);
-        }), action1);
+        }), action1,error);
     }
 
     public void getAliPayOrderInfoAndPay(Action1<String> action1){

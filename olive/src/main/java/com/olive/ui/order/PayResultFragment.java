@@ -1,9 +1,11 @@
 package com.olive.ui.order;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -11,7 +13,10 @@ import android.widget.TextView;
 
 import com.biz.base.BaseFragment;
 import com.biz.util.IntentBuilder;
+import com.biz.util.PriceUtil;
 import com.olive.R;
+import com.olive.ui.main.MainActivity;
+import com.olive.ui.main.my.address.AddressViewModel;
 
 import org.w3c.dom.Text;
 
@@ -30,6 +35,16 @@ public class PayResultFragment extends BaseFragment {
     private TextView urge;
 
     private boolean isSuccess;
+    private long orderAmount;
+
+    private AddressViewModel viewModel;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        viewModel = new AddressViewModel(context);
+        initViewModel(viewModel);
+    }
 
     @Nullable
     @Override
@@ -40,7 +55,9 @@ public class PayResultFragment extends BaseFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        isSuccess = getBaseActivity().getIntent().getBooleanExtra(IntentBuilder.KEY_BOOLEAN,true);
+        isSuccess = getBaseActivity().getIntent().getBooleanExtra(IntentBuilder.KEY_BOOLEAN,false);
+        orderAmount = getBaseActivity().getIntent().getLongExtra(IntentBuilder.KEY_VALUE,0);
+
         initView();
     }
 
@@ -53,26 +70,40 @@ public class PayResultFragment extends BaseFragment {
         price = findViewById(R.id.price);
         btnOk = findViewById(R.id.btn_ok);
 
+        mToolbar.setNavigationOnClickListener(null);
+        mToolbar.setNavigationIcon(null);
+
+        mToolbar.getMenu().clear();
+        mToolbar.getMenu().add(null).setIcon(R.drawable.vector_home_white)
+                .setOnMenuItemClickListener(item -> {
+                    MainActivity.startMainWithAnim(getActivity(), MainActivity.TAB_HOME);
+                    return false;
+                }).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         setView();
 
     }
 
     private void setView() {
         if(isSuccess){
+            mToolbar.setTitle(R.string.message_pay_success);
             result.setText(getString(R.string.text_already_pay));
-            address.setText("收货地址：四川省武侯区科华路那段");
-            price.setText("实付款：￥1232.123");
-            btnOk.setOnClickListener(v -> {
+            viewModel.getAddressList(addressEntities -> {
 
+                address.setText(getString(R.string.text_my_address_is, viewModel.getDefaultAddress().detailAddress));
+            });
+            price.setText(getString(R.string.text_pay_order_amount, PriceUtil.format(orderAmount)));
+            btnOk.setOnClickListener(v -> {
+                MainActivity.startMainWithAnim(getActivity(), MainActivity.TAB_CART);
             });
         }else {
+            mToolbar.setTitle(R.string.title_pay_failed);
             urge.setVisibility(View.VISIBLE);
             rlInof.setVisibility(View.GONE);
             imageView.setImageResource(R.drawable.vector_pay_failed);
             result.setText(getString(R.string.text_pay_failed));
             btnOk.setText(getString(R.string.text_back_cart));
             btnOk.setOnClickListener(v -> {
-
+                MainActivity.startMainWithAnim(getActivity(), MainActivity.TAB_CART);
             });
         }
     }

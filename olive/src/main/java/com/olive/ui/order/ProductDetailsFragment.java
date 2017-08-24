@@ -120,6 +120,9 @@ public class ProductDetailsFragment extends BaseFragment {
     private void initHeadView() {
         View headView = findViewById(R.id.head);
         BaseViewHolder headHolder = new BaseViewHolder(headView);
+        if(productEntity.salePrice == 0){
+            headHolder.findViewById(R.id.icon_label).setVisibility(View.GONE);
+        }
         headHolder.setText(R.id.tv_product_name, productEntity.name);
         headHolder.setText(R.id.tv_product_advice, productEntity.intro);
         TextView price = headHolder.getView(R.id.tv_product_price);
@@ -169,7 +172,7 @@ public class ProductDetailsFragment extends BaseFragment {
 
         findViewById(R.id.btn_cart).setOnClickListener(v -> {
             IntentBuilder.Builder()
-                    .putExtra(IntentBuilder.KEY_BOOLEAN,true)
+                    .putExtra(IntentBuilder.KEY_BOOLEAN, true)
                     .startParentActivity(getActivity(), CartFragment.class, false);
         });
 
@@ -211,7 +214,7 @@ public class ProductDetailsFragment extends BaseFragment {
 
 
         bindUi(RxUtil.textChanges(edCount), viewModel.setProductNumberAndCalculateTotalPrice(aLong -> {
-            tvTotal.setText(getString(R.string.text_price_total,PriceUtil.formatRMB(aLong)));
+            tvTotal.setText(getString(R.string.text_price_total, PriceUtil.formatRMB(aLong)));
         }));
 
         //减少
@@ -247,11 +250,11 @@ public class ProductDetailsFragment extends BaseFragment {
 
                     break;
                 case TYPE_BUY:
-                        IntentBuilder.Builder()
-                                .putParcelableArrayListExtra(IntentBuilder.KEY_DATA, (ArrayList<? extends Parcelable>) viewModel.setAddCartCurrentProduct())
-                                .putExtra(IntentBuilder.KEY_VALUE, viewModel.getTotalPrice())
-                                .startParentActivity(getActivity(), CheckOrderInfoFragment.class, true);
-                        break;
+                    IntentBuilder.Builder()
+                            .putParcelableArrayListExtra(IntentBuilder.KEY_DATA, (ArrayList<? extends Parcelable>) viewModel.setAddCartCurrentProduct())
+                            .putExtra(IntentBuilder.KEY_VALUE, viewModel.getTotalPrice())
+                            .startParentActivity(getActivity(), CheckOrderInfoFragment.class, true);
+                    break;
             }
         });
     }
