@@ -62,7 +62,7 @@
 
     <string name="api_cities_list">/cities/list</string>
 
-
+    <string name="api_serveContent">/serve/serveContent</string>
 
 
 </resources>

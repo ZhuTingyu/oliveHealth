@@ -18,7 +18,7 @@ public class NoticeDetailViewModel extends BaseViewModel {
 
     public NoticeDetailViewModel(Object activity) {
         super(activity);
-        id = getActivity().getIntent().getIntExtra(IntentBuilder.KEY_VALUE,0);
+        id = Integer.valueOf(getActivity().getIntent().getStringExtra(IntentBuilder.KEY_VALUE));
     }
 
     public void getNoticeDetail(Action1<NoticeDetailEntity> action1){

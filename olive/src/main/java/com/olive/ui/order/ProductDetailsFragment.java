@@ -42,6 +42,7 @@ import com.olive.ui.adapter.ProductAdapter;
 import com.olive.ui.holder.ImageHolderView;
 import com.olive.ui.main.cart.CartFragment;
 import com.olive.ui.order.viewModel.ProductDetailViewModel;
+import com.olive.ui.service.CustomerServicesFragment;
 import com.olive.util.LoadImageUtil;
 
 import java.math.BigDecimal;
@@ -175,7 +176,7 @@ public class ProductDetailsFragment extends BaseFragment {
 
     private void initBelowLayout() {
         findViewById(R.id.btn_contact).setOnClickListener(v -> {
-
+            IntentBuilder.Builder().startParentActivity(getActivity(), CustomerServicesFragment.class);
         });
 
         findViewById(R.id.btn_cart).setOnClickListener(v -> {
