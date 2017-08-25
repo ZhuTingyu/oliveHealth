@@ -49,6 +49,14 @@ public class ProductDetailViewModel extends ProductsViewModel {
         }), action1);
     }
 
+    public void getCartProductList(Action1<List<ProductEntity>> action1) {
+        submitRequestThrowError(CartModel.CartProducts().map(r -> {
+            if (r.isOk()) {
+                return r.data;
+            } else throw new HttpErrorException(r);
+        }), action1);
+    }
+
 
     public Action1<String> setProductNumberAndCalculateTotalPrice(Action1<Long> action1) {
         return s -> {

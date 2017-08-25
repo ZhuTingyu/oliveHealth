@@ -1,5 +1,7 @@
 package com.olive.ui.notice;
 
+import android.content.Intent;
+
 import com.biz.base.BaseViewModel;
 import com.biz.http.HttpErrorException;
 import com.biz.util.IntentBuilder;
@@ -18,7 +20,13 @@ public class NoticeDetailViewModel extends BaseViewModel {
 
     public NoticeDetailViewModel(Object activity) {
         super(activity);
-        id = Integer.valueOf(getActivity().getIntent().getStringExtra(IntentBuilder.KEY_VALUE));
+        Intent intent = getActivity().getIntent();
+        String idString = intent.getStringExtra(IntentBuilder.KEY_VALUE);
+        if(idString == null || idString.isEmpty()){
+            id = intent.getIntExtra(IntentBuilder.KEY_VALUE, -1);
+        }else {
+            id = Integer.valueOf(idString);
+        }
     }
 
     public void getNoticeDetail(Action1<NoticeDetailEntity> action1){

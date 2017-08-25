@@ -129,7 +129,7 @@
                 android:background="?attr/selectableItemBackground"
                 android:gravity="center"
                 android:text="忘记密码?"
-                android:textColor="@color/color_9b9b9b"
+                android:textColor="@color/white"
                 android:layout_centerHorizontal="true"
                 android:textSize="@dimen/big_font_16dp" />
 

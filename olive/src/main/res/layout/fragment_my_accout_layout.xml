@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
         android:id="@+id/text"
@@ -16,8 +17,9 @@
         android:id="@+id/balance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="24dp"
+        android:layout_marginRight="28dp"
         android:layout_alignParentRight="true"
+        tools:text="123123123"
         android:padding="16dp" />
 
 
@@ -41,13 +43,24 @@
             android:text="@string/text_account_consume_money"
             android:textColor="@color/color_2c2c2c" />
 
+        <ImageView
+            android:id="@+id/img1"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="8dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/ic_arrow_right_gray"/>
+
         <TextView
             android:id="@+id/consume"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:drawableRight="@drawable/ic_arrow_right_gray"
+            android:layout_toLeftOf="@id/img1"
+            tools:text="123123"
             android:padding="16dp" />
+
+
 
     </RelativeLayout>
 
@@ -72,13 +85,22 @@
             android:text="@string/text_account_debt"
             android:textColor="@color/color_2c2c2c" />
 
+        <ImageView
+            android:id="@+id/img2"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="8dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/ic_arrow_right_gray"/>
+
         <TextView
             android:id="@+id/debt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:drawableRight="@drawable/ic_arrow_right_gray"
+            android:layout_toLeftOf="@id/img2"
             android:padding="16dp"
+            tools:text="1212312"
             android:textColor="@color/color_red" />
 
     </RelativeLayout>

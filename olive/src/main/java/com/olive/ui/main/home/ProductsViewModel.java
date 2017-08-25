@@ -12,6 +12,7 @@ import com.olive.ui.BaseLoadMoreViewModel;
 
 import java.util.List;
 
+import rx.Observable;
 import rx.functions.Action1;
 
 /**
@@ -22,6 +23,9 @@ public  class ProductsViewModel extends BaseLoadMoreViewModel {
 
     public String productNo;
     protected List<ProductEntity> addProductList;
+
+    public static final int IS_FAVORITE = 1;
+    public static final int NOT_FAVORITE = 0;
 
 
     public ProductsViewModel(Object activity) {
@@ -34,7 +38,7 @@ public  class ProductsViewModel extends BaseLoadMoreViewModel {
     }
 
 
-    public void addProductFavorites(){
+    public void addProductFavorites(Action1<String> action1){
         getActivity().setProgressVisible(true);
         submitRequestThrowError(ProductsModel.addProductFavorites(productNo).map(r -> {
             if(r.isOk()){
@@ -43,10 +47,11 @@ public  class ProductsViewModel extends BaseLoadMoreViewModel {
         }),s -> {
             getActivity().setProgressVisible(false);
             ToastUtils.showShort(getActivity(),getString(R.string.text_add_favorites));
+            Observable.just("").subscribe(action1);
         });
     }
 
-    public void cancelProductFavorites(){
+    public void cancelProductFavorites(Action1<String> action1){
         getActivity().setProgressVisible(true);
         submitRequestThrowError(ProductsModel.cancelProductFavorites(productNo).map(r -> {
             if(r.isOk()){
@@ -55,6 +60,7 @@ public  class ProductsViewModel extends BaseLoadMoreViewModel {
         }),s -> {
             getActivity().setProgressVisible(false);
             ToastUtils.showShort(getActivity(), getString(R.string.text_cancel_favorites));
+            Observable.just("").subscribe(action1);
         });
     }
 

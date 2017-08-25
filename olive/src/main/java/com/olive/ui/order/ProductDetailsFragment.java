@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -64,6 +65,8 @@ public class ProductDetailsFragment extends BaseFragment {
     private ProductDetailViewModel viewModel;
     private ProductEntity productEntity;
 
+    private ImageView icCart;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -88,7 +91,7 @@ public class ProductDetailsFragment extends BaseFragment {
         mToolbar.getMenu().clear();
         mToolbar.getMenu().add(getString(R.string.text_favorites)).setIcon(R.drawable.vector_like)
                 .setOnMenuItemClickListener(item -> {
-                    viewModel.addProductFavorites();
+                    viewModel.addProductFavorites(s -> {});
                     return false;
                 }).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
     }
@@ -150,6 +153,7 @@ public class ProductDetailsFragment extends BaseFragment {
             viewModel.setAddCartRelevanceProductList();
             viewModel.addCart(s -> {
                 ToastUtils.showLong(getContext(), s);
+                icCart.setImageResource(R.drawable.vector_cart_have_goods);
             });
         });
 
@@ -175,6 +179,15 @@ public class ProductDetailsFragment extends BaseFragment {
 
 
     private void initBelowLayout() {
+
+        icCart = findViewById(R.id.ic_cart);
+
+        viewModel.getCartProductList(productEntities -> {
+            if(!productEntities.isEmpty()){
+                icCart.setImageResource(R.drawable.vector_cart_have_goods);
+            }
+        });
+
         findViewById(R.id.btn_contact).setOnClickListener(v -> {
             IntentBuilder.Builder().startParentActivity(getActivity(), CustomerServicesFragment.class);
         });
@@ -255,6 +268,7 @@ public class ProductDetailsFragment extends BaseFragment {
                     viewModel.addCart(s -> {
                         ToastUtils.showLong(getBaseActivity(), s);
                         dialog.dismiss();
+                        icCart.setImageResource(R.drawable.vector_cart_have_goods);
                     });
 
                     break;
