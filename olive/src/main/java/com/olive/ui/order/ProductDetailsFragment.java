@@ -12,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
@@ -82,6 +83,13 @@ public class ProductDetailsFragment extends BaseFragment {
         initHeadData();
         initView();
         initBelowLayout();
+
+        mToolbar.getMenu().clear();
+        mToolbar.getMenu().add(getString(R.string.text_favorites)).setIcon(R.drawable.vector_like)
+                .setOnMenuItemClickListener(item -> {
+                    viewModel.addProductFavorites();
+                    return false;
+                }).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
     }
 
 

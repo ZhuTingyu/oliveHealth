@@ -24,6 +24,7 @@ import com.biz.util.ValidUtil;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.jungly.gridpasswordview.GridPasswordView;
 import com.olive.R;
+import com.olive.event.WeiPayResultEvent;
 import com.olive.model.UserModel;
 import com.olive.model.entity.AccountEntity;
 import com.olive.model.entity.BankEntity;

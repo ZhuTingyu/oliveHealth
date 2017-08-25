@@ -3,6 +3,8 @@ package com.olive.ui.main.home;
 import com.biz.base.BaseViewModel;
 import com.biz.http.HttpErrorException;
 import com.biz.util.Lists;
+import com.biz.util.ToastUtils;
+import com.olive.R;
 import com.olive.model.CartModel;
 import com.olive.model.ProductsModel;
 import com.olive.model.entity.ProductEntity;
@@ -18,8 +20,8 @@ import rx.functions.Action1;
 
 public  class ProductsViewModel extends BaseLoadMoreViewModel {
 
-    private String productNo;
-    private List<ProductEntity> addProductList;
+    public String productNo;
+    protected List<ProductEntity> addProductList;
 
 
     public ProductsViewModel(Object activity) {
@@ -32,20 +34,28 @@ public  class ProductsViewModel extends BaseLoadMoreViewModel {
     }
 
 
-    public void addProductFavorites(Action1<String> action1){
+    public void addProductFavorites(){
+        getActivity().setProgressVisible(true);
         submitRequestThrowError(ProductsModel.addProductFavorites(productNo).map(r -> {
             if(r.isOk()){
                 return r.data;
             }else throw new HttpErrorException(r);
-        }),action1);
+        }),s -> {
+            getActivity().setProgressVisible(false);
+            ToastUtils.showShort(getActivity(),getString(R.string.text_add_favorites));
+        });
     }
 
-    public void cancelProductFavorites(Action1<String> action1){
+    public void cancelProductFavorites(){
+        getActivity().setProgressVisible(true);
         submitRequestThrowError(ProductsModel.cancelProductFavorites(productNo).map(r -> {
             if(r.isOk()){
                 return r.data;
             }else throw new HttpErrorException(r);
-        }),action1);
+        }),s -> {
+            getActivity().setProgressVisible(false);
+            ToastUtils.showShort(getActivity(), getString(R.string.text_cancel_favorites));
+        });
     }
 
     public void addCart(Action1<String> action1){

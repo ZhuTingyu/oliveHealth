@@ -4,9 +4,11 @@ package net.sourceforge.simcpux.wxapi;
  * Created by TingYu Zhu on 2017/8/18.
  */
 import com.biz.share.weixin.SendWX;
+import com.biz.share.weixin.WeiXinPayEvent;
 import com.biz.util.GsonUtil;
 import com.biz.util.LogUtil;
 import com.olive.R;
+import com.olive.event.WeiPayResultEvent;
 import com.tencent.mm.sdk.constants.ConstantsAPI;
 import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
@@ -17,6 +19,8 @@ import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+
+import de.greenrobot.event.EventBus;
 
 
 public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
@@ -48,9 +52,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     public void onResp(BaseResp resp) {
         LogUtil.print("onResp" + this+":"+ GsonUtil.toJson(resp));
         if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
-            
-        } else {
-
+            EventBus.getDefault().post(new WeiPayResultEvent(resp.errCode));
         }
     }
 

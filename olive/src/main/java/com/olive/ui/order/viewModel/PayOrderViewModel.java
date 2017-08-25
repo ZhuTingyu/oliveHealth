@@ -8,6 +8,7 @@ import com.biz.http.HttpErrorException;
 import com.biz.share.weixin.SendWX;
 import com.biz.util.IntentBuilder;
 import com.olive.R;
+import com.olive.event.WeiPayResultEvent;
 import com.olive.model.AccountModel;
 import com.olive.model.OrderModel;
 import com.olive.model.entity.AccountEntity;
@@ -18,6 +19,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
 import rx.functions.Action1;
 
 /**
@@ -54,6 +56,7 @@ public class PayOrderViewModel extends BaseViewModel {
         payOrderParameterMap = new HashMap();
         orderEntity = getActivity().getIntent().getParcelableExtra(IntentBuilder.KEY_DATA);
         accountEntity = getActivity().getIntent().getParcelableExtra(IntentBuilder.KEY_VALUE);
+        EventBus.getDefault().register(this);
     }
 
     public void getBankCards(Action1<List<BankEntity>> action1) {
@@ -196,6 +199,22 @@ public class PayOrderViewModel extends BaseViewModel {
 
         payOrderParameterMap.put("orderNo",orderEntity.orderNo);
         payOrderParameterMap.put("payPassword", payPassword);
+    }
+
+    public void onEevent(WeiPayResultEvent event){
+        if(event.code == WeiPayResultEvent.SUCCESS){
+
+        }else if(event.code == WeiPayResultEvent.CANCEL){
+
+        }else if(event.code == WeiPayResultEvent.ERROR){
+            
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }
 

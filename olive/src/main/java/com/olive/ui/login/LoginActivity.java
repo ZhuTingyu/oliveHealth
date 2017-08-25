@@ -53,7 +53,6 @@ public class LoginActivity extends BaseActivity {
         viewModel = new LoginViewModel(this);
         initViewModel(viewModel);
         type = getIntent().getIntExtra(IntentBuilder.KEY_TYPE,1);
-        mToolbar.setTitle(getString(R.string.text_login));
 
         initView();
 

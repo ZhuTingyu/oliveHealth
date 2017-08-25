@@ -64,13 +64,9 @@ public class ProductAdapter extends BaseQuickAdapter<ProductEntity, ProductViewH
                 v.setSelected(!v.isSelected());
                 viewModel.setProductNo(mData.get(holder.getAdapterPosition() - getHeaderLayoutCount()).productNo);
                 if (v.isSelected()) {
-                    viewModel.addProductFavorites(s -> {
-                        ToastUtils.showLong(mContext, mContext.getString(R.string.text_add_favorites));
-                    });
+                    viewModel.addProductFavorites();
                 } else {
-                    viewModel.cancelProductFavorites(s -> {
-                        ToastUtils.showLong(mContext, mContext.getString(R.string.text_cancel_favorites));
-                    });
+                    viewModel.cancelProductFavorites();
                 }
             });
         }

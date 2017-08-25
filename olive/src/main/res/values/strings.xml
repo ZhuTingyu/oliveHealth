@@ -20,6 +20,7 @@
     <string name="text_join_cart_success">加入购物车成功</string>
     <string name="text_add_favorites">成功加入收藏</string>
     <string name="text_cancel_favorites">成功取消收藏</string>
+    <string name="text_favorites">收藏</string>
     <string name="text_buy_now">立即购买</string>
 
     <string name="text_make_sure_order">确认订单</string>
@@ -274,11 +275,13 @@
     <string name="message_account_no_debt">当前没有欠款</string>
 
     <string name="string_password_suffix">dms</string>
+    <string name="string_app_name">——客户下单系统——</string>
 
     <string name="resultcode_alipay_ERROR_8000">正在处理中！</string>
     <string name="resultcode_alipay_ERROR_4000">订单支付失败！</string>
     <string name="resultcode_alipay_ERROR_6001">您取消了本笔订单支付！</string>
     <string name="resultcode_alipay_ERROR_6002">网络连接出错！</string>
+
 
 
 

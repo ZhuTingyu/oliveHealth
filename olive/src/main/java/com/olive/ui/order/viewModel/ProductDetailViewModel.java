@@ -7,6 +7,7 @@ import com.biz.util.Lists;
 import com.olive.model.CartModel;
 import com.olive.model.ProductsModel;
 import com.olive.model.entity.ProductEntity;
+import com.olive.ui.main.home.ProductsViewModel;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -18,13 +19,11 @@ import rx.functions.Action1;
  * Created by TingYu Zhu on 2017/8/2.
  */
 
-public class ProductDetailViewModel extends BaseViewModel {
+public class ProductDetailViewModel extends ProductsViewModel {
 
-    private String productNo;
     private int productNumber;
     private long totalPrice;
     public ProductEntity productEntity;
-    private List<ProductEntity> addProductList;
     private List<ProductEntity> relevanceProductList;
 
     public ProductDetailViewModel(Object activity) {
@@ -50,13 +49,6 @@ public class ProductDetailViewModel extends BaseViewModel {
         }), action1);
     }
 
-    public void addCart(Action1<String> action1){
-        submitRequestThrowError(CartModel.addCart(addProductList).map(r -> {
-            if(r.isOk()){
-                return r.data;
-            }else throw new HttpErrorException(r);
-        }),action1);
-    }
 
     public Action1<String> setProductNumberAndCalculateTotalPrice(Action1<Long> action1) {
         return s -> {
