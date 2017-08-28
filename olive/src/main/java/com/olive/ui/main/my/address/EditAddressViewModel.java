@@ -88,6 +88,7 @@ public class EditAddressViewModel extends AddressViewModel {
         entity.city = cityList != null ? getCurrentCity().code : editAddressEntity.city;
         entity.district = countyList != null ? getCurrentCounty().code : editAddressEntity.district;
         entity.detailAddress = detailAddress;
+        entity.isDefault = editAddressEntity != null ? editAddressEntity.isDefault : AddressViewModel.NOT_DEFAULT;
         return entity;
     }
 

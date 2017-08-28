@@ -68,23 +68,23 @@ public class PayOrderViewModel extends BaseViewModel {
         }), action1);
     }
 
-    public void payOrder(Action1<String> action1, Action1<Throwable> error){
+    public void payOrder(Action1<String> action1, Action1<Throwable> error) {
         payOrderParameterMap.clear();
         initMap();
         submitRequest(OrderModel.payOrder(payOrderParameterMap).map(r -> {
             if (r.isOk()) {
                 return r.data;
             } else throw new HttpErrorException(r);
-        }), action1,error);
+        }), action1, error);
     }
 
-    public void getAliPayOrderInfoAndPay(Action1<String> action1){
+    public void getAliPayOrderInfoAndPay(Action1<String> action1) {
         submitRequestThrowError(OrderModel.aliPayOrderInfo(orderEntity.orderNo, balancePayAmount).map(r -> {
-            if(r.isOk()){
+            if (r.isOk()) {
                 return r.data;
-            }else throw new HttpErrorException(r);
-        }),s -> {
-            payOrderByAlliPay(s,action1);
+            } else throw new HttpErrorException(r);
+        }), s -> {
+            payOrderByAlliPay(s, action1);
         });
     }
 
@@ -111,44 +111,44 @@ public class PayOrderViewModel extends BaseViewModel {
         });
     }
 
-    public void getWeiXinOrderInfoAndPay(){
+    public void getWeiXinOrderInfoAndPay() {
         submitRequestThrowError(OrderModel.weiXinOrderInfo(orderEntity.orderNo, balancePayAmount).map(r -> {
-            if(r.isOk()){
+            if (r.isOk()) {
                 return r.data;
-            }else throw new HttpErrorException(r);
-        }),weiXinPayEntity -> {
+            } else throw new HttpErrorException(r);
+        }), weiXinPayEntity -> {
             SendWX sendWX = new SendWX(getActivity());
             sendWX.payWeiXin(weiXinPayEntity.getPayReq());
         });
     }
 
-    public void checkPayPassword(Action1<Integer> action1){
+    public void checkPayPassword(Action1<Integer> action1) {
         submitRequestThrowError(OrderModel.checkPayPassword(payPassword).map(r -> {
-            if(r.isOk()){
+            if (r.isOk()) {
                 return r.data;
-            }else throw new HttpErrorException(r);
-        }),action1);
+            } else throw new HttpErrorException(r);
+        }), action1);
     }
 
-    public boolean isPayHasBalance(){
+    public boolean isPayHasBalance() {
         return balancePayAmount != 0;
     }
 
-    public boolean isBalanceEnough(){
+    public boolean isBalanceEnough() {
         return orderEntity.amount <= accountEntity.balance && orderEntity.amount == balancePayAmount;
     }
 
-    public boolean isPayWithAli(){
+    public boolean isPayWithAli() {
         return payType == PAY_TYPE_ALI;
     }
 
-    public boolean isPayWithWei(){
+    public boolean isPayWithWei() {
         return payType == PAY_TYPE_WEI;
     }
 
 
     public void setPayType(int payType, @Nullable int bankCardId) {
-        if(payType == PAY_TYPE_BANK){
+        if (payType == PAY_TYPE_BANK) {
             this.bankCardId = bankCardId;
         }
 
@@ -160,54 +160,48 @@ public class PayOrderViewModel extends BaseViewModel {
         this.payPassword = payPassword + getString(R.string.string_password_suffix);
     }
 
-    public Action1<String> setBalancePayAmount(){
+    public Action1<String> setBalancePayAmount() {
         return s -> {
-            if(!s.isEmpty()){
+            if (!s.isEmpty()) {
                 balancePayAmount = (int) (Float.valueOf(s) * 100);
-            }else {
+            } else {
                 balancePayAmount = 0;
             }
         };
     }
 
 
-    private void initMap(){
-        if(isPayHasBalance()){
-            payOrderParameterMap.put("balancePayAmount", balancePayAmount);
+    private void initMap() {
+        payOrderParameterMap.put("orderNo", orderEntity.orderNo);
+
+        payOrderParameterMap.put("payType", payType);
+        if (payType == PAY_TYPE_BANK) {
+            payOrderParameterMap.put("bankCardId", bankCardId);
+        }
+        if (balancePayAmount == 0) {
+            payOrderParameterMap.put("useBalancePay", PAY_NOT_IS_USE_BALANCE);
+        } else {
             payOrderParameterMap.put("useBalancePay", PAY_IS_USE_BALANCE);
-        }else {
-            payOrderParameterMap.put("payType",payType);
-            if(payType == PAY_TYPE_BANK){
-                payOrderParameterMap.put("bankCardId", bankCardId);
-            }
-            if(balancePayAmount == 0){
-                payOrderParameterMap.put("useBalancePay", PAY_NOT_IS_USE_BALANCE);
-                payOrderParameterMap.put("balancePayAmount", 0);
-            }else {
-                payOrderParameterMap.put("useBalancePay", PAY_IS_USE_BALANCE);
-                payOrderParameterMap.put("balancePayAmount", balancePayAmount);
-            }
-            if(payType == PAY_TYPE_ALI){
-                payOrderParameterMap.put("outTradeNo", outTradeNo);
-            }else if(payType == PAY_TYPE_WEI){
+            payOrderParameterMap.put("balancePayAmount", balancePayAmount);
+        }
+        if (payType == PAY_TYPE_ALI) {
+            payOrderParameterMap.put("outTradeNo", outTradeNo);
+        } else if (payType == PAY_TYPE_WEI) {
 
-            }else if(payType == PAY_TYPE_BANK){
-
-            }
+        } else if (payType == PAY_TYPE_BANK) {
 
         }
 
-        payOrderParameterMap.put("orderNo",orderEntity.orderNo);
         payOrderParameterMap.put("payPassword", payPassword);
     }
 
-    public void onEevent(WeiPayResultEvent event){
-        if(event.code == WeiPayResultEvent.SUCCESS){
+    public void onEvent(WeiPayResultEvent event) {
+        if (event.code == WeiPayResultEvent.SUCCESS) {
 
-        }else if(event.code == WeiPayResultEvent.CANCEL){
+        } else if (event.code == WeiPayResultEvent.CANCEL) {
 
-        }else if(event.code == WeiPayResultEvent.ERROR){
-            
+        } else if (event.code == WeiPayResultEvent.ERROR) {
+
         }
     }
 

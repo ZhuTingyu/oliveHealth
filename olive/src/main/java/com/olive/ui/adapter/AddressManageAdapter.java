@@ -53,7 +53,7 @@ public class AddressManageAdapter extends BaseQuickAdapter<AddressEntity, BaseVi
                     .startParentActivity(fragment.getBaseActivity(), EditAddressFragment.class, AddressManageFragment.ADDRESS_UPDATE_REQUEST);
         });
 
-        chooseDefault.setText(addressEntity.isDefault == 1 ? fragment.getString(R.string.text_default_address) : fragment.getString(R.string.text_set_default_address));
+        chooseDefault.setText(addressEntity.isDefault ==  AddressViewModel.IS_DEFAULT ? fragment.getString(R.string.text_default_address) : fragment.getString(R.string.text_set_default_address));
 
         tvDelete.setOnClickListener(v -> {
             createDialog(addressEntity);

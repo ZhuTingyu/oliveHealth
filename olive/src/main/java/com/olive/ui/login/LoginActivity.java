@@ -58,12 +58,12 @@ public class LoginActivity extends BaseActivity {
 
         if(type == TYPE_LOGIN_INVALID){
             error(getString(R.string.message_login_invalid));
-            etUserName.setText(UserModel.getInstance().hisMobile);
         }else {
             if(UserModel.getInstance().isLogin()){
                 MainActivity.startMainWithAnim(getActivity(), 0);
             }
         }
+        etUserName.setText(UserModel.getInstance().hisMobile);
     }
 
     private void initView() {
