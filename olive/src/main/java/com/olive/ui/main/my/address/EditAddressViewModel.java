@@ -1,8 +1,11 @@
 package com.olive.ui.main.my.address;
 
+import android.text.TextUtils;
+
 import com.biz.http.HttpErrorException;
 import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
+import com.biz.util.ValidUtil;
 import com.olive.R;
 import com.olive.model.AddressModel;
 import com.olive.model.CityModel;
@@ -13,6 +16,7 @@ import java.util.List;
 
 import rx.Observable;
 import rx.functions.Action1;
+import rx.subjects.BehaviorSubject;
 
 /**
  * Created by TingYu Zhu on 2017/8/7.
@@ -42,6 +46,8 @@ public class EditAddressViewModel extends AddressViewModel {
 
     private AddressEntity editAddressEntity;
 
+    private final BehaviorSubject<Boolean> isValid = BehaviorSubject.create();
+
     public EditAddressViewModel(Object activity) {
         super(activity);
         addressEntity = getActivity().getIntent().getParcelableExtra(IntentBuilder.KEY_DATA);
@@ -65,6 +71,7 @@ public class EditAddressViewModel extends AddressViewModel {
     }
 
     public void addAddress(Action1<AddressEntity> action1) {
+        checkAddressInfo();
         submitRequestThrowError(AddressModel.AddressAdd(getNewAddress()).map(r -> {
             if (r.isOk()) {
                 return r.data;
@@ -73,7 +80,8 @@ public class EditAddressViewModel extends AddressViewModel {
     }
 
     public void updateAddress(Action1<AddressEntity> action1){
-        submitRequestThrowError(AddressModel.AddressUpdate(getNewAddress()).map(r -> {
+        checkAddressInfo();
+        submitRequestThrowError(AddressModel.AddressUpdate(getUpdateAddress()).map(r -> {
             if(r.isOk()){
                 return r.data;
             }else throw new HttpErrorException(r);
@@ -88,7 +96,13 @@ public class EditAddressViewModel extends AddressViewModel {
         entity.city = cityList != null ? getCurrentCity().code : editAddressEntity.city;
         entity.district = countyList != null ? getCurrentCounty().code : editAddressEntity.district;
         entity.detailAddress = detailAddress;
-        entity.isDefault = editAddressEntity != null ? editAddressEntity.isDefault : AddressViewModel.NOT_DEFAULT;
+        return entity;
+    }
+
+    private AddressEntity getUpdateAddress(){
+        AddressEntity entity = getNewAddress();
+        entity.id = editAddressEntity.id;
+        entity.isDefault = editAddressEntity.isDefault;
         return entity;
     }
 
@@ -106,20 +120,11 @@ public class EditAddressViewModel extends AddressViewModel {
                 + getCurrentCounty().name;
     }
 
-    public void checkAddressInfo(Action1<String> action1){
-
-        Observable.<String>create(subscriber -> {
-
-            if(isStringValid(consignee) && isStringValid(mobile) && isStringValid(area) && isStringValid(detailAddress)){
-                if(mobile.length() != 11){
-                    subscriber.onNext(getString(R.string.message_input_valid_mobile));
-                }else {
-                    subscriber.onNext(getString(R.string.message_info_is_valid));
-                }
-            }else {
-                subscriber.onNext(getString(R.string.message_perfect_info));
-            }
-        }).subscribe(action1);
+    public void checkAddressInfo(){
+        if(!ValidUtil.phoneNumberValid(mobile)){
+            error.onNext(getErrorString(R.string.message_input_valid_mobile));
+            return;
+        }
     }
 
     private CityEntity getCurrentProvince() {
@@ -153,38 +158,46 @@ public class EditAddressViewModel extends AddressViewModel {
     public Action1<String> setConsignee() {
         return s -> {
             this.consignee = s;
+            setInfoValid();
         };
     }
 
     public Action1<String> setMobile() {
         return s -> {
             this.mobile = s;
+            setInfoValid();
         };
     }
 
     public Action1<String> setArea() {
         return s -> {
             area = s;
+            setInfoValid();
         };
     }
 
     public Action1<String> setDetailAddress() {
         return s -> {
             this.detailAddress = s;
+            setInfoValid();
         };
-    }
-
-    private boolean isStringValid(String string) {
-        if (string != null && !string.isEmpty()) {
-            return true;
-        } else return false;
     }
 
     public void setCode(String code) {
         this.code = code;
     }
 
-    public void setEditAddresEntity(AddressEntity editAddressEntity) {
+    public void setEditAddressEntity(AddressEntity editAddressEntity) {
         this.editAddressEntity = editAddressEntity;
+    }
+
+    protected void setInfoValid() {
+        boolean isV = !TextUtils.isEmpty(consignee) && !TextUtils.isEmpty(mobile)
+                && !TextUtils.isEmpty(area) && !TextUtils.isEmpty(detailAddress);
+        isValid.onNext(isV);
+    }
+
+    public BehaviorSubject<Boolean> getIsValid() {
+        return isValid;
     }
 }

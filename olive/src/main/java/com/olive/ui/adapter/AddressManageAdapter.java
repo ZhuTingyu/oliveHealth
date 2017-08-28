@@ -1,5 +1,6 @@
 package com.olive.ui.adapter;
 
+import android.content.Intent;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
@@ -26,6 +27,10 @@ public class AddressManageAdapter extends BaseQuickAdapter<AddressEntity, BaseVi
 
     private BaseFragment fragment;
 
+    private static final int ADDRESS_UPDATE_REQUEST = 0x235;
+
+    private int updatePosition;
+
     public AddressManageAdapter(BaseFragment context) {
         super(R.layout.item_address_manage_layout, Lists.newArrayList());
         this.fragment = context;
@@ -48,9 +53,10 @@ public class AddressManageAdapter extends BaseQuickAdapter<AddressEntity, BaseVi
         chooseDefault.setChecked(addressEntity.isDefault == AddressViewModel.IS_DEFAULT);
 
         tvEdit.setOnClickListener(v -> {
+            updatePosition = holder.getAdapterPosition();
             IntentBuilder.Builder()
                     .putExtra(IntentBuilder.KEY_DATA, addressEntity)
-                    .startParentActivity(fragment.getBaseActivity(), EditAddressFragment.class, AddressManageFragment.ADDRESS_UPDATE_REQUEST);
+                    .startParentActivity(fragment.getBaseActivity(), EditAddressFragment.class, ADDRESS_UPDATE_REQUEST);
         });
 
         chooseDefault.setText(addressEntity.isDefault ==  AddressViewModel.IS_DEFAULT ? fragment.getString(R.string.text_default_address) : fragment.getString(R.string.text_set_default_address));
@@ -95,4 +101,16 @@ public class AddressManageAdapter extends BaseQuickAdapter<AddressEntity, BaseVi
             notifyDataSetChanged();
         });
     }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode ==  ADDRESS_UPDATE_REQUEST){
+            if(data != null && data.hasExtra(IntentBuilder.KEY_DATA)){
+                AddressEntity entity = data.getParcelableExtra(IntentBuilder.KEY_DATA);
+                mData.set(updatePosition, entity);
+                notifyDataSetChanged();
+            }
+        }
+    }
 }
+
+

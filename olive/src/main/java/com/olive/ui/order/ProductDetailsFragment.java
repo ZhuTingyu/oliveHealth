@@ -277,6 +277,7 @@ public class ProductDetailsFragment extends BaseFragment {
                             .putParcelableArrayListExtra(IntentBuilder.KEY_DATA, (ArrayList<? extends Parcelable>) viewModel.setAddCartCurrentProduct())
                             .putExtra(IntentBuilder.KEY_VALUE, viewModel.getTotalPrice())
                             .startParentActivity(getActivity(), CheckOrderInfoFragment.class, true);
+                    getActivity().finish();
                     break;
             }
         });

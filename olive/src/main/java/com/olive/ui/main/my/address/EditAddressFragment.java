@@ -58,16 +58,16 @@ public class EditAddressFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         addressEntity = getActivity().getIntent().getParcelableExtra(IntentBuilder.KEY_DATA);
-        if(addressEntity == null){
+        if (addressEntity == null) {
             setTitle(getString(R.string.title_add_new_address));
-        }else {
+        } else {
             setTitle(getString(R.string.title_edit_address));
         }
         initView();
 
     }
 
-    private void initView(){
+    private void initView() {
 
         receiver = findViewById(R.id.tv_receiver);
         phone = findViewById(R.id.tv_phone);
@@ -81,50 +81,46 @@ public class EditAddressFragment extends BaseFragment {
         bindUi(RxUtil.textChanges(area), viewModel.setArea());
         bindUi(RxUtil.textChanges(address1), viewModel.setDetailAddress());
 
+        bindUi(viewModel.getIsValid(), RxUtil.enabled(btnOk));
+
         area.setOnClickListener(v -> {
             initPickerView();
         });
 
-        if(addressEntity != null){
+        if (addressEntity != null) {
             receiver.setText(addressEntity.consignee);
             phone.setText(addressEntity.mobile);
-            area.setText(addressEntity.provinceText+" "+addressEntity.cityText+" "+addressEntity.districtText);
+            area.setText(addressEntity.provinceText + " " + addressEntity.cityText + " " + addressEntity.districtText);
             address1.setText(addressEntity.detailAddress);
-            viewModel.setEditAddresEntity(addressEntity);
+            viewModel.setEditAddressEntity(addressEntity);
         }
 
         btnOk.setOnClickListener(v -> {
-            if(addressEntity != null){
+            if (addressEntity != null) {
                 viewModel.updateAddress(addressEntity1 -> {
                     ToastUtils.showLong(getActivity(), getString(R.string.message_modify_success));
                     Intent intent = new Intent();
-                    intent.putExtra(IntentBuilder.KEY_BOOLEAN, true);
-                    getActivity().setIntent(intent);
-                    getActivity().finish();
+                    intent.putExtra(IntentBuilder.KEY_DATA, addressEntity1);
+                    getBaseActivity().setResult(0, intent);
+                    getBaseActivity().finish();
                 });
-            }else {
-                viewModel.checkAddressInfo(s -> {
-                    if(getString(R.string.message_info_is_valid).equals(s)){
-                        viewModel.addAddress(addressEntity1 -> {
-                            ToastUtils.showLong(getActivity(),getString(R.string.message_add_address_success));
-                            getActivity().finish();
-                        });
-                    }else {
-                        error(s);
-                    }
+            } else {
+                viewModel.addAddress(addressEntity1 -> {
+                    ToastUtils.showLong(getActivity(), getString(R.string.message_add_address_success));
+                    getActivity().finish();
                 });
             }
         });
     }
 
-    protected void initPickerView(){
+    protected void initPickerView() {
 
         viewModel.cleanAreaData();
 
         picker = new AddressPicker(getActivity());
 
-        viewModel.getCityList(EditAddressViewModel.TYPE_PROVINCE , stringList -> {
-            picker.setProvinceItems(stringList,viewModel.positionProvince);
+        viewModel.getCityList(EditAddressViewModel.TYPE_PROVINCE, stringList -> {
+            picker.setProvinceItems(stringList, viewModel.positionProvince);
         });
 
         picker.setOnWheelViewsListener(new AddressPicker.OnWheelViewsListener() {

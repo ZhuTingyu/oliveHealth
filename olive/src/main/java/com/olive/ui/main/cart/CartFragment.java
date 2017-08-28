@@ -82,12 +82,14 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setTitle(getString(R.string.action_cart));
+        initView();
         if (!haveBack) {
             mToolbar.setNavigationOnClickListener(null);
             mToolbar.setNavigationIcon(null);
+        }else {
+            getBaseActivity().setToolbarBackDrawable(mToolbar);
         }
 
-        initView();
     }
 
     @Override
@@ -145,7 +147,6 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
                     return false;
                 })
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-
 
         initListView();
 

@@ -76,12 +76,11 @@ public class OrderViewModel extends BaseViewModel {
             }else if(orderEntity.expressStatus == EXPRESS_STATUS_COMPLETE) {
                 status = getActivity().getString(R.string.text_order_complete);
             }
-
         }else {
             if(orderEntity.orderStatus == ORDER_STATUS_NORMAL){
                 status = getString(R.string.text_waiting_pay);
             }else {
-                status =  getString(R.string.text_order_cancel);
+                status = getString(R.string.text_order_cancel);
             }
         }
 
