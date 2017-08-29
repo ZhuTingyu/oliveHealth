@@ -63,6 +63,7 @@ public class ApplyRefundFragment extends BaseFragment {
 
     private ApplyRefundViewModel viewModel;
 
+    protected GridView imgsGrid;
     protected LinearLayout imgsLinearLayout;
     protected LinearLayout info;
 
@@ -71,6 +72,8 @@ public class ApplyRefundFragment extends BaseFragment {
     private TextView chooseGoods;
     protected TextView reason;
     protected TextView ok;
+
+    private UploadImageGridAdapter adapter;
 
     @Override
     public void onAttach(Context context) {
@@ -149,6 +152,21 @@ public class ApplyRefundFragment extends BaseFragment {
             uploadImgs.add(view);
         }
 
+        /*adapter = new UploadImageGridAdapter(getContext(),viewModel,this);
+        imgsLayout.setNumColumns(4);
+        imgsLayout.setAdapter(adapter);
+        adapter.setOnImageItemClickListener((adapter1, path) -> {
+            if(path == null){
+                select(list, p -> {
+                    if (p == CAMERA) {
+                        adapter.setChooseMode(CAMERA);
+                    } else {
+                        adapter.setChooseMode(GALLERY);
+                    }
+                });
+            }
+        });*/
+
     }
 
     protected void setImg(View view, String url) {
@@ -212,7 +230,7 @@ public class ApplyRefundFragment extends BaseFragment {
             holder.getView(R.id.number_layout).setVisibility(View.GONE);
             holder.getView(R.id.text_product_number).setVisibility(View.VISIBLE);
             holder.setText(R.id.text_product_number, "x" + productEntity.quantity);
-            if(!isLook){
+            if (!isLook) {
                 RelativeLayout rl = findViewById(view, R.id.rl_info);
                 rl.setPadding(0, 0, Utils.dip2px(24), 0);
                 holder.findViewById(R.id.right_icon).setVisibility(View.VISIBLE);
@@ -222,7 +240,7 @@ public class ApplyRefundFragment extends BaseFragment {
             info.addView(view);
         }
 
-        if(!isLook){
+        if (!isLook) {
             info.setOnClickListener(v -> {
                 IntentBuilder.Builder()
                         .startParentActivity(getActivity(), ChooseRefundGoodsFragment.class, CHOOSE_GOODS__SUCCESS_REQUEST);

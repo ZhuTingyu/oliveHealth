@@ -130,6 +130,14 @@
                 android:textSize="16dp" />
 
 
+            <GridView
+                android:id="@+id/grid_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:visibility="gone"
+                android:paddingTop="16dp"/>
+
             <LinearLayout
                 android:id="@+id/ll_img"
                 android:layout_width="match_parent"

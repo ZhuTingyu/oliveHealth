@@ -1,6 +1,7 @@
 package com.olive.ui.refund;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.TextUtils;
@@ -14,10 +15,14 @@ import com.biz.base.BaseArrayListAdapter;
 import com.biz.base.BaseFragment;
 import com.biz.base.BaseViewHolder;
 import com.biz.util.DrawableHelper;
+import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
 import com.biz.util.PhotoUtil;
 import com.biz.util.Utils;
 import com.biz.widget.CustomDraweeView;
+import com.olive.R;
+import com.olive.model.entity.ProductEntity;
+import com.olive.ui.refund.viewModel.ApplyRefundViewModel;
 import com.olive.util.LoadImageUtil;
 
 import java.util.List;
@@ -50,6 +55,8 @@ public class UploadImageGridAdapter extends BaseArrayListAdapter<String> {
 
     protected BaseFragment mFragment;
 
+    private ApplyRefundViewModel viewModel;
+
     public interface OnImageItemClickListener {
         void onClick(UploadImageGridAdapter adapter, String path);
     }
@@ -62,9 +69,11 @@ public class UploadImageGridAdapter extends BaseArrayListAdapter<String> {
         this.onImageItemClickListener = onImageItemClickListener;
     }
 
-    public UploadImageGridAdapter(Context context) {
+    public UploadImageGridAdapter(Context context, ApplyRefundViewModel viewModel, BaseFragment fragment) {
         super(context);
         mList = Lists.newArrayList();
+        mFragment = fragment;
+        this.viewModel = viewModel;
     }
 
     public void setChooseMode(int chooseMode) {
@@ -149,12 +158,8 @@ public class UploadImageGridAdapter extends BaseArrayListAdapter<String> {
             addBtn = (AppCompatImageView) itemView;
 
             addBtn.setScaleType(ImageView.ScaleType.CENTER);
-            Drawable normalDrawable = DrawableHelper.createShapeStrokeDrawable(com.biz.http.R.color.color_cccccc, com.biz.http.R.color.color_cccccc, 0);
-            Drawable pressedDrawable = DrawableHelper.createShapeStrokeDrawable(com.biz.http.R.color.color_d5d5d5, com.biz.http.R.color.color_e5e5e5, 0);
-            Drawable background = DrawableHelper.newSelector(getContext(), normalDrawable, pressedDrawable);
 
-            addBtn.setBackgroundDrawable(background);
-            addBtn.setImageResource(com.biz.http.R.drawable.ic_add_black_24dp);
+            addBtn.setImageResource(R.drawable.vector_return_goods_photo);
             AbsListView.LayoutParams params = new AbsListView.LayoutParams(Utils.dip2px(70), Utils.dip2px(70));
             addBtn.setLayoutParams(params);
             bindData();
@@ -199,6 +204,24 @@ public class UploadImageGridAdapter extends BaseArrayListAdapter<String> {
                     onImageDataChange.call(mList);
                 notifyDataSetChanged();
                 break;
+            }
+        }
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+         if (requestCode == CAMERA_SUCCESS_REQUEST) {
+            if (data == null) {
+                mFragment.setProgressVisible(true);
+                viewModel.uploadImg(s -> {
+                });
+            }
+        } else if (requestCode == PHOTO_SUCCESS_REQUEST) {
+            if (data != null) {
+                mFragment.setProgressVisible(true);
+                viewModel.setFileUri(data.getStringArrayListExtra(MultiImageSelector.EXTRA_RESULT).get(0));
+                viewModel.uploadImg(s -> {
+                    mFragment.setProgressVisible(false);
+                });
             }
         }
     }
