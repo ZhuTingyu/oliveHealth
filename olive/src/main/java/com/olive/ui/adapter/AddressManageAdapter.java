@@ -28,6 +28,7 @@ public class AddressManageAdapter extends BaseQuickAdapter<AddressEntity, BaseVi
     private BaseFragment fragment;
 
     private static final int ADDRESS_UPDATE_REQUEST = 0x235;
+    public static final int ADDRESS_ADD_REQUEST = 0x236;
 
     private int updatePosition;
 
@@ -90,18 +91,11 @@ public class AddressManageAdapter extends BaseQuickAdapter<AddressEntity, BaseVi
         viewModel.setIsDefault();
         viewModel.updateAddress(s -> {
             fragment.setProgressVisible(false);
-            /*CheckBox checkBox = (CheckBox) getViewByPosition(getRecyclerView(), 0, R.id.cb_default);
-            checkBox.setChecked(false);
-            checkBox.setText(fragment.getString(R.string.text_set_default_address));
-
-            CheckBox chooseCheckBox = (CheckBox) getViewByPosition(getRecyclerView(), holder.getAdapterPosition(), R.id.cb_default);
-            chooseCheckBox.setText(fragment.getString(R.string.text_default_address));
-
-            notifyItemMoved(holder.getAdapterPosition(), 0);*/
             Intent intent = new Intent();
             intent.putExtra(IntentBuilder.KEY_DATA, entity);
             fragment.getBaseActivity().setResult(AddressManageFragment.ADDRESS_RESULT, intent);
-            notifyDataSetChanged();
+
+            dataUpdate();
         });
     }
 
@@ -112,7 +106,15 @@ public class AddressManageAdapter extends BaseQuickAdapter<AddressEntity, BaseVi
                 mData.set(updatePosition, entity);
                 notifyDataSetChanged();
             }
+        }if(requestCode == ADDRESS_ADD_REQUEST){
+            dataUpdate();
         }
+    }
+
+    private void dataUpdate(){
+        viewModel.getAddressList(addressEntities -> {
+            replaceData(addressEntities);
+        });
     }
 }
 

@@ -119,9 +119,6 @@ public class MainActivity extends BaseActivity {
         mBottomNavigationView.setupWithViewPager(mViewPager);
         mViewPager.setOffscreenPageLimit(fragments.size());
         mViewPager.setAnimationCacheEnabled(false);
-
-
-
     }
 
     @Override

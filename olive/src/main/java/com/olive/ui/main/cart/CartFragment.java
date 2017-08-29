@@ -22,8 +22,10 @@ import com.biz.util.PriceUtil;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
 import com.olive.event.UpdateCartEvent;
+import com.olive.model.UserModel;
 import com.olive.model.entity.ProductEntity;
 import com.olive.ui.adapter.CartAdapter;
+import com.olive.ui.login.LoginActivity;
 import com.olive.ui.order.CheckOrderInfoFragment;
 
 import java.util.ArrayList;
@@ -251,5 +253,16 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
         viewModel.getTotalPrice(aLong -> {
             priceTotal.setText(PriceUtil.formatRMB(aLong));
         });
+    }
+
+    @Override
+    public void error(int code, String error) {
+        if(code == 1004){
+            UserModel.getInstance().loginOut();
+            IntentBuilder.Builder(getActivity(), LoginActivity.class)
+                    .putExtra(IntentBuilder.KEY_TYPE, LoginActivity.TYPE_LOGIN_INVALID)
+                    .startActivity();
+            getActivity().finish();
+        }
     }
 }

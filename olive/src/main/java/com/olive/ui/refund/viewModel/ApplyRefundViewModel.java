@@ -39,7 +39,7 @@ public class ApplyRefundViewModel extends BaseViewModel {
     }
 
     public void uploadImg(Action1<String> action1){
-        submitRequestThrowError(UploadImageModel.uploadImg(getString(R.string.api_upload_image),fileUri).map(r -> {
+        submitRequestThrowError(UploadImageModel.uploadImg(getActivity().getBaseContext() ,getString(R.string.api_upload_image),fileUri).map(r -> {
             if(r.isOk()){
                 return r.data;
             }else throw new HttpErrorException(r);

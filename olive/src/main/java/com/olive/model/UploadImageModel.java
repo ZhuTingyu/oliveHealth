@@ -3,6 +3,7 @@ package com.olive.model;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.SystemClock;
 
 import com.biz.http.ResponseJson;
 import com.biz.http.cache.HttpUrlCache;
@@ -19,6 +20,7 @@ import com.google.gson.reflect.TypeToken;
 import com.olive.app.OliveApplication;
 import com.olive.model.UserModel;
 import com.olive.model.entity.BankEntity;
+import com.olive.util.ImageUtils;
 
 import org.opencv.core.Mat;
 
@@ -47,18 +49,20 @@ import rx.functions.Action1;
  */
 
 public class UploadImageModel {
-    public static Observable<ResponseJson<String>> uploadImg(String url, String fileUrl){
+    public static Observable<ResponseJson<String>> uploadImg(Context context, String url, String fileUrl){
         return Observable.create(subscriber -> {
             //获取拼接签名的地址
             com.biz.http.Request temp = com.biz.http.Request.builder();
             temp.url(url);
             String postUrl = temp.getUrl(HttpUrlCache.getInstance().getMasterHeadUrl());
 
-            File file =  FrescoImageUtil.getCacheDir(OliveApplication.getAppContext());
-
-            Mat fileMat = OpenCVUtil.load(fileUrl,false);
-
-            OpenCVUtil.resizeImageScale(fileMat, 0.8, file.getPath());
+            File file = null;
+            try {
+                file = ImageUtils.createTmpFile(context);
+                ImageUtils.compressImg(context, fileUrl, file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
 
             RequestBody fileBody = RequestBody.create(MediaType.parse("application/octet-stream"), file);
