@@ -10,7 +10,7 @@ import rx.functions.Action1;
  * Created by TingYu Zhu on 2017/8/23.
  */
 
-public class FindPasswordViewModel extends PasswordViewModel {
+public class FindPasswordViewModel extends BasePasswordViewModel {
 
     public FindPasswordViewModel(Object activity) {
         super(activity);

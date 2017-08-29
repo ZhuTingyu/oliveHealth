@@ -47,7 +47,7 @@ public class AddressManageAdapter extends BaseQuickAdapter<AddressEntity, BaseVi
         TextView tvDelete = holder.findViewById(R.id.tv_delete);
 
         chooseDefault.setOnClickListener(v -> {
-            setDefaultAddress(holder);
+            setDefaultAddress(holder, addressEntity);
         });
 
         chooseDefault.setChecked(addressEntity.isDefault == AddressViewModel.IS_DEFAULT);
@@ -59,7 +59,7 @@ public class AddressManageAdapter extends BaseQuickAdapter<AddressEntity, BaseVi
                     .startParentActivity(fragment.getBaseActivity(), EditAddressFragment.class, ADDRESS_UPDATE_REQUEST);
         });
 
-        chooseDefault.setText(addressEntity.isDefault ==  AddressViewModel.IS_DEFAULT ? fragment.getString(R.string.text_default_address) : fragment.getString(R.string.text_set_default_address));
+        chooseDefault.setText(addressEntity.isDefault == AddressViewModel.IS_DEFAULT ? fragment.getString(R.string.text_default_address) : fragment.getString(R.string.text_set_default_address));
 
         tvDelete.setOnClickListener(v -> {
             createDialog(addressEntity);
@@ -84,7 +84,7 @@ public class AddressManageAdapter extends BaseQuickAdapter<AddressEntity, BaseVi
         this.viewModel = viewModel;
     }
 
-    public void setDefaultAddress(BaseViewHolder holder) {
+    public void setDefaultAddress(BaseViewHolder holder, AddressEntity entity) {
         fragment.setProgressVisible(true);
         viewModel.setAddressEntity(getItem(holder.getAdapterPosition()));
         viewModel.setIsDefault();
@@ -98,13 +98,16 @@ public class AddressManageAdapter extends BaseQuickAdapter<AddressEntity, BaseVi
             chooseCheckBox.setText(fragment.getString(R.string.text_default_address));
 
             notifyItemMoved(holder.getAdapterPosition(), 0);*/
+            Intent intent = new Intent();
+            intent.putExtra(IntentBuilder.KEY_DATA, entity);
+            fragment.getBaseActivity().setResult(AddressManageFragment.ADDRESS_RESULT, intent);
             notifyDataSetChanged();
         });
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode ==  ADDRESS_UPDATE_REQUEST){
-            if(data != null && data.hasExtra(IntentBuilder.KEY_DATA)){
+        if (requestCode == ADDRESS_UPDATE_REQUEST) {
+            if (data != null && data.hasExtra(IntentBuilder.KEY_DATA)) {
                 AddressEntity entity = data.getParcelableExtra(IntentBuilder.KEY_DATA);
                 mData.set(updatePosition, entity);
                 notifyDataSetChanged();

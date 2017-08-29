@@ -12,7 +12,7 @@ import com.biz.util.RxUtil;
 import com.biz.util.ToastUtils;
 import com.biz.widget.CustomCountDownTimer;
 import com.olive.R;
-import com.olive.ui.main.my.password.viewmodel.PasswordViewModel;
+import com.olive.ui.main.my.password.viewmodel.BasePasswordViewModel;
 
 /**
  * Created by TingYu Zhu on 2017/7/28.
@@ -27,7 +27,7 @@ public abstract class BasePasswordFragment extends BaseFragment {
     protected CustomCountDownTimer countDownTimer;
     protected EditText password;
     protected EditText newPassword;
-    protected PasswordViewModel viewModel;
+    protected BasePasswordViewModel viewModel;
 
     @Override
     public void onAttach(Context context) {

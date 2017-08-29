@@ -12,7 +12,7 @@ import com.biz.util.ToastUtils;
 import com.biz.widget.CustomCountDownTimer;
 import com.olive.R;
 import com.olive.ui.main.my.password.viewmodel.ChangPasswordViewModel;
-import com.olive.ui.main.my.password.viewmodel.PasswordViewModel;
+import com.olive.ui.main.my.password.viewmodel.BasePasswordViewModel;
 
 /**
  * Created by TingYu Zhu on 2017/7/28.
@@ -54,7 +54,7 @@ public class ModifyPasswordFragment extends BasePasswordFragment {
         bindUi(RxUtil.textChanges(newPassword), viewModel.setNewPassword());
         bindUi(viewModel.getIsValid(), RxUtil.enabled(tvOk));
 
-        viewModel.setType(PasswordViewModel.TYPE_CODE_MODIFY_PASSWORD);
+        viewModel.setType(BasePasswordViewModel.TYPE_CODE_MODIFY_PASSWORD);
 
         tvOk.setOnClickListener(v -> {
             viewModel.changPassword(s2 -> {

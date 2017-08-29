@@ -13,7 +13,7 @@ import com.biz.util.ToastUtils;
 import com.biz.widget.CustomCountDownTimer;
 import com.olive.R;
 import com.olive.ui.main.my.password.viewmodel.FindPasswordViewModel;
-import com.olive.ui.main.my.password.viewmodel.PasswordViewModel;
+import com.olive.ui.main.my.password.viewmodel.BasePasswordViewModel;
 
 /**
  * Created by TingYu Zhu on 2017/7/28.
@@ -44,7 +44,7 @@ public class FindPassword1Fragment extends BasePasswordFragment {
                 btnCode, R.string.text_send_code, R.string.btn_resend_count, 60000, 1000);
 
         btnCode.setOnClickListener(v -> {
-            viewModel.setType(PasswordViewModel.TYPE_CODE_FIND_PASSWORD);
+            viewModel.setType(BasePasswordViewModel.TYPE_CODE_FIND_PASSWORD);
             viewModel.sendCode(s -> {
                 countDownTimer.start();
                 ToastUtils.showLong(getActivity(), getString(R.string.message_send_code_success));

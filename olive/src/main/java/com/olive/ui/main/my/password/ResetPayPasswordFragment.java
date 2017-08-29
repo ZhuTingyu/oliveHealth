@@ -1,5 +1,6 @@
 package com.olive.ui.main.my.password;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -12,7 +13,8 @@ import com.biz.util.ToastUtils;
 import com.biz.widget.CustomCountDownTimer;
 import com.olive.R;
 import com.olive.model.UserModel;
-import com.olive.ui.main.my.password.viewmodel.PasswordViewModel;
+import com.olive.ui.main.my.password.viewmodel.ChangPasswordViewModel;
+import com.olive.ui.main.my.password.viewmodel.BasePasswordViewModel;
 
 /**
  * Created by TingYu Zhu on 2017/7/28.
@@ -21,6 +23,14 @@ import com.olive.ui.main.my.password.viewmodel.PasswordViewModel;
 public class ResetPayPasswordFragment extends BasePasswordFragment {
 
     TextView mTvSendCodeStatus;
+
+    ChangPasswordViewModel viewModel;
+
+    @Override
+    public void onAttach(Context context) {
+        viewModel = new ChangPasswordViewModel(context);
+        super.onAttach(context);
+    }
 
     @Nullable
     @Override
@@ -42,7 +52,7 @@ public class ResetPayPasswordFragment extends BasePasswordFragment {
                 btnCode, R.string.text_send_code, R.string.btn_resend_count, 60000, 1000);
 
         btnCode.setOnClickListener(v -> {
-            viewModel.setType(PasswordViewModel.TYPE_CODE_RESET_PAY_PASSWORD);
+            viewModel.setType(BasePasswordViewModel.TYPE_CODE_RESET_PAY_PASSWORD);
             viewModel.sendCode(s -> {
                 countDownTimer.start();
                 ToastUtils.showLong(getActivity(), getString(R.string.message_send_code_success));

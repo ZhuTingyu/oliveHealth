@@ -15,7 +15,7 @@ import rx.subjects.BehaviorSubject;
  * Created by TingYu Zhu on 2017/7/28.
  */
 
-public abstract class PasswordViewModel extends BaseViewModel {
+public abstract class BasePasswordViewModel extends BaseViewModel {
 
     public static final int TYPE_CODE_FIND_PASSWORD = 1;
     public static final int TYPE_CODE_MODIFY_PASSWORD = 2;
@@ -31,7 +31,7 @@ public abstract class PasswordViewModel extends BaseViewModel {
 
     private int type;
 
-    public PasswordViewModel(Object activity) {
+    public BasePasswordViewModel(Object activity) {
         super(activity);
     }
 

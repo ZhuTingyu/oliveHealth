@@ -12,7 +12,7 @@ import com.biz.util.RxUtil;
 import com.biz.util.ToastUtils;
 import com.olive.R;
 import com.olive.ui.main.my.password.viewmodel.FindPasswordViewModel;
-import com.olive.ui.main.my.password.viewmodel.PasswordViewModel;
+import com.olive.ui.main.my.password.viewmodel.BasePasswordViewModel;
 
 /**
  * Created by TingYu Zhu on 2017/7/28.
@@ -37,7 +37,7 @@ public class FindPassword2Fragment extends BasePasswordFragment {
         viewModel.setMobile(getBaseActivity().getIntent().getStringExtra(IntentBuilder.KEY_VALUE));
         viewModel.setAuthCode(getBaseActivity().getIntent().getStringExtra(IntentBuilder.KEY_DATA));
         setTitle(getString(R.string.title_find_password));
-        viewModel.setType(PasswordViewModel.TYPE_CODE_FIND_PASSWORD);
+        viewModel.setType(BasePasswordViewModel.TYPE_CODE_FIND_PASSWORD);
         initPasswordView();
         tvOk = findViewById(R.id.btn_ok);
         tvOk.setOnClickListener(v -> {

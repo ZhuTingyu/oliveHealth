@@ -33,10 +33,12 @@ import rx.functions.Action1;
 
 public class UploadImageGridAdapter extends BaseArrayListAdapter<String> {
 
-    public static final int CAMERA = 0;
-    public static final int GALLERY = 1;
-    public int CAMERA_SUCCESS_REQUEST = 2082;
-    public int PHOTO_SUCCESS_REQUEST = 2083;
+    private int CAMERA_SUCCESS_REQUEST = 2082;
+    private int PHOTO_SUCCESS_REQUEST = 2083;
+    private int CHOOSE_GOODS__SUCCESS_REQUEST = 2084;
+
+    private static final int CAMERA = 0;
+    private static final int GALLERY = 1;
 
     protected final static int TYPE_ADD = 1;
     protected int maxCount = 3;
@@ -63,29 +65,12 @@ public class UploadImageGridAdapter extends BaseArrayListAdapter<String> {
     public UploadImageGridAdapter(Context context) {
         super(context);
         mList = Lists.newArrayList();
-        initCameraRequest();
-        initPhotoRequest();
     }
 
     public void setChooseMode(int chooseMode) {
         this.chooseMode = chooseMode;
     }
 
-    private void initCameraRequest() {
-        int max = 2400;
-        int min = 2200;
-        Random random = new Random();
-        int s = random.nextInt(max) % (max - min + 1) + min;
-        CAMERA_SUCCESS_REQUEST = s;
-    }
-
-    private void initPhotoRequest() {
-        int max = 2600;
-        int min = 2400;
-        Random random = new Random();
-        int s = random.nextInt(max) % (max - min + 1) + min;
-        CAMERA_SUCCESS_REQUEST = s;
-    }
 
     @Override
     public int getCount() {
@@ -102,7 +87,24 @@ public class UploadImageGridAdapter extends BaseArrayListAdapter<String> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        return null;
+        if (getItemViewType(position) != TYPE_ADD) {
+            convertView = inflater(com.biz.http.R.layout.item_icon_del_layout, parent);
+            ImageViewHolder holder = new ImageViewHolder(convertView);
+            holder.bindData(position);
+            holder.del.setTag(position);
+            holder.icon.setTag(getItem(position));
+            holder.icon.setOnClickListener(view -> {
+                if (onImageItemClickListener != null) {
+                    hisSelectedPath = view.getTag().toString();
+                    onImageItemClickListener.onClick(this, view.getTag().toString());
+                }
+            });
+        } else {
+            convertView = new AppCompatImageView(getContext());
+            AddViewHolder holder = new AddViewHolder(convertView);
+        }
+
+        return convertView;
     }
 
     protected class ImageViewHolder extends BaseViewHolder {

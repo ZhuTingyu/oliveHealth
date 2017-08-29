@@ -79,6 +79,7 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_phone_"
         app:layout_constraintLeft_toRightOf="@+id/tv_phone_"
         app:layout_constraintRight_toRightOf="parent"
+        android:maxLength="11"
         tools:text="13923202232"
         android:gravity="end"/>
 
@@ -124,6 +125,7 @@
         android:textColor="@color/color_333333"
         android:textColorHint="@color/color_hint"
         android:textSize="@dimen/big_font_16dp"
+        android:maxLines="1"
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_area_"
         app:layout_constraintLeft_toRightOf="@+id/tv_area_"
         app:layout_constraintRight_toRightOf="parent" />
