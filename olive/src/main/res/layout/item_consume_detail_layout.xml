@@ -22,11 +22,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <View
-        android:layout_height="1dp"
-        android:layout_width="match_parent"
-        android:layout_below="@id/date"
-        android:background="@drawable/divider_nav_gray"/>
 
     <LinearLayout
         android:id="@+id/ll_info"
@@ -37,12 +32,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-
-    <View
-        android:layout_height="1dp"
-        android:layout_width="match_parent"
-        android:layout_below="@id/ll_info"
-        android:background="@drawable/divider_nav_gray"/>
 
     <TextView
         android:id="@+id/price"

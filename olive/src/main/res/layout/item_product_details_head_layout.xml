@@ -116,28 +116,6 @@
             android:textColor="@color/base_color_red"
             tools:text="该商品促销截止时间为2017年6月20日"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@id/tv_product_sale_end_date"
-            android:layout_marginBottom="@dimen/item_margin_8dp"
-            android:layout_marginTop="16dp"
-            android:textSize="16dp"
-            android:text="@string/text_associated_goods"/>
-
-
-        <TextView
-            android:id="@+id/btn_one_key_join"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/tv_product_sale_end_date"
-            android:layout_marginBottom="@dimen/item_margin_8dp"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:drawableLeft="@drawable/vector_cart"
-            android:text="@string/text_one_key_to_join"/>
 
     </RelativeLayout>
 

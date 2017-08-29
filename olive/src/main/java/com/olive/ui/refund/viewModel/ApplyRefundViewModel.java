@@ -2,15 +2,12 @@ package com.olive.ui.refund.viewModel;
 
 import com.biz.base.BaseViewModel;
 import com.biz.http.HttpErrorException;
-import com.biz.http.ResponseJson;
 import com.biz.util.Lists;
-import com.biz.util.StringUtils;
 import com.olive.R;
-import com.olive.model.ProductsModel;
 import com.olive.model.RefundModel;
 import com.olive.model.entity.ProductEntity;
 import com.olive.model.entity.RefundReasonEntity;
-import com.olive.util.UploadImageUtil;
+import com.olive.model.UploadImageModel;
 
 import java.util.List;
 
@@ -42,7 +39,7 @@ public class ApplyRefundViewModel extends BaseViewModel {
     }
 
     public void uploadImg(Action1<String> action1){
-        submitRequestThrowError(UploadImageUtil.uploadImg(getString(R.string.api_upload_image),fileUri).map(r -> {
+        submitRequestThrowError(UploadImageModel.uploadImg(getString(R.string.api_upload_image),fileUri).map(r -> {
             if(r.isOk()){
                 return r.data;
             }else throw new HttpErrorException(r);

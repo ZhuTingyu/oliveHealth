@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:fresco="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/img_login_background"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@drawable/img_login_background">
 
     <!--<android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -37,10 +37,10 @@
         android:id="@+id/email_login_form"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:orientation="vertical"
-        android:layout_centerInParent="true"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin_35"
         android:paddingRight="@dimen/activity_horizontal_margin_35"
@@ -52,8 +52,8 @@
             android:layout_height="70dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:visibility="visible"
             android:background="@mipmap/logo"
+            android:visibility="visible"
             fresco:roundAsCircle="true"
             fresco:roundingBorderColor="@color/colorPrimary"
             fresco:roundingBorderWidth="1dp" />
@@ -62,38 +62,38 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:textColor="@color/white"
-            android:layout_marginTop="16dp"
             android:layout_marginBottom="70dp"
-            android:textSize="16dp"
-            android:text="@string/string_app_name"/>
+            android:layout_marginTop="16dp"
+            android:text="@string/string_app_name"
+            android:textColor="@color/white"
+            android:textSize="16dp" />
 
         <EditText
             android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:drawableLeft="@drawable/vector_user_name"
             android:background="@drawable/shape_corner_40_solid_white_backgroud"
+            android:drawableLeft="@drawable/vector_user_name"
             android:hint="@string/text_hint_import_user_name"
             android:inputType="textEmailAddress" />
 
         <RelativeLayout
-            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
 
             <EditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/shape_corner_40_solid_white_backgroud"
+                android:drawableLeft="@drawable/vector_password"
                 android:hint="@string/text_hint_import_password"
                 android:imeActionId="@+id/login"
                 android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"
-                android:background="@drawable/shape_corner_40_solid_white_backgroud"
-                android:drawableLeft="@drawable/vector_password"
-                android:maxLength="12"/>
+                android:maxLength="12" />
 
             <CheckBox
                 android:id="@+id/eyes"
@@ -101,9 +101,23 @@
                 android:layout_height="30dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
         </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/text_forget_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="right"
+            android:text="忘记密码?"
+            android:textColor="@color/white"
+            android:textSize="@dimen/big_font_16dp" />
+
 
         <TextView
             android:id="@+id/btn_ok"
@@ -114,26 +128,7 @@
             android:gravity="center"
             android:text="@string/text_login"
             android:textColor="@color/white"
-            android:textSize="16dp"
-            />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
-
-            <TextView
-                android:id="@+id/text_forget_password"
-                android:layout_width="wrap_content"
-                android:layout_height="42dp"
-                android:background="?attr/selectableItemBackground"
-                android:gravity="center"
-                android:text="忘记密码?"
-                android:textColor="@color/white"
-                android:layout_centerHorizontal="true"
-                android:textSize="@dimen/big_font_16dp" />
-
-        </RelativeLayout>
+            android:textSize="16dp" />
 
     </LinearLayout>
 

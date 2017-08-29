@@ -115,7 +115,12 @@ public class ProductDetailsFragment extends BaseFragment {
 
 
         viewModel.getRelevanceProductList(productEntities -> {
-            adapter.setNewData(productEntities);
+            if(productEntities.isEmpty()){
+                findViewById(R.id.rl_relevance).setVisibility(View.GONE);
+                findViewById(R.id.rl_1).setVisibility(View.GONE);
+            }else {
+                adapter.setNewData(productEntities);
+            }
         });
 
 
@@ -125,6 +130,14 @@ public class ProductDetailsFragment extends BaseFragment {
 
         findViewById(R.id.right).setOnClickListener(v -> {
             recyclerView.smoothScrollBy(recyclerView.getWidth(), 0);
+        });
+
+        findViewById(R.id.btn_one_key_join).setOnClickListener(v -> {
+            viewModel.setAddCartRelevanceProductList();
+            viewModel.addCart(s -> {
+                ToastUtils.showLong(getContext(), s);
+                icCart.setImageResource(R.drawable.vector_cart_have_goods);
+            });
         });
 
     }
@@ -149,13 +162,6 @@ public class ProductDetailsFragment extends BaseFragment {
         }
         headHolder.setText(R.id.tv_product_specification, getString(R.string.text_product_specification, productEntity.standard));
         headHolder.setText(R.id.tv_product_sale_end_date, getString(R.string.text_product_sale_end_time, TimeUtil.format(productEntity.saleEndDate, TimeUtil.FORMAT_YYYYHHMM_CHICESEC)));
-        headHolder.findViewById(R.id.btn_one_key_join).setOnClickListener(v -> {
-            viewModel.setAddCartRelevanceProductList();
-            viewModel.addCart(s -> {
-                ToastUtils.showLong(getContext(), s);
-                icCart.setImageResource(R.drawable.vector_cart_have_goods);
-            });
-        });
 
         ConvenientBanner banner = headHolder.findViewById(R.id.banner);
         View indicator = banner.findViewById(com.bigkoo.convenientbanner.R.id.loPageTurningPoint);

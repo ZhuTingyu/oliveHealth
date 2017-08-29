@@ -1,4 +1,4 @@
-package com.olive.util;
+package com.olive.model;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -7,13 +7,20 @@ import android.graphics.BitmapFactory;
 import com.biz.http.ResponseJson;
 import com.biz.http.cache.HttpUrlCache;
 import com.biz.http.sign.Signer;
+import com.biz.image.upload.OpenCVUtil;
 import com.biz.util.BitmapUtil;
 import com.biz.util.FileUtil;
+import com.biz.util.FrescoImageUtil;
 import com.biz.util.GsonUtil;
 import com.biz.util.LogUtil;
+import com.biz.util.UrlUtils;
+import com.facebook.common.util.UriUtil;
 import com.google.gson.reflect.TypeToken;
+import com.olive.app.OliveApplication;
 import com.olive.model.UserModel;
 import com.olive.model.entity.BankEntity;
+
+import org.opencv.core.Mat;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -39,17 +46,20 @@ import rx.functions.Action1;
  * Created by TingYu Zhu on 2017/8/10.
  */
 
-public class UploadImageUtil {
+public class UploadImageModel {
     public static Observable<ResponseJson<String>> uploadImg(String url, String fileUrl){
         return Observable.create(subscriber -> {
-
+            //获取拼接签名的地址
             com.biz.http.Request temp = com.biz.http.Request.builder();
             temp.url(url);
             String postUrl = temp.getUrl(HttpUrlCache.getInstance().getMasterHeadUrl());
 
-            File file = new File(fileUrl);
-            Bitmap bitmap = BitmapFactory.decodeFile(fileUrl);
-            
+            File file =  FrescoImageUtil.getCacheDir(OliveApplication.getAppContext());
+
+            Mat fileMat = OpenCVUtil.load(fileUrl,false);
+
+            OpenCVUtil.resizeImageScale(fileMat, 0.8, file.getPath());
+
 
             RequestBody fileBody = RequestBody.create(MediaType.parse("application/octet-stream"), file);
             RequestBody requestBody = new MultipartBody.Builder()
@@ -74,6 +84,11 @@ public class UploadImageUtil {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     LogUtil.print("upload" + e.toString());
+                    ResponseJson<String> responseJson = new ResponseJson<>();
+                    responseJson.code = -1;
+                    responseJson.message = "上传失败，请重新上传";
+                    subscriber.onNext(responseJson);
+
                 }
 
 

@@ -23,8 +23,40 @@
                 layout="@layout/item_product_details_head_layout" />
 
             <RelativeLayout
+                android:id="@+id/rl_1"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginBottom="@dimen/item_margin_8dp"
+                    android:layout_marginTop="16dp"
+                    android:textSize="16dp"
+                    android:text="@string/text_associated_goods"/>
+
+
+                <TextView
+                    android:id="@+id/btn_one_key_join"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="@dimen/item_margin_8dp"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center"
+                    android:drawableLeft="@drawable/vector_cart"
+                    android:text="@string/text_one_key_to_join"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_relevance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+
 
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/left"
@@ -60,7 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="8dp"
                 android:textSize="16dp"
                 android:text="@string/text_product_details"/>
 
