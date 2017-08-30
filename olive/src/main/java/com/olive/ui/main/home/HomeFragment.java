@@ -2,15 +2,12 @@ package com.olive.ui.main.home;
 
 import com.biz.base.BaseLazyFragment;
 import com.biz.util.IntentBuilder;
-import com.biz.util.Lists;
-import com.biz.util.ToastUtils;
 import com.biz.widget.ExpandGridView;
 import com.biz.widget.banner.ConvenientBanner;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.olive.R;
 import com.olive.model.UserModel;
-import com.olive.model.entity.AdvertEntity;
 import com.olive.model.entity.NoticeEntity;
 import com.olive.ui.adapter.HomeNoticeAdapter;
 import com.olive.ui.adapter.ProductAdapter;
@@ -34,8 +31,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-
-import java.util.List;
 
 /**
  * Title: HomeFragment

@@ -74,9 +74,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:background="@drawable/shape_corner_40_solid_white_backgroud"
-            android:drawableLeft="@drawable/vector_user_name"
-            android:hint="@string/text_hint_import_user_name"
-            android:inputType="textEmailAddress" />
+            android:drawableLeft="@drawable/vector_user_name_selector"
+            android:hint="@string/text_hint_import_user_name" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -88,7 +87,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_corner_40_solid_white_backgroud"
-                android:drawableLeft="@drawable/vector_password"
+                android:drawableLeft="@drawable/vector_password_selector"
                 android:hint="@string/text_hint_import_password"
                 android:imeActionId="@+id/login"
                 android:imeOptions="actionUnspecified"

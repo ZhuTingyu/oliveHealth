@@ -1,11 +1,8 @@
 package com.olive.ui.adapter;
 
 import android.app.Activity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -14,24 +11,19 @@ import com.biz.base.BaseViewHolder;
 import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
 import com.biz.util.PriceUtil;
-import com.biz.widget.recyclerview.XRecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.olive.R;
 import com.olive.event.OrderListUpdateEvent;
 import com.olive.model.entity.OrderEntity;
 import com.olive.model.entity.ProductEntity;
-import com.olive.ui.holder.ProductViewHolder;
 import com.olive.ui.main.cart.CartFragment;
-import com.olive.ui.main.cart.CartViewModel;
 import com.olive.ui.main.home.ProductsViewModel;
 import com.olive.ui.main.my.account.viewModel.AccountViewModel;
-import com.olive.ui.main.my.address.AddressViewModel;
 import com.olive.ui.order.PayDebtFragment;
 import com.olive.ui.order.PayOrderFragment;
 import com.olive.ui.order.viewModel.OrderListViewModel;
 import com.olive.ui.order.viewModel.OrderViewModel;
 import com.olive.util.LoadImageUtil;
-import com.olive.util.Utils;
 
 import java.util.List;
 

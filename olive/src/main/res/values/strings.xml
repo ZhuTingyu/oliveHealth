@@ -273,6 +273,7 @@
     <string name="message_pay_success">支付成功</string>
     <string name="message_pay_price_not_enough">账户余额不足，请再添加其他支付方式</string>
     <string name="message_account_no_debt">当前没有欠款</string>
+    <string name="message_empty_cart">购物车空</string>
 
     <string name="string_password_suffix">dms</string>
     <string name="string_app_name">——客户下单系统——</string>

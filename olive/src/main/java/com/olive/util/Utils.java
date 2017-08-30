@@ -1,21 +1,27 @@
 package com.olive.util;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
+import android.widget.TextView;
 
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
+import com.olive.R;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by TingYu Zhu on 2017/8/3.
  */
 
 public class Utils {
-
 
     public static void setRecyclerViewNestedSlide(XRecyclerView recyclerView){
         recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
@@ -64,6 +70,13 @@ public class Utils {
         ViewGroup.LayoutParams params = recyclerView.getLayoutParams();
         params.height = totalHeight;
         recyclerView.setLayoutParams(params);
+    }
+
+    public static void setEmptyView(Context context, BaseQuickAdapter adapter, String message){
+        View view = View.inflate(context, R.layout.list_empty_layout,null);
+        TextView textView = (TextView) view.findViewById(R.id.title);
+        textView.setText(message);
+        adapter.setEmptyView(view);
     }
 
 }

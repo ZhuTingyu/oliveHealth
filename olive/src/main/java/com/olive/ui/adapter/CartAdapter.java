@@ -1,6 +1,7 @@
 package com.olive.ui.adapter;
 
 
+import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -15,6 +16,9 @@ import com.olive.R;
 import com.olive.model.entity.ProductEntity;
 import com.olive.ui.main.cart.CartViewModel;
 import com.olive.util.LoadImageUtil;
+import com.olive.util.Utils;
+
+import java.util.List;
 
 
 /**
@@ -141,4 +145,11 @@ public class CartAdapter extends BaseChooseAdapter<ProductEntity, BaseViewHolder
         notifyDataSetChanged();
     }
 
+    @Override
+    public void setNewData(@Nullable List<ProductEntity> data) {
+        super.setNewData(data);
+        if(data.isEmpty()){
+           // Utils.setEmptyView(fragment.getContext(),this, );
+        }
+    }
 }

@@ -51,7 +51,7 @@
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
         tools:text="刘德华"
-        android:drawableLeft="@drawable/vector_receiver_name"
+        android:drawableLeft="@drawable/vector_receiver_name_selector"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -66,7 +66,7 @@
         android:layout_marginLeft="64dp"
         tools:text="12312312312"
         android:layout_toRightOf="@+id/name"
-        android:drawableLeft="@drawable/vector_phone"
+        android:drawableLeft="@drawable/vector_phone_selector"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -79,7 +79,7 @@
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
         tools:text="12312312312"
-        android:drawableLeft="@drawable/vector_receiver_address"
+        android:drawableLeft="@drawable/vector_receiver_address_selector"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
