@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.olive.R;
 import com.olive.model.entity.ProductEntity;
 import com.olive.util.LoadImageUtil;
+import com.olive.util.Utils;
 
 import java.util.List;
 
@@ -30,5 +31,13 @@ public class StockManagerAdapter extends BaseQuickAdapter<ProductEntity, BaseVie
         holder.setText(R.id.amount_in, mContext.getString(R.string.text_number_in_goods, productEntity.stockQuantity+""));
         holder.setText(R.id.amount_out,mContext.getString(R.string.text_number_out_goods, productEntity.saleQuantity+""));
         holder.setText(R.id.number, productEntity.quantity + "");
+    }
+
+    @Override
+    public void setNewData(@Nullable List<ProductEntity> data) {
+        super.setNewData(data);
+        if(data.isEmpty()){
+            Utils.setEmptyView(this, mContext.getString(R.string.message_empty_stock));
+        }
     }
 }

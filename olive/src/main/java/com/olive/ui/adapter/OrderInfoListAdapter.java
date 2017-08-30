@@ -1,6 +1,7 @@
 package com.olive.ui.adapter;
 
 import android.app.Activity;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -24,6 +25,7 @@ import com.olive.ui.order.PayOrderFragment;
 import com.olive.ui.order.viewModel.OrderListViewModel;
 import com.olive.ui.order.viewModel.OrderViewModel;
 import com.olive.util.LoadImageUtil;
+import com.olive.util.Utils;
 
 import java.util.List;
 
@@ -206,4 +208,11 @@ public class OrderInfoListAdapter extends BaseQuickAdapter<OrderEntity, BaseView
         });
     }
 
+    @Override
+    public void setNewData(@Nullable List<OrderEntity> data) {
+        super.setNewData(data);
+        if(data.isEmpty()){
+            Utils.setEmptyView(this, mContext.getString(R.string.message_empty_order_list));
+        }
+    }
 }

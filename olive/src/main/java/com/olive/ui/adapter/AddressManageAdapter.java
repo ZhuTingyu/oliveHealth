@@ -1,6 +1,8 @@
 package com.olive.ui.adapter;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
@@ -16,6 +18,10 @@ import com.olive.model.entity.AddressEntity;
 import com.olive.ui.main.my.address.AddressManageFragment;
 import com.olive.ui.main.my.address.EditAddressFragment;
 import com.olive.ui.main.my.address.AddressViewModel;
+import com.olive.util.Utils;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by TingYu Zhu on 2017/7/27.
@@ -115,6 +121,22 @@ public class AddressManageAdapter extends BaseQuickAdapter<AddressEntity, BaseVi
         viewModel.getAddressList(addressEntities -> {
             replaceData(addressEntities);
         });
+    }
+
+    @Override
+    public void setNewData(@Nullable List<AddressEntity> data) {
+        super.setNewData(data);
+        if(data.isEmpty()){
+            Utils.setEmptyView(this, mContext.getString(R.string.message_empty_address));
+        }
+    }
+
+    @Override
+    public void replaceData(@NonNull Collection<? extends AddressEntity> data) {
+        super.replaceData(data);
+        if(data.isEmpty()){
+            Utils.setEmptyView(this, mContext.getString(R.string.message_empty_address));
+        }
     }
 }
 

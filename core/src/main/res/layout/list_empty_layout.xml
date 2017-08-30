@@ -20,7 +20,7 @@
         android:layout_marginTop="15dp"
         android:textColor="#666666"
         tools:text="@string/api_init_master"
-        android:textSize="14dp" />
+        android:textSize="18dp" />
 
 
     <TextView

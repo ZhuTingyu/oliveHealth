@@ -273,7 +273,14 @@
     <string name="message_pay_success">支付成功</string>
     <string name="message_pay_price_not_enough">账户余额不足，请再添加其他支付方式</string>
     <string name="message_account_no_debt">当前没有欠款</string>
-    <string name="message_empty_cart">购物车空</string>
+    <string name="message_empty_cart">购物车为空</string>
+    <string name="message_empty_product">商品信息为空</string>
+    <string name="message_empty_stock">库存为空</string>
+    <string name="message_empty_refund">退货信息为空</string>
+    <string name="message_empty_order_list">订单列表为空</string>
+    <string name="message_empty_notice_list">公告列表为空</string>
+    <string name="message_empty_consume">没有消费的订单</string>
+    <string name="message_empty_address">没有收货地址</string>
 
     <string name="string_password_suffix">dms</string>
     <string name="string_app_name">——客户下单系统——</string>
@@ -282,8 +289,6 @@
     <string name="resultcode_alipay_ERROR_4000">订单支付失败！</string>
     <string name="resultcode_alipay_ERROR_6001">您取消了本笔订单支付！</string>
     <string name="resultcode_alipay_ERROR_6002">网络连接出错！</string>
-
-
 
 
 </resources>

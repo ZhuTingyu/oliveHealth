@@ -1,6 +1,7 @@
 package com.olive.ui.adapter;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -14,6 +15,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.olive.R;
 import com.olive.model.entity.OrderEntity;
 import com.olive.model.entity.ProductEntity;
+import com.olive.util.Utils;
 
 import java.util.List;
 
@@ -63,6 +65,14 @@ public class ConsumeDetailAdapter extends BaseQuickAdapter<OrderEntity, BaseView
             name.setText(productEntity.productName);
             number.setText("x"+ productEntity.quantity);
             linearLayout.addView(view);
+        }
+    }
+
+    @Override
+    public void setNewData(@Nullable List<OrderEntity> data) {
+        super.setNewData(data);
+        if(data.isEmpty()){
+            Utils.setEmptyView(this, mContext.getString(R.string.message_empty_consume));
         }
     }
 }

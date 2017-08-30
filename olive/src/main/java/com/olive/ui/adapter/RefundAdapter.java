@@ -1,6 +1,7 @@
 package com.olive.ui.adapter;
 
 import android.app.Activity;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -17,6 +18,7 @@ import com.olive.model.entity.ProductEntity;
 import com.olive.ui.refund.LookRefundCheckResultFragment;
 import com.olive.ui.refund.viewModel.LookApplyRefundDetailViewModel;
 import com.olive.ui.service.CustomerServicesFragment;
+import com.olive.util.Utils;
 
 import java.util.List;
 
@@ -110,5 +112,13 @@ public class RefundAdapter extends BaseQuickAdapter<OrderEntity, BaseViewHolder>
             count += productEntity.quantity;
         }
         return count;
+    }
+
+    @Override
+    public void setNewData(@Nullable List<OrderEntity> data) {
+        super.setNewData(data);
+        if(data.isEmpty()){
+            Utils.setEmptyView(this, mContext.getString(R.string.message_empty_refund));
+        }
     }
 }

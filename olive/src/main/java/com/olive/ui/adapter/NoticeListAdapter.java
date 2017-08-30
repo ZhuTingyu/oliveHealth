@@ -16,6 +16,7 @@ import com.olive.model.entity.NoticeInfoEntity;
 import com.olive.ui.holder.NoticeListViewHolder;
 import com.olive.ui.notice.NoticeDetailFragment;
 import com.olive.util.LoadImageUtil;
+import com.olive.util.Utils;
 
 import java.util.List;
 
@@ -51,5 +52,13 @@ public class NoticeListAdapter extends BaseQuickAdapter<NoticeEntity, NoticeList
                     .putExtra(IntentBuilder.KEY_VALUE, entity.id)
                     .startParentActivity(activity , NoticeDetailFragment.class, true);
         });
+    }
+
+    @Override
+    public void setNewData(@Nullable List<NoticeEntity> data) {
+        super.setNewData(data);
+        if(data.isEmpty()){
+            Utils.setEmptyView(this, mContext.getString(R.string.message_empty_notice_list));
+        }
     }
 }

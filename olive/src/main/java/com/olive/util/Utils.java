@@ -14,6 +14,7 @@ import com.biz.widget.recyclerview.XRecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.olive.R;
+import com.olive.app.OliveApplication;
 
 import org.w3c.dom.Text;
 
@@ -72,9 +73,10 @@ public class Utils {
         recyclerView.setLayoutParams(params);
     }
 
-    public static void setEmptyView(Context context, BaseQuickAdapter adapter, String message){
-        View view = View.inflate(context, R.layout.list_empty_layout,null);
+    public static void setEmptyView(BaseQuickAdapter adapter, String message){
+        View view = View.inflate(OliveApplication.getAppContext(), R.layout.list_empty_layout,null);
         TextView textView = (TextView) view.findViewById(R.id.title);
+        textView.setTextColor(OliveApplication.getAppContext().getResources().getColor(R.color.base_color));
         textView.setText(message);
         adapter.setEmptyView(view);
     }

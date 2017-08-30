@@ -11,12 +11,16 @@ import com.olive.model.entity.ProductEntity;
 import com.olive.ui.holder.ProductViewHolder;
 import com.olive.ui.main.home.ProductsViewModel;
 import com.olive.util.LoadImageUtil;
+import com.olive.util.Utils;
 
 import android.app.Application;
 import android.graphics.Paint;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
+
+import java.util.List;
 
 /**
  * Title: ProductAdapter
@@ -90,5 +94,13 @@ public class ProductAdapter extends BaseQuickAdapter<ProductEntity, ProductViewH
 
     public void setViewModel(ProductsViewModel viewHolder) {
         this.viewModel = viewHolder;
+    }
+
+    @Override
+    public void setNewData(@Nullable List<ProductEntity> data) {
+        super.setNewData(data);
+        if(data.isEmpty()){
+            Utils.setEmptyView(this,mContext.getString(R.string.message_empty_product));
+        }
     }
 }

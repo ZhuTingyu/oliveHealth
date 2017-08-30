@@ -24,8 +24,6 @@ public class ResetPayPasswordFragment extends BasePasswordFragment {
 
     TextView mTvSendCodeStatus;
 
-    ChangPasswordViewModel viewModel;
-
     @Override
     public void onAttach(Context context) {
         viewModel = new ChangPasswordViewModel(context);
