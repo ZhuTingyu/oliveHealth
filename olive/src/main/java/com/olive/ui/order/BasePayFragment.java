@@ -5,10 +5,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.Editable;
 import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -76,6 +79,9 @@ public abstract class BasePayFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setTitle(getString(R.string.title_pay_order));
+
+        getBaseActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
         if (viewModel.accountEntity == null) {
             setProgressVisible(true);
             accountViewModel.getAccountInfo(accountEntity1 -> {
@@ -117,9 +123,34 @@ public abstract class BasePayFragment extends BaseFragment {
         tvVacancies = findViewById(head, R.id.account_vacancies);
         tvNeedPayPrice = findViewById(head, R.id.need_pay);
         etVacancies = findViewById(head, R.id.input_account_vacancies);
-        bindUi(RxUtil.textChanges(etVacancies), viewModel.setBalancePayAmount());
-        InputFilter[] filters = {new CashierInputFilter(viewModel.orderEntity.amount)};
+        InputFilter[] filters = {new CashierInputFilter()};
         etVacancies.setFilters(filters);
+
+        etVacancies.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                float price = 0;
+                if (!s.toString().isEmpty()) {
+                    price = Float.valueOf(s.toString()) * 100f;
+                }
+                if(price > (int) viewModel.orderEntity.amount){
+                    price = viewModel.orderEntity.amount;
+                    etVacancies.setText(String.valueOf(price / 100f));
+                }
+
+                viewModel.setBalancePayAmount((int) price);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         etVacancies.clearFocus();
         adapter.addHeaderView(head);

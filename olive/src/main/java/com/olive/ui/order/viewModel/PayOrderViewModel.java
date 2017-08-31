@@ -170,6 +170,10 @@ public class PayOrderViewModel extends BaseViewModel {
         };
     }
 
+    public void setBalancePayAmount(int price) {
+        balancePayAmount = price;
+    }
+
 
     private void initMap() {
         payOrderParameterMap.put("orderNo", orderEntity.orderNo);

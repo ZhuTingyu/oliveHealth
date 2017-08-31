@@ -113,7 +113,6 @@
                 android:layout_marginRight="8dp"
                 android:background="@color/color_background"
                 android:gravity="left"
-                android:textColor="@color/gray_line"
                 android:hint="@string/text_refund_describe_hint"
                 android:maxLines="6"
                 android:minLines="6"

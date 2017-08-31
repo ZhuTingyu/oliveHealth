@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">olive</string>
+    <string name="app_name">橄榄健康DMS</string>
 
     <string name="text_hint_import_user_name">请输入用户名</string>
     <string name="text_hint_import_password">请输入登录密码</string>

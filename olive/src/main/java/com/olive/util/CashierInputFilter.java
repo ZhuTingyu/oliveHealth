@@ -15,15 +15,13 @@ public class CashierInputFilter implements InputFilter {
 
     Pattern mPattern;
     //输入的最大金额
-    private float maxValue = 0;
     //小数点后的位数
     private static final int POINTER_LENGTH = 2;
     private static final String POINTER = ".";
     private static final String ZERO = "0";
 
-    public CashierInputFilter(float maxValue) {
+    public CashierInputFilter() {
         mPattern = Pattern.compile("([0-9]|\\.)*");
-        this.maxValue = maxValue / 100;
     }
 
     @Override
@@ -65,11 +63,6 @@ public class CashierInputFilter implements InputFilter {
                     }
                 }
             }
-        }
-        //验证输入金额的大小
-        double sumText = Double.parseDouble(destText + sourceText);
-        if (sumText >= maxValue) {
-            return dest.subSequence(dstart, dend);
         }
         return dest.subSequence(dstart, dend) + sourceText;
     }
