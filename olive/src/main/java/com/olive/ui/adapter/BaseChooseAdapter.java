@@ -4,12 +4,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.RecyclerView;
-import android.util.SparseBooleanArray;
 
 import com.biz.util.Lists;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -19,44 +19,44 @@ import java.util.List;
 
 public abstract class BaseChooseAdapter<T, K extends BaseViewHolder> extends BaseQuickAdapter<T,K>{
 
-    protected SparseBooleanArray sparseBooleanArray;
+    protected List<Boolean> booleanArray;
     protected List<Integer> selectedPositions;
 
     public BaseChooseAdapter(int layoutResId, @Nullable List<T> data) {
         super(layoutResId, data);
-        sparseBooleanArray = new SparseBooleanArray();
+        booleanArray = new ArrayList<>();
     }
 
     protected void initBooleanList(List<T> data){
-        sparseBooleanArray.clear();
+        booleanArray.clear();
         for(int i = 0; i < data.size(); i++){
-            sparseBooleanArray.put(i, false);
+            booleanArray.add(false);
         }
     }
 
     public void setSelected(int position){
-        sparseBooleanArray.put(position, true);
+        booleanArray.set(position, true);
     }
 
     public  void setSingleSelected(int position){
-        sparseBooleanArray.clear();
-        sparseBooleanArray.put(position, true);
+        booleanArray.clear();
+        booleanArray.set(position, true);
         notifyDataSetChanged();
     }
 
     public void cancelSelected(int position){
-        sparseBooleanArray.put(position, false);
+        booleanArray.set(position, false);
     }
 
     public boolean isSelected(int position){
-        return sparseBooleanArray.get(position);
+        return booleanArray.get(position);
     }
 
 
     public List<Integer> getSelectedPotion(){
         selectedPositions = Lists.newArrayList();
-        for(int i = 0; i < sparseBooleanArray.size(); i++){
-            if(sparseBooleanArray.get(i)){
+        for(int i = 0; i < booleanArray.size(); i++){
+            if(booleanArray.get(i)){
                 selectedPositions.add(i);
             }
         }
@@ -66,11 +66,10 @@ public abstract class BaseChooseAdapter<T, K extends BaseViewHolder> extends Bas
     @Override
     public void replaceData(@NonNull Collection<? extends T> data) {
         if(mData.size() < data.size()){
-            for(int i = mData.size()+1; i <= data.size(); i++){
-                sparseBooleanArray.put(i, false);
+            for(int i = mData.size(); i < data.size(); i++){
+                booleanArray.add(i, false);
             }
         }else if(mData.size() > data.size()) {
-            sparseBooleanArray.delete(sparseBooleanArray.indexOfValue(true));
             initBooleanList((List<T>) data);
         }
         super.replaceData(data);

@@ -159,7 +159,6 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.getRecyclerView();
         adapter = new CartAdapter();
-        adapter.setFragment(this);
         adapter.setViewModel(viewModel);
         adapter.setTvPrice(priceTotal);
         adapter.setBuyAgainProductsNumber(buyAgainProductsNumber);

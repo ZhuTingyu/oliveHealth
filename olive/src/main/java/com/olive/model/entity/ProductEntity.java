@@ -44,6 +44,7 @@ public class ProductEntity implements Parcelable {
     public int saleQuantity;     //销售量
     public int stockQuantity;  //进货量
 
+    public boolean isSelected;
 
     public ProductEntity() {
     }

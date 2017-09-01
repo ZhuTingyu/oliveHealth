@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseBooleanArray;
 import android.widget.TextView;
 
 import com.biz.base.BaseViewHolder;
@@ -21,12 +22,15 @@ import java.util.Map;
  * Created by TingYu Zhu on 2017/7/27.
  */
 
-public class PayOrderAdapter extends BaseChooseAdapter<BankEntity, BaseViewHolder> {
+public class PayOrderAdapter extends BaseQuickAdapter<BankEntity, BaseViewHolder> {
 
-    private RecyclerView recyclerView;
     private int fixationPosition = 0;
     private PayOrderViewModel viewModel;
     public String payWay;
+
+    private SparseBooleanArray sparseBooleanArray;
+
+
 
     private List<Integer> payWayIcon = Lists.newArrayList(R.drawable.vector_china_bank
             , R.drawable.vector_icbc
@@ -52,19 +56,13 @@ public class PayOrderAdapter extends BaseChooseAdapter<BankEntity, BaseViewHolde
         for (int i = 0; i < payWayIcon.size(); i++) {
             way.put(payWayName[i], payWayIcon.get(i));
         }
+
+        sparseBooleanArray = new SparseBooleanArray();
     }
 
     @Override
     public int getItemCount() {
         return super.getItemCount() + 2;
-    }
-
-    @Override
-    protected void initBooleanList(List<BankEntity> data) {
-        sparseBooleanArray.clear();
-        for(int i = 0; i < data.size() + 2; i++){
-            sparseBooleanArray.put(i, false);
-        }
     }
 
     @Override
@@ -88,7 +86,7 @@ public class PayOrderAdapter extends BaseChooseAdapter<BankEntity, BaseViewHolde
             setPayType(position - 1);
         });
 
-        if (sparseBooleanArray.get(holder.getAdapterPosition(), false)) {
+        if (sparseBooleanArray.get(holder.getAdapterPosition())) {
             holder.setViewDrawableRight(view, R.drawable.vector_address_manage_choose);
         }else {
             view.setCompoundDrawablesWithIntrinsicBounds(null,null,null,null);
@@ -116,13 +114,15 @@ public class PayOrderAdapter extends BaseChooseAdapter<BankEntity, BaseViewHolde
         return number.substring(number.length() - 5, number.length() - 1);
     }
 
-    @Override
     public void setSingleSelected(int position) {
         fixationPosition = 0;
-        super.setSingleSelected(position);
+        sparseBooleanArray.clear();
+        sparseBooleanArray.put(position, true);
+        notifyDataSetChanged();
     }
 
     public void setViewModel(PayOrderViewModel viewModel) {
         this.viewModel = viewModel;
     }
+
 }

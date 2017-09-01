@@ -221,7 +221,11 @@ public abstract class BasePayFragment extends BaseFragment {
             } else {
                 if (viewModel.isPayWithAli()) {
                     viewModel.getAliPayOrderInfoAndPay(s -> {
-                        submitOrder();
+                        if(getString(R.string.message_pay_success).equals(s)){
+                            submitOrder();
+                        }else {
+                            error(s);
+                        }
                     });
                 } else if (viewModel.isPayWithWei()) {
                     viewModel.getWeiXinOrderInfoAndPay();

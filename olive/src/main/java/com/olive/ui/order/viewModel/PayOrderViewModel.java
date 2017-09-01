@@ -106,9 +106,7 @@ public class PayOrderViewModel extends BaseViewModel {
                 result = getString(R.string.resultcode_alipay_ERROR_4000);
             }
             return result;
-        }), action1, throwable -> {
-            error.onNext(new RestErrorInfo(getString(R.string.resultcode_alipay_ERROR_4000)));
-        });
+        }), action1);
     }
 
     public void getWeiXinOrderInfoAndPay() {

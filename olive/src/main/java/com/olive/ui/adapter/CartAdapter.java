@@ -30,7 +30,6 @@ import java.util.List;
 public class CartAdapter extends BaseChooseAdapter<ProductEntity, BaseViewHolder> {
 
     private CartViewModel viewModel;
-    private BaseFragment fragment;
     private onNumberChangeListener onNumberChangeListener;
     private TextView tvPrice;
     private onCheckClickListener onCheckClickListener;
@@ -59,7 +58,7 @@ public class CartAdapter extends BaseChooseAdapter<ProductEntity, BaseViewHolder
             onCheckClickListener.click(checkBox, holder.getAdapterPosition());
         });
 
-        checkBox.setChecked(sparseBooleanArray.get(holder.getAdapterPosition()));
+        checkBox.setChecked(booleanArray.get(holder.getAdapterPosition()));
 
 
 
@@ -79,7 +78,7 @@ public class CartAdapter extends BaseChooseAdapter<ProductEntity, BaseViewHolder
 
     public void isChooseAll(boolean isChooseAll){
         for(int i = 0; i < mData.size(); i++){
-            sparseBooleanArray.put(i, isChooseAll);
+            booleanArray.set(i, isChooseAll);
             notifyDataSetChanged();
             viewModel.getTotalPrice(aLong -> {
                 setPrice(aLong);
@@ -94,7 +93,7 @@ public class CartAdapter extends BaseChooseAdapter<ProductEntity, BaseViewHolder
 
     public void chooseBuyAgainProducts(){
         for(int i = 0; i < buyAgainProductsNumber; i++){
-            sparseBooleanArray.put(i, true);
+            booleanArray.set(i, true);
         }
     }
 
@@ -104,10 +103,6 @@ public class CartAdapter extends BaseChooseAdapter<ProductEntity, BaseViewHolder
 
     public void setViewModel(CartViewModel viewModel) {
         this.viewModel = viewModel;
-    }
-
-    public void setFragment(BaseFragment fragment) {
-        this.fragment = fragment;
     }
 
     public void setTvPrice(TextView tvPrice) {
@@ -136,9 +131,9 @@ public class CartAdapter extends BaseChooseAdapter<ProductEntity, BaseViewHolder
     }
     
     public void deleteChoose(){
-        for (int i = 0; i < sparseBooleanArray.size();) {
-            if(sparseBooleanArray.get(i)){
-                sparseBooleanArray.delete(i);
+        for (int i = 0; i < booleanArray.size();) {
+            if(booleanArray.get(i)){
+                booleanArray.remove(i);
                 mData.remove(i);
                 continue;
             }
