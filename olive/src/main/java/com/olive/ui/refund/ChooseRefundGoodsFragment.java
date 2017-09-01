@@ -36,6 +36,7 @@ public class ChooseRefundGoodsFragment extends BaseFragment implements CartAdapt
     public void onAttach(Context context) {
         super.onAttach(context);
         viewModel = new ChooseRefundGoodViewModel(context);
+        initViewModel(viewModel);
     }
 
     @Nullable
@@ -74,8 +75,7 @@ public class ChooseRefundGoodsFragment extends BaseFragment implements CartAdapt
 
     @Override
     public void click(CheckBox checkBox, int position) {
-        adapter.setSelected(position);
-        adapter.notifyDataSetChanged();
+
     }
 
     @Override

@@ -15,6 +15,7 @@ import com.biz.base.BaseFragment;
 import com.biz.util.IntentBuilder;
 import com.biz.util.PriceUtil;
 import com.olive.R;
+import com.olive.model.entity.OrderEntity;
 import com.olive.ui.main.MainActivity;
 import com.olive.ui.main.my.address.AddressViewModel;
 
@@ -35,7 +36,7 @@ public class PayResultFragment extends BaseFragment {
     private TextView urge;
 
     private boolean isSuccess;
-    private long orderAmount;
+    private OrderEntity orderEntity;
 
     private AddressViewModel viewModel;
 
@@ -56,7 +57,7 @@ public class PayResultFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         isSuccess = getBaseActivity().getIntent().getBooleanExtra(IntentBuilder.KEY_BOOLEAN,false);
-        orderAmount = getBaseActivity().getIntent().getLongExtra(IntentBuilder.KEY_VALUE,0);
+        orderEntity = getBaseActivity().getIntent().getParcelableExtra(IntentBuilder.KEY_DATA);
 
         initView();
     }
@@ -91,7 +92,8 @@ public class PayResultFragment extends BaseFragment {
 
                 address.setText(getString(R.string.text_my_address_is, viewModel.getDefaultAddress().detailAddress));
             });
-            price.setText(getString(R.string.text_pay_order_amount, PriceUtil.format(orderAmount)));
+            price.setText(getString(R.string.text_pay_order_amount, PriceUtil.format(orderEntity.amount)));
+            btnOk.setText(getString(R.string.text_back_cart));
             btnOk.setOnClickListener(v -> {
                 MainActivity.startMainWithAnim(getActivity(), MainActivity.TAB_CART);
             });
@@ -101,9 +103,8 @@ public class PayResultFragment extends BaseFragment {
             rlInof.setVisibility(View.GONE);
             imageView.setImageResource(R.drawable.vector_pay_failed);
             result.setText(getString(R.string.text_pay_failed));
-            btnOk.setText(getString(R.string.text_back_cart));
             btnOk.setOnClickListener(v -> {
-                MainActivity.startMainWithAnim(getActivity(), MainActivity.TAB_CART);
+                getActivity().finish();
             });
         }
     }

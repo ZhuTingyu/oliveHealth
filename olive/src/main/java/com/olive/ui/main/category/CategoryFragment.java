@@ -105,11 +105,6 @@ public class CategoryFragment extends BaseLazyFragment {
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         mAdapter = new ProductAdapter(R.layout.item_product_grid_layout);
         mAdapter.setViewModel(viewModel);
-        mAdapter.setOnItemClickListener((baseQuickAdapter, view, i) -> {
-            IntentBuilder.Builder()
-                    .putExtra(IntentBuilder.KEY_VALUE, mAdapter.getItem(i).productNo)
-                    .startParentActivity(getActivity(), ProductDetailsFragment.class, true);
-        });
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnLoadMoreListener(()->{
             viewModel.setLoadMore(o -> {

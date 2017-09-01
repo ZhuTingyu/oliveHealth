@@ -112,12 +112,6 @@ public class HomeFragment extends BaseLazyFragment {
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         mAdapter = new ProductAdapter(R.layout.item_product_grid_layout);
         mAdapter.setViewModel(viewModel);
-        mAdapter.setOnItemClickListener((baseQuickAdapter, view1, i) -> {
-            ProductAdapter adapter = (ProductAdapter) baseQuickAdapter;
-            IntentBuilder.Builder()
-                    .putExtra(IntentBuilder.KEY_VALUE, adapter.getItem(i).productNo)
-                    .startParentActivity(getActivity(), ProductDetailsFragment.class, true);
-        });
         mAdapter.addHeaderView(createBannerView());
         mRecyclerView.setRefreshListener(() -> {
             mRecyclerView.postDelayed(() -> {

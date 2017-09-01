@@ -46,6 +46,7 @@ public abstract class BasePasswordFragment extends BaseFragment {
         tvOk = findViewById(R.id.btn_ok);
 
         bindData(RxUtil.textChanges(mobile), viewModel.setMobile());
+        bindUi(viewModel.getIsValid(), RxUtil.enabled(tvOk));
 
     }
 

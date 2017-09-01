@@ -55,11 +55,17 @@ public class CartAdapter extends BaseChooseAdapter<ProductEntity, BaseViewHolder
         AppCompatCheckBox checkBox = holder.getView(R.id.checkbox);
 
         checkBox.setOnClickListener(v -> {
+            if (isSelected(holder.getAdapterPosition())) {
+                checkBox.setChecked(false);
+                cancelSelected(holder.getAdapterPosition());
+            } else {
+                checkBox.setChecked(true);
+                setSelected(holder.getAdapterPosition());
+            }
             onCheckClickListener.click(checkBox, holder.getAdapterPosition());
         });
 
         checkBox.setChecked(booleanArray.get(holder.getAdapterPosition()));
-
 
 
         holder.getView(R.id.btn_min).setOnClickListener(v -> {
@@ -76,8 +82,8 @@ public class CartAdapter extends BaseChooseAdapter<ProductEntity, BaseViewHolder
 
     }
 
-    public void isChooseAll(boolean isChooseAll){
-        for(int i = 0; i < mData.size(); i++){
+    public void isChooseAll(boolean isChooseAll) {
+        for (int i = 0; i < mData.size(); i++) {
             booleanArray.set(i, isChooseAll);
             notifyDataSetChanged();
             viewModel.getTotalPrice(aLong -> {
@@ -85,19 +91,19 @@ public class CartAdapter extends BaseChooseAdapter<ProductEntity, BaseViewHolder
             });
         }
 
-        if(!isChooseAll){
+        if (!isChooseAll) {
             setPrice(0);
         }
 
     }
 
-    public void chooseBuyAgainProducts(){
-        for(int i = 0; i < buyAgainProductsNumber; i++){
+    public void chooseBuyAgainProducts() {
+        for (int i = 0; i < buyAgainProductsNumber; i++) {
             booleanArray.set(i, true);
         }
     }
 
-    private void setPrice(long price){
+    private void setPrice(long price) {
         tvPrice.setText(PriceUtil.formatRMB(price));
     }
 
@@ -113,26 +119,27 @@ public class CartAdapter extends BaseChooseAdapter<ProductEntity, BaseViewHolder
         this.buyAgainProductsNumber = buyAgainProductsNumber;
     }
 
-    public interface onNumberChangeListener{
+    public interface onNumberChangeListener {
         void add(ProductEntity productEntity);
+
         void min(ProductEntity productEntity);
     }
 
-    public interface onCheckClickListener{
+    public interface onCheckClickListener {
         void click(CheckBox checkBox, int position);
     }
 
-    public void setOnNumberChangeListener(onNumberChangeListener listener){
+    public void setOnNumberChangeListener(onNumberChangeListener listener) {
         this.onNumberChangeListener = listener;
     }
 
-    public void setOnCheckClickListener(onCheckClickListener listener){
+    public void setOnCheckClickListener(onCheckClickListener listener) {
         this.onCheckClickListener = listener;
     }
-    
-    public void deleteChoose(){
-        for (int i = 0; i < booleanArray.size();) {
-            if(booleanArray.get(i)){
+
+    public void deleteChoose() {
+        for (int i = 0; i < booleanArray.size(); ) {
+            if (booleanArray.get(i)) {
                 booleanArray.remove(i);
                 mData.remove(i);
                 continue;
@@ -145,15 +152,15 @@ public class CartAdapter extends BaseChooseAdapter<ProductEntity, BaseViewHolder
     @Override
     public void setNewData(@Nullable List<ProductEntity> data) {
         super.setNewData(data);
-        if(data.isEmpty()){
-           Utils.setEmptyView(this, mContext.getString(R.string.message_empty_cart));
+        if (data.isEmpty()) {
+            Utils.setEmptyView(this, mContext.getString(R.string.message_empty_cart));
         }
     }
 
     @Override
     public void replaceData(@NonNull Collection<? extends ProductEntity> data) {
         super.replaceData(data);
-        if(data.isEmpty()){
+        if (data.isEmpty()) {
             Utils.setEmptyView(this, mContext.getString(R.string.message_empty_cart));
         }
     }

@@ -195,6 +195,7 @@ public abstract class BasePayFragment extends BaseFragment {
             btnOk.setText(getString(R.string.text_make_sure_pay));
             btnOk.setOnClickListener(v1 -> {
                 setProgressVisible(true);
+                dialog.dismiss();
                 checkPayPassword(passwordView, passwordError);
             });
         });
@@ -240,12 +241,13 @@ public abstract class BasePayFragment extends BaseFragment {
         viewModel.payOrder(s -> {
             IntentBuilder.Builder()
                     .putExtra(IntentBuilder.KEY_BOOLEAN, true)
-                    .putExtra(IntentBuilder.KEY_VALUE, viewModel.orderEntity.amount)
+                    .putExtra(IntentBuilder.KEY_DATA, viewModel.orderEntity)
                     .startParentActivity(getActivity(), PayResultFragment.class);
             getActivity().finish();
         },throwable -> {
             IntentBuilder.Builder()
                     .putExtra(IntentBuilder.KEY_BOOLEAN, false)
+                    .putExtra(IntentBuilder.KEY_DATA, viewModel.orderEntity)
                     .startParentActivity(getActivity(), PayResultFragment.class);
             getActivity().finish();
         });

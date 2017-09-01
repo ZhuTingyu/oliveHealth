@@ -52,7 +52,6 @@ public class ModifyPasswordFragment extends BasePasswordFragment {
             });
         });
         bindUi(RxUtil.textChanges(newPassword), viewModel.setNewPassword());
-        bindUi(viewModel.getIsValid(), RxUtil.enabled(tvOk));
 
         viewModel.setType(BasePasswordViewModel.TYPE_CODE_MODIFY_PASSWORD);
 

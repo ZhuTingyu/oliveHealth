@@ -27,7 +27,7 @@ public abstract class BaseChooseAdapter<T, K extends BaseViewHolder> extends Bas
         booleanArray = new ArrayList<>();
     }
 
-    protected void initBooleanList(List<T> data){
+    public void initBooleanList(List<T> data){
         booleanArray.clear();
         for(int i = 0; i < data.size(); i++){
             booleanArray.add(false);
@@ -38,11 +38,6 @@ public abstract class BaseChooseAdapter<T, K extends BaseViewHolder> extends Bas
         booleanArray.set(position, true);
     }
 
-    public  void setSingleSelected(int position){
-        booleanArray.clear();
-        booleanArray.set(position, true);
-        notifyDataSetChanged();
-    }
 
     public void cancelSelected(int position){
         booleanArray.set(position, false);

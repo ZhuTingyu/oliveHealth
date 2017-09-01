@@ -273,7 +273,7 @@
     <string name="message_pay_success">支付成功</string>
     <string name="message_pay_price_not_enough">账户余额不足，请再添加其他支付方式</string>
     <string name="message_account_no_debt">当前没有欠款</string>
-    <string name="message_empty_cart">购物车为空</string>
+    <string name="message_empty_cart">货物为空</string>
     <string name="message_empty_product">商品信息为空</string>
     <string name="message_empty_stock">库存为空</string>
     <string name="message_empty_refund">退货信息为空</string>

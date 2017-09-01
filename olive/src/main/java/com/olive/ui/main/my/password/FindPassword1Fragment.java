@@ -53,8 +53,6 @@ public class FindPassword1Fragment extends BasePasswordFragment {
         });
 
         bindData(RxUtil.textChanges(code), viewModel.setAuthCode());
-        bindData(viewModel.getIsValid(), RxUtil.enabled(tvOk));
-
 
         tvOk.setOnClickListener(v -> {
             viewModel.validateCode(s -> {

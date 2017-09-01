@@ -61,6 +61,7 @@ public class ResetPayPasswordFragment extends BasePasswordFragment {
         initPasswordView();
 
         tvOk = findViewById(R.id.btn_ok);
+        bindUi(viewModel.getIsValid(), RxUtil.enabled(tvOk));
         tvOk.setOnClickListener(v -> {
             viewModel.resetPayPassword(s1 -> {
                 ToastUtils.showLong(getContext(), getString(R.string.message_modify_success));

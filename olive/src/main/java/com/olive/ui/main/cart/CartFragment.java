@@ -174,6 +174,7 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
 
         viewModel.getCartProductList(productEntities -> {
             if (isBuyAgain) {
+                adapter.initBooleanList(productEntities);
                 setBuyAgain(productEntities);
             }
             adapter.setNewData(productEntities);
@@ -205,6 +206,7 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
         viewModel.getCartProductList(productEntities -> {
             setProgressVisible(false);
             if (isBuyAgain) {
+                adapter.initBooleanList(productEntities);
                 setBuyAgain(productEntities);
             }
             adapter.replaceData(productEntities);
@@ -242,13 +244,6 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
 
     @Override
     public void click(CheckBox checkBox, int position) {
-        if (adapter.isSelected(position)) {
-            checkBox.setChecked(false);
-            adapter.cancelSelected(position);
-        } else {
-            checkBox.setChecked(true);
-            adapter.setSelected(position);
-        }
         viewModel.getTotalPrice(aLong -> {
             priceTotal.setText(PriceUtil.formatRMB(aLong));
         });

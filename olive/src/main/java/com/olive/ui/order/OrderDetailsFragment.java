@@ -19,16 +19,20 @@ import com.biz.util.PriceUtil;
 import com.biz.util.TimeUtil;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
+import com.olive.event.OrderListUpdateEvent;
 import com.olive.model.UserModel;
 import com.olive.model.entity.OrderEntity;
 import com.olive.ui.adapter.CheckOrderAdapter;
 import com.olive.ui.adapter.OrderFootAdapter;
 import com.olive.ui.order.viewModel.OrderDetailViewModel;
+import com.olive.ui.order.viewModel.OrderListViewModel;
 import com.olive.ui.order.viewModel.OrderViewModel;
 
 import org.w3c.dom.Text;
 
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by TingYu Zhu on 2017/7/31.
@@ -103,6 +107,10 @@ public class OrderDetailsFragment extends BaseFragment {
                 setProgressVisible(true);
                 orderViewModel.cancelOrder(s -> {
                     setProgressVisible(false);
+                    EventBus.getDefault().post(new OrderListUpdateEvent(OrderListViewModel.TYPE_ORDER_CANCEL));
+                    EventBus.getDefault().post(new OrderListUpdateEvent(OrderListViewModel.TYPE_WAIT_PAY));
+                    EventBus.getDefault().post(new OrderListUpdateEvent(OrderListViewModel.TYPE_ALL));
+                    getActivity().finish();
                 });
             });
 

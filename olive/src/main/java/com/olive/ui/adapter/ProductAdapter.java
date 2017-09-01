@@ -1,5 +1,7 @@
 package com.olive.ui.adapter;
 
+import com.biz.base.BaseActivity;
+import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
 import com.biz.util.LogUtil;
 import com.biz.util.PriceUtil;
@@ -10,6 +12,7 @@ import com.olive.app.OliveApplication;
 import com.olive.model.entity.ProductEntity;
 import com.olive.ui.holder.ProductViewHolder;
 import com.olive.ui.main.home.ProductsViewModel;
+import com.olive.ui.order.ProductDetailsFragment;
 import com.olive.util.LoadImageUtil;
 import com.olive.util.Utils;
 
@@ -88,6 +91,12 @@ public class ProductAdapter extends BaseQuickAdapter<ProductEntity, ProductViewH
             viewModel.addCart(s -> {
                 ToastUtils.showLong(mContext, mContext.getString(R.string.text_join_cart_success));
             });
+        });
+
+        holder.itemView.setOnClickListener(v -> {
+            IntentBuilder.Builder()
+                    .putExtra(IntentBuilder.KEY_VALUE, item.productNo)
+                    .startParentActivity((BaseActivity)mContext, ProductDetailsFragment.class, true);
         });
 
     }
