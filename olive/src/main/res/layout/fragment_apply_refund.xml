@@ -133,6 +133,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
+                android:paddingLeft="8dp"
+                android:paddingBottom="16dp"
+                android:paddingRight="8dp"
                 android:visibility="visible"
                 android:paddingTop="16dp"/>
 

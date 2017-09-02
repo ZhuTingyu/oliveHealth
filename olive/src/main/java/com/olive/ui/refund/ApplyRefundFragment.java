@@ -158,15 +158,13 @@ public class ApplyRefundFragment extends BaseErrorFragment {
         imgsGrid.setNumColumns(4);
         imgsGrid.setAdapter(adapter);
         adapter.setOnImageItemClickListener((adapter1, path) -> {
-            if (path == null) {
-                select(list, p -> {
-                    if (p == CAMERA) {
-                        goCamera();
-                    } else {
-                        goGallery();
-                    }
-                });
-            }
+            select(list, p -> {
+                if (p == CAMERA) {
+                    goCamera();
+                } else {
+                    goGallery();
+                }
+            });
         });
 
     }

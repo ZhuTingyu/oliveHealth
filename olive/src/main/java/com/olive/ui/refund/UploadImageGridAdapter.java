@@ -136,6 +136,7 @@ public class UploadImageGridAdapter extends BaseArrayListAdapter<String> {
                 if (onImageDataChange != null)
                     onImageDataChange.call(mList);
             });
+
             if (getItem(position).startsWith("file"))
                 LoadImageUtil.Builder().loadFile(getItem(position)).file()
                         .build().displayImage(icon);
@@ -143,10 +144,6 @@ public class UploadImageGridAdapter extends BaseArrayListAdapter<String> {
                 LoadImageUtil.Builder().load(new File(getItem(position))).build()
                         .imageOptions(com.biz.http.R.color.white)
                         .displayImage(icon);
-
-            icon.setOnClickListener(v -> {
-                replace((String) v.getTag());
-            });
         }
     }
 
@@ -213,11 +210,15 @@ public class UploadImageGridAdapter extends BaseArrayListAdapter<String> {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
          if (requestCode == CAMERA_SUCCESS_REQUEST) {
-            if (data == null) {
+            if (requestCode == -1) {
                 mFragment.setProgressVisible(true);
                 viewModel.uploadImg(s -> {
                     mFragment.setProgressVisible(false);
-                    addImage(viewModel.getFileUri());
+                    if(hisSelectedPath == null){
+                        addImage(viewModel.getFileUri());
+                    }else {
+                        replace(viewModel.getFileUri());
+                    }
                 });
             }
         } else if (requestCode == PHOTO_SUCCESS_REQUEST) {
@@ -226,7 +227,11 @@ public class UploadImageGridAdapter extends BaseArrayListAdapter<String> {
                 viewModel.setFileUri(data.getStringArrayListExtra(MultiImageSelector.EXTRA_RESULT).get(0));
                 viewModel.uploadImg(s -> {
                     mFragment.setProgressVisible(false);
-                    addItem(viewModel.getFileUri());
+                    if(hisSelectedPath == null){
+                        addImage(viewModel.getFileUri());
+                    }else {
+                        replace(viewModel.getFileUri());
+                    }
                 });
             }
         }
