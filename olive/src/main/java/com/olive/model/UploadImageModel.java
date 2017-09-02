@@ -133,6 +133,7 @@ public class UploadImageModel {
                     }
                     ResponseJson<String> responseJson = GsonUtil.fromJson(result, new TypeToken<ResponseJson<String>>() {}.getType());
                     subscriber.onNext(responseJson);
+                    LogUtil.print("s: " + responseJson.toJsonString());
                 }
             });
         });

@@ -25,6 +25,7 @@ import com.olive.model.entity.ProductEntity;
 import com.olive.ui.refund.viewModel.ApplyRefundViewModel;
 import com.olive.util.LoadImageUtil;
 
+import java.io.File;
 import java.util.List;
 import java.util.Random;
 
@@ -139,12 +140,14 @@ public class UploadImageGridAdapter extends BaseArrayListAdapter<String> {
                 LoadImageUtil.Builder().loadFile(getItem(position)).file()
                         .build().displayImage(icon);
             else
-                LoadImageUtil.Builder().load(getItem(position)).build()
+                LoadImageUtil.Builder().load(new File(getItem(position))).build()
                         .imageOptions(com.biz.http.R.color.white)
                         .displayImage(icon);
+
+            icon.setOnClickListener(v -> {
+                replace((String) v.getTag());
+            });
         }
-
-
     }
 
     class AddViewHolder extends BaseViewHolder {
@@ -157,7 +160,7 @@ public class UploadImageGridAdapter extends BaseArrayListAdapter<String> {
 
             addBtn = (AppCompatImageView) itemView;
 
-            addBtn.setScaleType(ImageView.ScaleType.CENTER);
+            addBtn.setScaleType(ImageView.ScaleType.FIT_XY);
 
             addBtn.setImageResource(R.drawable.vector_return_goods_photo);
             AbsListView.LayoutParams params = new AbsListView.LayoutParams(Utils.dip2px(70), Utils.dip2px(70));
@@ -213,6 +216,8 @@ public class UploadImageGridAdapter extends BaseArrayListAdapter<String> {
             if (data == null) {
                 mFragment.setProgressVisible(true);
                 viewModel.uploadImg(s -> {
+                    mFragment.setProgressVisible(false);
+                    addImage(viewModel.getFileUri());
                 });
             }
         } else if (requestCode == PHOTO_SUCCESS_REQUEST) {
@@ -221,6 +226,7 @@ public class UploadImageGridAdapter extends BaseArrayListAdapter<String> {
                 viewModel.setFileUri(data.getStringArrayListExtra(MultiImageSelector.EXTRA_RESULT).get(0));
                 viewModel.uploadImg(s -> {
                     mFragment.setProgressVisible(false);
+                    addItem(viewModel.getFileUri());
                 });
             }
         }

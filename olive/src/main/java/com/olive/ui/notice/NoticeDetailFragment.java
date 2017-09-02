@@ -14,12 +14,13 @@ import com.biz.base.BaseFragment;
 import com.biz.util.TimeUtil;
 import com.olive.R;
 import com.olive.model.entity.NoticeDetailEntity;
+import com.olive.ui.BaseErrorFragment;
 
 /**
  * Created by TingYu Zhu on 2017/7/24.
  */
 
-public class NoticeDetailFragment extends BaseFragment {
+public class NoticeDetailFragment extends BaseErrorFragment {
 
     private NoticeDetailViewModel viewModel;
 

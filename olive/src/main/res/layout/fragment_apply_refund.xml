@@ -129,11 +129,11 @@
 
 
             <GridView
-                android:id="@+id/grid_img"
+                android:id="@+id/img_grid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:paddingTop="16dp"/>
 
             <LinearLayout
@@ -143,6 +143,7 @@
                 android:background="@color/white"
                 android:orientation="horizontal"
                 android:paddingTop="16dp"
+                android:visibility="gone"
                 android:paddingBottom="16dp"/>
 
         </LinearLayout>

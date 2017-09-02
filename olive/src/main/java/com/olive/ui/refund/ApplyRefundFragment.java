@@ -31,6 +31,7 @@ import com.biz.util.Utils;
 import com.biz.widget.ExpandGridView;
 import com.olive.R;
 import com.olive.model.entity.ProductEntity;
+import com.olive.ui.BaseErrorFragment;
 import com.olive.ui.adapter.BottomSheetAdapter;
 import com.olive.ui.refund.viewModel.ApplyRefundViewModel;
 import com.olive.util.LoadImageUtil;
@@ -47,7 +48,7 @@ import me.nereo.multi_image_selector.MultiImageSelectorActivity;
  * Created by TingYu Zhu on 2017/7/29.
  */
 
-public class ApplyRefundFragment extends BaseFragment {
+public class ApplyRefundFragment extends BaseErrorFragment {
     private int CAMERA_SUCCESS_REQUEST = 2082;
     private int PHOTO_SUCCESS_REQUEST = 2083;
     private int CHOOSE_GOODS__SUCCESS_REQUEST = 2084;
@@ -97,6 +98,7 @@ public class ApplyRefundFragment extends BaseFragment {
         reason = findViewById(R.id.reason);
         ok = findViewById(R.id.btn_sure);
         imgsLinearLayout = findViewById(R.id.ll_img);
+        imgsGrid = findViewById(R.id.img_grid);
         describe = findViewById(R.id.describe);
         describe.clearFocus();
 
@@ -133,8 +135,7 @@ public class ApplyRefundFragment extends BaseFragment {
     }
 
     private void initUploadImages() {
-        uploadImgs = Lists.newArrayList();
-        List<String> list = Lists.newArrayList(getContext().getResources().getStringArray(R.array.array_photo));
+        /*uploadImgs = Lists.newArrayList();
         for (int i = 0; i < 2; i++) {
             View view = LayoutInflater.from(getContext()).inflate(R.layout.item_icon_del_layout, imgsLinearLayout, false);
             view.setOnClickListener(v -> {
@@ -150,22 +151,23 @@ public class ApplyRefundFragment extends BaseFragment {
             view.setTag(i);
             imgsLinearLayout.addView(view);
             uploadImgs.add(view);
-        }
+        }*/
 
-        /*adapter = new UploadImageGridAdapter(getContext(),viewModel,this);
-        imgsLayout.setNumColumns(4);
-        imgsLayout.setAdapter(adapter);
+        List<String> list = Lists.newArrayList(getContext().getResources().getStringArray(R.array.array_photo));
+        adapter = new UploadImageGridAdapter(getContext(), viewModel, this);
+        imgsGrid.setNumColumns(4);
+        imgsGrid.setAdapter(adapter);
         adapter.setOnImageItemClickListener((adapter1, path) -> {
-            if(path == null){
+            if (path == null) {
                 select(list, p -> {
                     if (p == CAMERA) {
-                        adapter.setChooseMode(CAMERA);
+                        goCamera();
                     } else {
-                        adapter.setChooseMode(GALLERY);
+                        goGallery();
                     }
                 });
             }
-        });*/
+        });
 
     }
 
@@ -181,6 +183,7 @@ public class ApplyRefundFragment extends BaseFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        adapter.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CHOOSE_GOODS__SUCCESS_REQUEST) {
             if (data != null) {
                 List<ProductEntity> productEntities = data.getParcelableArrayListExtra(IntentBuilder.KEY_DATA);
@@ -189,7 +192,7 @@ public class ApplyRefundFragment extends BaseFragment {
                     viewModel.setChooseRefundProduct(productEntities);
                 }
             }
-        } else if (requestCode == CAMERA_SUCCESS_REQUEST) {
+        } /*else if (requestCode == CAMERA_SUCCESS_REQUEST) {
             if (data == null) {
                 setProgressVisible(true);
                 viewModel.uploadImg(s -> {
@@ -208,7 +211,7 @@ public class ApplyRefundFragment extends BaseFragment {
                     viewModel.setImgUrl(current, viewModel.getFileUri());
                 });
             }
-        }
+        }*/
     }
 
     protected void initGoodsInfoView(List<ProductEntity> productEntities, boolean isLook) {

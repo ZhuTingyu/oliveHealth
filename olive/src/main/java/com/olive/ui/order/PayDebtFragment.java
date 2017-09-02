@@ -14,9 +14,9 @@ public class PayDebtFragment extends BasePayFragment {
     protected void initHeadView() {
 
         super.initHeadView();
-        findViewById(R.id.text1).setVisibility(View.GONE);
-        findViewById(R.id.order_number).setVisibility(View.GONE);
-        findViewById(R.id.divider1).setVisibility(View.GONE);
+        findViewById(head, R.id.text1).setVisibility(View.GONE);
+        findViewById(head, R.id.order_number).setVisibility(View.GONE);
+        findViewById(head, R.id.divider1).setVisibility(View.GONE);
 
     }
 

@@ -21,6 +21,7 @@ import com.olive.model.OrderModel;
 import com.olive.model.UserModel;
 import com.olive.model.entity.AccountEntity;
 import com.olive.model.entity.AddressEntity;
+import com.olive.ui.BaseErrorFragment;
 import com.olive.ui.adapter.CheckOrderAdapter;
 import com.olive.ui.main.my.address.AddressManageFragment;
 import com.olive.ui.main.my.address.AddressViewModel;
@@ -33,7 +34,7 @@ import de.greenrobot.event.EventBus;
  * Created by TingYu Zhu on 2017/7/26.
  */
 
-public class CheckOrderInfoFragment extends BaseFragment {
+public class CheckOrderInfoFragment extends BaseErrorFragment {
 
     private int ADDRESS_CODE = 0x123;
 

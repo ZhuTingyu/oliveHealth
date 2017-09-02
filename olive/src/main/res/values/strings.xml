@@ -282,6 +282,7 @@
     <string name="message_empty_notice_list">公告列表为空</string>
     <string name="message_empty_consume">没有消费的订单</string>
     <string name="message_empty_address">没有收货地址</string>
+    <string name="message_is_cancel_order">是否取消订单？</string>
 
     <string name="string_password_suffix">dms</string>
     <string name="string_app_name">——客户下单系统——</string>

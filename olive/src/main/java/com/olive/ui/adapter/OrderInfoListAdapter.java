@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.biz.base.BaseFragment;
 import com.biz.base.BaseViewHolder;
+import com.biz.util.DialogUtil;
 import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
 import com.biz.util.PriceUtil;
@@ -167,13 +168,18 @@ public class OrderInfoListAdapter extends BaseQuickAdapter<OrderEntity, BaseView
 
     private void initWaitPay(BaseViewHolder holder, TextView leftBtn, TextView rightBtn, OrderEntity orderEntity) {
         leftBtn.setOnClickListener(v -> {
-            fragment.setProgressVisible(true);
-            orderViewModel.setOrderNo(orderEntity.orderNo);
-            orderViewModel.cancelOrder(s -> {
-                fragment.setProgressVisible(false);
-                remove(holder.getAdapterPosition());
-                EventBus.getDefault().post(new OrderListUpdateEvent(OrderListViewModel.TYPE_ORDER_CANCEL));
-            });
+
+            DialogUtil.createDialogView(mContext, R.string.message_is_cancel_order,null,R.string.btn_cancel,
+                    (dialog, which) -> {
+                        fragment.setProgressVisible(true);
+                        orderViewModel.setOrderNo(orderEntity.orderNo);
+                        orderViewModel.cancelOrder(s -> {
+                            fragment.setProgressVisible(false);
+                            remove(holder.getAdapterPosition());
+                            EventBus.getDefault().post(new OrderListUpdateEvent(OrderListViewModel.TYPE_ORDER_CANCEL));
+                        });
+                    },R.string.btn_confirm);
+
         });
 
         rightBtn.setOnClickListener(v -> {

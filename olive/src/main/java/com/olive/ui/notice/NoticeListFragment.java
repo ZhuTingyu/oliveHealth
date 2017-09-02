@@ -13,13 +13,14 @@ import com.biz.util.Lists;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.olive.R;
+import com.olive.ui.BaseErrorFragment;
 import com.olive.ui.adapter.NoticeListAdapter;
 
 /**
  * Created by TingYu Zhu on 2017/7/24.
  */
 
-public class NoticeListFragment extends BaseFragment {
+public class NoticeListFragment extends BaseErrorFragment {
 
     private XRecyclerView recyclerView;
     private NoticeListAdapter adapter;

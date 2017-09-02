@@ -22,6 +22,7 @@ import com.olive.R;
 import com.olive.event.OrderListUpdateEvent;
 import com.olive.model.UserModel;
 import com.olive.model.entity.OrderEntity;
+import com.olive.ui.BaseErrorFragment;
 import com.olive.ui.adapter.CheckOrderAdapter;
 import com.olive.ui.adapter.OrderFootAdapter;
 import com.olive.ui.order.viewModel.OrderDetailViewModel;
@@ -38,7 +39,7 @@ import de.greenrobot.event.EventBus;
  * Created by TingYu Zhu on 2017/7/31.
  */
 
-public class OrderDetailsFragment extends BaseFragment {
+public class OrderDetailsFragment extends BaseErrorFragment {
     private XRecyclerView recyclerView;
     private CheckOrderAdapter adapter;
     private String status;

@@ -10,15 +10,15 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
 
-import com.biz.base.BaseFragment;
 import com.biz.util.Utils;
 import com.olive.R;
+import com.olive.ui.BaseErrorFragment;
 
 /**
  * Created by TingYu Zhu on 2017/8/24.
  */
 
-public class CustomerServicesFragment extends BaseFragment{
+public class CustomerServicesFragment extends BaseErrorFragment {
 
     private WebView webView;
 

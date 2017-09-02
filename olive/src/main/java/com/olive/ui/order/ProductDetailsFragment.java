@@ -39,6 +39,7 @@ import com.biz.widget.recyclerview.XRecyclerView;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.olive.R;
 import com.olive.model.entity.ProductEntity;
+import com.olive.ui.BaseErrorFragment;
 import com.olive.ui.adapter.ProductAdapter;
 import com.olive.ui.holder.ImageHolderView;
 import com.olive.ui.main.cart.CartFragment;
@@ -54,7 +55,7 @@ import java.util.List;
  * Created by TingYu Zhu on 2017/7/24.
  */
 
-public class ProductDetailsFragment extends BaseFragment {
+public class ProductDetailsFragment extends BaseErrorFragment {
 
     private XRecyclerView recyclerView;
     private ProductAdapter adapter;

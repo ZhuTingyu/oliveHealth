@@ -16,6 +16,7 @@ import com.biz.util.IntentBuilder;
 import com.biz.util.PriceUtil;
 import com.olive.R;
 import com.olive.model.entity.OrderEntity;
+import com.olive.ui.BaseErrorFragment;
 import com.olive.ui.main.MainActivity;
 import com.olive.ui.main.my.address.AddressViewModel;
 
@@ -25,7 +26,7 @@ import org.w3c.dom.Text;
  * Created by TingYu Zhu on 2017/7/28.
  */
 
-public class PayResultFragment extends BaseFragment {
+public class PayResultFragment extends BaseErrorFragment {
 
     private AppCompatImageView imageView;
     private TextView result;

@@ -17,6 +17,7 @@ import com.biz.util.Lists;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
 import com.olive.model.entity.ProductEntity;
+import com.olive.ui.BaseErrorFragment;
 import com.olive.ui.adapter.CartAdapter;
 import com.olive.ui.refund.viewModel.ChooseRefundGoodViewModel;
 
@@ -27,7 +28,7 @@ import java.util.List;
  * Created by TingYu Zhu on 2017/7/30.
  */
 
-public class ChooseRefundGoodsFragment extends BaseFragment implements CartAdapter.onCheckClickListener, CartAdapter.onNumberChangeListener {
+public class ChooseRefundGoodsFragment extends BaseErrorFragment implements CartAdapter.onCheckClickListener, CartAdapter.onNumberChangeListener {
     private XRecyclerView recyclerView;
     private CartAdapter adapter;
     private ChooseRefundGoodViewModel viewModel;

@@ -16,6 +16,7 @@ import com.biz.widget.recyclerview.XRecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.olive.R;
 import com.olive.event.OrderListUpdateEvent;
+import com.olive.ui.BaseErrorFragment;
 import com.olive.ui.adapter.OrderInfoListAdapter;
 import com.olive.ui.order.viewModel.OrderListViewModel;
 
@@ -27,7 +28,7 @@ import de.greenrobot.event.EventBus;
  * Created by TingYu Zhu on 2017/7/28.
  */
 
-public class BaseOrderListInfoFragment extends BaseFragment {
+public class BaseOrderListInfoFragment extends BaseErrorFragment {
 
 
     private XRecyclerView recyclerView;

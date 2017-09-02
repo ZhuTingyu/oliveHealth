@@ -32,6 +32,7 @@ import com.olive.model.UserModel;
 import com.olive.model.entity.AccountEntity;
 import com.olive.model.entity.BankEntity;
 import com.olive.model.entity.OrderEntity;
+import com.olive.ui.BaseErrorFragment;
 import com.olive.ui.adapter.PayOrderAdapter;
 import com.olive.ui.main.my.UserViewModel;
 import com.olive.ui.main.my.account.viewModel.AccountViewModel;
@@ -45,7 +46,7 @@ import java.util.List;
  * Created by TingYu Zhu on 2017/7/27.
  */
 
-public abstract class BasePayFragment extends BaseFragment {
+public abstract class BasePayFragment extends BaseErrorFragment {
 
     private XRecyclerView recyclerView;
     private PayOrderAdapter adapter;
@@ -57,6 +58,8 @@ public abstract class BasePayFragment extends BaseFragment {
     protected TextView tvNeedPayPrice;
     protected TextView tvVacancies;
     protected EditText etVacancies;
+
+    protected View head;
 
 
     @Override
@@ -116,7 +119,7 @@ public abstract class BasePayFragment extends BaseFragment {
     }
 
     protected void initHeadView() {
-        View head = View.inflate(getContext(), R.layout.item_pay_order_head_layout, null);
+        head = View.inflate(getContext(), R.layout.item_pay_order_head_layout, null);
 
         tvOrderNumber = findViewById(head, R.id.order_number);
         tvPayPrice = findViewById(head, R.id.order_price);
@@ -138,12 +141,13 @@ public abstract class BasePayFragment extends BaseFragment {
                 if (!s.toString().isEmpty()) {
                     price = Float.valueOf(s.toString()) * 100f;
                 }
-                if(price > (int) viewModel.orderEntity.amount){
+                if (price > (int) viewModel.orderEntity.amount) {
                     price = viewModel.orderEntity.amount;
                     etVacancies.setText(String.valueOf(price / 100f));
                 }
 
                 viewModel.setBalancePayAmount((int) price);
+                tvNeedPayPrice.setText(PriceUtil.formatRMB(viewModel.orderEntity.amount - price));
             }
 
             @Override
@@ -217,28 +221,23 @@ public abstract class BasePayFragment extends BaseFragment {
         if (viewModel.isPayHasBalance() && viewModel.isBalanceEnough()) {
             submitOrder();
         } else {
-            if(viewModel.balancePayAmount == 0){
-
-            }else {
-                if (viewModel.payType == PayOrderViewModel.PAY_TYPE_BALANCE) {
-                    error(getString(R.string.message_pay_price_not_enough));
+            if (viewModel.payType == PayOrderViewModel.PAY_TYPE_BALANCE) {
+                error(getString(R.string.message_pay_price_not_enough));
+            } else {
+                if (viewModel.isPayWithAli()) {
+                    viewModel.getAliPayOrderInfoAndPay(s -> {
+                        if (getString(R.string.message_pay_success).equals(s)) {
+                            submitOrder();
+                        } else {
+                            error(s);
+                        }
+                    });
+                } else if (viewModel.isPayWithWei()) {
+                    viewModel.getWeiXinOrderInfoAndPay();
                 } else {
-                    if (viewModel.isPayWithAli()) {
-                        viewModel.getAliPayOrderInfoAndPay(s -> {
-                            if(getString(R.string.message_pay_success).equals(s)){
-                                submitOrder();
-                            }else {
-                                error(s);
-                            }
-                        });
-                    } else if (viewModel.isPayWithWei()) {
-                        viewModel.getWeiXinOrderInfoAndPay();
-                    } else {
-                        // TODO: 2017/8/18 银行支付
-                    }
+                    // TODO: 2017/8/18 银行支付
                 }
             }
-
         }
     }
 
@@ -249,7 +248,7 @@ public abstract class BasePayFragment extends BaseFragment {
                     .putExtra(IntentBuilder.KEY_DATA, viewModel.orderEntity)
                     .startParentActivity(getActivity(), PayResultFragment.class);
             getActivity().finish();
-        },throwable -> {
+        }, throwable -> {
             IntentBuilder.Builder()
                     .putExtra(IntentBuilder.KEY_BOOLEAN, false)
                     .putExtra(IntentBuilder.KEY_DATA, viewModel.orderEntity)

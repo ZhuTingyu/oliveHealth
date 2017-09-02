@@ -13,6 +13,7 @@ import com.biz.base.BaseFragment;
 import com.biz.util.IntentBuilder;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
+import com.olive.ui.BaseErrorFragment;
 import com.olive.ui.adapter.RefundAdapter;
 import com.olive.ui.refund.viewModel.RefundListViewModel;
 
@@ -20,7 +21,7 @@ import com.olive.ui.refund.viewModel.RefundListViewModel;
  * Created by TingYu Zhu on 2017/7/28.
  */
 
-public class BaseRefundFragment extends BaseFragment {
+public class BaseRefundFragment extends BaseErrorFragment {
 
     public static final String KEY_TYPE = "type";
 

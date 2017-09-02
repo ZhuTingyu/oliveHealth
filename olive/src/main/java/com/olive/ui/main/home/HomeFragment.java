@@ -219,6 +219,5 @@ public class HomeFragment extends BaseLazyFragment {
                     .startActivity();
             getActivity().finish();
         }
-
     }
 }

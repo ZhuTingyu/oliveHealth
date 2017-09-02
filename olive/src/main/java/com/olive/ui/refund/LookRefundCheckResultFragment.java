@@ -11,13 +11,14 @@ import android.view.ViewGroup;
 import com.biz.base.BaseFragment;
 import com.biz.base.BaseViewHolder;
 import com.olive.R;
+import com.olive.ui.BaseErrorFragment;
 import com.olive.ui.refund.viewModel.LookApplyRefundDetailViewModel;
 
 /**
  * Created by TingYu Zhu on 2017/7/29.
  */
 
-public class LookRefundCheckResultFragment extends BaseFragment {
+public class LookRefundCheckResultFragment extends BaseErrorFragment {
 
     LookApplyRefundDetailViewModel viewModel;
 
