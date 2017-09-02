@@ -43,7 +43,6 @@ public class CheckOrderInfoFragment extends BaseFragment {
     private TextView price;
     private TextView number;
     private CheckInfoViewModel viewModel;
-    private OrderViewModel orderViewModel;
     private AddressViewModel addressViewModel;
     private View head;
     private AddressEntity addressEntity;
@@ -54,7 +53,6 @@ public class CheckOrderInfoFragment extends BaseFragment {
         super.onAttach(context);
         viewModel = new CheckInfoViewModel(context);
         addressViewModel = new AddressViewModel(context);
-        orderViewModel = new OrderViewModel(context);
         initViewModel(viewModel);
     }
 
@@ -94,9 +92,9 @@ public class CheckOrderInfoFragment extends BaseFragment {
             } else {
                 ok.setOnClickListener(v -> {
                     setProgressVisible(true);
-                    orderViewModel.setProductEntities(viewModel.getProductEntities());
-                    orderViewModel.setAddressId(addressEntity.id);
-                    orderViewModel.createOrder(orderEntity -> {
+                    viewModel.setProductEntities(viewModel.getProductEntities());
+                    viewModel.setAddressId(addressEntity.id);
+                    viewModel.createOrder(orderEntity -> {
                         setProgressVisible(false);
                         IntentBuilder.Builder()
                                 .putExtra(IntentBuilder.KEY_VALUE, accountEntity)

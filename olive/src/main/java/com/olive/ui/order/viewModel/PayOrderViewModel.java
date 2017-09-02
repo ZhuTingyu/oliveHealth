@@ -45,7 +45,7 @@ public class PayOrderViewModel extends BaseViewModel {
 
     private String payPassword;
     public int payType = PAY_TYPE_BALANCE;
-    private int balancePayAmount;
+    public int balancePayAmount;
     private Integer bankCardId;
     private String outTradeNo;
 
@@ -149,7 +149,6 @@ public class PayOrderViewModel extends BaseViewModel {
         if (payType == PAY_TYPE_BANK) {
             this.bankCardId = bankCardId;
         }
-
         this.payType = payType;
 
     }
@@ -176,7 +175,12 @@ public class PayOrderViewModel extends BaseViewModel {
     private void initMap() {
         payOrderParameterMap.put("orderNo", orderEntity.orderNo);
 
-        payOrderParameterMap.put("payType", payType);
+        if(isBalanceEnough()){
+            payOrderParameterMap.put("payType", PAY_TYPE_BALANCE);
+        }else {
+            payOrderParameterMap.put("payType", payType);
+        }
+
         if (payType == PAY_TYPE_BANK) {
             payOrderParameterMap.put("bankCardId", bankCardId);
         }

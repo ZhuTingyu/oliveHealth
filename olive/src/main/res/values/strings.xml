@@ -125,6 +125,7 @@
     <string name="text_order_price_1">订单金额：</string>
     <string name="text_refund_price">退款金额：</string>
     <string name="text_pay_by_account_vacancies">账户余额付款（%1$s）</string>
+    <string name="text_pay_by_account_vacancies_1">账户余额付款</string>
     <string name="text_input_price">请输入付款金额</string>
     <string name="text_need_pay">还需要支付:</string>
     <string name="text_pay_way">支付方式</string>

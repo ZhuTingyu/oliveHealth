@@ -11,6 +11,7 @@ import com.biz.util.RxUtil;
 import com.biz.util.ToastUtils;
 import com.biz.widget.CustomCountDownTimer;
 import com.olive.R;
+import com.olive.model.UserModel;
 import com.olive.ui.main.my.password.viewmodel.ChangPasswordViewModel;
 import com.olive.ui.main.my.password.viewmodel.BasePasswordViewModel;
 
@@ -36,6 +37,10 @@ public class ModifyPasswordFragment extends BasePasswordFragment {
     @Override
     protected void initView() {
         super.initView();
+
+        mobile.setText(UserModel.getInstance().getMobile());
+        mobile.setFocusableInTouchMode(false);
+
         setTitle(getString(R.string.title_modify_password));
         initPasswordView();
         code = findViewById(R.id.code);

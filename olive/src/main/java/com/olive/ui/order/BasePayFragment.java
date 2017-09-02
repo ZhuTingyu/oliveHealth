@@ -217,23 +217,28 @@ public abstract class BasePayFragment extends BaseFragment {
         if (viewModel.isPayHasBalance() && viewModel.isBalanceEnough()) {
             submitOrder();
         } else {
-            if (viewModel.payType == PayOrderViewModel.PAY_TYPE_BALANCE) {
-                error(getString(R.string.message_pay_price_not_enough));
-            } else {
-                if (viewModel.isPayWithAli()) {
-                    viewModel.getAliPayOrderInfoAndPay(s -> {
-                        if(getString(R.string.message_pay_success).equals(s)){
-                            submitOrder();
-                        }else {
-                            error(s);
-                        }
-                    });
-                } else if (viewModel.isPayWithWei()) {
-                    viewModel.getWeiXinOrderInfoAndPay();
+            if(viewModel.balancePayAmount == 0){
+
+            }else {
+                if (viewModel.payType == PayOrderViewModel.PAY_TYPE_BALANCE) {
+                    error(getString(R.string.message_pay_price_not_enough));
                 } else {
-                    // TODO: 2017/8/18 银行支付 
+                    if (viewModel.isPayWithAli()) {
+                        viewModel.getAliPayOrderInfoAndPay(s -> {
+                            if(getString(R.string.message_pay_success).equals(s)){
+                                submitOrder();
+                            }else {
+                                error(s);
+                            }
+                        });
+                    } else if (viewModel.isPayWithWei()) {
+                        viewModel.getWeiXinOrderInfoAndPay();
+                    } else {
+                        // TODO: 2017/8/18 银行支付
+                    }
                 }
             }
+
         }
     }
 

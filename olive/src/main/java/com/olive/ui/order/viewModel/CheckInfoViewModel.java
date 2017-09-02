@@ -20,7 +20,7 @@ import rx.functions.Action1;
  * Created by TingYu Zhu on 2017/8/6.
  */
 
-public class CheckInfoViewModel extends BaseViewModel {
+public class CheckInfoViewModel extends OrderViewModel {
 
     private List<ProductEntity> productEntities;
     private long totalPrice;

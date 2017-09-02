@@ -76,6 +76,7 @@
         android:textSize="16dp"
         android:layout_below="@id/name"
         android:paddingLeft="16dp"
+        android:paddingRight="16dp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
         tools:text="12312312312"

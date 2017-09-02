@@ -58,6 +58,8 @@ public class PayOrderAdapter extends BaseQuickAdapter<BankEntity, BaseViewHolder
         }
 
         sparseBooleanArray = new SparseBooleanArray();
+
+        payWay = context.getString(R.string.text_pay_by_account_vacancies_1);
     }
 
     @Override
@@ -107,6 +109,10 @@ public class PayOrderAdapter extends BaseQuickAdapter<BankEntity, BaseViewHolder
         }else {
             payWay = bankEntity.bankName;
             viewModel.setPayType(PayOrderViewModel.PAY_TYPE_BANK, bankEntity.id);
+        }
+
+        if(viewModel.isBalanceEnough()){
+            payWay = mContext.getString(R.string.text_pay_by_account_vacancies_1);
         }
     }
 
