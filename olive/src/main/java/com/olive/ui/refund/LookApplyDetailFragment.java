@@ -15,6 +15,7 @@ import com.biz.widget.CustomDraweeView;
 import com.olive.R;
 import com.olive.ui.refund.viewModel.LookApplyRefundDetailViewModel;
 import com.olive.util.LoadImageUtil;
+import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import java.util.List;
 
@@ -75,6 +76,33 @@ public class LookApplyDetailFragment extends ApplyRefundFragment {
             view.setLayoutParams(layoutParams);
             LoadImageUtil.Builder().load(imgs.get(i)).http().build().displayImage(view);
             imgsLinearLayout.addView(view);
+            view.setTag(i);
+            view.setOnClickListener(v -> {
+                showImageDialog(getContext(), imgs, (Integer) v.getTag());
+            });
         }
     }
+
+    public static void showImageDialog(Context context, List<String> list, int startPosition) {
+        new ImageViewer.Builder<String>(context, list)
+                .setStartPosition(startPosition)
+                .hideStatusBar(false)
+                .allowZooming(true)
+                .allowSwipeToDismiss(true)
+                //.setBackgroundColorRes(colorRes)
+                //.setBackgroundColor(color)
+                //.setImageMargin(margin)
+                //.setImageMarginPx(marginPx)
+                //.setContainerPadding(this, dimen)
+                //.setContainerPadding(this, dimenStart, dimenTop, dimenEnd, dimenBottom)
+                //.setContainerPaddingPx(padding)
+                //.setContainerPaddingPx(start, top, end, bottom)
+//                        .setCustomImageRequestBuilder(imageRequestBuilder)
+//                        .setCustomDraweeHierarchyBuilder(draweeHierarchyBuilder)
+//                        .setImageChangeListener(imageChangeListener)
+//                        .setOnDismissListener(onDismissListener)
+//                        .setOverlayView(overlayView)
+                .show();
+    }
+
 }
