@@ -19,6 +19,7 @@
 
     <ScrollView
         android:focusable="true"
+        android:layout_marginBottom="54dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -57,9 +58,21 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:visibility="gone">
-
-
                 </LinearLayout>
+
+                <com.biz.widget.recyclerview.XRecyclerView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_empty="@layout/list_empty_layout"
+                    app:layout_moreProgress="@layout/view_load_more"
+                    app:mainLayoutId="@layout/refresh_recyclerview"
+                    app:recyclerClipToPadding="false"
+                    app:recyclerPadding="0dp"
+                    android:visibility="gone"
+                    app:scrollbarStyle="insideOverlay"/>
 
             </FrameLayout>
 

@@ -57,6 +57,7 @@ public class ChooseRefundGoodsFragment extends BaseErrorFragment implements Cart
         recyclerView = findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new CartAdapter();
+        viewModel.setAdapter(adapter);
         adapter.setOnNumberChangeListener(this);
         adapter.setOnCheckClickListener(this);
         recyclerView.setAdapter(adapter);
@@ -67,7 +68,7 @@ public class ChooseRefundGoodsFragment extends BaseErrorFragment implements Cart
 
         findViewById(R.id.btn_sure).setOnClickListener(v -> {
             Intent intent = new Intent();
-            getActivity().setIntent(intent);
+            getActivity().setResult(0, intent);
             intent.putParcelableArrayListExtra(IntentBuilder.KEY_DATA, (ArrayList<? extends Parcelable>) viewModel.getSelectedProducts());
             getActivity().finish();
         });

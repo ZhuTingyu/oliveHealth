@@ -63,4 +63,7 @@ public class ChooseRefundGoodViewModel extends BaseViewModel {
         productEntity.quantity ++ ;
     }
 
+    public void setAdapter(CartAdapter adapter) {
+        this.adapter = adapter;
+    }
 }

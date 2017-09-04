@@ -95,6 +95,7 @@
     </string-array>
 
     <string name="text_go_pay">去支付</string>
+    <string name="text_go_refund_money">去还款</string>
     <string name="text_pay">支付</string>
     <string name="text_cancel_order">取消订单</string>
     <string name="text_action_edit">编辑</string>
@@ -127,6 +128,7 @@
     <string name="text_pay_by_account_vacancies">账户余额付款（%1$s）</string>
     <string name="text_pay_by_account_vacancies_1">账户余额付款</string>
     <string name="text_input_price">请输入付款金额</string>
+    <string name="text_need_refund_price">还需还款金额</string>
     <string name="text_need_pay">还需要支付:</string>
     <string name="text_pay_way">支付方式</string>
     <string name="text_need_pay_price">需支付</string>
@@ -272,7 +274,7 @@
     <string name="message_add_address_success">添加地址成功</string>
     <string name="message_send_code_status_with_mobile">验证码已发至 %1$s</string>
     <string name="message_pay_success">支付成功</string>
-    <string name="message_pay_price_not_enough">账户余额不足，请再添加其他支付方式</string>
+    <string name="message_pay_price_not_enough">付款金额不足</string>
     <string name="message_account_no_debt">当前没有欠款</string>
     <string name="message_empty_cart">货物为空</string>
     <string name="message_empty_product">商品信息为空</string>

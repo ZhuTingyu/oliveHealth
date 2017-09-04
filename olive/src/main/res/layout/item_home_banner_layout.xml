@@ -35,15 +35,15 @@
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/icon_left"
             android:layout_width="100dp"
-            android:layout_height="60dp"
-            android:padding="5dp"
+            android:layout_height="50dp"
+            android:padding="10dp"
             android:scaleType="centerInside"
             app:srcCompat="@drawable/vector_announcement" />
 
         <com.biz.widget.recyclerview.XRecyclerView
             android:id="@+id/notice_list"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:layout_toRightOf="@id/icon_left"
             app:layout_empty="@layout/list_empty_layout"
             app:layout_moreProgress="@layout/view_load_more"

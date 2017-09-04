@@ -14,6 +14,7 @@ import com.olive.model.OrderModel;
 import com.olive.model.entity.AccountEntity;
 import com.olive.model.entity.BankEntity;
 import com.olive.model.entity.OrderEntity;
+import com.olive.ui.main.my.account.viewModel.AccountViewModel;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -27,7 +28,7 @@ import rx.functions.Action1;
  */
 
 
-public class PayOrderViewModel extends BaseViewModel {
+public class PayOrderViewModel extends AccountViewModel {
 
     public static final int PAY_TYPE_BANK = 0;
     public static final int PAY_TYPE_WEI = 1;
@@ -86,6 +87,14 @@ public class PayOrderViewModel extends BaseViewModel {
         }), s -> {
             payOrderByAlliPay(s, action1);
         });
+    }
+
+    public void getDebtDetails(Action1<List<OrderEntity>> action1){
+        submitRequestThrowError(OrderModel.orderDebtDetail().map(r -> {
+            if(r.isOk()){
+                return r.data;
+            }else throw new HttpErrorException(r);
+        }),action1);
     }
 
     private void payOrderByAlliPay(String orderInfo, Action1<String> action1) {
@@ -209,6 +218,10 @@ public class PayOrderViewModel extends BaseViewModel {
         } else if (event.code == WeiPayResultEvent.ERROR) {
 
         }
+    }
+
+    public void setOrderEntity(OrderEntity orderEntity) {
+        this.orderEntity = orderEntity;
     }
 
     @Override

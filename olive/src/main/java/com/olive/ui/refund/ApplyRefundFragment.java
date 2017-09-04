@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.ArrayRes;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,14 +28,16 @@ import com.biz.util.Lists;
 import com.biz.util.PhotoUtil;
 import com.biz.util.PriceUtil;
 import com.biz.util.RxUtil;
-import com.biz.util.Utils;
 import com.biz.widget.ExpandGridView;
+import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
 import com.olive.model.entity.ProductEntity;
 import com.olive.ui.BaseErrorFragment;
 import com.olive.ui.adapter.BottomSheetAdapter;
+import com.olive.ui.adapter.CheckRefundGoodsAdapter;
 import com.olive.ui.refund.viewModel.ApplyRefundViewModel;
 import com.olive.util.LoadImageUtil;
+import com.olive.util.Utils;
 
 import java.io.File;
 import java.lang.ref.SoftReference;
@@ -51,7 +54,7 @@ import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 public class ApplyRefundFragment extends BaseErrorFragment {
     private int CAMERA_SUCCESS_REQUEST = 2082;
     private int PHOTO_SUCCESS_REQUEST = 2083;
-    private int CHOOSE_GOODS__SUCCESS_REQUEST = 2084;
+    public static final int CHOOSE_GOODS__SUCCESS_REQUEST = 2084;
 
     private static final int CAMERA = 0;
     private static final int GALLERY = 1;
@@ -67,6 +70,8 @@ public class ApplyRefundFragment extends BaseErrorFragment {
     protected GridView imgsGrid;
     protected LinearLayout imgsLinearLayout;
     protected LinearLayout info;
+    protected XRecyclerView refundGoodsList;
+
 
     private int current;
 
@@ -75,6 +80,8 @@ public class ApplyRefundFragment extends BaseErrorFragment {
     protected TextView ok;
 
     private UploadImageGridAdapter adapter;
+
+    protected CheckRefundGoodsAdapter checkRefundGoodsAdapter;
 
     @Override
     public void onAttach(Context context) {
@@ -186,8 +193,8 @@ public class ApplyRefundFragment extends BaseErrorFragment {
             if (data != null) {
                 List<ProductEntity> productEntities = data.getParcelableArrayListExtra(IntentBuilder.KEY_DATA);
                 if (productEntities != null && !productEntities.isEmpty()) {
-                    initGoodsInfoView(productEntities, false);
                     viewModel.setChooseRefundProduct(productEntities);
+                    initGoodsInfoView(productEntities, true);
                 }
             }
         } /*else if (requestCode == CAMERA_SUCCESS_REQUEST) {
@@ -214,6 +221,17 @@ public class ApplyRefundFragment extends BaseErrorFragment {
 
     protected void initGoodsInfoView(List<ProductEntity> productEntities, boolean isLook) {
 
+        /*refundGoodsList = findViewById(R.id.list);
+        refundGoodsList.setVisibility(View.VISIBLE);
+        refundGoodsList.setLayoutManager(new LinearLayoutManager(getContext()));
+        checkRefundGoodsAdapter = new CheckRefundGoodsAdapter();
+        checkRefundGoodsAdapter.setLook(true);
+        checkRefundGoodsAdapter.bindToRecyclerView(refundGoodsList.getRecyclerView());*/
+
+        if(productEntities.isEmpty()){
+            return;
+        }
+
         info = findViewById(R.id.goods_info);
         info.setVisibility(View.VISIBLE);
         productInfoViews = Lists.newArrayList();
@@ -222,7 +240,7 @@ public class ApplyRefundFragment extends BaseErrorFragment {
             BaseViewHolder holder = new BaseViewHolder(view);
 
             LoadImageUtil.Builder()
-                    .load(productEntity.imageLogo).http().build()
+                    .load(productEntity.imgLogo).http().build()
                     .displayImage(holder.getView(R.id.icon_img));
             holder.setText(R.id.title, productEntity.name);
             holder.setText(R.id.title_line_2, getString(R.string.text_product_specification, productEntity.standard));
@@ -233,7 +251,7 @@ public class ApplyRefundFragment extends BaseErrorFragment {
             holder.setText(R.id.text_product_number, "x" + productEntity.quantity);
             if (!isLook) {
                 RelativeLayout rl = findViewById(view, R.id.rl_info);
-                rl.setPadding(0, 0, Utils.dip2px(24), 0);
+                rl.setPadding(0, 0, com.biz.util.Utils.dip2px(24), 0);
                 holder.findViewById(R.id.right_icon).setVisibility(View.VISIBLE);
             }
 

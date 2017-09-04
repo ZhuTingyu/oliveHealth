@@ -51,7 +51,6 @@ public abstract class BasePayFragment extends BaseErrorFragment {
     private XRecyclerView recyclerView;
     private PayOrderAdapter adapter;
     protected PayOrderViewModel viewModel;
-    private AccountViewModel accountViewModel;
 
     protected TextView tvOrderNumber;
     protected TextView tvPayPrice;
@@ -61,13 +60,14 @@ public abstract class BasePayFragment extends BaseErrorFragment {
 
     protected View head;
 
+    protected TextView btnOk;
+
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         EnvUtils.setEnv(EnvUtils.EnvEnum.SANDBOX);
         viewModel = new PayOrderViewModel(context);
-        accountViewModel = new AccountViewModel(context);
         initViewModel(viewModel);
 
     }
@@ -87,7 +87,7 @@ public abstract class BasePayFragment extends BaseErrorFragment {
 
         if (viewModel.accountEntity == null) {
             setProgressVisible(true);
-            accountViewModel.getAccountInfo(accountEntity1 -> {
+            viewModel.getAccountInfo(accountEntity1 -> {
                 setProgressVisible(false);
                 viewModel.accountEntity = accountEntity1;
                 initView();
@@ -110,11 +110,14 @@ public abstract class BasePayFragment extends BaseErrorFragment {
             adapter.setNewData(bankEntities);
         });
 
-        initHeadView();
 
-        findViewById(R.id.btn_sure).setOnClickListener(v -> {
+        btnOk = findViewById(R.id.btn_sure);
+
+        btnOk.setOnClickListener(v -> {
             createDialog();
         });
+
+        initHeadView();
 
     }
 

@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.biz.base.BaseFragment;
 import com.biz.base.BaseViewHolder;
+import com.biz.util.DialogUtil;
 import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
 import com.biz.util.PriceUtil;
@@ -105,15 +106,20 @@ public class OrderDetailsFragment extends BaseErrorFragment {
         if (getString(R.string.text_waiting_pay).equals(status)) {
             //待支付
             btnLeft.setOnClickListener(v -> {
-                setProgressVisible(true);
-                orderViewModel.cancelOrder(s -> {
-                    setProgressVisible(false);
-                    EventBus.getDefault().post(new OrderListUpdateEvent(OrderListViewModel.TYPE_ORDER_CANCEL));
-                    EventBus.getDefault().post(new OrderListUpdateEvent(OrderListViewModel.TYPE_WAIT_PAY));
-                    EventBus.getDefault().post(new OrderListUpdateEvent(OrderListViewModel.TYPE_ALL));
-                    getActivity().finish();
-                });
+                DialogUtil.createDialogView(getContext(), R.string.message_is_cancel_order,null,R.string.btn_cancel,
+                        (dialog, which) -> {
+                            setProgressVisible(true);
+                            orderViewModel.cancelOrder(s -> {
+                                setProgressVisible(false);
+                                EventBus.getDefault().post(new OrderListUpdateEvent(OrderListViewModel.TYPE_ORDER_CANCEL));
+                                EventBus.getDefault().post(new OrderListUpdateEvent(OrderListViewModel.TYPE_WAIT_PAY));
+                                EventBus.getDefault().post(new OrderListUpdateEvent(OrderListViewModel.TYPE_ALL));
+                                getActivity().finish();
+                            });
+                        },R.string.btn_confirm);
             });
+
+
 
             btnRight.setOnClickListener(v -> {
                 if (orderViewModel.isHasDebt(orderEntity)) {

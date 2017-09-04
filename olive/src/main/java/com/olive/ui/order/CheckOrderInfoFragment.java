@@ -85,9 +85,10 @@ public class CheckOrderInfoFragment extends BaseErrorFragment {
                 findViewById(R.id.rl_debt).setVisibility(View.VISIBLE);
                 TextView debt = findViewById(R.id.text_debt);
                 debt.setText(PriceUtil.formatRMB(accountEntity.debt));
+                ok.setText(R.string.text_go_refund_money);
                 ok.setOnClickListener(v -> {
                     IntentBuilder.Builder()
-                            .putExtra(IntentBuilder.KEY_VALUE, accountEntity)
+                            // TODO: 2017/9/3 获取欠款订单 
                             .startParentActivity(getActivity(), PayDebtFragment.class, true);
                 });
             } else {
