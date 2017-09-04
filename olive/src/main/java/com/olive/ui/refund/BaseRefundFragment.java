@@ -3,6 +3,7 @@ package com.olive.ui.refund;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,6 +62,13 @@ public class BaseRefundFragment extends BaseErrorFragment {
 
         if(getString(R.string.text_refund_apply).equals(type)){
 
+            recyclerView.setRefreshListener(() -> {
+                viewModel.getRefundApplyList(orderEntities -> {
+                    adapter.setNewData(orderEntities);
+                    recyclerView.setRefreshing(false);
+                });
+            });
+
             viewModel.getRefundApplyList(orderEntities -> {
                 adapter.setNewData(orderEntities);
             });
@@ -78,11 +86,19 @@ public class BaseRefundFragment extends BaseErrorFragment {
 
         }else {
 
+            recyclerView.setRefreshListener(() -> {
+                viewModel.getRefundList(orderEntities -> {
+                    adapter.setNewData(orderEntities);
+                    recyclerView.setRefreshing(false);
+                });
+            });
+
             viewModel.getRefundList(orderEntities -> {
                 adapter.setNewData(orderEntities);
             });
 
             btn.setVisibility(View.GONE);
         }
+
     }
 }

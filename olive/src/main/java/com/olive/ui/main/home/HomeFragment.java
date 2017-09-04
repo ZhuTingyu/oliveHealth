@@ -54,6 +54,7 @@ public class HomeFragment extends BaseLazyFragment {
 
     ProductAdapter mAdapter;
     HomeNoticeAdapter mNoticeAdapter;
+    HomeCategoryAdapter adapter;
 
     private HomeViewModel viewModel;
     private NoticeViewModel noticeViewModel;
@@ -114,16 +115,22 @@ public class HomeFragment extends BaseLazyFragment {
         mAdapter.setViewModel(viewModel);
         mAdapter.addHeaderView(createBannerView());
         mRecyclerView.setRefreshListener(() -> {
-            mRecyclerView.postDelayed(() -> {
-                mRecyclerView.setRefreshing(false);
-            }, 2000);
+            initData();
         });
         mRecyclerView.setAdapter(mAdapter);
     }
 
     private void initData() {
+
         viewModel.getRecommendProductList(productEntities -> {
             mAdapter.setNewData(productEntities);
+        });
+
+        viewModel.getCategoryList(categoryEntities -> {
+            adapter.setList(categoryEntities);
+            gridview.setAdapter(adapter);
+            mRecyclerView.setRefreshing(false);
+
         });
     }
 
@@ -163,10 +170,11 @@ public class HomeFragment extends BaseLazyFragment {
                     .startParentActivity(getActivity(), NoticeDetailFragment.class, true);
         });
 
-        noticeViewModel.setRecyclerView(mNoticeTitleList);
         noticeViewModel.getNoticeList(noticeEntities -> {
             mNoticeAdapter.setNewData(noticeEntities);
         });
+
+        noticeViewModel.setRecyclerView(mNoticeTitleList);
     }
 
     private void initBanner(View view) {
@@ -199,11 +207,7 @@ public class HomeFragment extends BaseLazyFragment {
     private void initGirdView(View view) {
         gridview = (ExpandGridView) view.findViewById(R.id.gridview);
         gridview.setNumColumns(5);
-        HomeCategoryAdapter adapter = new HomeCategoryAdapter(getActivity());
-        viewModel.getCategoryList(categoryEntities -> {
-            adapter.setList(categoryEntities);
-            gridview.setAdapter(adapter);
-        });
+        adapter = new HomeCategoryAdapter(getActivity());
         gridview.setOnItemClickListener((parent, view1, position, id) -> {
             IntentBuilder.Builder(getActivity(), SearchActivity.class).
                     putExtra(IntentBuilder.KEY_DATA, adapter.getItem(position).code).startActivity();

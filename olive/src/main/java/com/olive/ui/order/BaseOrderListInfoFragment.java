@@ -67,6 +67,14 @@ public class BaseOrderListInfoFragment extends BaseErrorFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new OrderInfoListAdapter(this);
         recyclerView.setAdapter(adapter);
+
+        recyclerView.setRefreshListener(() -> {
+            viewModel.getOrderList(orderEntities -> {
+                adapter.setNewData(orderEntities);
+                recyclerView.setRefreshing(false);
+            });
+        });
+
         adapter.setOnItemClickListener((baseQuickAdapter, view, i) -> {
             IntentBuilder.Builder()
                     .putExtra(IntentBuilder.KEY_VALUE, adapter.getItem(i).orderNo)
@@ -81,18 +89,21 @@ public class BaseOrderListInfoFragment extends BaseErrorFragment {
             });
         }, recyclerView.getRecyclerView());
 
-        viewModel.getOrderList(orderEntities -> {
-            adapter.setNewData(orderEntities);
-        });
+       initData();
 
     }
 
     public void onEvent(OrderListUpdateEvent event){
         if(event.typeCode == viewModel.typeCode){
             viewModel.cleanPage();
-            viewModel.getOrderList(orderEntities -> {
-                adapter.setNewData(orderEntities);
-            });
+            initData();
         }
     }
+
+    private void initData(){
+        viewModel.getOrderList(orderEntities -> {
+            adapter.setNewData(orderEntities);
+        });
+    }
+
 }

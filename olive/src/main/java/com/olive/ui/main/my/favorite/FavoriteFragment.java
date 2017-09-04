@@ -67,9 +67,12 @@ public class FavoriteFragment extends BaseFragment {
 
 
 
-//        mRecyclerView.setRefreshListener(()->{
-//
-//        });
+        mRecyclerView.setRefreshListener(()->{
+            viewModel.getFavoriteList(productEntities -> {
+                mAdapter.setNewData(productEntities);
+                mRecyclerView.setRefreshing(false);
+            });
+        });
 
 
 

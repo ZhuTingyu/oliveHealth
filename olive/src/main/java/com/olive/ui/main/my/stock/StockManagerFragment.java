@@ -54,6 +54,12 @@ public class StockManagerFragment extends BaseFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new StockManagerAdapter();
         recyclerView.setAdapter(adapter);
+        recyclerView.setRefreshListener(() -> {
+            viewModel.getStockList(productEntities -> {
+                adapter.setNewData(productEntities);
+                recyclerView.setRefreshing(false);
+            });
+        });
         viewModel.getStockList(productEntities -> {
             adapter.setNewData(productEntities);
         });

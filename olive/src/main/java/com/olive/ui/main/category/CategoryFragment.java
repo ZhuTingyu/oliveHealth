@@ -106,6 +106,12 @@ public class CategoryFragment extends BaseLazyFragment {
         mAdapter = new ProductAdapter(R.layout.item_product_grid_layout);
         mAdapter.setViewModel(viewModel);
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setRefreshListener(() -> {
+            viewModel.getProductList(productEntities -> {
+                mAdapter.setNewData(productEntities);
+                mRecyclerView.setRefreshing(false);
+            });
+        });
         mAdapter.setOnLoadMoreListener(()->{
             viewModel.setLoadMore(o -> {
 
@@ -135,6 +141,7 @@ public class CategoryFragment extends BaseLazyFragment {
             initRecyclerView();
         });
     }
+
 
 
 }

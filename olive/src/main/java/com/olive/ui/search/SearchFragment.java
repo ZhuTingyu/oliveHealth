@@ -72,6 +72,11 @@ public class SearchFragment extends BaseErrorFragment {
 
         mRecyclerView = getView(R.id.list);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        mRecyclerView.setRefreshListener(() -> {
+            viewModel.search(o -> {
+                mRecyclerView.setRefreshing(false);
+            });
+        });
         mAdapter = new ProductAdapter(R.layout.item_product_grid_layout);
         mAdapter.setViewModel(viewModel);
         mRecyclerView.setAdapter(mAdapter);

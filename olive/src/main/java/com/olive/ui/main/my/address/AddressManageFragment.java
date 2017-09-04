@@ -53,6 +53,12 @@ public class AddressManageFragment extends BaseFragment {
     private void initView(View view) {
         recyclerView = findViewById(view, R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setRefreshListener(() -> {
+            viewModel.getAddressList(addressEntities -> {
+                adapter.setNewData(addressEntities);
+                recyclerView.setRefreshing(false);
+            });
+        });
         adapter = new AddressManageAdapter(this);
         adapter.setViewModel(viewModel);
         adapter.bindToRecyclerView(recyclerView.getRecyclerView());
