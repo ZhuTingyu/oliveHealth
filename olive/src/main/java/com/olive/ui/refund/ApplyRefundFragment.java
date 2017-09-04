@@ -28,6 +28,7 @@ import com.biz.util.Lists;
 import com.biz.util.PhotoUtil;
 import com.biz.util.PriceUtil;
 import com.biz.util.RxUtil;
+import com.biz.util.ToastUtils;
 import com.biz.widget.ExpandGridView;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
@@ -59,7 +60,6 @@ public class ApplyRefundFragment extends BaseErrorFragment {
     private static final int CAMERA = 0;
     private static final int GALLERY = 1;
 
-    private List<View> uploadImgs;
     protected List<RelativeLayout> productInfoViews;
 
 
@@ -70,7 +70,6 @@ public class ApplyRefundFragment extends BaseErrorFragment {
     protected GridView imgsGrid;
     protected LinearLayout imgsLinearLayout;
     protected LinearLayout info;
-    protected XRecyclerView refundGoodsList;
 
 
     private int current;
@@ -134,7 +133,8 @@ public class ApplyRefundFragment extends BaseErrorFragment {
 
         bindUi(RxUtil.click(ok), o -> {
             viewModel.applyRefund(s -> {
-
+                ToastUtils.showShort(getContext(), getString(R.string.text_commit_success));
+                getActivity().finish();
             });
         });
 
@@ -194,7 +194,7 @@ public class ApplyRefundFragment extends BaseErrorFragment {
                 List<ProductEntity> productEntities = data.getParcelableArrayListExtra(IntentBuilder.KEY_DATA);
                 if (productEntities != null && !productEntities.isEmpty()) {
                     viewModel.setChooseRefundProduct(productEntities);
-                    initGoodsInfoView(productEntities, true);
+                    initGoodsInfoView(productEntities, false);
                 }
             }
         } /*else if (requestCode == CAMERA_SUCCESS_REQUEST) {
@@ -232,7 +232,9 @@ public class ApplyRefundFragment extends BaseErrorFragment {
             return;
         }
 
+
         info = findViewById(R.id.goods_info);
+        info.removeAllViews();
         info.setVisibility(View.VISIBLE);
         productInfoViews = Lists.newArrayList();
         for (ProductEntity productEntity : productEntities) {
@@ -240,7 +242,7 @@ public class ApplyRefundFragment extends BaseErrorFragment {
             BaseViewHolder holder = new BaseViewHolder(view);
 
             LoadImageUtil.Builder()
-                    .load(productEntity.imgLogo).http().build()
+                    .load(productEntity.imgLogo == null ? productEntity.imageLogo : productEntity.imgLogo).http().build()
                     .displayImage(holder.getView(R.id.icon_img));
             holder.setText(R.id.title, productEntity.name);
             holder.setText(R.id.title_line_2, getString(R.string.text_product_specification, productEntity.standard));

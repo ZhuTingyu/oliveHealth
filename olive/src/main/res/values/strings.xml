@@ -176,6 +176,7 @@
     <string name="text_reset_pay_number">重置支付密码</string>
     <string name="btn_resend_count">%1$s s后重新获取</string>
     <string name="text_commit">提交</string>
+    <string name="text_commit_success">提交成功</string>
 
     <string name="text_order_list_info_number">共%1$s件商品，实付：</string>
 
@@ -192,6 +193,7 @@
 
     <string name="text_choose_goods_for_refund">选择退货商品</string>
     <string name="text_refund_reason">退货原因</string>
+    <string name="text_refund_reason_nothing">无</string>
     <string name="text_refund_describe">退货描述</string>
     <string name="text_refund_describe_hint">请输入退货描述</string>
     <string name="text_refund_photo">退货描述</string>

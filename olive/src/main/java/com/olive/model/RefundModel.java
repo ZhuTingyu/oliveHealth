@@ -33,7 +33,7 @@ public class RefundModel {
                 .requestPI();
     }
 
-    public static Observable<ResponseJson<String>> applyRefund(List<ProductEntity> products, int refundReasonId, List<String> image, String description){
+    public static Observable<ResponseJson<String>> applyRefund(List<ProductEntity> products, int refundReasonId, String image, String description){
         return HttpRequest.<ResponseJson<String>>builder()
                 .setToJsonType(new TypeToken<ResponseJson<String>>() {
                 }.getType())

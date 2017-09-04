@@ -83,10 +83,12 @@ public class ChooseRefundGoodsFragment extends BaseErrorFragment implements Cart
     @Override
     public void add(ProductEntity productEntity) {
         viewModel.countAdd(productEntity);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
     public void min(ProductEntity productEntity) {
         viewModel.countMin(productEntity);
+        adapter.notifyDataSetChanged();
     }
 }

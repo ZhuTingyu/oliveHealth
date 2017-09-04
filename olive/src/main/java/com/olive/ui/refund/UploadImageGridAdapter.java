@@ -50,6 +50,7 @@ public class UploadImageGridAdapter extends BaseArrayListAdapter<String> {
     protected int maxCount = 3;
     protected int chooseMode = CAMERA;
     protected String hisSelectedPath;
+    private int hisSelectedPosition;
 
     protected OnImageItemClickListener onImageItemClickListener;
     protected Action1<List<String>> onImageDataChange;
@@ -187,6 +188,7 @@ public class UploadImageGridAdapter extends BaseArrayListAdapter<String> {
         for (int i = 0; i < mList.size(); i++) {
             if (hisSelectedPath.equals(mList.get(i))) {
                 this.mList.set(i, url);
+                hisSelectedPosition = i;
                 if (onImageDataChange != null)
                     onImageDataChange.call(mList);
                 notifyDataSetChanged();
@@ -216,8 +218,10 @@ public class UploadImageGridAdapter extends BaseArrayListAdapter<String> {
                     mFragment.setProgressVisible(false);
                     if(hisSelectedPath == null){
                         addImage(viewModel.getFileUri());
+                        viewModel.imgUrls.add(s);
                     }else {
                         replace(viewModel.getFileUri());
+                        viewModel.imgUrls.set(hisSelectedPosition, s);
                     }
                 });
             }
@@ -229,8 +233,10 @@ public class UploadImageGridAdapter extends BaseArrayListAdapter<String> {
                     mFragment.setProgressVisible(false);
                     if(hisSelectedPath == null){
                         addImage(viewModel.getFileUri());
+                        viewModel.imgUrls.add(s);
                     }else {
                         replace(viewModel.getFileUri());
+                        viewModel.imgUrls.set(hisSelectedPosition, s);
                     }
                 });
             }

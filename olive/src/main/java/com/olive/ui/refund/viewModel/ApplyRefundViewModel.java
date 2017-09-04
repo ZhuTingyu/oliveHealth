@@ -9,6 +9,7 @@ import com.olive.model.entity.ProductEntity;
 import com.olive.model.entity.RefundReasonEntity;
 import com.olive.model.UploadImageModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import rx.functions.Action1;
@@ -21,7 +22,7 @@ public class ApplyRefundViewModel extends BaseViewModel {
 
     private String fileUri;
 
-    private String[] imgUrls;
+    public List<String> imgUrls;
 
     private List<RefundReasonEntity> refundReasonEntities;
 
@@ -35,7 +36,7 @@ public class ApplyRefundViewModel extends BaseViewModel {
 
     public ApplyRefundViewModel(Object activity) {
         super(activity);
-        imgUrls = new String[2];
+        imgUrls = Lists.newArrayList();
     }
 
     public void uploadImg(Action1<String> action1){
@@ -56,11 +57,19 @@ public class ApplyRefundViewModel extends BaseViewModel {
     }
 
     public void applyRefund(Action1<String> action1){
-        submitRequestThrowError(RefundModel.applyRefund(chooseRefundProducts, refundReasonId, getImgUrlsString(), description).map(r -> {
+        submitRequestThrowError(RefundModel.applyRefund(chooseRefundProducts, refundReasonId, getImgString(), description).map(r -> {
             if(r.isOk()){
                 return r.data;
             }else throw new HttpErrorException(r);
         }), action1);
+    }
+
+    private String getImgString() {
+        StringBuffer sb = new StringBuffer();
+        for(String url : imgUrls){
+            sb.append(url + ",");
+        }
+        return sb.toString();
     }
 
     public void setFileUri(String fileUri) {
@@ -72,11 +81,6 @@ public class ApplyRefundViewModel extends BaseViewModel {
     }
 
     public void setImgUrl(int position, String url){
-        imgUrls[position] = url;
-    }
-
-    private List<String> getImgUrlsString(){
-        return Lists.newArrayList(imgUrls);
     }
 
     public List<String> getRefundNameList(){
