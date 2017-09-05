@@ -1,110 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/white"
+    android:id="@+id/refresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v4.widget.NestedScrollView
+    <RelativeLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:layout_marginBottom="55dp">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:fillViewport="true"
+            android:layout_marginBottom="55dp">
 
-            <include
-                android:id="@+id/head"
-                layout="@layout/item_product_details_head_layout" />
-
-            <RelativeLayout
-                android:id="@+id/rl_1"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginBottom="@dimen/item_margin_8dp"
-                    android:layout_marginTop="16dp"
-                    android:textSize="16dp"
-                    android:text="@string/text_associated_goods"/>
+                <include
+                    android:id="@+id/head"
+                    layout="@layout/item_product_details_head_layout" />
 
-
-                <TextView
-                    android:id="@+id/btn_one_key_join"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginBottom="@dimen/item_margin_8dp"
-                    android:layout_marginTop="16dp"
-                    android:gravity="center"
-                    android:drawableLeft="@drawable/vector_cart"
-                    android:text="@string/text_one_key_to_join"/>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rl_relevance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-
-                <android.support.v7.widget.AppCompatImageView
-                    android:id="@+id/left"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_centerVertical="true"
-                    app:srcCompat="@drawable/vector_arrow_left" />
-
-
-                <android.support.v7.widget.AppCompatImageView
-                    android:id="@+id/right"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    app:srcCompat="@drawable/vector_arrow_right" />
-
-                <com.biz.widget.recyclerview.XRecyclerView
-                    android:id="@+id/list"
+                <RelativeLayout
+                    android:id="@+id/rl_1"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_toLeftOf="@id/right"
-                    android:layout_toRightOf="@id/left"
-                    app:layout_empty="@layout/list_empty_layout"
-                    app:layout_moreProgress="@layout/view_load_more"
-                    app:mainLayoutId="@layout/refresh_recyclerview"
-                    app:recyclerClipToPadding="false"
-                    app:recyclerPadding="0dp"
-                    app:scrollbarStyle="insideOverlay" />
-            </RelativeLayout>
+                    android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginLeft="8dp"
-                android:textSize="16dp"
-                android:text="@string/text_product_details"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginBottom="@dimen/item_margin_8dp"
+                        android:layout_marginTop="16dp"
+                        android:textSize="16dp"
+                        android:text="@string/text_associated_goods"/>
 
-            <WebView
-                android:id="@+id/webView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
 
-    </android.support.v4.widget.NestedScrollView>
+                    <TextView
+                        android:id="@+id/btn_one_key_join"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginBottom="@dimen/item_margin_8dp"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center"
+                        android:drawableLeft="@drawable/vector_cart"
+                        android:text="@string/text_one_key_to_join"/>
 
-    <include layout="@layout/item_product_detail_bottom_layout"/>
+                </RelativeLayout>
 
-</RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/rl_relevance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/left"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        app:srcCompat="@drawable/vector_arrow_left" />
+
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/right"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        app:srcCompat="@drawable/vector_arrow_right" />
+
+                    <com.biz.widget.recyclerview.XRecyclerView
+                        android:id="@+id/list"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_toLeftOf="@id/right"
+                        android:layout_toRightOf="@id/left"
+                        app:layout_empty="@layout/list_empty_layout"
+                        app:layout_moreProgress="@layout/view_load_more"
+                        app:mainLayoutId="@layout/refresh_recyclerview"
+                        app:recyclerClipToPadding="false"
+                        app:recyclerPadding="0dp"
+                        app:scrollbarStyle="insideOverlay" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="8dp"
+                    android:textSize="16dp"
+                    android:text="@string/text_product_details"/>
+
+                <WebView
+                    android:id="@+id/webView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+        <include layout="@layout/item_product_detail_bottom_layout"/>
+
+    </RelativeLayout>
+
+</android.support.v4.widget.SwipeRefreshLayout>
+
+
 

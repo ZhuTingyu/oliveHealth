@@ -16,6 +16,7 @@ import com.olive.ui.order.ProductDetailsFragment;
 import com.olive.util.LoadImageUtil;
 import com.olive.util.Utils;
 
+import android.app.Activity;
 import android.app.Application;
 import android.graphics.Paint;
 import android.support.annotation.LayoutRes;
@@ -94,9 +95,7 @@ public class ProductAdapter extends BaseQuickAdapter<ProductEntity, ProductViewH
         });
 
         holder.itemView.setOnClickListener(v -> {
-            IntentBuilder.Builder()
-                    .putExtra(IntentBuilder.KEY_VALUE, item.productNo)
-                    .startParentActivity((BaseActivity)mContext, ProductDetailsFragment.class, true);
+            ProductDetailsFragment.startProductDetailsFragment((Activity) mContext, item.productNo);
         });
 
     }

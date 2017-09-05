@@ -243,7 +243,6 @@
     <array name="array_order_details">
         <item>物流单号</item>
         <item>物流信息</item>
-        <item></item>
         <item>订单编号</item>
         <item>交易编号</item>
         <item>创建日期</item>

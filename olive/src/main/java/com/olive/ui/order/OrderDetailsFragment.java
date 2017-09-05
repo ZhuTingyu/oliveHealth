@@ -4,20 +4,16 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.biz.base.BaseFragment;
 import com.biz.base.BaseViewHolder;
 import com.biz.util.DialogUtil;
 import com.biz.util.IntentBuilder;
-import com.biz.util.Lists;
 import com.biz.util.PriceUtil;
-import com.biz.util.TimeUtil;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
 import com.olive.event.OrderListUpdateEvent;
@@ -25,13 +21,10 @@ import com.olive.model.UserModel;
 import com.olive.model.entity.OrderEntity;
 import com.olive.ui.BaseErrorFragment;
 import com.olive.ui.adapter.CheckOrderAdapter;
-import com.olive.ui.adapter.OrderFootAdapter;
 import com.olive.ui.main.cart.CartFragment;
 import com.olive.ui.order.viewModel.OrderDetailViewModel;
 import com.olive.ui.order.viewModel.OrderListViewModel;
-import com.olive.ui.order.viewModel.OrderViewModel;
 
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -49,13 +42,19 @@ public class OrderDetailsFragment extends BaseErrorFragment {
     private OrderEntity orderEntity;
 
     private OrderDetailViewModel viewModel;
-    private OrderViewModel orderViewModel;
+
+    private View head;
+    private View footView;
+    private LinearLayout footList;
+    private LinearLayout btns;
+    private TextView btnLeft;
+    private TextView btnRight;
+    private TextView btnOk;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         viewModel = new OrderDetailViewModel(context);
-        orderViewModel = new OrderViewModel(context);
         initViewModel(viewModel);
     }
 
@@ -69,6 +68,7 @@ public class OrderDetailsFragment extends BaseErrorFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setTitle(getString(R.string.title_order_detail));
+        initView();
         initData();
     }
 
@@ -76,9 +76,16 @@ public class OrderDetailsFragment extends BaseErrorFragment {
     private void initData() {
         viewModel.getOrderDetail(orderEntity -> {
             this.orderEntity = viewModel.orderEntity;
-            status = orderViewModel.getOrderStatus(orderEntity);
-            orderViewModel.setOrderNo(orderEntity.orderNo);
-            initView();
+            status = viewModel.getOrderStatus(orderEntity);
+            viewModel.setOrderNo(orderEntity.orderNo);
+            adapter.setNewData(orderEntity.products);
+            initButton();
+            adapter.removeAllFooterView();
+            adapter.removeAllHeaderView();
+            bindHeadView();
+            footList.removeAllViews();
+            bindFoodView();
+            recyclerView.setRefreshing(false);
         });
     }
 
@@ -87,30 +94,36 @@ public class OrderDetailsFragment extends BaseErrorFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setFocusable(false);
         adapter = new CheckOrderAdapter();
-        adapter.setNewData(orderEntity.products);
         recyclerView.setAdapter(adapter);
         recyclerView.setFocusable(false);
+        recyclerView.setRefreshListener(() -> {
+            initData();
+        });
 
-        initHeadView();
-        initFoodView();
-        initButton();
+        head = View.inflate(getContext(), R.layout.item_order_details_head_layout, null);
 
+        footView = LayoutInflater.from(getContext()).inflate(R.layout.item_order_details_foot_layout, null);
+        footList = (LinearLayout) footView.findViewById(R.id.list);
+
+        btns = findViewById(R.id.ll_btn);
+        btnLeft = findViewById(R.id.btn_left);
+        btnRight = findViewById(R.id.btn_right);
+        btnOk = findViewById(R.id.btn_sure);
     }
 
     private void initButton() {
 
-        LinearLayout btns = findViewById(R.id.ll_btn);
-        TextView btnLeft = findViewById(R.id.btn_left);
-        TextView btnRight = findViewById(R.id.btn_right);
-        TextView btnOk = findViewById(R.id.btn_sure);
-
         if (getString(R.string.text_waiting_pay).equals(status)) {
+
+            btns.setVisibility(View.VISIBLE);
+            btnOk.setVisibility(View.GONE);
+
             //待支付
             btnLeft.setOnClickListener(v -> {
                 DialogUtil.createDialogView(getContext(), R.string.message_is_cancel_order,null,R.string.btn_cancel,
                         (dialog, which) -> {
                             setProgressVisible(true);
-                            orderViewModel.cancelOrder(s -> {
+                            viewModel.cancelOrder(s -> {
                                 setProgressVisible(false);
                                 EventBus.getDefault().post(new OrderListUpdateEvent(OrderListViewModel.TYPE_ORDER_CANCEL));
                                 EventBus.getDefault().post(new OrderListUpdateEvent(OrderListViewModel.TYPE_WAIT_PAY));
@@ -123,7 +136,7 @@ public class OrderDetailsFragment extends BaseErrorFragment {
 
 
             btnRight.setOnClickListener(v -> {
-                if (orderViewModel.isHasDebt(orderEntity)) {
+                if (viewModel.isHasDebt(orderEntity)) {
                     IntentBuilder.Builder()
                             .putExtra(IntentBuilder.KEY_DATA, orderEntity)
                             .startParentActivity(getBaseActivity(), PayDebtFragment.class, true);
@@ -141,14 +154,22 @@ public class OrderDetailsFragment extends BaseErrorFragment {
         } else if (getString(R.string.text_wait_receive).equals(status)) {
             //待收货
             btns.setVisibility(View.GONE);
+            btnOk.setVisibility(View.VISIBLE);
             btnOk.setText(getString(R.string.text_make_sure_receive));
             btnOk.setOnClickListener(v -> {
-                setProgressVisible(true);
-                orderViewModel.confirmOrder(s -> {
-                    setProgressVisible(false);
-                    EventBus.getDefault().post(new OrderListUpdateEvent(OrderListViewModel.TYPE_ORDER_COMPLETE));
-                    EventBus.getDefault().post(new OrderListUpdateEvent(OrderListViewModel.TYPE_ALL));
-                });
+                DialogUtil.createDialogView(getContext(), R.string.message_make_sure_goods_receipt, null, R.string.btn_cancel,
+                        (dialog, which) -> {
+                            setProgressVisible(true);
+                            viewModel.setOrderNo(orderEntity.orderNo);
+                            viewModel.confirmOrder(s -> {
+                                setProgressVisible(false);
+                                EventBus.getDefault().post(new OrderListUpdateEvent(OrderListViewModel.TYPE_ORDER_COMPLETE));
+                                EventBus.getDefault().post(new OrderListUpdateEvent(OrderListViewModel.TYPE_WAIT_RECEIVE));
+                                EventBus.getDefault().post(new OrderListUpdateEvent(OrderListViewModel.TYPE_ALL));
+                                getActivity().finish();
+                            });
+
+                        }, R.string.btn_confirm);
             });
         } else if (getString(R.string.text_order_complete).equals(status)) {
             //已完成
@@ -157,10 +178,11 @@ public class OrderDetailsFragment extends BaseErrorFragment {
 
         } else if (getString(R.string.text_order_cancel).equals(status)) {
             btns.setVisibility(View.GONE);
+            btnOk.setVisibility(View.VISIBLE);
             btnOk.setText(getString(R.string.text_buy_again));
             btnOk.setOnClickListener(v -> {
-                orderViewModel.setAddProductList(orderEntity.products);
-                orderViewModel.addCart(s -> {
+                viewModel.setAddProductList(orderEntity.products);
+                viewModel.addCart(s -> {
                     IntentBuilder.Builder()
                             .putExtra(IntentBuilder.KEY_BOOLEAN_KUAIHE, true)
                             .putExtra(IntentBuilder.KEY_VALUE, orderEntity.products.size())
@@ -171,10 +193,7 @@ public class OrderDetailsFragment extends BaseErrorFragment {
         }
     }
 
-    private void initFoodView() {
-        View footView = LayoutInflater.from(getContext()).inflate(R.layout.item_order_details_foot_layout, null);
-        LinearLayout footList = (LinearLayout) footView.findViewById(R.id.list);
-
+    private void bindFoodView() {
         String[] title = viewModel.getOderInfoTitle();
         List<String> content = viewModel.getOrderInfo();
 
@@ -198,10 +217,26 @@ public class OrderDetailsFragment extends BaseErrorFragment {
         adapter.addFooterView(footView);
     }
 
-    private void initHeadView() {
-        View head = View.inflate(getContext(), R.layout.item_order_details_head_layout, null);
+    private void bindHeadView() {
         BaseViewHolder holder = new BaseViewHolder(head);
-        holder.setText(R.id.status, status);
+        TextView tvStatus = holder.findViewById(R.id.status);
+        tvStatus.setText(status);
+        if (getString(R.string.text_waiting_pay).equals(status)) {
+            //待支付
+            tvStatus.setTextColor(getResources().getColor(R.color.red_light));
+        } else if (getString(R.string.text_wait_send).equals(status)) {
+            //待发货
+            tvStatus.setTextColor(getResources().getColor(R.color.orange_light));
+        } else if (getString(R.string.text_wait_receive).equals(status)) {
+            //待收货
+            tvStatus.setTextColor(getResources().getColor(R.color.blue_light));
+        } else if (getString(R.string.text_order_complete).equals(status)) {
+            //已完成
+            tvStatus.setTextColor(getResources().getColor(R.color.green_light));
+        } else if (getString(R.string.text_order_cancel).equals(status)) {
+            //已经取消
+            tvStatus.setTextColor(getResources().getColor(R.color.red_light));
+        }
         holder.setText(R.id.address, UserModel.getInstance().getNickName());
         holder.setText(R.id.name, orderEntity.consigneeName);
         holder.setText(R.id.phone, orderEntity.mobile);

@@ -1,5 +1,6 @@
 package com.olive.ui.order;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Paint;
 import android.net.Uri;
@@ -7,6 +8,8 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
+import android.support.v4.widget.NestedScrollView;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
@@ -21,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.biz.base.BaseActivity;
 import com.biz.base.BaseFragment;
 import com.biz.base.BaseViewHolder;
 import com.biz.util.IdsUtil;
@@ -68,6 +72,16 @@ public class ProductDetailsFragment extends BaseErrorFragment {
 
     private ImageView icCart;
 
+    View headView;
+    WebView webView;
+    SwipeRefreshLayout refreshLayout;
+
+    public static void startProductDetailsFragment(Activity activity, String productNo){
+        IntentBuilder.Builder()
+                .putExtra(IntentBuilder.KEY_VALUE, productNo)
+                .startParentActivity(activity,ProductDetailsFragment.class);
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -85,8 +99,8 @@ public class ProductDetailsFragment extends BaseErrorFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setTitle(getString(R.string.text_product_details));
-        initHeadData();
         initView();
+        initData();
         initBelowLayout();
 
         mToolbar.getMenu().clear();
@@ -98,10 +112,20 @@ public class ProductDetailsFragment extends BaseErrorFragment {
     }
 
 
-    private void initHeadData() {
+    private void initData() {
         viewModel.getProductDetail(productEntity -> {
             this.productEntity = viewModel.productEntity;
             initHeadView();
+            refreshLayout.setRefreshing(false);
+        });
+
+        viewModel.getRelevanceProductList(productEntities -> {
+            if(productEntities.isEmpty()){
+                findViewById(R.id.rl_relevance).setVisibility(View.GONE);
+                findViewById(R.id.rl_1).setVisibility(View.GONE);
+            }else {
+                adapter.setNewData(productEntities);
+            }
         });
     }
 
@@ -114,14 +138,15 @@ public class ProductDetailsFragment extends BaseErrorFragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setFocusable(false);
 
+        headView = findViewById(R.id.head);
 
-        viewModel.getRelevanceProductList(productEntities -> {
-            if(productEntities.isEmpty()){
-                findViewById(R.id.rl_relevance).setVisibility(View.GONE);
-                findViewById(R.id.rl_1).setVisibility(View.GONE);
-            }else {
-                adapter.setNewData(productEntities);
-            }
+        webView = findViewById(R.id.webView);
+
+        refreshLayout = findViewById(R.id.refresh);
+        refreshLayout.setColorSchemeResources(com.biz.http.R.color.green_light, com.biz.http.R.color.orange_light,
+                com.biz.http.R.color.blue_light, com.biz.http.R.color.red_light);
+        refreshLayout.setOnRefreshListener(() -> {
+            initData();
         });
 
 
@@ -144,7 +169,6 @@ public class ProductDetailsFragment extends BaseErrorFragment {
     }
 
     private void initHeadView() {
-        View headView = findViewById(R.id.head);
         BaseViewHolder headHolder = new BaseViewHolder(headView);
         if(productEntity.salePrice == 0){
             headHolder.findViewById(R.id.icon_label).setVisibility(View.GONE);
@@ -175,8 +199,6 @@ public class ProductDetailsFragment extends BaseErrorFragment {
                 .setPointViewVisible(true)
                 .setCanLoop(true);
 
-
-        WebView webView = findViewById(R.id.webView);
 
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);

@@ -193,9 +193,7 @@ public class HomeFragment extends BaseLazyFragment {
         banner.setOnItemClickListener(position -> {
             String id = viewModel.advertEntityList.get(position).sourceId;
             if(viewModel.isGoodsAdvert(position)){
-                IntentBuilder.Builder()
-                        .putExtra(IntentBuilder.KEY_VALUE, id)
-                        .startParentActivity(getActivity(), ProductDetailsFragment.class, true);
+                ProductDetailsFragment.startProductDetailsFragment(getActivity(), id);
             }else {
                 IntentBuilder.Builder()
                         .putExtra(IntentBuilder.KEY_VALUE, id)

@@ -20,6 +20,7 @@ public class BaseErrorFragment extends BaseFragment {
                     .startActivity();
             getActivity().finish();
         }
+        super.error(code, error);
     }
 
 }
