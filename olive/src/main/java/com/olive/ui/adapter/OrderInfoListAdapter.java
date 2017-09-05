@@ -75,7 +75,6 @@ public class OrderInfoListAdapter extends BaseQuickAdapter<OrderEntity, BaseView
         });*/
 
 
-
         LinearLayout linearLayout = holder.findViewById(R.id.list);
         List<ProductEntity> products = orderEntity.products;
         linearLayout.removeAllViews();
@@ -116,7 +115,7 @@ public class OrderInfoListAdapter extends BaseQuickAdapter<OrderEntity, BaseView
             status.setTextColor(mContext.getResources().getColor(R.color.orange_light));
         } else if (mContext.getString(R.string.text_wait_receive).equals(statusString)) {
             //待收货
-            initWaitReceive(leftBtn, rightBtn, orderEntity);
+            initWaitReceive(holder, leftBtn, rightBtn, orderEntity);
             status.setTextColor(mContext.getResources().getColor(R.color.blue_light));
         } else if (mContext.getString(R.string.text_order_complete).equals(statusString)) {
             //已完成
@@ -144,16 +143,29 @@ public class OrderInfoListAdapter extends BaseQuickAdapter<OrderEntity, BaseView
         });
     }
 
-    private void initWaitReceive(TextView leftBtn, TextView rightBtn, OrderEntity orderEntity) {
+    private void initWaitReceive(BaseViewHolder holder, TextView leftBtn, TextView rightBtn, OrderEntity orderEntity) {
         leftBtn.setVisibility(View.GONE);
         rightBtn.setText(mContext.getString(R.string.text_make_sure_receive));
         rightBtn.setOnClickListener(v -> {
-            fragment.setProgressVisible(true);
-            orderViewModel.setOrderNo(orderEntity.orderNo);
-            orderViewModel.confirmOrder(s -> {
-                fragment.setProgressVisible(false);
-            });
+
+
+            DialogUtil.createDialogView(mContext, R.string.message_make_sure_goods_receipt, null, R.string.btn_cancel,
+                    (dialog, which) -> {
+
+                        fragment.setProgressVisible(true);
+                        orderViewModel.setOrderNo(orderEntity.orderNo);
+                        orderViewModel.confirmOrder(s -> {
+                            fragment.setProgressVisible(false);
+                            mData.remove(holder.getAdapterPosition());
+                            notifyDataSetChanged();
+                            EventBus.getDefault().post(new OrderListUpdateEvent(OrderListViewModel.TYPE_ORDER_COMPLETE));
+                            EventBus.getDefault().post(new OrderListUpdateEvent(OrderListViewModel.TYPE_ALL));
+                        });
+
+                    }, R.string.btn_confirm);
+
         });
+
     }
 
     private void initComplete(TextView leftBtn, TextView rightBtn) {
@@ -169,7 +181,7 @@ public class OrderInfoListAdapter extends BaseQuickAdapter<OrderEntity, BaseView
     private void initWaitPay(BaseViewHolder holder, TextView leftBtn, TextView rightBtn, OrderEntity orderEntity) {
         leftBtn.setOnClickListener(v -> {
 
-            DialogUtil.createDialogView(mContext, R.string.message_is_cancel_order,null,R.string.btn_cancel,
+            DialogUtil.createDialogView(mContext, R.string.message_is_cancel_order, null, R.string.btn_cancel,
                     (dialog, which) -> {
                         fragment.setProgressVisible(true);
                         orderViewModel.setOrderNo(orderEntity.orderNo);
@@ -177,8 +189,9 @@ public class OrderInfoListAdapter extends BaseQuickAdapter<OrderEntity, BaseView
                             fragment.setProgressVisible(false);
                             remove(holder.getAdapterPosition());
                             EventBus.getDefault().post(new OrderListUpdateEvent(OrderListViewModel.TYPE_ORDER_CANCEL));
+                            EventBus.getDefault().post(new OrderListUpdateEvent(OrderListViewModel.TYPE_ALL));
                         });
-                    },R.string.btn_confirm);
+                    }, R.string.btn_confirm);
 
         });
 
@@ -217,7 +230,7 @@ public class OrderInfoListAdapter extends BaseQuickAdapter<OrderEntity, BaseView
     @Override
     public void setNewData(@Nullable List<OrderEntity> data) {
         super.setNewData(data);
-        if(data.isEmpty()){
+        if (data.isEmpty()) {
             Utils.setEmptyView(this, mContext.getString(R.string.message_empty_order_list));
         }
     }

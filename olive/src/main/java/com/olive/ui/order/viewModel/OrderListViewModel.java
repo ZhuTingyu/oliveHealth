@@ -16,7 +16,7 @@ import rx.functions.Action1;
  * Created by TingYu Zhu on 2017/8/7.
  */
 
-public class OrderListViewModel extends BaseLoadMoreViewModel {
+public class OrderListViewModel extends BaseLoadMoreViewModel{
 
 
     public static final int TYPE_ALL = 0; //全部（默认），

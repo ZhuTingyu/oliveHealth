@@ -107,6 +107,7 @@ public class CategoryFragment extends BaseLazyFragment {
         mAdapter.setViewModel(viewModel);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setRefreshListener(() -> {
+            viewModel.cleanPage();
             viewModel.getProductList(productEntities -> {
                 mAdapter.setNewData(productEntities);
                 mRecyclerView.setRefreshing(false);

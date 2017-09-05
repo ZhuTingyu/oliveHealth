@@ -5,53 +5,70 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <TextView
-        android:id="@+id/btn_sure"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:textColor="@color/base_color"
-        android:textSize="16dp"
-        android:gravity="center"
-        android:visibility="gone"
+    <FrameLayout
+        android:id="@+id/btns"
         android:layout_alignParentBottom="true"
-        android:text="@string/text_go_pay"/>
-
-
-    <LinearLayout android:id="@+id/ll_btn"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:background="@color/white"
-        android:layout_alignParentBottom="true"
-        android:layout_height="48dp">
+        android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/btn_left"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:textColor="@color/color_red"
-            android:textSize="16dp"
-            android:gravity="center"
-            android:text="@string/text_cancel_order"
-            android:layout_height="match_parent" />
-
-        <TextView
-            android:id="@+id/btn_right"
-            android:layout_weight="1"
-            android:layout_width="0dp"
+            android:id="@+id/btn_sure"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
             android:textColor="@color/base_color"
             android:textSize="16dp"
             android:gravity="center"
-            android:text="@string/text_go_pay"
-            android:layout_height="match_parent" />
+            android:visibility="visible"
+            android:background="@color/white"
+            android:text="@string/text_go_pay"/>
 
-    </LinearLayout>
+
+        <LinearLayout android:id="@+id/ll_btn"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:visibility="gone"
+            android:layout_height="48dp">
+
+            <TextView
+                android:id="@+id/btn_left"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:textColor="@color/color_red"
+                android:textSize="16dp"
+                android:gravity="center"
+                android:text="@string/text_cancel_order"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:id="@+id/btn_right"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:textColor="@color/base_color"
+                android:textSize="16dp"
+                android:gravity="center"
+                android:text="@string/text_go_pay"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@id/btns"
+        android:background="@drawable/divider_line"/>
+
+
+
 
     <com.biz.widget.recyclerview.XRecyclerView
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/ll_btn"
+        android:layout_above="@+id/btns"
         app:layout_empty="@layout/list_empty_layout"
         app:layout_moreProgress="@layout/view_load_more"
         app:mainLayoutId="@layout/refresh_recyclerview"

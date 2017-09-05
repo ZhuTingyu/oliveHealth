@@ -36,7 +36,7 @@
     <string name="api_order_create">/order/create</string>
     <string name="api_order_list">/order/orderList</string>
     <string name="api_order_cancel">/order/cancelOrder</string>
-    <string name="api_order_confirm">/order/comfirmOrder</string>
+    <string name="api_order_confirm">/order/confirmOrder</string>
     <string name="api_order_detail">/order/orderDetail</string>
     <string name="api_consumer_detail">/order/consumerDetails</string>
     <string name="api_debt_detail">/order/debtOrderList</string>

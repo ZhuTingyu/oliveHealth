@@ -7,6 +7,7 @@ import com.olive.model.OrderModel;
 import com.olive.model.UserModel;
 import com.olive.model.entity.OrderEntity;
 import com.olive.model.entity.ProductEntity;
+import com.olive.ui.main.home.ProductsViewModel;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ import rx.functions.Action1;
  * Created by TingYu Zhu on 2017/8/8.
  */
 
-public class OrderViewModel extends BaseViewModel {
+public class OrderViewModel extends ProductsViewModel {
 
     private static final int PAY_STATUS_PAY = 1; // 支付状态 已支付
     private static final int PAY_STATUS_NOT_PAY = 0;// 支付状态 未支付

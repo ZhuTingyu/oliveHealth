@@ -250,6 +250,13 @@
         <item>成交日期</item>
     </array>
 
+    <array name="array_order_details_no_express">
+        <item>订单编号</item>
+        <item>交易编号</item>
+        <item>创建日期</item>
+        <item>成交日期</item>
+    </array>
+
     <string name="text_need_refund_money">还需还款金额</string>
 
     <string name="text_exit">退出登录</string>
@@ -287,6 +294,7 @@
     <string name="message_empty_consume">没有消费的订单</string>
     <string name="message_empty_address">没有收货地址</string>
     <string name="message_is_cancel_order">是否取消订单？</string>
+    <string name="message_make_sure_goods_receipt">是否确认收货？</string>
 
     <string name="string_password_suffix">dms</string>
     <string name="string_app_name">——客户下单系统——</string>

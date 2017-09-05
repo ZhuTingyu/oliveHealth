@@ -26,6 +26,7 @@ import com.olive.model.entity.OrderEntity;
 import com.olive.ui.BaseErrorFragment;
 import com.olive.ui.adapter.CheckOrderAdapter;
 import com.olive.ui.adapter.OrderFootAdapter;
+import com.olive.ui.main.cart.CartFragment;
 import com.olive.ui.order.viewModel.OrderDetailViewModel;
 import com.olive.ui.order.viewModel.OrderListViewModel;
 import com.olive.ui.order.viewModel.OrderViewModel;
@@ -90,9 +91,9 @@ public class OrderDetailsFragment extends BaseErrorFragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setFocusable(false);
 
-        initButton();
         initHeadView();
         initFoodView();
+        initButton();
 
     }
 
@@ -136,15 +137,17 @@ public class OrderDetailsFragment extends BaseErrorFragment {
         } else if (getString(R.string.text_wait_send).equals(status)) {
             //待发货
             btns.setVisibility(View.GONE);
+            btnOk.setVisibility(View.GONE);
         } else if (getString(R.string.text_wait_receive).equals(status)) {
             //待收货
             btns.setVisibility(View.GONE);
-            btnOk.setVisibility(View.VISIBLE);
             btnOk.setText(getString(R.string.text_make_sure_receive));
             btnOk.setOnClickListener(v -> {
                 setProgressVisible(true);
                 orderViewModel.confirmOrder(s -> {
                     setProgressVisible(false);
+                    EventBus.getDefault().post(new OrderListUpdateEvent(OrderListViewModel.TYPE_ORDER_COMPLETE));
+                    EventBus.getDefault().post(new OrderListUpdateEvent(OrderListViewModel.TYPE_ALL));
                 });
             });
         } else if (getString(R.string.text_order_complete).equals(status)) {
@@ -155,21 +158,36 @@ public class OrderDetailsFragment extends BaseErrorFragment {
         } else if (getString(R.string.text_order_cancel).equals(status)) {
             btns.setVisibility(View.GONE);
             btnOk.setText(getString(R.string.text_buy_again));
-            btnOk.setVisibility(View.VISIBLE);
             btnOk.setOnClickListener(v -> {
-                IntentBuilder.Builder().putExtra(IntentBuilder.KEY_DATA, orderEntity)
-                        .startParentActivity(getBaseActivity(), CheckOrderInfoFragment.class, true);
+                orderViewModel.setAddProductList(orderEntity.products);
+                orderViewModel.addCart(s -> {
+                    IntentBuilder.Builder()
+                            .putExtra(IntentBuilder.KEY_BOOLEAN_KUAIHE, true)
+                            .putExtra(IntentBuilder.KEY_VALUE, orderEntity.products.size())
+                            .putExtra(IntentBuilder.KEY_BOOLEAN, true)
+                            .startParentActivity(getActivity(), CartFragment.class, false);
+                });
             });
         }
     }
 
     private void initFoodView() {
         View footView = LayoutInflater.from(getContext()).inflate(R.layout.item_order_details_foot_layout, null);
-        XRecyclerView footList = (XRecyclerView) footView.findViewById(R.id.list);
-        footList.setLayoutManager(new LinearLayoutManager(getContext()));
-        OrderFootAdapter footAdapter = new OrderFootAdapter(viewModel.getOderInfoTitle());
-        footAdapter.setNewData(viewModel.getOrderInfo());
-        footList.setAdapter(footAdapter);
+        LinearLayout footList = (LinearLayout) footView.findViewById(R.id.list);
+
+        String[] title = viewModel.getOderInfoTitle();
+        List<String> content = viewModel.getOrderInfo();
+
+        for(int i = 0, len = title.length; i < len; i++){
+            View view = LayoutInflater.from(getContext()).inflate(R.layout.item_line_text_layout, footList, false);
+            TextView tvTitle = (TextView) view.findViewById(R.id.name);
+            TextView tvContent = (TextView) view.findViewById(R.id.number);
+
+            tvTitle.setText(title[i]);
+            tvContent.setText(content.get(i));
+
+            footList.addView(view);
+        }
 
         TextView number = (TextView) footView.findViewById(R.id.number);
         TextView price = (TextView) footView.findViewById(R.id.price);

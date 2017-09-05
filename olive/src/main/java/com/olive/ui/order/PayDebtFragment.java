@@ -16,6 +16,7 @@ public class PayDebtFragment extends BasePayFragment {
     @Override
     protected void initView() {
         super.initView();
+        setTitle(R.string.text_refund_money);
         btnOk.setText(R.string.text_pay);
     }
 

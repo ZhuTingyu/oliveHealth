@@ -47,15 +47,22 @@ public class OrderDetailViewModel extends BaseViewModel{
     }
 
     public String[] getOderInfoTitle(){
-        String[] titles = getActivity().getResources().getStringArray(R.array.array_order_details);
+        String[] titles;
+        if(orderEntity.expressNo == null || orderEntity.expressNo.isEmpty()){
+            titles = getActivity().getResources().getStringArray(R.array.array_order_details_no_express);
+        }else {
+            titles = getActivity().getResources().getStringArray(R.array.array_order_details);
+        }
         return titles;
     }
 
     public List<String> getOrderInfo() {
         List<String> list = Lists.newArrayList();
-        list.add(orderEntity.outTradeNo);
-        list.add(orderEntity.expressInfo);
-        list.add("12");
+        if(orderEntity.expressNo != null && !orderEntity.expressNo.isEmpty()){
+            list.add(orderEntity.expressNo);
+            list.add(orderEntity.expressInfo);
+            list.add("12");
+        }
         list.add(orderEntity.orderNo);
         list.add(orderEntity.outTradeNo);
         list.add(TimeUtil.format(orderEntity.createTime, TimeUtil.FORMAT_YYYYMMDDHHMMSS));

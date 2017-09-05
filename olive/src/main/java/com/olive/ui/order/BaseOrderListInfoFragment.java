@@ -69,6 +69,7 @@ public class BaseOrderListInfoFragment extends BaseErrorFragment {
         recyclerView.setAdapter(adapter);
 
         recyclerView.setRefreshListener(() -> {
+            viewModel.cleanPage();
             viewModel.getOrderList(orderEntities -> {
                 adapter.setNewData(orderEntities);
                 recyclerView.setRefreshing(false);
