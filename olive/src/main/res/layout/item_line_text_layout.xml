@@ -13,9 +13,9 @@
         android:layout_height="wrap_content"
         android:textSize="16dp"
         android:maxLines="1"
-        android:layout_marginRight="17dp"
+        android:layout_marginRight="48dp"
         android:textColor="@color/color_333333"
-        tools:text="汤臣倍健 鱼油软胶囊"/>
+        tools:text="汤臣倍健 鱼油软胶囊汤臣倍健 鱼油软胶囊汤臣倍健 鱼油软胶囊汤臣倍健 鱼油软胶囊汤臣倍健 鱼油软胶囊汤臣倍健 鱼油软胶囊"/>
 
     <TextView
         android:id="@+id/number"

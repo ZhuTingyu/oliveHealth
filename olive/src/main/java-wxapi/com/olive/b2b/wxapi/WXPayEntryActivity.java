@@ -1,10 +1,9 @@
-package net.sourceforge.simcpux.wxapi;
+package com.olive.b2b.wxapi;
 
 /**
  * Created by TingYu Zhu on 2017/8/18.
  */
 import com.biz.share.weixin.SendWX;
-import com.biz.share.weixin.WeiXinPayEvent;
 import com.biz.util.GsonUtil;
 import com.biz.util.LogUtil;
 import com.olive.R;

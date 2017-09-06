@@ -1,5 +1,6 @@
 package com.olive.ui.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.biz.base.BaseViewHolder;
+import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
 import com.biz.util.PriceUtil;
 import com.biz.util.TimeUtil;
@@ -15,6 +17,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.olive.R;
 import com.olive.model.entity.OrderEntity;
 import com.olive.model.entity.ProductEntity;
+import com.olive.ui.order.PayDebtFragment;
 import com.olive.util.Utils;
 
 import java.util.List;
@@ -64,6 +67,14 @@ public class ConsumeDetailAdapter extends BaseQuickAdapter<OrderEntity, BaseView
             TextView number = (TextView) view.findViewById(R.id.number);
             name.setText(productEntity.productName);
             number.setText("x"+ productEntity.quantity);
+            view.setTag(orderEntity);
+            if(orderEntity.type != TYPE_ORDER_PAY){
+                view.setOnClickListener(v -> {
+                    IntentBuilder.Builder()
+                            .putExtra(IntentBuilder.KEY_DATA, (OrderEntity) v.getTag())
+                            .startParentActivity((Activity) mContext, PayDebtFragment.class);
+                });
+            }
             linearLayout.addView(view);
         }
     }

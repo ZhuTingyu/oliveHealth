@@ -74,6 +74,13 @@ android {
         }
     }
 
+    sourceSets{
+        main{
+            jniLibs.srcDirs = ['libs']
+            java.srcDirs = ['src/main/java', 'src/main/java-wxapi']
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
