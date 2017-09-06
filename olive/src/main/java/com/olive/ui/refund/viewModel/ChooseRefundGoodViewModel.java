@@ -53,9 +53,9 @@ public class ChooseRefundGoodViewModel extends BaseViewModel {
 
     public void countMin(ProductEntity productEntity){
         productEntity.quantity -- ;
-        if(productEntity.quantity -- < 0){
-            productEntity.quantity = 0;
-            getActivity().error(getActivity().getString(R.string.message_products_count_can_not_is_0));
+        if(productEntity.quantity -- < 1){
+            productEntity.quantity = 1;
+            getActivity().error(getActivity().getString(R.string.message_products_count_can_not_is_1));
         }
     }
 

@@ -61,6 +61,12 @@ public class ChooseRefundGoodsFragment extends BaseErrorFragment implements Cart
         adapter.setOnNumberChangeListener(this);
         adapter.setOnCheckClickListener(this);
         recyclerView.setAdapter(adapter);
+        recyclerView.setRefreshListener(() -> {
+            viewModel.chooseRefundProductsList(productEntities -> {
+                adapter.setNewData(productEntities);
+                recyclerView.setRefreshing(false);
+            });
+        });
         viewModel.chooseRefundProductsList(productEntities -> {
             adapter.setNewData(productEntities);
         });

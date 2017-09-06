@@ -57,6 +57,24 @@ public class ApplyRefundViewModel extends BaseViewModel {
     }
 
     public void applyRefund(Action1<String> action1){
+
+        if(chooseRefundProducts.isEmpty()){
+            error.onNext(getErrorString(R.string.message_choose_refund_goods));
+            return;
+        }
+
+        if(refundReasonId == 0){
+            error.onNext(getErrorString(R.string.message_choose_refund_goods_reason));
+            return;
+        }
+
+        if(imgUrls.isEmpty()){
+            error.onNext(getErrorString(R.string.message_choose_refund_goods_photo));
+            return;
+        }
+
+
+
         submitRequestThrowError(RefundModel.applyRefund(chooseRefundProducts, refundReasonId, getImgString(), description).map(r -> {
             if(r.isOk()){
                 return r.data;

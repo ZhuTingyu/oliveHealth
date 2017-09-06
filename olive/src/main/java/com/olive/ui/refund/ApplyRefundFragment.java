@@ -36,6 +36,7 @@ import com.olive.model.entity.ProductEntity;
 import com.olive.ui.BaseErrorFragment;
 import com.olive.ui.adapter.BottomSheetAdapter;
 import com.olive.ui.adapter.CheckRefundGoodsAdapter;
+import com.olive.ui.order.ProductDetailsFragment;
 import com.olive.ui.refund.viewModel.ApplyRefundViewModel;
 import com.olive.util.LoadImageUtil;
 import com.olive.util.Utils;
@@ -137,6 +138,7 @@ public class ApplyRefundFragment extends BaseErrorFragment {
                 getActivity().setResult(0, new Intent());
                 getActivity().finish();
             });
+
         });
 
 
@@ -229,7 +231,7 @@ public class ApplyRefundFragment extends BaseErrorFragment {
         checkRefundGoodsAdapter.setLook(true);
         checkRefundGoodsAdapter.bindToRecyclerView(refundGoodsList.getRecyclerView());*/
 
-        if(productEntities.isEmpty()){
+        if (productEntities.isEmpty()) {
             return;
         }
 
@@ -247,7 +249,18 @@ public class ApplyRefundFragment extends BaseErrorFragment {
                     .displayImage(holder.getView(R.id.icon_img));
             holder.setText(R.id.title, productEntity.name);
             holder.setText(R.id.title_line_2, getString(R.string.text_product_specification, productEntity.standard));
-            holder.setText(R.id.title_line_3, PriceUtil.formatRMB(productEntity.price));
+            long price = 0;
+            if (productEntity.price == 0) {
+                if (productEntity.originalPrice != 0) {
+                    price = productEntity.originalPrice;
+                } else {
+                    price = productEntity.salePrice;
+                }
+            } else {
+                price = productEntity.price;
+            }
+
+            holder.setText(R.id.title_line_3, PriceUtil.formatRMB(price));
             holder.getView(R.id.checkbox).setVisibility(View.GONE);
             holder.getView(R.id.number_layout).setVisibility(View.GONE);
             holder.getView(R.id.text_product_number).setVisibility(View.VISIBLE);
@@ -258,7 +271,6 @@ public class ApplyRefundFragment extends BaseErrorFragment {
                 holder.findViewById(R.id.right_icon).setVisibility(View.VISIBLE);
             }
 
-
             info.addView(view);
         }
 
@@ -268,7 +280,6 @@ public class ApplyRefundFragment extends BaseErrorFragment {
                         .startParentActivity(getActivity(), ChooseRefundGoodsFragment.class, CHOOSE_GOODS__SUCCESS_REQUEST);
             });
         }
-
 
     }
 
@@ -294,7 +305,7 @@ public class ApplyRefundFragment extends BaseErrorFragment {
 
     @Override
     public void error(int code, String error) {
-        if(code == 500){
+        if (code == 500) {
             error(getString(R.string.message_perfect_info));
             return;
         }

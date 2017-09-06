@@ -109,7 +109,6 @@ public class HomeFragment extends BaseLazyFragment {
 
     private void initListView() {
         mRecyclerView = getView(R.id.list);
-        mRecyclerView.setBackgroundColor(getResources().getColor(R.color.white));
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         mAdapter = new ProductAdapter(R.layout.item_product_grid_layout);
         mAdapter.setViewModel(viewModel);

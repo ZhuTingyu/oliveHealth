@@ -125,6 +125,7 @@ public class CheckOrderInfoFragment extends BaseErrorFragment {
         head = View.inflate(getContext(), R.layout.item_check_order_head_layout, null);
         head.setOnClickListener(v -> {
             IntentBuilder.Builder()
+                    .putExtra(IntentBuilder.KEY_BOOLEAN, AddressManageFragment.ADDRESS_ITEM_IS_CLICK)
                     .startParentActivity(getActivity(), AddressManageFragment.class, ADDRESS_CODE);
         });
         adapter.addHeaderView(head);

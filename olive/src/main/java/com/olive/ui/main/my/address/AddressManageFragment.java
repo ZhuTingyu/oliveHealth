@@ -30,11 +30,16 @@ public class AddressManageFragment extends BaseFragment {
 
     public static int ADDRESS_RESULT = 0x234;
 
+    public static final boolean ADDRESS_ITEM_IS_CLICK = true;
+
+    private boolean isAddressItemIsClick;
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         viewModel = new AddressViewModel(context);
         initViewModel(viewModel);
+        isAddressItemIsClick = getActivity().getIntent().getBooleanExtra(IntentBuilder.KEY_BOOLEAN, false);
     }
 
     @Nullable
@@ -62,12 +67,14 @@ public class AddressManageFragment extends BaseFragment {
         adapter = new AddressManageAdapter(this);
         adapter.setViewModel(viewModel);
         adapter.bindToRecyclerView(recyclerView.getRecyclerView());
-        adapter.setOnItemClickListener((baseQuickAdapter, view1, i) -> {
-            Intent intent = new Intent();
-            intent.putExtra(IntentBuilder.KEY_DATA, adapter.getItem(i));
-            getBaseActivity().setResult(ADDRESS_RESULT,intent);
-            getBaseActivity().finish();
-        });
+        if(isAddressItemIsClick){
+            adapter.setOnItemClickListener((baseQuickAdapter, view1, i) -> {
+                Intent intent = new Intent();
+                intent.putExtra(IntentBuilder.KEY_DATA, adapter.getItem(i));
+                getBaseActivity().setResult(ADDRESS_RESULT,intent);
+                getBaseActivity().finish();
+            });
+        }
         viewModel.getAddressList(addressEntities -> {
             adapter.setNewData(addressEntities);
         });

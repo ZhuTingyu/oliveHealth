@@ -25,6 +25,7 @@ import de.greenrobot.event.EventBus;
 
 public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
+    private static final String TAG = "MicroMsg.SDKSample.WXPayEntryActivity";
 
     private IWXAPI api;
 
@@ -55,6 +56,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
             EventBus.getDefault().post(new WeiPayResultEvent(resp.errCode));
         }
     }
+
 
     @Override
     public void finish() {

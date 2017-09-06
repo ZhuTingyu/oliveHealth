@@ -35,7 +35,7 @@
 
     <string name="text_spec_price">特价</string>
     <string name="text_promotion">商品推荐</string>
-    <string name="hint_search">搜索酒名称、品牌、系列</string>
+    <string name="hint_search">搜索商品</string>
 
     <string name="text_sort_total">综合排序</string>
     <string name="text_sort_price">价格排序</string>
@@ -268,7 +268,7 @@
     <string name="message_not_choose_product">请选择要买的商品</string>
     <string name="message_delete_success">删除成功</string>
     <string name="message_login_invalid">登录已经过期</string>
-    <string name="message_products_count_can_not_is_0">商品数量不能为0</string>
+    <string name="message_products_count_can_not_is_1">商品数量不能为1</string>
     <string name="message_input_valid_mobile">请输入有效账号</string>
     <string name="message_input_valid_code">请输入有效验证码</string>
     <string name="message_input_password">请输入密码</string>
@@ -294,6 +294,9 @@
     <string name="message_empty_address">没有收货地址</string>
     <string name="message_is_cancel_order">是否取消订单？</string>
     <string name="message_make_sure_goods_receipt">是否确认收货？</string>
+    <string name="message_choose_refund_goods_reason">请选择退货原因</string>
+    <string name="message_choose_refund_goods_photo">请选择退货照片</string>
+    <string name="message_choose_refund_goods">请选择退货商品</string>
 
     <string name="string_password_suffix">dms</string>
     <string name="string_app_name">——客户下单系统——</string>

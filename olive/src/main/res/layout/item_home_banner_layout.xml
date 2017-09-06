@@ -60,7 +60,6 @@
         android:gravity="center"
         android:text="@string/text_promotion"
         android:textColor="@color/base_color"
-        android:background="@color/white"
         android:textSize="17dp"
         android:textStyle="bold" />
 </LinearLayout>

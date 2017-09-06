@@ -44,7 +44,7 @@ public class LookApplyDetailFragment extends ApplyRefundFragment {
         viewModel.getApplyRefundDetail(orderEntity -> {
             initGoodsInfoView(orderEntity.products, true);
             describe.setFocusableInTouchMode(false);
-            describe.setText(orderEntity.desc == null ? getString(R.string.text_refund_no_describe) : orderEntity.desc);
+            describe.setText(orderEntity.desc == null || orderEntity.desc.isEmpty() ? getString(R.string.text_refund_no_describe) : orderEntity.desc);
             initImageView(getImagesList(orderEntity.image));
             ok.setVisibility(View.GONE);
             TextView reasonText = findViewById(R.id.reason_text);
@@ -69,18 +69,23 @@ public class LookApplyDetailFragment extends ApplyRefundFragment {
     private void initImageView(List<String> imgs) {
         imgsLinearLayout.setVisibility(View.VISIBLE);
         imgsGrid.setVisibility(View.GONE);
-        for (int i = 0; i < imgs.size(); i++) {
-            CustomDraweeView view = new CustomDraweeView(getContext());
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(Utils.dip2px(70), Utils.dip2px(70));
-            layoutParams.setMargins(Utils.dip2px(8),0,Utils.dip2px(8),0);
-            view.setLayoutParams(layoutParams);
-            LoadImageUtil.Builder().load(imgs.get(i)).http().build().displayImage(view);
-            imgsLinearLayout.addView(view);
-            view.setTag(i);
-            view.setOnClickListener(v -> {
-                showImageDialog(getContext(), imgs, (Integer) v.getTag());
-            });
+        if(imgs.isEmpty()){
+            findViewById(R.id.text1).setVisibility(View.GONE);
+        }else {
+            for (int i = 0; i < imgs.size(); i++) {
+                CustomDraweeView view = new CustomDraweeView(getContext());
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(Utils.dip2px(70), Utils.dip2px(70));
+                layoutParams.setMargins(Utils.dip2px(8),0,Utils.dip2px(8),0);
+                view.setLayoutParams(layoutParams);
+                LoadImageUtil.Builder().load(imgs.get(i)).http().build().displayImage(view);
+                imgsLinearLayout.addView(view);
+                view.setTag(i);
+                view.setOnClickListener(v -> {
+                    showImageDialog(getContext(), imgs, (Integer) v.getTag());
+                });
+            }
         }
+
     }
 
     public static void showImageDialog(Context context, List<String> list, int startPosition) {

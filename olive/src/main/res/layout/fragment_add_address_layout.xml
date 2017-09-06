@@ -126,6 +126,7 @@
         android:textColorHint="@color/color_hint"
         android:textSize="@dimen/big_font_16dp"
         android:maxLines="1"
+        android:minLines="1"
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_area_"
         app:layout_constraintLeft_toRightOf="@+id/tv_area_"
         app:layout_constraintRight_toRightOf="parent" />

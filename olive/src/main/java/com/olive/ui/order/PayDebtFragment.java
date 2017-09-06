@@ -31,11 +31,12 @@ public class PayDebtFragment extends BasePayFragment {
         TextView text = findViewById(head, R.id.text2);
         text.setText(R.string.text_need_refund_price);
 
+        tvVacancies.setText(getString(R.string.text_pay_by_account_vacancies, PriceUtil.formatRMB(viewModel.accountEntity.balance))+"");
+
         viewModel.getDebtDetails(orderEntities -> {
             OrderEntity orderEntity = orderEntities.get(0);
             viewModel.setOrderEntity(orderEntity);
             tvPayPrice.setText(PriceUtil.formatRMB(viewModel.orderEntity.amount));
-            tvVacancies.setText(getString(R.string.text_pay_by_account_vacancies, PriceUtil.formatRMB(viewModel.accountEntity.balance))+"");
             tvNeedPayPrice.setText(PriceUtil.formatRMB(viewModel.orderEntity.amount));
         });
 

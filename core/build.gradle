@@ -86,7 +86,7 @@ android {
         resValue("string", "dialog_share_not_installed", "当前未安装客户端，请下载安装。")
         resValue("string", "sina_key", "")
         resValue("string", "sina_redirect_url", "")
-        resValue("string", "weixin_appid", "wxa68a5809f45ed933")
+        resValue("string", "weixin_appid", "wxa598d533662f9800")
         resValue("string", "weixin_appsecret", "")
         resValue("string", "dialog_not_pay_weixin", "当前微信版本不支持支付功能，请下载最新版本。")
 
