@@ -19,6 +19,7 @@ import com.olive.model.entity.OrderEntity;
 import com.olive.ui.BaseErrorFragment;
 import com.olive.ui.main.MainActivity;
 import com.olive.ui.main.my.address.AddressViewModel;
+import com.olive.ui.order.viewModel.OrderDetailViewModel;
 
 import org.w3c.dom.Text;
 
@@ -39,12 +40,12 @@ public class PayResultFragment extends BaseErrorFragment {
     private boolean isSuccess;
     private OrderEntity orderEntity;
 
-    private AddressViewModel viewModel;
+    private OrderDetailViewModel viewModel;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        viewModel = new AddressViewModel(context);
+        viewModel = new OrderDetailViewModel(context);
         initViewModel(viewModel);
     }
 
@@ -59,6 +60,7 @@ public class PayResultFragment extends BaseErrorFragment {
         super.onViewCreated(view, savedInstanceState);
         isSuccess = getBaseActivity().getIntent().getBooleanExtra(IntentBuilder.KEY_BOOLEAN,false);
         orderEntity = getBaseActivity().getIntent().getParcelableExtra(IntentBuilder.KEY_DATA);
+        viewModel.setOrderNo(orderEntity.orderNo);
 
         initView();
     }
@@ -89,9 +91,8 @@ public class PayResultFragment extends BaseErrorFragment {
         if(isSuccess){
             mToolbar.setTitle(R.string.message_pay_success);
             result.setText(getString(R.string.text_already_pay));
-            viewModel.getAddressList(addressEntities -> {
-
-                address.setText(getString(R.string.text_my_address_is, viewModel.getDefaultAddress().detailAddress));
+            viewModel.getOrderDetail(orderEntity -> {
+                address.setText(getString(R.string.text_my_address_is, orderEntity.address));
             });
             price.setText(getString(R.string.text_pay_order_amount, PriceUtil.format(orderEntity.amount)));
             btnOk.setText(getString(R.string.text_back_cart));

@@ -212,7 +212,7 @@ public class UploadImageGridAdapter extends BaseArrayListAdapter<String> {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
          if (requestCode == CAMERA_SUCCESS_REQUEST) {
-            if (requestCode == -1) {
+            if (resultCode == -1) {
                 mFragment.setProgressVisible(true);
                 viewModel.uploadImg(s -> {
                     mFragment.setProgressVisible(false);

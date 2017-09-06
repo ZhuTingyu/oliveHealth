@@ -92,6 +92,7 @@ public class UploadImageModel {
                     responseJson.code = -1;
                     responseJson.message = "上传失败，请重新上传";
                     subscriber.onNext(responseJson);
+                    LogUtil.print("s: " + responseJson.toJsonString());
 
                 }
 

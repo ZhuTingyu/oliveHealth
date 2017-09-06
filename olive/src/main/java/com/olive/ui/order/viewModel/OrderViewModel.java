@@ -33,7 +33,7 @@ public class OrderViewModel extends ProductsViewModel {
     private static final int ALLOW_NOT_DEBT = 1; //有欠款
     private static final int ALLOW_DEBT = 0; //没有欠款
 
-    private String orderNo;
+    protected String orderNo;
     private int addressId;
     private List<ProductEntity> productEntities;
 

@@ -69,12 +69,12 @@ public class AddressManageAdapter extends BaseQuickAdapter<AddressEntity, BaseVi
         chooseDefault.setText(addressEntity.isDefault == AddressViewModel.IS_DEFAULT ? fragment.getString(R.string.text_default_address) : fragment.getString(R.string.text_set_default_address));
 
         tvDelete.setOnClickListener(v -> {
-            createDialog(addressEntity);
+            createDialog(addressEntity, holder.getAdapterPosition());
         });
 
     }
 
-    private void createDialog(AddressEntity addressEntity) {
+    private void createDialog(AddressEntity addressEntity, int position) {
         DialogUtil.createDialogView(fragment.getContext(), R.string.text_make_sure_delete_address
                 , null, R.string.btn_cancel
                 , (dialog, which) -> {
@@ -83,6 +83,7 @@ public class AddressManageAdapter extends BaseQuickAdapter<AddressEntity, BaseVi
                     viewModel.deleteAddress(s -> {
                         fragment.setProgressVisible(false);
                         ToastUtils.showLong(mContext, mContext.getString(R.string.message_delete_success));
+                        remove(position);
                     });
                 }, R.string.text_action_delete);
     }

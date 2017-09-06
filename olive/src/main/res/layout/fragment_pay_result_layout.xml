@@ -42,7 +42,7 @@
     <RelativeLayout
         android:id="@+id/rl_info"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/result">
 
@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
-            tools:text = "收货地址：四川省武侯区科华路那段"
+            tools:text = "收货地址：四川省武侯区科华路那段四川省武侯区科华路那段四川省武侯区科华路那段"
             android:textSize="16dp"/>
 
         <TextView

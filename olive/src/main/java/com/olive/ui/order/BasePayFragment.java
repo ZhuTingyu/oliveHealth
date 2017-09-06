@@ -1,5 +1,6 @@
 package com.olive.ui.order;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -27,6 +28,7 @@ import com.biz.util.ValidUtil;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.jungly.gridpasswordview.GridPasswordView;
 import com.olive.R;
+import com.olive.event.OrderListUpdateEvent;
 import com.olive.event.WeiPayResultEvent;
 import com.olive.model.UserModel;
 import com.olive.model.entity.AccountEntity;
@@ -36,11 +38,14 @@ import com.olive.ui.BaseErrorFragment;
 import com.olive.ui.adapter.PayOrderAdapter;
 import com.olive.ui.main.my.UserViewModel;
 import com.olive.ui.main.my.account.viewModel.AccountViewModel;
+import com.olive.ui.order.viewModel.OrderListViewModel;
 import com.olive.ui.order.viewModel.PayOrderViewModel;
 import com.olive.util.CashierInputFilter;
 
 import java.math.BigDecimal;
 import java.util.List;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by TingYu Zhu on 2017/7/27.
@@ -202,20 +207,21 @@ public abstract class BasePayFragment extends BaseErrorFragment {
             btnOk.setText(getString(R.string.text_make_sure_pay));
             btnOk.setOnClickListener(v1 -> {
                 setProgressVisible(true);
-                dialog.dismiss();
-                checkPayPassword(passwordView, passwordError);
+                checkPayPassword(dialog,passwordView, passwordError);
             });
         });
     }
 
-    private void checkPayPassword(GridPasswordView passwordView, TextView passwordError) {
+    private void checkPayPassword(Dialog dialog, GridPasswordView passwordView, TextView passwordError) {
         viewModel.setPayPassword(passwordView.getPassWord());
         viewModel.checkPayPassword(s -> {
             setProgressVisible(false);
             if (s == PayOrderViewModel.PAY_PASSWORD_CORRECT) {
                 payOrder();
+                dialog.dismiss();
             } else {
                 passwordError.setVisibility(View.VISIBLE);
+                passwordView.clearPassword();
             }
         });
     }
@@ -250,6 +256,9 @@ public abstract class BasePayFragment extends BaseErrorFragment {
                     .putExtra(IntentBuilder.KEY_BOOLEAN, true)
                     .putExtra(IntentBuilder.KEY_DATA, viewModel.orderEntity)
                     .startParentActivity(getActivity(), PayResultFragment.class);
+            EventBus.getDefault().post(new OrderListUpdateEvent(OrderListViewModel.TYPE_WAIT_RECEIVE));
+            EventBus.getDefault().post(new OrderListUpdateEvent(OrderListViewModel.TYPE_ALL));
+            EventBus.getDefault().post(new OrderListUpdateEvent(OrderListViewModel.TYPE_WAIT_PAY));
             getActivity().finish();
         }, throwable -> {
             IntentBuilder.Builder()

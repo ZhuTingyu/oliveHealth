@@ -20,7 +20,6 @@ import rx.functions.Action1;
 
 public class OrderDetailViewModel extends OrderViewModel{
 
-    private String orderNo;
     public OrderEntity orderEntity;
     public boolean isHaveLogisticsPrice = false;
 
