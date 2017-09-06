@@ -120,6 +120,9 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
                         .putExtra(IntentBuilder.KEY_VALUE, viewModel.getTotalPrice())
                         .putParcelableArrayListExtra(IntentBuilder.KEY_DATA, (ArrayList<? extends Parcelable>) viewModel.getSelectedProducts())
                         .startParentActivity(getActivity(), CheckOrderInfoFragment.class, true);
+                if(isBuyAgain){
+                    getActivity().finish();
+                }
             } else {
                 error(getString(R.string.message_not_choose_product));
             }

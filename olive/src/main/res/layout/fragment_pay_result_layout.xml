@@ -51,17 +51,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
-            tools:text = "收货地址：四川省武侯区科华路那段四川省武侯区科华路那段四川省武侯区科华路那段"
-            android:textSize="16dp"/>
+            tools:text = "收货地址：四川省武侯区科华路那段四川省武侯区科华路那段四川省武侯区科华路那段" />
+
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/address"
+            android:layout_marginTop="8dp"
+            android:text = "实付款："/>
+
 
         <TextView
             android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/address"
-            android:layout_marginTop="16dp"
-            tools:text = "实付款：￥1232.123"
-            android:textSize="16dp"/>
+            android:layout_toRightOf="@id/text1"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/red_light"
+            tools:text = "￥1232.123"/>
 
 
     </RelativeLayout>

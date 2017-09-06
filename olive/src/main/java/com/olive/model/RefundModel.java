@@ -40,7 +40,7 @@ public class RefundModel {
                 .addBody("products", products)
                 .addBody("refundReasonId", refundReasonId)
                 .addBody("image", image)
-                .addBody("description", description)
+                .addBody("desc", description)
                 .url(R.string.api_refund_apply)
                 .requestPI();
     }

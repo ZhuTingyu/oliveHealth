@@ -138,6 +138,7 @@
                 android:id="@+id/btn_add"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:background="?attr/selectableItemBackground"
                 tools:src="@drawable/vector_goods_number_add"
                 app:srcCompat="@drawable/vector_goods_number_add"
                 android:scaleType="center"/>

@@ -94,7 +94,7 @@ public class PayResultFragment extends BaseErrorFragment {
             viewModel.getOrderDetail(orderEntity -> {
                 address.setText(getString(R.string.text_my_address_is, orderEntity.address));
             });
-            price.setText(getString(R.string.text_pay_order_amount, PriceUtil.format(orderEntity.amount)));
+            price.setText(PriceUtil.formatRMB(orderEntity.amount));
             btnOk.setText(getString(R.string.text_back_cart));
             btnOk.setOnClickListener(v -> {
                 MainActivity.startMainWithAnim(getActivity(), MainActivity.TAB_CART);

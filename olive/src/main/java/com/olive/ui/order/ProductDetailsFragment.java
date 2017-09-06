@@ -113,9 +113,11 @@ public class ProductDetailsFragment extends BaseErrorFragment {
 
 
     private void initData() {
+        setProgressVisible(true);
         viewModel.getProductDetail(productEntity -> {
             this.productEntity = viewModel.productEntity;
             initHeadView();
+            setProgressVisible(false);
             refreshLayout.setRefreshing(false);
         });
 

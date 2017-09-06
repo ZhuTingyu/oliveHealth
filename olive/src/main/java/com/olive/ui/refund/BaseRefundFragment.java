@@ -1,6 +1,7 @@
 package com.olive.ui.refund;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -25,6 +26,7 @@ import com.olive.ui.refund.viewModel.RefundListViewModel;
 public class BaseRefundFragment extends BaseErrorFragment {
 
     public static final String KEY_TYPE = "type";
+    private static final int APPLY_REFUND_CODE = 0x123;
 
     private String type;
 
@@ -60,7 +62,7 @@ public class BaseRefundFragment extends BaseErrorFragment {
         TextView btn = findViewById(R.id.btn_sure);
         btn.setText(getString(R.string.title_apply_refund));
 
-        if(getString(R.string.text_refund_apply).equals(type)){
+        if (getString(R.string.text_refund_apply).equals(type)) {
 
             recyclerView.setRefreshListener(() -> {
                 viewModel.getRefundApplyList(orderEntities -> {
@@ -74,7 +76,7 @@ public class BaseRefundFragment extends BaseErrorFragment {
             });
 
             btn.setOnClickListener(v -> {
-                IntentBuilder.Builder().startParentActivity(getActivity(), ApplyRefundFragment.class, true);
+                IntentBuilder.Builder().startParentActivity(getActivity(), ApplyRefundFragment.class, APPLY_REFUND_CODE);
             });
 
             adapter.setOnItemClickListener((baseQuickAdapter, view, i) -> {
@@ -84,7 +86,7 @@ public class BaseRefundFragment extends BaseErrorFragment {
 
             });
 
-        }else {
+        } else {
 
             recyclerView.setRefreshListener(() -> {
                 viewModel.getRefundList(orderEntities -> {
@@ -100,5 +102,15 @@ public class BaseRefundFragment extends BaseErrorFragment {
             btn.setVisibility(View.GONE);
         }
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == APPLY_REFUND_CODE){
+            viewModel.getRefundApplyList(orderEntities -> {
+                adapter.setNewData(orderEntities);
+            });
+        }
     }
 }

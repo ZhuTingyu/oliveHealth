@@ -133,7 +133,7 @@ public class UploadImageGridAdapter extends BaseArrayListAdapter<String> {
         void bindData(int position) {
             del.setVisibility(View.VISIBLE);
             del.setOnClickListener(v -> {
-                removeItem((Integer) v.getTag());
+                delUrl(mList.get((Integer) v.getTag()));
                 if (onImageDataChange != null)
                     onImageDataChange.call(mList);
             });
@@ -202,6 +202,7 @@ public class UploadImageGridAdapter extends BaseArrayListAdapter<String> {
         for (int i = 0; i < mList.size(); i++) {
             if (url.equals(mList.get(i))) {
                 this.mList.remove(i);
+                viewModel.imgUrls.remove(i);
                 if (onImageDataChange != null)
                     onImageDataChange.call(mList);
                 notifyDataSetChanged();

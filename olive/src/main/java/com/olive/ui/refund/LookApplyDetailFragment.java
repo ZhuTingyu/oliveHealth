@@ -44,7 +44,7 @@ public class LookApplyDetailFragment extends ApplyRefundFragment {
         viewModel.getApplyRefundDetail(orderEntity -> {
             initGoodsInfoView(orderEntity.products, true);
             describe.setFocusableInTouchMode(false);
-            describe.setText(orderEntity.description == null ? getString(R.string.text_refund_no_describe) : orderEntity.description);
+            describe.setText(orderEntity.desc == null ? getString(R.string.text_refund_no_describe) : orderEntity.desc);
             initImageView(getImagesList(orderEntity.image));
             ok.setVisibility(View.GONE);
             TextView reasonText = findViewById(R.id.reason_text);

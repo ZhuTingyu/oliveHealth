@@ -8,6 +8,7 @@ import com.biz.util.Utils;
 import com.olive.R;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -80,4 +81,9 @@ public class RefundActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mFragments.get(0).onActivityResult(requestCode, resultCode, data);
+    }
 }

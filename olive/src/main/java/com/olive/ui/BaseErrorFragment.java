@@ -19,6 +19,7 @@ public class BaseErrorFragment extends BaseFragment {
                     .putExtra(IntentBuilder.KEY_TYPE, LoginActivity.TYPE_LOGIN_INVALID)
                     .startActivity();
             getActivity().finish();
+            return;
         }
         super.error(code, error);
     }

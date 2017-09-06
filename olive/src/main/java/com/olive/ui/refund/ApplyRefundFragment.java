@@ -134,6 +134,7 @@ public class ApplyRefundFragment extends BaseErrorFragment {
         bindUi(RxUtil.click(ok), o -> {
             viewModel.applyRefund(s -> {
                 ToastUtils.showShort(getContext(), getString(R.string.text_commit_success));
+                getActivity().setResult(0, new Intent());
                 getActivity().finish();
             });
         });
@@ -291,4 +292,12 @@ public class ApplyRefundFragment extends BaseErrorFragment {
                 .start(baseActivity, PHOTO_SUCCESS_REQUEST);
     }
 
+    @Override
+    public void error(int code, String error) {
+        if(code == 500){
+            error(getString(R.string.message_perfect_info));
+            return;
+        }
+        super.error(code, error);
+    }
 }

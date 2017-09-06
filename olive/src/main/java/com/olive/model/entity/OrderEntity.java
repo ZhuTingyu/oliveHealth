@@ -44,7 +44,7 @@ public class OrderEntity implements Parcelable {
     //退货申请详情
     public String approveDes;   //审核备注信息
     public String image;   //图片
-    public String description;   //退货描述
+    public String desc;   //退货描述
     public String reason;   //退货理由
 
 
@@ -84,7 +84,7 @@ public class OrderEntity implements Parcelable {
         dest.writeString(this.note);
         dest.writeString(this.approveDes);
         dest.writeString(this.image);
-        dest.writeString(this.description);
+        dest.writeString(this.desc);
         dest.writeString(this.reason);
     }
 
@@ -115,7 +115,7 @@ public class OrderEntity implements Parcelable {
         this.note = in.readString();
         this.approveDes = in.readString();
         this.image = in.readString();
-        this.description = in.readString();
+        this.desc = in.readString();
         this.reason = in.readString();
     }
 

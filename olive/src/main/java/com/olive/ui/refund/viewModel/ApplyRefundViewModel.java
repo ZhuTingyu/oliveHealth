@@ -86,7 +86,7 @@ public class ApplyRefundViewModel extends BaseViewModel {
     public List<String> getRefundNameList(){
         refundNameList = Lists.newArrayList();
         for(RefundReasonEntity refundReasonEntity : refundReasonEntities){
-            refundNameList.add(refundReasonEntity.desc);
+            refundNameList.add(refundReasonEntity.reason);
         }
         return refundNameList;
     }
