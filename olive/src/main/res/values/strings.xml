@@ -238,6 +238,18 @@
     <string name="text_buy_again">再次购买</string>
     <string name="text_price_total">共：%1$s</string>
 
+    <array name="array_system_message">
+        <item>@string/text_service_agreement</item>
+        <item>@string/text_version_message</item>
+        <item>@string/text_about_us</item>
+    </array>
+
+    <string name="text_service_agreement">服务协议</string>
+    <string name="text_version_message">版本信息</string>
+    <string name="text_about_us">关于我们</string>
+
+    <string name="title_system_message">系统信息</string>
+
     <string name="title_pay_failed">支付失败</string>
 
     <array name="array_order_details">

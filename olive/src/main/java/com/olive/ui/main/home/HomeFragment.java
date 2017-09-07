@@ -142,13 +142,10 @@ public class HomeFragment extends BaseLazyFragment {
 
         initBanner(view);
 
-
         initNoticeList(view);
 
-
         initGirdView(view);
-
-
+        
         return view;
 
     }

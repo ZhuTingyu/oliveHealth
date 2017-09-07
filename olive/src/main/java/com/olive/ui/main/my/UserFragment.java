@@ -112,7 +112,7 @@ public class UserFragment  extends BaseLazyFragment  {
         }else if (equalsString(s, R.string.text_my_password_pay)){
             IntentBuilder.Builder().startParentActivity(getActivity(), ResetPayPasswordFragment.class, true);
         }else if (equalsString(s, R.string.text_system_info)){
-
+            IntentBuilder.Builder().startParentActivity(getActivity(), SystemMessageFragmemt.class);
         }
     }
 
