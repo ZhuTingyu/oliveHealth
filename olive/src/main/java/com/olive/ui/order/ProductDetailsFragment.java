@@ -256,6 +256,7 @@ public class ProductDetailsFragment extends BaseErrorFragment {
         TextView tvPrice = (TextView) dialog.findViewById(R.id.tv_price);
         CountEditText edCount = (CountEditText) dialog.findViewById(R.id.ed_count);
         productCount = productEntity.orderCardinality;
+        viewModel.productEntity.quantity = productCount;
         edCount.setText(productCount + "");
 
 

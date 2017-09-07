@@ -200,7 +200,7 @@ public abstract class BasePayFragment extends BaseErrorFragment {
             TextView forgetPassword = (TextView) dialog.findViewById(R.id.text_forget_password);
             forgetPassword.setVisibility(View.VISIBLE);
 
-            GridPasswordView passwordView = (GridPasswordView) dialog.findViewById(R.id.password);
+            EditText passwordView = (EditText) dialog.findViewById(R.id.password);
             passwordView.setVisibility(View.VISIBLE);
 
             TextView passwordError = (TextView) dialog.findViewById(R.id.text3);
@@ -212,8 +212,8 @@ public abstract class BasePayFragment extends BaseErrorFragment {
         });
     }
 
-    private void checkPayPassword(Dialog dialog, GridPasswordView passwordView, TextView passwordError) {
-        viewModel.setPayPassword(passwordView.getPassWord());
+    private void checkPayPassword(Dialog dialog, EditText passwordView, TextView passwordError) {
+        viewModel.setPayPassword(passwordView.getText().toString());
         viewModel.checkPayPassword(s -> {
             setProgressVisible(false);
             if (s == PayOrderViewModel.PAY_PASSWORD_CORRECT) {
@@ -221,7 +221,7 @@ public abstract class BasePayFragment extends BaseErrorFragment {
                 dialog.dismiss();
             } else {
                 passwordError.setVisibility(View.VISIBLE);
-                passwordView.clearPassword();
+                passwordView.setText("");
             }
         });
     }

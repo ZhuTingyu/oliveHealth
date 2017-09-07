@@ -100,13 +100,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/user_number">
 
-        <com.jungly.gridpasswordview.GridPasswordView
+        <EditText
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="16dp"
-            android:text="@string/text_pay_way"
             android:visibility="gone"
+            android:maxLength="16"
+            android:inputType="textPassword"
             android:textSize="16dp" />
 
 

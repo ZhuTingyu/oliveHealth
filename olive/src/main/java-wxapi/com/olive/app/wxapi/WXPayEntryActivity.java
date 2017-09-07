@@ -1,4 +1,4 @@
-package com.olive.b2b.wxapi;
+package com.olive.app.wxapi;
 
 /**
  * Created by TingYu Zhu on 2017/8/18.
@@ -54,6 +54,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
         if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
             EventBus.getDefault().post(new WeiPayResultEvent(resp.errCode));
         }
+        finish();
     }
 
 
