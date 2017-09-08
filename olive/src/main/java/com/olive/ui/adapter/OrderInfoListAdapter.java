@@ -27,6 +27,7 @@ import com.olive.ui.order.viewModel.OrderListViewModel;
 import com.olive.ui.order.viewModel.OrderViewModel;
 import com.olive.util.LoadImageUtil;
 import com.olive.util.Utils;
+import com.olive.widget.LinearLayoutForRecyclerView;
 
 import java.util.List;
 
@@ -53,46 +54,12 @@ public class OrderInfoListAdapter extends BaseQuickAdapter<OrderEntity, BaseView
 
     @Override
     protected void convert(BaseViewHolder holder, OrderEntity orderEntity) {
-        /*XRecyclerView recyclerView = holder.findViewById(R.id.list);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        CheckOrderAdapter adapter = new CheckOrderAdapter();
-        adapter.setNewData(orderEntity.products);
-        if(recyclerView.getAdapter() == null){
-            recyclerView.setAdapter(adapter);
-        }
-
-        recyclerView.getRecyclerView().addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
-            @Override
-            public void onChildViewAttachedToWindow(View view) {
-                Utils.setListHeight(recyclerView.getRecyclerView());
-            }
-
-            @Override
-            public void onChildViewDetachedFromWindow(View view) {
-
-            }
-        });*/
-
-
-        LinearLayout linearLayout = holder.findViewById(R.id.list);
+        LinearLayoutForRecyclerView linearLayout = holder.findViewById(R.id.list);
         List<ProductEntity> products = orderEntity.products;
-        linearLayout.removeAllViews();
-        for (ProductEntity productEntity : products) {
-            View view = LayoutInflater.from(mContext).inflate(R.layout.item_cart_layout, linearLayout, false);
-            BaseViewHolder holder1 = new BaseViewHolder(view);
-            LoadImageUtil.Builder()
-                    .load(productEntity.imageLogo).http().build()
-                    .displayImage(holder1.getView(R.id.icon_img));
-            holder1.setText(R.id.title, productEntity.productName);
-            holder1.setText(R.id.title_line_2, mContext.getString(R.string.text_product_specification, productEntity.standard));
-            holder1.setText(R.id.title_line_3, PriceUtil.formatRMB(productEntity.price));
-            holder1.getView(R.id.checkbox).setVisibility(View.GONE);
-            holder1.getView(R.id.number_layout).setVisibility(View.GONE);
-            holder1.getView(R.id.text_product_number).setVisibility(View.VISIBLE);
-            holder1.setText(R.id.text_product_number, "x" + productEntity.quantity);
-            linearLayout.addView(view);
-        }
+
+        ProductInfoWithNumberAdapter adapter = new ProductInfoWithNumberAdapter(mContext, products, true);
+        linearLayout.setAdapter(adapter);
 
         holder.setText(R.id.price, PriceUtil.formatRMB(orderEntity.amount));
         holder.setText(R.id.number, mContext.getString(R.string.text_order_list_info_number, getTotalCount(orderEntity.products) + ""));

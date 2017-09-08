@@ -20,7 +20,7 @@
         android:textColor="@color/orange_light"
         tools:text="待发货"/>
 
-    <LinearLayout
+    <com.olive.widget.LinearLayoutForRecyclerView
         android:id="@+id/list"
         android:orientation="vertical"
         android:layout_below="@+id/order_status"

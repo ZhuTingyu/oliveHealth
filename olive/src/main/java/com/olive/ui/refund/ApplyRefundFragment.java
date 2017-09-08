@@ -36,10 +36,12 @@ import com.olive.model.entity.ProductEntity;
 import com.olive.ui.BaseErrorFragment;
 import com.olive.ui.adapter.BottomSheetAdapter;
 import com.olive.ui.adapter.CheckRefundGoodsAdapter;
+import com.olive.ui.adapter.ProductInfoWithNumberAdapter;
 import com.olive.ui.order.ProductDetailsFragment;
 import com.olive.ui.refund.viewModel.ApplyRefundViewModel;
 import com.olive.util.LoadImageUtil;
 import com.olive.util.Utils;
+import com.olive.widget.LinearLayoutForRecyclerView;
 
 import java.io.File;
 import java.lang.ref.SoftReference;
@@ -70,7 +72,7 @@ public class ApplyRefundFragment extends BaseErrorFragment {
 
     protected GridView imgsGrid;
     protected LinearLayout imgsLinearLayout;
-    protected LinearLayout info;
+    protected LinearLayoutForRecyclerView info;
 
 
     private int current;
@@ -224,55 +226,16 @@ public class ApplyRefundFragment extends BaseErrorFragment {
 
     protected void initGoodsInfoView(List<ProductEntity> productEntities, boolean isLook) {
 
-        /*refundGoodsList = findViewById(R.id.list);
-        refundGoodsList.setVisibility(View.VISIBLE);
-        refundGoodsList.setLayoutManager(new LinearLayoutManager(getContext()));
-        checkRefundGoodsAdapter = new CheckRefundGoodsAdapter();
-        checkRefundGoodsAdapter.setLook(true);
-        checkRefundGoodsAdapter.bindToRecyclerView(refundGoodsList.getRecyclerView());*/
-
         if (productEntities.isEmpty()) {
             return;
         }
 
-
         info = findViewById(R.id.goods_info);
-        info.removeAllViews();
         info.setVisibility(View.VISIBLE);
         productInfoViews = Lists.newArrayList();
-        for (ProductEntity productEntity : productEntities) {
-            View view = LayoutInflater.from(getContext()).inflate(R.layout.item_cart_layout, info, false);
-            BaseViewHolder holder = new BaseViewHolder(view);
 
-            LoadImageUtil.Builder()
-                    .load(productEntity.imgLogo == null ? productEntity.imageLogo : productEntity.imgLogo).http().build()
-                    .displayImage(holder.getView(R.id.icon_img));
-            holder.setText(R.id.title, productEntity.name);
-            holder.setText(R.id.title_line_2, getString(R.string.text_product_specification, productEntity.standard));
-            long price = 0;
-            if (productEntity.price == 0) {
-                if (productEntity.originalPrice != 0) {
-                    price = productEntity.originalPrice;
-                } else {
-                    price = productEntity.salePrice;
-                }
-            } else {
-                price = productEntity.price;
-            }
-
-            holder.setText(R.id.title_line_3, PriceUtil.formatRMB(price));
-            holder.getView(R.id.checkbox).setVisibility(View.GONE);
-            holder.getView(R.id.number_layout).setVisibility(View.GONE);
-            holder.getView(R.id.text_product_number).setVisibility(View.VISIBLE);
-            holder.setText(R.id.text_product_number, "x" + productEntity.quantity);
-            if (!isLook) {
-                RelativeLayout rl = findViewById(view, R.id.rl_info);
-                rl.setPadding(0, 0, com.biz.util.Utils.dip2px(24), 0);
-                holder.findViewById(R.id.right_icon).setVisibility(View.VISIBLE);
-            }
-
-            info.addView(view);
-        }
+        ProductInfoWithNumberAdapter adapter = new ProductInfoWithNumberAdapter(getContext(), productEntities, isLook);
+        info.setAdapter(adapter);
 
         if (!isLook) {
             info.setOnClickListener(v -> {
