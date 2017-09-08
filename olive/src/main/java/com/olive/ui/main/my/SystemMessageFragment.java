@@ -21,7 +21,7 @@ import java.util.List;
  * Created by TingYu Zhu on 2017/9/7.
  */
 
-public class SystemMessageFragmemt extends BaseFragment {
+public class SystemMessageFragment extends BaseFragment {
 
     XRecyclerView recyclerView;
     SystemMessageAdapter adapter;

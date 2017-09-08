@@ -35,9 +35,7 @@
         android:layout_below="@id/price"
         android:layout_width="match_parent"/>
 
-    <LinearLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.olive.widget.LinearLayoutForRecyclerView
         android:layout_below="@id/divider1"
         android:id="@+id/list"
         android:orientation="vertical"

@@ -59,7 +59,10 @@ public class CartAdapter extends BaseChooseAdapter<ProductEntity, BaseViewHolder
         holder.setText(R.id.title_line_3, PriceUtil.formatRMB(price));
 
         EditText countEditText = holder.getView(R.id.ed_count);
-        countEditText.setText(productEntity.quantity == 0 ? String.valueOf(1) : String.valueOf(productEntity.quantity));
+        if(productEntity.quantity == 0){
+            productEntity.quantity = 1;
+        }
+        countEditText.setText(String.valueOf(productEntity.quantity));
         countEditText.setFocusableInTouchMode(false);
 
         AppCompatCheckBox checkBox = holder.getView(R.id.checkbox);

@@ -20,10 +20,12 @@ import com.olive.event.OrderListUpdateEvent;
 import com.olive.model.UserModel;
 import com.olive.model.entity.OrderEntity;
 import com.olive.ui.BaseErrorFragment;
+import com.olive.ui.adapter.BaseLineTextListAdapter;
 import com.olive.ui.adapter.CheckOrderAdapter;
 import com.olive.ui.main.cart.CartFragment;
 import com.olive.ui.order.viewModel.OrderDetailViewModel;
 import com.olive.ui.order.viewModel.OrderListViewModel;
+import com.olive.widget.LinearLayoutForRecyclerView;
 
 
 import java.util.List;
@@ -45,7 +47,7 @@ public class OrderDetailsFragment extends BaseErrorFragment {
 
     private View head;
     private View footView;
-    private LinearLayout footList;
+    private LinearLayoutForRecyclerView footList;
     private LinearLayout btns;
     private TextView btnLeft;
     private TextView btnRight;
@@ -103,7 +105,7 @@ public class OrderDetailsFragment extends BaseErrorFragment {
         head = View.inflate(getContext(), R.layout.item_order_details_head_layout, null);
 
         footView = LayoutInflater.from(getContext()).inflate(R.layout.item_order_details_foot_layout, null);
-        footList = (LinearLayout) footView.findViewById(R.id.list);
+        footList = (LinearLayoutForRecyclerView) footView.findViewById(R.id.list);
 
         btns = findViewById(R.id.ll_btn);
         btnLeft = findViewById(R.id.btn_left);
@@ -197,7 +199,7 @@ public class OrderDetailsFragment extends BaseErrorFragment {
         String[] title = viewModel.getOderInfoTitle();
         List<String> content = viewModel.getOrderInfo();
 
-        for(int i = 0, len = title.length; i < len; i++){
+        /*for(int i = 0, len = title.length; i < len; i++){
             View view = LayoutInflater.from(getContext()).inflate(R.layout.item_line_text_layout, footList, false);
             TextView tvTitle = (TextView) view.findViewById(R.id.name);
             TextView tvContent = (TextView) view.findViewById(R.id.number);
@@ -206,7 +208,11 @@ public class OrderDetailsFragment extends BaseErrorFragment {
             tvContent.setText(content.get(i));
 
             footList.addView(view);
-        }
+        }*/
+
+        BaseLineTextListAdapter baseLineTextListAdapter =
+                new BaseLineTextListAdapter(getContext(),title, content);
+        footList.setAdapter(baseLineTextListAdapter);
 
         TextView number = (TextView) footView.findViewById(R.id.number);
         TextView price = (TextView) footView.findViewById(R.id.price);

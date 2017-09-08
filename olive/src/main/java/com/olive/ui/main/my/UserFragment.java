@@ -1,7 +1,6 @@
 package com.olive.ui.main.my;
 
 import com.biz.base.BaseLazyFragment;
-import com.biz.image.upload.UploadImageUtil;
 import com.biz.util.ActivityStackManager;
 import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
@@ -18,7 +17,6 @@ import com.olive.ui.main.my.password.ResetPayPasswordFragment;
 import com.olive.ui.main.my.stock.StockManageActivity;
 import com.olive.ui.order.OrderActivity;
 import com.olive.ui.refund.RefundActivity;
-import com.sina.weibo.sdk.utils.ImageUtils;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 
 import android.os.Bundle;
@@ -112,7 +110,7 @@ public class UserFragment  extends BaseLazyFragment  {
         }else if (equalsString(s, R.string.text_my_password_pay)){
             IntentBuilder.Builder().startParentActivity(getActivity(), ResetPayPasswordFragment.class, true);
         }else if (equalsString(s, R.string.text_system_info)){
-            IntentBuilder.Builder().startParentActivity(getActivity(), SystemMessageFragmemt.class);
+            IntentBuilder.Builder().startParentActivity(getActivity(), SystemMessageFragment.class);
         }
     }
 

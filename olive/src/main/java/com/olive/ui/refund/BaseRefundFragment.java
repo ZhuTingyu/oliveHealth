@@ -108,9 +108,11 @@ public class BaseRefundFragment extends BaseErrorFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == APPLY_REFUND_CODE){
-            viewModel.getRefundApplyList(orderEntities -> {
-                adapter.setNewData(orderEntities);
-            });
+            if(viewModel != null){
+                viewModel.getRefundApplyList(orderEntities -> {
+                    adapter.setNewData(orderEntities);
+                });
+            }
         }
     }
 }
