@@ -76,7 +76,7 @@ public class AccountModel {
                 }.getType())
                 .addBody("mobile", mobile)
                 .addBody("authCode", authCode)
-                .addBody("newPassword", MD5.toMD5(newPassword).toUpperCase()+ OliveApplication.getAppContext().getString(R.string.string_password_suffix))
+                .addBody("newPassword", MD5.toMD5(newPassword + OliveApplication.getAppContext().getString(R.string.string_password_suffix)).toUpperCase())
                 .url(R.string.api_account_reset_password)
                 .requestPI();
     }

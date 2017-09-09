@@ -110,7 +110,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include2" />
 
-    <EditText
+    <TextView
         android:id="@+id/tv_area"
         android:layout_width="0dp"
         android:layout_height="50dp"
@@ -120,13 +120,14 @@
         android:background="@null"
         android:drawablePadding="@dimen/activity_vertical_margin"
         android:drawableRight="@drawable/ic_arrow_right_gray"
-        android:gravity="right|center_vertical"
+        android:gravity="center"
         android:hint="@string/text_choose"
         android:textColor="@color/color_333333"
         android:textColorHint="@color/color_hint"
         android:textSize="@dimen/big_font_16dp"
-        android:maxLines="1"
-        android:minLines="1"
+        android:ellipsize="end"
+        android:singleLine="true"
+        tools:text="四川省四川省四川省四川省四川省四川省四川省四川省四川省四川省"
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_area_"
         app:layout_constraintLeft_toRightOf="@+id/tv_area_"
         app:layout_constraintRight_toRightOf="parent" />

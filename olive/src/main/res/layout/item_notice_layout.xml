@@ -19,6 +19,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:textColor="@color/color_666666"
         tools:text="dddd" />
 </LinearLayout>

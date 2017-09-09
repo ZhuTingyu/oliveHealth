@@ -75,8 +75,6 @@ public class RefundAdapter extends BaseQuickAdapter<OrderEntity, BaseViewHolder>
             linearLayout.addView(view);
         }
 
-
-
         service.setOnClickListener(v -> {
             IntentBuilder.Builder().startParentActivity(context, CustomerServicesFragment.class);
         });

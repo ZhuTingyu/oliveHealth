@@ -28,17 +28,13 @@
         android:visibility="gone"
         tools:text="2017-5-27"/>
 
-    <LinearLayout
+    <com.olive.widget.LinearLayoutForRecyclerView
         android:id="@+id/ll_info"
         android:layout_below="@id/status"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"/>
 
-        <!--<include layout="@layitem_line_text_layoutyout"/>
-        <include layout="@layitem_line_text_layoutyout"/>-->
-
-    </LinearLayout>
 
     <TextView
         android:id="@+id/contact_service"

@@ -47,6 +47,9 @@ public class OrderEntity implements Parcelable {
     public String desc;   //退货描述
     public String reason;   //退货理由
 
+    //列表
+    public int source;
+
 
     public OrderEntity() {
     }
@@ -86,6 +89,7 @@ public class OrderEntity implements Parcelable {
         dest.writeString(this.image);
         dest.writeString(this.desc);
         dest.writeString(this.reason);
+        dest.writeInt(this.source);
     }
 
     protected OrderEntity(Parcel in) {
@@ -117,6 +121,7 @@ public class OrderEntity implements Parcelable {
         this.image = in.readString();
         this.desc = in.readString();
         this.reason = in.readString();
+        this.source = in.readInt();
     }
 
     public static final Creator<OrderEntity> CREATOR = new Creator<OrderEntity>() {

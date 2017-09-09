@@ -98,21 +98,17 @@ public class PayOrderAdapter extends BaseQuickAdapter<BankEntity, BaseViewHolder
 
     private void setPayType(int position) {
         BankEntity bankEntity = getItem(position);
-        if(bankEntity.cardNumber == null || bankEntity.cardNumber.isEmpty()){
-            if(position == mData.size() - 2){
+        if (bankEntity.cardNumber == null || bankEntity.cardNumber.isEmpty()) {
+            if (position == mData.size() - 2) {
                 payWay = fixationPayWayName[0];
                 viewModel.setPayType(PayOrderViewModel.PAY_TYPE_WEI, bankEntity.id);
-            }else {
+            } else {
                 payWay = fixationPayWayName[1];
                 viewModel.setPayType(PayOrderViewModel.PAY_TYPE_ALI, bankEntity.id);
             }
-        }else {
+        } else {
             payWay = bankEntity.bankName;
             viewModel.setPayType(PayOrderViewModel.PAY_TYPE_BANK, bankEntity.id);
-        }
-
-        if(viewModel.isBalanceEnough()){
-            payWay = mContext.getString(R.string.text_pay_by_account_vacancies_1);
         }
     }
 

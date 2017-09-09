@@ -46,7 +46,11 @@ public class OrderDetailViewModel extends OrderViewModel{
     }
 
     public String[] getOderInfoTitle(){
-        return getActivity().getResources().getStringArray(R.array.array_order_details);
+        if(orderEntity.payTime != 0){
+            return getActivity().getResources().getStringArray(R.array.array_order_details);
+        }else {
+            return getActivity().getResources().getStringArray(R.array.array_order_details_no_pay_time);
+        }
     }
 
     public List<String> getOrderInfo() {
@@ -56,7 +60,9 @@ public class OrderDetailViewModel extends OrderViewModel{
         list.add(orderEntity.orderNo);
         list.add(orderEntity.outTradeNo);
         list.add(TimeUtil.format(orderEntity.createTime, TimeUtil.FORMAT_YYYYMMDDHHMMSS));
-        list.add(TimeUtil.format(orderEntity.payTime, TimeUtil.FORMAT_YYYYMMDDHHMMSS));
+        if(orderEntity.payTime != 0){
+            list.add(TimeUtil.format(orderEntity.payTime, TimeUtil.FORMAT_YYYYMMDDHHMMSS));
+        }
         return list;
     }
 

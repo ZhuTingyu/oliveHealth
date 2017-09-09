@@ -56,6 +56,8 @@ public class Utils {
         });
     }
 
+
+
     public static void setListHeight(RecyclerView recyclerView){
         // 获取ListView对应的Adapter
         RecyclerView.Adapter adapter = recyclerView.getAdapter();

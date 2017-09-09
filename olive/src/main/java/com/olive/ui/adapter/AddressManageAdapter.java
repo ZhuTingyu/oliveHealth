@@ -47,7 +47,8 @@ public class AddressManageAdapter extends BaseQuickAdapter<AddressEntity, BaseVi
     protected void convert(BaseViewHolder holder, AddressEntity addressEntity) {
         holder.setText(R.id.tv_name, addressEntity.consignee);
         holder.setText(R.id.tv_phone, addressEntity.mobile);
-        holder.setText(R.id.tv_address, addressEntity.detailAddress);
+        holder.setText(R.id.tv_address, addressEntity.provinceText + addressEntity.cityText +
+                addressEntity.districtText + addressEntity.detailAddress);
 
         CheckBox chooseDefault = holder.findViewById(R.id.cb_default);
         TextView tvEdit = holder.findViewById(R.id.tv_edit);
@@ -82,7 +83,7 @@ public class AddressManageAdapter extends BaseQuickAdapter<AddressEntity, BaseVi
                     viewModel.setAddressId(addressEntity.id);
                     viewModel.deleteAddress(s -> {
                         fragment.setProgressVisible(false);
-                        ToastUtils.showLong(mContext, mContext.getString(R.string.message_delete_success));
+                        ToastUtils.showLong(mContext, fragment.getString(R.string.message_delete_success));
                         remove(position);
                     });
                 }, R.string.text_action_delete);
@@ -128,7 +129,7 @@ public class AddressManageAdapter extends BaseQuickAdapter<AddressEntity, BaseVi
     public void setNewData(@Nullable List<AddressEntity> data) {
         super.setNewData(data);
         if(data.isEmpty()){
-            Utils.setEmptyView(this, mContext.getString(R.string.message_empty_address));
+            Utils.setEmptyView(this, fragment.getString(R.string.message_empty_address));
         }
     }
 
@@ -136,7 +137,7 @@ public class AddressManageAdapter extends BaseQuickAdapter<AddressEntity, BaseVi
     public void replaceData(@NonNull Collection<? extends AddressEntity> data) {
         super.replaceData(data);
         if(data.isEmpty()){
-            Utils.setEmptyView(this, mContext.getString(R.string.message_empty_address));
+            Utils.setEmptyView(this, fragment.getString(R.string.message_empty_address));
         }
     }
 }

@@ -236,6 +236,7 @@
     <string name="title_consume_detail">消费明细</string>
     <string name="title_order_detail">订单详情</string>
     <string name="text_order_status">订单状态：</string>
+    <string name="text_order_source">订单来源：%1$s</string>
     <string name="text_buy_again">再次购买</string>
     <string name="text_price_total">共：%1$s</string>
 
@@ -262,11 +263,12 @@
         <item>成交日期</item>
     </array>
 
-    <array name="array_order_details_no_express">
+    <array name="array_order_details_no_pay_time">
+        <item>物流单号</item>
+        <item>物流信息</item>
         <item>订单编号</item>
         <item>交易编号</item>
         <item>创建日期</item>
-        <item>成交日期</item>
     </array>
 
     <string name="text_need_refund_money">还需还款金额</string>

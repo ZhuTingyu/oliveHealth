@@ -44,6 +44,11 @@ public class OrderInfoListAdapter extends BaseQuickAdapter<OrderEntity, BaseView
     private BaseFragment fragment;
     private ProductsViewModel productsViewModel;
 
+    private static final int DMS_CODE = 1;
+
+    private static final String ORDER_SOURCE_DMS = "DMS";
+    private static final String ORDER_SOURCE_ERP = "ERP";
+
     public OrderInfoListAdapter(BaseFragment fragment) {
         super(R.layout.item_order_list_info_layout, Lists.newArrayList());
         this.fragment = fragment;
@@ -63,6 +68,9 @@ public class OrderInfoListAdapter extends BaseQuickAdapter<OrderEntity, BaseView
 
         holder.setText(R.id.price, PriceUtil.formatRMB(orderEntity.amount));
         holder.setText(R.id.number, mContext.getString(R.string.text_order_list_info_number, getTotalCount(orderEntity.products) + ""));
+        holder.setText(R.id.order_source, orderEntity.source == DMS_CODE ?
+                mContext.getString(R.string.text_order_source, ORDER_SOURCE_DMS)
+                : mContext.getString(R.string.text_order_source, ORDER_SOURCE_ERP) );
 
 
         TextView status = holder.findViewById(R.id.order_status);

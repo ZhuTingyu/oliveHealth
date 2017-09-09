@@ -35,7 +35,7 @@ public class WheelView extends ScrollView {
     /**
      * The constant TEXT_SIZE.
      */
-    public static final int TEXT_SIZE = 20;
+    public static final int TEXT_SIZE = 16;
     /**
      * The constant TEXT_COLOR_FOCUS.
      */
@@ -155,7 +155,7 @@ public class WheelView extends ScrollView {
         tv.setText(item);
         tv.setTextSize(textSize);
         tv.setGravity(Gravity.CENTER);
-        int padding = dip2px(15);
+        int padding = dip2px(10);
         tv.setPadding(padding, padding, padding, padding);
         if (0 == itemHeight) {
             itemHeight = getViewMeasuredHeight(tv);

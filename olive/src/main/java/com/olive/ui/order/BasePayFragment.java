@@ -189,7 +189,7 @@ public abstract class BasePayFragment extends BaseErrorFragment {
         TextView btnOk = (TextView) dialog.findViewById(R.id.btn_ok);
 
         userNumber.setText(getString(R.string.text_account_number, UserModel.getInstance().getMobile()));
-        payWay.setText(adapter.payWay);
+        payWay.setText(viewModel.isBalanceEnough() ? getString(R.string.text_pay_by_account_vacancies_1) : adapter.payWay);
         payPrice.setText(PriceUtil.formatRMB(viewModel.orderEntity.amount));
 
         btnOk.setOnClickListener(v -> {
@@ -207,7 +207,7 @@ public abstract class BasePayFragment extends BaseErrorFragment {
             btnOk.setText(getString(R.string.text_make_sure_pay));
             btnOk.setOnClickListener(v1 -> {
                 setProgressVisible(true);
-                checkPayPassword(dialog,passwordView, passwordError);
+                checkPayPassword(dialog, passwordView, passwordError);
             });
         });
     }

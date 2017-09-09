@@ -79,7 +79,13 @@ public class OrderViewModel extends ProductsViewModel {
             }
         }else {
             if(orderEntity.orderStatus == ORDER_STATUS_NORMAL){
-                status = getString(R.string.text_waiting_pay);
+                if(orderEntity.expressStatus == EXPRESS_STATUS_WAIT_SEND){
+                    status = getActivity().getString(R.string.text_wait_send);
+                }else if(orderEntity.expressStatus == EXPRESS_STATUS_WAIT_RECEIVE){
+                    status = getActivity().getString(R.string.text_wait_receive);
+                }else if(orderEntity.expressStatus == EXPRESS_STATUS_COMPLETE) {
+                    status = getActivity().getString(R.string.text_order_complete);
+                }
             }else {
                 status = getString(R.string.text_order_cancel);
             }

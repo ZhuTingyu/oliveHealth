@@ -16,6 +16,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
@@ -31,6 +32,7 @@ import com.biz.util.IdsUtil;
 import com.biz.util.IntentBuilder;
 import com.biz.util.ListUtil;
 import com.biz.util.Lists;
+import com.biz.util.LogUtil;
 import com.biz.util.PriceUtil;
 import com.biz.util.RxUtil;
 import com.biz.util.TimeUtil;
@@ -76,10 +78,10 @@ public class ProductDetailsFragment extends BaseErrorFragment {
     WebView webView;
     SwipeRefreshLayout refreshLayout;
 
-    public static void startProductDetailsFragment(Activity activity, String productNo){
+    public static void startProductDetailsFragment(Activity activity, String productNo) {
         IntentBuilder.Builder()
                 .putExtra(IntentBuilder.KEY_VALUE, productNo)
-                .startParentActivity(activity,ProductDetailsFragment.class);
+                .startParentActivity(activity, ProductDetailsFragment.class);
     }
 
     @Override
@@ -106,7 +108,8 @@ public class ProductDetailsFragment extends BaseErrorFragment {
         mToolbar.getMenu().clear();
         mToolbar.getMenu().add(getString(R.string.text_favorites)).setIcon(R.drawable.vector_like)
                 .setOnMenuItemClickListener(item -> {
-                    viewModel.addProductFavorites(s -> {});
+                    viewModel.addProductFavorites(s -> {
+                    });
                     return false;
                 }).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
     }
@@ -122,10 +125,10 @@ public class ProductDetailsFragment extends BaseErrorFragment {
         });
 
         viewModel.getRelevanceProductList(productEntities -> {
-            if(productEntities.isEmpty()){
+            if (productEntities.isEmpty()) {
                 findViewById(R.id.rl_relevance).setVisibility(View.GONE);
                 findViewById(R.id.rl_1).setVisibility(View.GONE);
-            }else {
+            } else {
                 adapter.setNewData(productEntities);
             }
         });
@@ -137,6 +140,7 @@ public class ProductDetailsFragment extends BaseErrorFragment {
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         adapter = new ProductAdapter(R.layout.item_cart_product_layout);
+        adapter.setViewModel(viewModel);
         recyclerView.setAdapter(adapter);
         recyclerView.setFocusable(false);
 
@@ -172,7 +176,7 @@ public class ProductDetailsFragment extends BaseErrorFragment {
 
     private void initHeadView() {
         BaseViewHolder headHolder = new BaseViewHolder(headView);
-        if(productEntity.salePrice == 0){
+        if (productEntity.salePrice == 0) {
             headHolder.findViewById(R.id.icon_label).setVisibility(View.GONE);
         }
         headHolder.setText(R.id.tv_product_name, productEntity.name);
@@ -188,7 +192,13 @@ public class ProductDetailsFragment extends BaseErrorFragment {
             priceOld.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
         }
         headHolder.setText(R.id.tv_product_specification, getString(R.string.text_product_specification, productEntity.standard));
-        headHolder.setText(R.id.tv_product_sale_end_date, getString(R.string.text_product_sale_end_time, TimeUtil.format(productEntity.saleEndDate, TimeUtil.FORMAT_YYYYHHMM_CHICESEC)));
+        TextView saleEndTime = headHolder.findViewById(R.id.tv_product_sale_end_date);
+        if (productEntity.saleEndDate == 0) {
+            saleEndTime.setVisibility(View.GONE);
+        } else {
+            saleEndTime.setText(getString(R.string.text_product_sale_end_time, TimeUtil.format(productEntity.saleEndDate, TimeUtil.FORMAT_YYYYHHMM_CHICESEC)));
+        }
+
 
         ConvenientBanner banner = headHolder.findViewById(R.id.banner);
         View indicator = banner.findViewById(com.bigkoo.convenientbanner.R.id.loPageTurningPoint);
@@ -204,8 +214,36 @@ public class ProductDetailsFragment extends BaseErrorFragment {
 
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
+        // 设置可以支持缩放
+        settings.setSupportZoom(true);
+        // 设置出现缩放工具
+        settings.setBuiltInZoomControls(true);
+        //扩大比例的缩放
+        settings.setUseWideViewPort(true);
+        //自适应屏幕
+        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        settings.setLoadWithOverviewMode(true);
         webView.loadDataWithBaseURL(null, productEntity.desc, "text/html", "utf-8", null);
+        webView.setLongClickable(true);
+        webView.setOnTouchListener((v, event) -> {
 
+            switch (event.getAction()) {
+                // 当手指触摸listview时，让父控件交出ontouch权限,不能滚动
+                case MotionEvent.ACTION_DOWN:
+                case MotionEvent.ACTION_MOVE:
+                    webView.getParent().requestDisallowInterceptTouchEvent(true);
+                    LogUtil.print("recyclerView false");
+                    break;
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
+                    // 当手指松开时，让父控件重新获取onTouch权限
+                    webView.getParent().requestDisallowInterceptTouchEvent(false);
+                    LogUtil.print("recyclerView true");
+                    break;
+
+            }
+            return false;
+        });
     }
 
 
@@ -214,7 +252,7 @@ public class ProductDetailsFragment extends BaseErrorFragment {
         icCart = findViewById(R.id.ic_cart);
 
         viewModel.getCartProductList(productEntities -> {
-            if(!productEntities.isEmpty()){
+            if (!productEntities.isEmpty()) {
                 icCart.setImageResource(R.drawable.vector_cart_have_goods);
             }
         });

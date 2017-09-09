@@ -30,7 +30,7 @@ public class EditAddressFragment extends BaseFragment {
 
     private EditText receiver;
     private EditText phone;
-    private EditText area;
+    private TextView area;
     private EditText address1;
     private TextView btnOk;
 
@@ -74,7 +74,6 @@ public class EditAddressFragment extends BaseFragment {
         area = findViewById(R.id.tv_area);
         btnOk = findViewById(R.id.btn_ok);
         address1 = findViewById(R.id.tv_address1);
-        area.setFocusableInTouchMode(false);
 
         bindUi(RxUtil.textChanges(receiver), viewModel.setConsignee());
         bindUi(RxUtil.textChanges(phone), viewModel.setMobile());
