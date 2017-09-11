@@ -5,6 +5,7 @@ import com.biz.util.Lists;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
 import com.olive.model.entity.ProductEntity;
+import com.olive.ui.BaseErrorFragment;
 import com.olive.ui.adapter.ProductAdapter;
 
 import android.content.Context;
@@ -30,7 +31,7 @@ import android.widget.EditText;
  * @version 1.0
  */
 
-public class FavoriteFragment extends BaseFragment {
+public class FavoriteFragment extends BaseErrorFragment {
 
 
 

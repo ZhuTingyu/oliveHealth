@@ -143,7 +143,8 @@ public class CheckOrderInfoFragment extends BaseErrorFragment {
         holder.setText(R.id.tv_shop_name, UserModel.getInstance().getNickName());
         holder.setText(R.id.tv_consignee_name, getString(R.string.text_receiver_name_, addressEntity.consignee));
         holder.setText(R.id.tv_consignee_tel, getString(R.string.text_phone_, addressEntity.mobile));
-        holder.setText(R.id.tv_address, getString(R.string.text_address_detail_, addressEntity.detailAddress));
+        holder.setText(R.id.tv_address, getString(R.string.text_address_detail_, addressEntity.provinceText + addressEntity.cityText +
+                addressEntity.districtText + addressEntity.detailAddress));
     }
 
     @Override

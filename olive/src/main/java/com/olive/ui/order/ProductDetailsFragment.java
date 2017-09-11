@@ -8,12 +8,15 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -211,7 +214,12 @@ public class ProductDetailsFragment extends BaseErrorFragment {
                 .setPointViewVisible(true)
                 .setCanLoop(true);
 
+        initWebView();
 
+
+    }
+
+    private void initWebView() {
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
         // 设置可以支持缩放
@@ -224,26 +232,49 @@ public class ProductDetailsFragment extends BaseErrorFragment {
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         settings.setLoadWithOverviewMode(true);
         webView.loadDataWithBaseURL(null, productEntity.desc, "text/html", "utf-8", null);
-        webView.setLongClickable(true);
+
+        GestureDetectorCompat gestureListener = new GestureDetectorCompat(getContext(), new GestureListener());
         webView.setOnTouchListener((v, event) -> {
-
-            switch (event.getAction()) {
-                // 当手指触摸listview时，让父控件交出ontouch权限,不能滚动
-                case MotionEvent.ACTION_DOWN:
-                case MotionEvent.ACTION_MOVE:
-                    webView.getParent().requestDisallowInterceptTouchEvent(true);
-                    LogUtil.print("recyclerView false");
-                    break;
-                case MotionEvent.ACTION_UP:
-                case MotionEvent.ACTION_CANCEL:
-                    // 当手指松开时，让父控件重新获取onTouch权限
-                    webView.getParent().requestDisallowInterceptTouchEvent(false);
-                    LogUtil.print("recyclerView true");
-                    break;
-
-            }
-            return false;
+            return gestureListener.onTouchEvent(event);
         });
+    }
+
+    private class GestureListener implements GestureDetector.OnGestureListener {
+
+        @Override
+        public boolean onDown(MotionEvent e) {
+            LogUtil.print("onDown");
+            webView.getParent().requestDisallowInterceptTouchEvent(false);
+            return false;
+        }
+
+        @Override
+        public void onShowPress(MotionEvent e) {
+
+        }
+
+        @Override
+        public boolean onSingleTapUp(MotionEvent e) {
+            return false;
+        }
+
+        @Override
+        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+            LogUtil.print("onScroll");
+            return false;
+        }
+
+        @Override
+        public void onLongPress(MotionEvent e) {
+            LogUtil.print("onLongPress");
+            webView.getParent().requestDisallowInterceptTouchEvent(true);
+        }
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            LogUtil.print("onFling");
+            return false;
+        }
     }
 
 

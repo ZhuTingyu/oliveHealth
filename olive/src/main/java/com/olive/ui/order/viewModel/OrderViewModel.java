@@ -85,6 +85,8 @@ public class OrderViewModel extends ProductsViewModel {
                     status = getActivity().getString(R.string.text_wait_receive);
                 }else if(orderEntity.expressStatus == EXPRESS_STATUS_COMPLETE) {
                     status = getActivity().getString(R.string.text_order_complete);
+                }else if(orderEntity.payStatus == PAY_STATUS_NOT_PAY){
+                    status = getActivity().getString(R.string.text_waiting_pay);
                 }
             }else {
                 status = getString(R.string.text_order_cancel);

@@ -260,6 +260,8 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
                     .putExtra(IntentBuilder.KEY_TYPE, LoginActivity.TYPE_LOGIN_INVALID)
                     .startActivity();
             getActivity().finish();
+            return;
         }
+        super.error(code, error);
     }
 }

@@ -8,8 +8,10 @@ import com.biz.widget.ExpandGridView;
 import com.biz.widget.banner.ConvenientBanner;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
+import com.olive.model.UserModel;
 import com.olive.model.entity.ProductEntity;
 import com.olive.ui.adapter.ProductAdapter;
+import com.olive.ui.login.LoginActivity;
 import com.olive.ui.order.ProductDetailsFragment;
 import com.olive.ui.search.SearchActivity;
 
@@ -143,6 +145,16 @@ public class CategoryFragment extends BaseLazyFragment {
         });
     }
 
-
-
+    @Override
+    public void error(int code, String error) {
+        if(code == 1004){
+            UserModel.getInstance().loginOut();
+            IntentBuilder.Builder(getActivity(), LoginActivity.class)
+                    .putExtra(IntentBuilder.KEY_TYPE, LoginActivity.TYPE_LOGIN_INVALID)
+                    .startActivity();
+            getActivity().finish();
+            return;
+        }
+        super.error(code, error);
+    }
 }

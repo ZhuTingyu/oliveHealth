@@ -19,6 +19,7 @@ import com.biz.util.ToastUtils;
 import com.biz.widget.picker.WheelView;
 import com.olive.R;
 import com.olive.model.entity.AddressEntity;
+import com.olive.ui.BaseErrorFragment;
 import com.olive.widget.AddressPicker;
 
 
@@ -26,7 +27,7 @@ import com.olive.widget.AddressPicker;
  * Created by TingYu Zhu on 2017/7/27.
  */
 
-public class EditAddressFragment extends BaseFragment {
+public class EditAddressFragment extends BaseErrorFragment {
 
     private EditText receiver;
     private EditText phone;

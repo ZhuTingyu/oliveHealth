@@ -117,4 +117,17 @@ public class UserFragment  extends BaseLazyFragment  {
     private boolean equalsString(String s, @StringRes int resId){
         return s.equalsIgnoreCase(getString(resId));
     }
+
+    @Override
+    public void error(int code, String error) {
+        if(code == 1004){
+            UserModel.getInstance().loginOut();
+            IntentBuilder.Builder(getActivity(), LoginActivity.class)
+                    .putExtra(IntentBuilder.KEY_TYPE, LoginActivity.TYPE_LOGIN_INVALID)
+                    .startActivity();
+            getActivity().finish();
+            return;
+        }
+        super.error(code, error);
+    }
 }

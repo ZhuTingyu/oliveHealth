@@ -16,13 +16,14 @@ import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
+import com.olive.ui.BaseErrorFragment;
 import com.olive.ui.adapter.AddressManageAdapter;
 
 /**
  * Created by TingYu Zhu on 2017/7/27.
  */
 
-public class AddressManageFragment extends BaseFragment {
+public class AddressManageFragment extends BaseErrorFragment {
 
     private XRecyclerView recyclerView;
     private AddressManageAdapter adapter;

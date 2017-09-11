@@ -216,6 +216,8 @@ public class HomeFragment extends BaseLazyFragment {
                     .putExtra(IntentBuilder.KEY_TYPE, LoginActivity.TYPE_LOGIN_INVALID)
                     .startActivity();
             getActivity().finish();
+            return;
         }
+        super.error(code, error);
     }
 }

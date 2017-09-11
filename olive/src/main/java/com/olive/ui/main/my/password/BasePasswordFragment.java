@@ -13,13 +13,14 @@ import com.biz.util.ToastUtils;
 import com.biz.widget.CustomCountDownTimer;
 import com.olive.R;
 import com.olive.model.UserModel;
+import com.olive.ui.BaseErrorFragment;
 import com.olive.ui.main.my.password.viewmodel.BasePasswordViewModel;
 
 /**
  * Created by TingYu Zhu on 2017/7/28.
  */
 
-public abstract class BasePasswordFragment extends BaseFragment {
+public abstract class BasePasswordFragment extends BaseErrorFragment {
 
     protected EditText mobile;
     protected EditText code;

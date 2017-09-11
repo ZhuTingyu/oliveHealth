@@ -13,6 +13,7 @@ import com.biz.util.Lists;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.olive.R;
+import com.olive.ui.BaseErrorFragment;
 import com.olive.ui.adapter.SystemMessageAdapter;
 
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.List;
  * Created by TingYu Zhu on 2017/9/7.
  */
 
-public class SystemMessageFragment extends BaseFragment {
+public class SystemMessageFragment extends BaseErrorFragment {
 
     XRecyclerView recyclerView;
     SystemMessageAdapter adapter;
