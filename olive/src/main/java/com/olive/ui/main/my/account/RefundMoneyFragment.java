@@ -14,13 +14,14 @@ import com.biz.base.BaseViewHolder;
 import com.biz.util.Lists;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
+import com.olive.ui.BaseErrorFragment;
 import com.olive.ui.adapter.PayOrderAdapter;
 
 /**
  * Created by TingYu Zhu on 2017/7/31.
  */
 
-public class RefundMoneyFragment extends BaseFragment {
+public class RefundMoneyFragment extends BaseErrorFragment {
 
     private XRecyclerView recyclerView;
     private PayOrderAdapter adapter;

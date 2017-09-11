@@ -280,10 +280,12 @@
     <string name="message_input_username_or_password">请输入账号和密码</string>
     <string name="message_input_search_key_word">请输入搜索关键字</string>
     <string name="message_add_cart_min_number">不能小于订单基数，基数为：%1$s</string>
+    <string name="message_product_valid_number">商品数量必须为基数的倍数，基数为：%1$s</string>
     <string name="message_not_choose_product">请选择要买的商品</string>
     <string name="message_delete_success">删除成功</string>
     <string name="message_login_invalid">登录已经过期</string>
     <string name="message_products_count_can_not_is_1">商品数量不能为1</string>
+    <string name="message_products_count_can_not_is_0">商品数量不能为0</string>
     <string name="message_input_valid_mobile">请输入有效账号</string>
     <string name="message_input_valid_code">请输入有效验证码</string>
     <string name="message_input_password">请输入密码</string>

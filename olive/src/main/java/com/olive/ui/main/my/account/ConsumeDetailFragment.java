@@ -14,6 +14,7 @@ import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
+import com.olive.ui.BaseErrorFragment;
 import com.olive.ui.adapter.ConsumeDetailAdapter;
 import com.olive.ui.main.my.account.viewModel.ConsumeViewModel;
 
@@ -21,7 +22,7 @@ import com.olive.ui.main.my.account.viewModel.ConsumeViewModel;
  * Created by TingYu Zhu on 2017/7/30.
  */
 
-public class ConsumeDetailFragment extends BaseFragment {
+public class ConsumeDetailFragment extends BaseErrorFragment {
 
     public static final String TYPE_CONSUME = "con";
     public static final String TYPE_REFUND = "ref";

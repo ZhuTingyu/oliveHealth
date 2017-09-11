@@ -56,6 +56,9 @@ import com.olive.ui.order.viewModel.ProductDetailViewModel;
 import com.olive.ui.service.CustomerServicesFragment;
 import com.olive.util.LoadImageUtil;
 
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -224,22 +227,37 @@ public class ProductDetailsFragment extends BaseErrorFragment {
         settings.setJavaScriptEnabled(true);
         // 设置可以支持缩放
         settings.setSupportZoom(true);
-        // 设置出现缩放工具
-        settings.setBuiltInZoomControls(true);
+        // 是否使用内置缩放机制
+        settings.setBuiltInZoomControls(true); // 是否使用内置缩放机制
+        settings.setDisplayZoomControls(false);  // 是否显示内置缩放控件
         //扩大比例的缩放
         settings.setUseWideViewPort(true);
         //自适应屏幕
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         settings.setLoadWithOverviewMode(true);
         webView.loadDataWithBaseURL(null, productEntity.desc, "text/html", "utf-8", null);
+        webView.setLongClickable(true);
 
-        GestureDetectorCompat gestureListener = new GestureDetectorCompat(getContext(), new GestureListener());
+        //GestureDetectorCompat gestureListener = new GestureDetectorCompat(getContext(), new GestureListener());
         webView.setOnTouchListener((v, event) -> {
-            return gestureListener.onTouchEvent(event);
+
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_POINTER_2_DOWN:
+                    if (event.getPointerCount() == 2) {
+                        webView.getParent().requestDisallowInterceptTouchEvent(true);
+
+                    } else {
+                        webView.getParent().requestDisallowInterceptTouchEvent(false);
+                    }
+                    break;
+            }
+
+            return false;
         });
+
     }
 
-    private class GestureListener implements GestureDetector.OnGestureListener {
+    /*private class GestureListener implements GestureDetector.OnGestureListener {
 
         @Override
         public boolean onDown(MotionEvent e) {
@@ -250,24 +268,25 @@ public class ProductDetailsFragment extends BaseErrorFragment {
 
         @Override
         public void onShowPress(MotionEvent e) {
-
+            LogUtil.print("onShowPress");
         }
 
         @Override
         public boolean onSingleTapUp(MotionEvent e) {
+            LogUtil.print("onSingleTapUp");
             return false;
         }
 
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-            LogUtil.print("onScroll");
+            LogUtil.print("onScroll:"+e2.getX()+"   "+e1.getX() +"   "+distanceX);
+            webView.getParent().requestDisallowInterceptTouchEvent(true);
             return false;
         }
 
         @Override
         public void onLongPress(MotionEvent e) {
             LogUtil.print("onLongPress");
-            webView.getParent().requestDisallowInterceptTouchEvent(true);
         }
 
         @Override
@@ -275,7 +294,7 @@ public class ProductDetailsFragment extends BaseErrorFragment {
             LogUtil.print("onFling");
             return false;
         }
-    }
+    }*/
 
 
     private void initBelowLayout() {
@@ -326,7 +345,6 @@ public class ProductDetailsFragment extends BaseErrorFragment {
         CountEditText edCount = (CountEditText) dialog.findViewById(R.id.ed_count);
         productCount = productEntity.orderCardinality;
         viewModel.productEntity.quantity = productCount;
-        edCount.setText(productCount + "");
 
 
         customDraweeView.setImageURI(Uri.parse(productEntity.imgLogo));
@@ -335,12 +353,51 @@ public class ProductDetailsFragment extends BaseErrorFragment {
         tvPrice.setText(PriceUtil.formatRMB(viewModel.getPrice()));
         TextView tvTotal = (TextView) dialog.findViewById(R.id.tv_total_price);
 
+        edCount.setText(productCount + "");
+        viewModel.setProductNumber(productCount);
 
         bindUi(RxUtil.textChanges(edCount), viewModel.setProductNumberAndCalculateTotalPrice(aLong -> {
             tvTotal.setText(getString(R.string.text_price_total, PriceUtil.formatRMB(aLong)));
         }));
 
-        //减少
+
+        /*edCount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });*/
+
+        KeyboardVisibilityEvent.setEventListener(getActivity(), b -> {
+            if (!b) {
+                String edCountString = edCount.getText().toString();
+                if (!edCountString.toString().isEmpty()) {
+                    int number = Integer.valueOf(edCountString.toString());
+                    viewModel.setProductNumber(number);
+                    viewModel.isProductNumberValid(number, s1 -> {
+                        edCount.setText(s1);
+                    });
+                }
+            } else {
+                edCount.setText(String.valueOf(productEntity.orderCardinality));
+            }
+        });
+
+
+
+
+        //减少orderCardinality
         AppCompatImageView iconLess = (AppCompatImageView) dialog.findViewById(R.id.icon_less);
         iconLess.setOnClickListener(l -> {
             if (productCount <= productEntity.orderCardinality) {

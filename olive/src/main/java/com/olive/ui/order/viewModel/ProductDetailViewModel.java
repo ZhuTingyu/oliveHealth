@@ -4,6 +4,7 @@ import com.biz.base.BaseViewModel;
 import com.biz.http.HttpErrorException;
 import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
+import com.olive.R;
 import com.olive.model.CartModel;
 import com.olive.model.ProductsModel;
 import com.olive.model.entity.ProductEntity;
@@ -60,23 +61,39 @@ public class ProductDetailViewModel extends ProductsViewModel {
 
     public Action1<String> setProductNumberAndCalculateTotalPrice(Action1<Long> action1) {
         return s -> {
-            productNumber = Integer.valueOf(s);
-            BigDecimal num = BigDecimal.valueOf(productNumber);
-            BigDecimal price = BigDecimal.valueOf(getPrice());
-            BigDecimal total = num.multiply(price);
-            totalPrice = total.longValue();
-            Observable.just(totalPrice).subscribe(action1);
+            if(!s.isEmpty()){
+                BigDecimal num = BigDecimal.valueOf(Long.parseLong(s));
+                BigDecimal price = BigDecimal.valueOf(getPrice());
+                BigDecimal total = num.multiply(price);
+                totalPrice = total.longValue();
+                Observable.just(totalPrice).subscribe(action1);
+            }
         };
+
     }
 
-    public List<ProductEntity> setAddCartCurrentProduct(){
+    public List<ProductEntity> setAddCartCurrentProduct() {
         List<ProductEntity> current = Lists.newArrayList();
         current.add(productEntity);
         addProductList = current;
         return current;
     }
 
-    public void setAddCartRelevanceProductList(){
+    public void isProductNumberValid(int number, Action1<String> action1) {
+        if (number == 0) {
+            error.onNext(getErrorString(getString(R.string.message_products_count_can_not_is_0)));
+        } else {
+            if (number % productEntity.orderCardinality != 0) {
+                error.onNext(getErrorString(getString(R.string.message_product_valid_number, productEntity.orderCardinality)));
+                productEntity.quantity -= number % productEntity.orderCardinality;
+                Observable.just(String.valueOf(productEntity.quantity)).subscribe(action1);
+            }
+        }
+
+
+    }
+
+    public void setAddCartRelevanceProductList() {
         addProductList = relevanceProductList;
     }
 
@@ -84,8 +101,12 @@ public class ProductDetailViewModel extends ProductsViewModel {
         return productEntity.salePrice != 0 ? productEntity.salePrice : productEntity.originalPrice;
     }
 
-    public long getTotalPrice(){
+    public long getTotalPrice() {
         return new BigDecimal(getPrice()).multiply(new BigDecimal(productEntity.quantity)).longValue();
     }
 
+    public void setProductNumber(int productNumber) {
+        this.productNumber = productNumber;
+        productEntity.quantity = productNumber;
+    }
 }

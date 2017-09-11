@@ -64,6 +64,7 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
     public void onAttach(Context context) {
         super.onAttach(context);
         viewModel = new CartViewModel(context);
+        initViewModel(viewModel);
         Intent intent = getActivity().getIntent();
         if (intent != null) {
             isBuyAgain = intent.getBooleanExtra(IntentBuilder.KEY_BOOLEAN_KUAIHE, false);

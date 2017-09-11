@@ -12,6 +12,7 @@ import com.biz.base.BaseFragment;
 import com.biz.util.IntentBuilder;
 import com.biz.util.PriceUtil;
 import com.olive.R;
+import com.olive.ui.BaseErrorFragment;
 import com.olive.ui.main.my.account.viewModel.AccountViewModel;
 import com.olive.ui.order.PayDebtFragment;
 
@@ -19,7 +20,7 @@ import com.olive.ui.order.PayDebtFragment;
  * Created by TingYu Zhu on 2017/7/30.
  */
 
-public class MyAccountFragment extends BaseFragment {
+public class MyAccountFragment extends BaseErrorFragment {
 
     private AccountViewModel viewModel;
 
