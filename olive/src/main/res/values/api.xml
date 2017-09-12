@@ -64,5 +64,7 @@
 
     <string name="api_serveContent">/serve/serveContent</string>
 
+    <string name="api_last_version">/upgrade/version/last</string>
+
 
 </resources>

@@ -1,25 +1,18 @@
 package com.olive.model;
 
-import android.app.Application;
-import android.text.TextUtils;
-
 import com.anye.greendao.gen.ConfigBeanDao;
-import com.biz.http.ParaAndroidConfig;
 import com.biz.http.Request;
 import com.biz.http.ResponseJson;
-import com.biz.http.RestMethodEnum;
-import com.biz.util.AES;
 import com.biz.util.GsonUtil;
 import com.biz.util.Lists;
 import com.biz.util.LogUtil;
 import com.biz.util.MD5;
-import com.biz.util.Utils;
 import com.google.gson.reflect.TypeToken;
 import com.olive.R;
 import com.olive.app.OliveApplication;
 import com.olive.model.db.DatabaseLoader;
 import com.olive.model.entity.ConfigBean;
-import com.olive.model.entity.DatabaseType;
+import com.olive.model.db.ConfigDaoHelper;
 import com.olive.model.entity.UserEntity;
 import com.olive.util.HttpRequest;
 
@@ -27,8 +20,6 @@ import com.olive.util.HttpRequest;
 import java.util.List;
 
 import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
 
 /**
@@ -68,7 +59,7 @@ public class UserModel {
     public UserModel() {
         List<ConfigBean> list = DatabaseLoader.getDaoSession()
                 .getConfigBeanDao().queryBuilder()
-                .where(ConfigBeanDao.Properties.Type.eq(DatabaseType.TYPE_USER)).build().list();
+                .where(ConfigBeanDao.Properties.Type.eq(ConfigDaoHelper.TYPE_USER)).build().list();
         if (list != null && list.size() > 0) {
             for (ConfigBean configBean : list) {
                 if (configBean.getTs() != null && configBean.getTs() > 0) {
@@ -94,7 +85,7 @@ public class UserModel {
             List<ConfigBean> configBeans = DatabaseLoader.getDaoSession()
                     .getConfigBeanDao()
                     .queryBuilder()
-                    .where(ConfigBeanDao.Properties.Type.eq(DatabaseType.TYPE_LOGIN_NAME))
+                    .where(ConfigBeanDao.Properties.Type.eq(ConfigDaoHelper.TYPE_LOGIN_NAME))
                     .build().list();
             ConfigBean configBean = null;
             if (configBeans != null && (!configBeans.isEmpty())) {
@@ -115,7 +106,7 @@ public class UserModel {
             configBean.setCache(mobile);
             configBean.setId("0");
             configBean.setTs(System.currentTimeMillis());
-            configBean.setType(DatabaseType.TYPE_LOGIN_NAME);
+            configBean.setType(ConfigDaoHelper.TYPE_LOGIN_NAME);
             DatabaseLoader.getDaoSession().getConfigBeanDao().insertOrReplace(configBean);
             subscriber.onNext(true);
             subscriber.onCompleted();
@@ -154,7 +145,7 @@ public class UserModel {
                 getDaoSession()
                 .getConfigBeanDao()
                 .queryBuilder()
-                .where(ConfigBeanDao.Properties.Type.eq(DatabaseType.TYPE_USER))
+                .where(ConfigBeanDao.Properties.Type.eq(ConfigDaoHelper.TYPE_USER))
                 .orderAsc(ConfigBeanDao.Properties.Id).list();
         boolean isExists = false;
         if (list != null && list.size() > 0) {
@@ -163,7 +154,7 @@ public class UserModel {
                     configBean.setCache(GsonUtil.toJson(userInfo));
                     configBean.setKey(userInfo.mobile);
                     configBean.setTs(System.currentTimeMillis());
-                    configBean.setType(DatabaseType.TYPE_USER);
+                    configBean.setType(ConfigDaoHelper.TYPE_USER);
                     isExists = true;
                 } else {
                     configBean.setTs(-1l);
@@ -178,8 +169,8 @@ public class UserModel {
             configBean.setCache(GsonUtil.toJson(userInfo));
             configBean.setKey(userInfo.mobile);
             configBean.setTs(System.currentTimeMillis());
-            configBean.setType(DatabaseType.TYPE_USER);
-            configBean.setId(DatabaseType.USER_ID + userInfo.userId);
+            configBean.setType(ConfigDaoHelper.TYPE_USER);
+            configBean.setId(ConfigDaoHelper.USER_ID + userInfo.userId);
             configBean.setUserId(userInfo.userId);
             list.add(configBean);
         }
@@ -194,7 +185,7 @@ public class UserModel {
         }, throwable -> {
         });*/
         List<ConfigBean> list = DatabaseLoader.
-                getDaoSession().getConfigBeanDao().queryBuilder().where(ConfigBeanDao.Properties.Type.eq(DatabaseType.TYPE_USER)).list();
+                getDaoSession().getConfigBeanDao().queryBuilder().where(ConfigBeanDao.Properties.Type.eq(ConfigDaoHelper.TYPE_USER)).list();
         if (list != null && list.size() > 0) {
             for (ConfigBean configBean : list) {
                 configBean.setTs(-1l);

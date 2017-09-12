@@ -94,8 +94,12 @@ public class CheckOrderInfoFragment extends BaseErrorFragment {
             } else {
                 ok.setOnClickListener(v -> {
                     setProgressVisible(true);
-                    viewModel.setProductEntities(viewModel.getProductEntities());
+                    if(addressEntity == null){
+                        error(getString(R.string.message_choose_address));
+                        return;
+                    }
                     viewModel.setAddressId(addressEntity.id);
+                    viewModel.setProductEntities(viewModel.getProductEntities());
                     viewModel.createOrder(orderEntity -> {
                         setProgressVisible(false);
                         IntentBuilder.Builder()

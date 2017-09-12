@@ -145,13 +145,13 @@ public abstract class BasePayFragment extends BaseErrorFragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                float price = 0;
+                double price = 0;
                 if (!s.toString().isEmpty()) {
-                    price = Float.valueOf(s.toString()) * 100f;
+                    price = Double.valueOf(s.toString()) * 100d;
                 }
                 if (price > (int) viewModel.orderEntity.amount) {
                     price = viewModel.orderEntity.amount;
-                    etVacancies.setText(String.valueOf(price / 100f));
+                    etVacancies.setText(String.valueOf(price / 100d));
                 }
 
                 viewModel.setBalancePayAmount((int) price);
