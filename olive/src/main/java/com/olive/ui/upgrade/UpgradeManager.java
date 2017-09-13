@@ -1,6 +1,5 @@
 package com.olive.ui.upgrade;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -59,7 +58,8 @@ public class UpgradeManager {
             mUpgradeDialog.setCanceledOnTouchOutside(false);
         }else {
             mUpgradeDialog.setTitle(mContext.getResources().getString(R.string.message_downloading_update_app));
-            mUpgradeDialog.setButton(DialogInterface.BUTTON_POSITIVE, mContext.getResources().getString(R.string.text_sure), (dialog, which) -> {
+            mUpgradeDialog.setButton(DialogInterface.BUTTON_NEGATIVE, mContext.getResources().getString(R.string.text_cancel), (dialog, which) -> {
+                DownloadUtil.getInstance().cancelDownload();
             });
         }
         mUpgradeDialog.show();

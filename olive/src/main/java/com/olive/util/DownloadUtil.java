@@ -22,6 +22,7 @@ public class DownloadUtil {
     private static DownloadUtil downloadUtil;
     private final OkHttpClient okHttpClient;
     private String filePath;
+    private Call call;
 
     public static DownloadUtil getInstance() {
         if (downloadUtil == null) {
@@ -36,7 +37,8 @@ public class DownloadUtil {
 
     public void download(final String url, final String saveDir, final OnDownloadListener listener) {
         Request request = new Request.Builder().url(url).build();
-        okHttpClient.newCall(request).enqueue(new Callback() {
+        call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 // 下载失败
@@ -132,6 +134,12 @@ public class DownloadUtil {
 
     public String getFilePath() {
         return filePath;
+    }
+
+    public void cancelDownload(){
+        if(call != null){
+            call.cancel();
+        }
     }
 }
 
