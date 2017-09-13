@@ -4,9 +4,11 @@ import com.biz.base.BaseActivity;
 import com.biz.util.IntentBuilder;
 import com.biz.util.RxUtil;
 import com.olive.R;
+import com.olive.app.OliveApplication;
 import com.olive.model.UserModel;
 import com.olive.ui.main.MainActivity;
 import com.olive.ui.main.my.password.FindPassword1Fragment;
+import com.olive.ui.upgrade.UpgradeManager;
 
 import android.app.Activity;
 import android.os.Bundle;

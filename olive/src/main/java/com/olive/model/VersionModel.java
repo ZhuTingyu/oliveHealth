@@ -1,20 +1,17 @@
 package com.olive.model;
 
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
+import com.biz.http.HttpErrorException;
 import com.biz.http.ResponseJson;
 import com.biz.util.GsonUtil;
 import com.google.gson.reflect.TypeToken;
 import com.olive.R;
 import com.olive.model.db.ConfigDaoHelper;
-import com.olive.model.entity.CityEntity;
 import com.olive.model.entity.ConfigBean;
 import com.olive.model.entity.VersionEntity;
 import com.olive.util.HttpRequest;
-import com.olive.util.Version;
 
-import java.util.List;
 
 import rx.Observable;
 
@@ -54,7 +51,7 @@ public class VersionModel {
         }
     }
 
-    public static Observable<ResponseJson<VersionEntity>> versionInfo() {
+    public static Observable<VersionEntity> versionInfo() {
         return HttpRequest.<ResponseJson<VersionEntity>>builder()
                 .setToJsonType(new TypeToken<ResponseJson<VersionEntity>>() {
                 }.getType())
@@ -62,21 +59,35 @@ public class VersionModel {
                 .url(R.string.api_last_version)
                 .requestPI().map(r -> {
                     if (r.isOk()){
-                        saveHisUpgradeVersion(r.data.version);
-                    }
-                    return r;
+                        VersionModel.getInstance().saveHisUpgradeVersion(r.data);
+                        return r.data;
+                    }else throw new HttpErrorException(r);
+
                 });
     }
 
-    private static void saveHisUpgradeVersion(int version) {
+    public static int getHisUpgradeVersion() {
+        int version = 0;
+        ConfigBean configBean = ConfigDaoHelper.getInstance().queryByType(ConfigDaoHelper.UPGRADE_VERSION_ID, ConfigDaoHelper.TYPE_UPGRADE_VERSION);
+        if (configBean != null) {
+            version = Integer.parseInt(configBean.getCache());
+        }
+        if (version  == 0) {
+            version = 1;
+        }
+        return version;
+    }
+
+    private void saveHisUpgradeVersion(VersionEntity versionEntity) {
         ConfigBean configBean = ConfigDaoHelper.getInstance().queryByType(ConfigDaoHelper.UPGRADE_VERSION_ID, ConfigDaoHelper.TYPE_UPGRADE_VERSION);
         if (configBean == null) {
             configBean = new ConfigBean();
         }
         configBean.setId(ConfigDaoHelper.UPGRADE_VERSION_ID);
         configBean.setType(ConfigDaoHelper.TYPE_UPGRADE_VERSION);
-        configBean.setCache(String.valueOf(version));
+        configBean.setCache(String.valueOf(versionEntity.version));
         ConfigDaoHelper.getInstance().addData(configBean);
+        this.versionEntity = versionEntity;
     }
 
     public void setVersionEntity(VersionEntity versionEntity) {
@@ -86,6 +97,21 @@ public class VersionModel {
     public String getVarsionDes(){
         if(versionEntity != null || !versionEntity.varsionDes.isEmpty()) return "";
         return versionEntity.varsionDes;
+    }
+
+    public String getVersiondese(){
+        if(versionEntity != null || !versionEntity.desc.isEmpty()) return "";
+        return versionEntity.desc;
+    }
+
+    public String getAppDownloadUrl(){
+        if(versionEntity != null || !versionEntity.url.isEmpty()) return "";
+        return versionEntity.url;
+    }
+
+    public int getAppVersion(){
+        if(versionEntity != null || versionEntity.version == 0) return 0;
+        return versionEntity.version;
     }
 
 }

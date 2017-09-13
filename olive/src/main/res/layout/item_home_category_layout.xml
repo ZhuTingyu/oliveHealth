@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:orientation="vertical"
-              android:background="?selectableItemBackground"
-              android:gravity="center_horizontal"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?selectableItemBackground"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
 
     <com.biz.widget.CustomDraweeView
-            android:id="@id/icon"
-            tools:background="@color/color_333333"
-            android:layout_margin="6dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+        android:id="@id/icon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:src="@drawable/vector_category_all"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="4dp" />
 
     <TextView
-            tools:text="1234"
-            android:id="@id/title"
-            android:visibility="visible"
-            android:layout_marginBottom="6dp"
-            android:textColor="@color/color_999999"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        android:id="@id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:textColor="@color/color_999999"
+        android:visibility="visible"
+        android:textSize="12dp"
+        tools:text="1234" />
 </LinearLayout>

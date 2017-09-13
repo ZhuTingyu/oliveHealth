@@ -7,10 +7,12 @@ import com.biz.util.Lists;
 import com.biz.widget.BadgeView;
 import com.biz.widget.BottomNavigationViewEx;
 import com.olive.R;
+import com.olive.app.OliveApplication;
 import com.olive.ui.main.cart.CartFragment;
 import com.olive.ui.main.category.CategoryFragment;
 import com.olive.ui.main.home.HomeFragment;
 import com.olive.ui.main.my.UserFragment;
+import com.olive.ui.upgrade.UpgradeManager;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -119,6 +121,9 @@ public class MainActivity extends BaseActivity {
         mBottomNavigationView.setupWithViewPager(mViewPager);
         mViewPager.setOffscreenPageLimit(fragments.size());
         mViewPager.setAnimationCacheEnabled(false);
+
+        UpgradeManager manager = new UpgradeManager(getActivity());
+        manager.checkUpdate();
     }
 
     @Override

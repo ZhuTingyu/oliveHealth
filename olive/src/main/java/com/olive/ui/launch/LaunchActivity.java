@@ -3,9 +3,12 @@ package com.olive.ui.launch;
 import com.biz.base.BaseActivity;
 import com.biz.util.IntentBuilder;
 import com.olive.R;
+import com.olive.app.OliveApplication;
 import com.olive.ui.login.LoginActivity;
 import com.olive.ui.main.MainActivity;
+import com.olive.ui.upgrade.UpgradeManager;
 
+import android.app.Application;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -47,6 +50,7 @@ public class LaunchActivity extends BaseActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe(i->{startMain();}));
+
     }
 
     private void startMain() {

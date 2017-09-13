@@ -315,6 +315,10 @@
     <string name="message_choose_refund_goods_reason">请选择退货原因</string>
     <string name="message_choose_refund_goods_photo">请选择退货照片</string>
     <string name="message_choose_refund_goods">请选择退货商品</string>
+    <string name="message_get_last_version_fail">获取最新版本失败</string>
+    <string name="message_downloading_update_app">正在下载最新版本</string>
+    <string name="message_whether_upgrade">是否更新？</string>
+    <string name="message_is_force_updating">正在强制更新</string>
 
     <string name="string_password_suffix">dms</string>
     <string name="string_app_name">——客户下单系统——</string>
