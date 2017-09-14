@@ -59,7 +59,7 @@ public class UploadImageModel {
             File file = null;
             try {
                 file = ImageUtils.createTmpFile(context);
-                ImageUtils.compressImg(context, fileUrl, file);
+                ImageUtils.compressImg(fileUrl, file);
             } catch (IOException e) {
                 e.printStackTrace();
             }

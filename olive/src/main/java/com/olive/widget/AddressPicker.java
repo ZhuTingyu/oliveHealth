@@ -1,7 +1,6 @@
 package com.olive.widget;
 
 
-import com.biz.util.Lists;
 import com.biz.util.Utils;
 import com.biz.widget.picker.WheelPicker;
 import com.biz.widget.picker.WheelView;
@@ -12,7 +11,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 

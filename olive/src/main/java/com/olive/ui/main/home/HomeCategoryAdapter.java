@@ -46,7 +46,11 @@ class HomeCategoryAdapter extends BaseArrayListAdapter<CategoryEntity> {
 
     @Override
     public int getCount() {
-        return mList != null ? 5 : 0;
+        if(mList.size() >= 4){
+            return 5;
+        }else {
+            return mList.size() + 1;
+        }
     }
 
     @Override
@@ -67,7 +71,7 @@ class HomeCategoryAdapter extends BaseArrayListAdapter<CategoryEntity> {
 
 
 
-        if(position == 4){
+        if(position == mList.size() - 1){
             LoadImageUtil.Builder()
                     .load(mDrawableList.get(4)).drawable().build()
                     .imageOptions(mDrawableList.get(4))

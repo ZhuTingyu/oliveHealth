@@ -71,7 +71,7 @@ public abstract class BasePayFragment extends BaseErrorFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        EnvUtils.setEnv(EnvUtils.EnvEnum.SANDBOX);
+        //EnvUtils.setEnv(EnvUtils.EnvEnum.SANDBOX);
         viewModel = new PayOrderViewModel(context);
         initViewModel(viewModel);
 
