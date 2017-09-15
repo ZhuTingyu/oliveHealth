@@ -15,6 +15,7 @@ import com.olive.ui.main.my.favorite.FavoriteFragment;
 import com.olive.ui.main.my.password.ModifyPasswordFragment;
 import com.olive.ui.main.my.password.ResetPayPasswordFragment;
 import com.olive.ui.main.my.stock.StockManageActivity;
+import com.olive.ui.main.my.system.SystemMessageFragment;
 import com.olive.ui.order.OrderActivity;
 import com.olive.ui.refund.RefundActivity;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;

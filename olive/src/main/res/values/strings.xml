@@ -328,5 +328,7 @@
     <string name="resultcode_alipay_ERROR_6001">您取消了本笔订单支付！</string>
     <string name="resultcode_alipay_ERROR_6002">网络连接出错！</string>
 
+    <string name="text_copyright">Copyright ©</string>
+
 
 </resources>

@@ -1,4 +1,4 @@
-package com.olive.ui.main.my;
+package com.olive.ui.main.my.system;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.biz.base.BaseFragment;
+import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -53,7 +54,7 @@ public class SystemMessageFragment extends BaseErrorFragment {
         }else if(equalsString(item, R.string.text_version_message)){
 
         }else if(equalsString(item, R.string.text_about_us)){
-
+            IntentBuilder.Builder().startParentActivity(getActivity(), AboutUsFragment.class);
         }
     }
 
