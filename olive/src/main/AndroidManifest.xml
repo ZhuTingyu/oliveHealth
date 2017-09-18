@@ -94,10 +94,17 @@
 
         <activity
             android:name=".app.wxapi.WXPayEntryActivity"
-            android:windowSoftInputMode="adjustNothing"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name"
+            android:enabled="true"
             android:exported="true"
-            android:enabled="true"/>
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing" />
+
+        <receiver android:name=".ui.upgrade.InstallReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <data android:scheme="package"/>
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>

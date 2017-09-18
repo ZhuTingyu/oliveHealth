@@ -1,7 +1,13 @@
 package com.olive.util;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+
+import com.tbruyelle.rxpermissions.RxPermissions;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -35,7 +41,7 @@ public class DownloadUtil {
         okHttpClient = new OkHttpClient();
     }
 
-    public void download(final String url, final String saveDir, final OnDownloadListener listener) {
+    public void download(final String url, final String saveDir, final OnDownloadListener listener , Activity activity) {
         Request request = new Request.Builder().url(url).build();
         call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {
@@ -58,6 +64,19 @@ public class DownloadUtil {
                     File file = new File(savePath, getNameFromUrl(url));
                     file.setReadable(true);
                     filePath = file.getPath();
+
+                    if (Build.VERSION.SDK_INT >= 23) {
+                        int REQUEST_CODE_CONTACT = 101;
+                        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE};
+                        //验证是否许可权限
+                        for (String str : permissions) {
+                            if (activity.checkSelfPermission(str) != PackageManager.PERMISSION_GRANTED) {
+                                //申请权限
+                                activity.requestPermissions(permissions, REQUEST_CODE_CONTACT);
+                                return;
+                            }
+                        }
+                    }
                     fos = new FileOutputStream(file);
                     long sum = 0;
                     while ((len = is.read(buf)) != -1) {

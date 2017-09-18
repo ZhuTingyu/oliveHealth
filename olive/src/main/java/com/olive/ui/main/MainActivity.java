@@ -2,17 +2,20 @@ package com.olive.ui.main;
 
 import com.biz.base.BaseActivity;
 import com.biz.base.FragmentAdapter;
+import com.biz.util.FileUtil;
 import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
 import com.biz.widget.BadgeView;
 import com.biz.widget.BottomNavigationViewEx;
 import com.olive.R;
 import com.olive.app.OliveApplication;
+import com.olive.model.VersionModel;
 import com.olive.ui.main.cart.CartFragment;
 import com.olive.ui.main.category.CategoryFragment;
 import com.olive.ui.main.home.HomeFragment;
 import com.olive.ui.main.my.UserFragment;
 import com.olive.ui.upgrade.UpgradeManager;
+import com.olive.util.DownloadUtil;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -157,6 +160,18 @@ public class MainActivity extends BaseActivity {
     public void onEventMainThread(Object event) {
         if (event != null) {
 
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == UpgradeManager.INSTALL_CODE){
+            if(VersionModel.getInstance().getAppVersion() == VersionModel.getHisUpgradeVersion()){
+                FileUtil.deleteFile(DownloadUtil.getInstance().getFilePath());
+            }else {
+
+            }
         }
     }
 }

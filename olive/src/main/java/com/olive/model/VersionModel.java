@@ -59,7 +59,7 @@ public class VersionModel {
                 .url(R.string.api_last_version)
                 .requestPI().map(r -> {
                     if (r.isOk()){
-                        VersionModel.getInstance().saveHisUpgradeVersion(r.data);
+                        VersionModel.getInstance().setVersionEntity(r.data);
                         return r.data;
                     }else throw new HttpErrorException(r);
 
@@ -78,7 +78,7 @@ public class VersionModel {
         return version;
     }
 
-    private void saveHisUpgradeVersion(VersionEntity versionEntity) {
+    public void saveHisUpgradeVersion() {
         ConfigBean configBean = ConfigDaoHelper.getInstance().queryByType(ConfigDaoHelper.UPGRADE_VERSION_ID, ConfigDaoHelper.TYPE_UPGRADE_VERSION);
         if (configBean == null) {
             configBean = new ConfigBean();
@@ -87,7 +87,6 @@ public class VersionModel {
         configBean.setType(ConfigDaoHelper.TYPE_UPGRADE_VERSION);
         configBean.setCache(String.valueOf(versionEntity.version));
         ConfigDaoHelper.getInstance().addData(configBean);
-        this.versionEntity = versionEntity;
     }
 
     public void setVersionEntity(VersionEntity versionEntity) {
@@ -95,23 +94,26 @@ public class VersionModel {
     }
 
     public String getVarsionDes(){
-        if(versionEntity != null || !versionEntity.varsionDes.isEmpty()) return "";
+        if(versionEntity == null || !versionEntity.varsionDes.isEmpty()) return "";
         return versionEntity.varsionDes;
     }
 
     public String getVersiondese(){
-        if(versionEntity != null || !versionEntity.desc.isEmpty()) return "";
+        if(versionEntity == null || !versionEntity.desc.isEmpty()) return "";
         return versionEntity.desc;
     }
 
     public String getAppDownloadUrl(){
-        if(versionEntity != null || !versionEntity.url.isEmpty()) return "";
+        if(versionEntity == null || !versionEntity.url.isEmpty()) return "";
         return versionEntity.url;
     }
 
     public int getAppVersion(){
-        if(versionEntity != null || versionEntity.version == 0) return 0;
+        if(versionEntity == null || versionEntity.version == 0) return 0;
         return versionEntity.version;
     }
 
+    public VersionEntity getVersionEntity() {
+        return versionEntity;
+    }
 }

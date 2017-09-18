@@ -1,5 +1,6 @@
 package com.olive.ui.upgrade;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,15 +20,16 @@ import com.olive.util.DownloadUtil;
 public class UpgradeManager {
 
     private static final int IS_FORCE_UPDATE = 1;
+    public static final int INSTALL_CODE = 0x123;
 
-    Context mContext;
+    Activity mContext;
     ProgressDialog mUpgradeDialog;
     UpgradeViewModel viewModel;
     String apkUrl;
     VersionEntity versionEntity;
 
     public UpgradeManager(Context context) {
-        mContext = context;
+        mContext = (Activity) context;
         viewModel = new UpgradeViewModel(context);
 
     }
@@ -35,9 +37,9 @@ public class UpgradeManager {
     public void checkUpdate() {
         viewModel.update(versionEntity -> {
             this.versionEntity = versionEntity;
-            if(VersionModel.getHisUpgradeVersion() < versionEntity.version){
-                apkUrl = versionEntity.url;
-                //apkUrl = "http://gdown.baidu.com/data/wisegame/65f486476dcc3567/jinritoutiao_634.apk";
+            if(0 < versionEntity.version){
+                //apkUrl = versionEntity.url;
+                apkUrl = "http://gdown.baidu.com/data/wisegame/65f486476dcc3567/jinritoutiao_634.apk";
                 if(versionEntity.forceUpdate == IS_FORCE_UPDATE){
                     createUpgradeDialog();
                     update();
@@ -52,10 +54,10 @@ public class UpgradeManager {
         mUpgradeDialog = new ProgressDialog(mContext);
         mUpgradeDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         mUpgradeDialog.setMax(100);
+        mUpgradeDialog.setCanceledOnTouchOutside(false);
 
         if(versionEntity.forceUpdate == IS_FORCE_UPDATE){
             mUpgradeDialog.setTitle(mContext.getResources().getString(R.string.message_is_force_updating));
-            mUpgradeDialog.setCanceledOnTouchOutside(false);
         }else {
             mUpgradeDialog.setTitle(mContext.getResources().getString(R.string.message_downloading_update_app));
             mUpgradeDialog.setButton(DialogInterface.BUTTON_NEGATIVE, mContext.getResources().getString(R.string.text_cancel), (dialog, which) -> {
@@ -70,9 +72,10 @@ public class UpgradeManager {
             @Override
             public void onDownloadSuccess(String filePath) {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.setDataAndType(Uri.parse("file://" + filePath),"application/vnd.android.package-archive");
-                mContext.startActivity(intent);
+                mContext.startActivityForResult(intent, INSTALL_CODE);
                 mUpgradeDialog.dismiss();
             }
 
@@ -85,7 +88,7 @@ public class UpgradeManager {
             public void onDownloadFailed() {
 
             }
-        });
+        }, (Activity) mContext);
     }
 
     private void createHintDialog(){
