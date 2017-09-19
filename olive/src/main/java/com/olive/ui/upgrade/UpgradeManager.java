@@ -37,9 +37,9 @@ public class UpgradeManager {
     public void checkUpdate() {
         viewModel.update(versionEntity -> {
             this.versionEntity = versionEntity;
-            if(0 < versionEntity.version){
-                //apkUrl = versionEntity.url;
-                apkUrl = "http://gdown.baidu.com/data/wisegame/65f486476dcc3567/jinritoutiao_634.apk";
+            if(VersionModel.getHisUpgradeVersion() < versionEntity.version){
+                apkUrl = versionEntity.url;
+                //apkUrl = "http://gdown.baidu.com/data/wisegame/65f486476dcc3567/jinritoutiao_634.apk";
                 if(versionEntity.forceUpdate == IS_FORCE_UPDATE){
                     createUpgradeDialog();
                     update();

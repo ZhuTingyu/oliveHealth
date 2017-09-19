@@ -23,6 +23,7 @@ import com.olive.model.entity.AccountEntity;
 import com.olive.model.entity.AddressEntity;
 import com.olive.ui.BaseErrorFragment;
 import com.olive.ui.adapter.CheckOrderAdapter;
+import com.olive.ui.main.my.account.viewModel.ConsumeViewModel;
 import com.olive.ui.main.my.address.AddressManageFragment;
 import com.olive.ui.main.my.address.AddressViewModel;
 import com.olive.ui.order.viewModel.CheckInfoViewModel;
@@ -45,6 +46,7 @@ public class CheckOrderInfoFragment extends BaseErrorFragment {
     private TextView number;
     private CheckInfoViewModel viewModel;
     private AddressViewModel addressViewModel;
+    private ConsumeViewModel consumeViewModel;
     private View head;
     private AddressEntity addressEntity;
     private AccountEntity accountEntity;
@@ -54,6 +56,7 @@ public class CheckOrderInfoFragment extends BaseErrorFragment {
         super.onAttach(context);
         viewModel = new CheckInfoViewModel(context);
         addressViewModel = new AddressViewModel(context);
+        consumeViewModel = new ConsumeViewModel(context);
         initViewModel(viewModel);
     }
 
@@ -87,9 +90,16 @@ public class CheckOrderInfoFragment extends BaseErrorFragment {
                 debt.setText(PriceUtil.formatRMB(accountEntity.debt));
                 ok.setText(R.string.text_go_refund_money);
                 ok.setOnClickListener(v -> {
-                    IntentBuilder.Builder()
-                            // TODO: 2017/9/3 获取欠款订单 
-                            .startParentActivity(getActivity(), PayDebtFragment.class, true);
+                    setProgressVisible(true);
+                    consumeViewModel.getDebtDetails(orderEntities -> {
+                        setProgressVisible(false);
+                        if (orderEntities != null || !orderEntities.isEmpty()){
+                            IntentBuilder.Builder()
+                                    .putExtra(IntentBuilder.KEY_DATA,orderEntities.get(0))
+                                    .startParentActivity(getActivity(), PayDebtFragment.class, true);
+                        }
+                    });
+
                 });
             } else {
                 ok.setOnClickListener(v -> {
@@ -103,7 +113,6 @@ public class CheckOrderInfoFragment extends BaseErrorFragment {
                     viewModel.createOrder(orderEntity -> {
                         setProgressVisible(false);
                         IntentBuilder.Builder()
-                                .putExtra(IntentBuilder.KEY_VALUE, accountEntity)
                                 .putExtra(IntentBuilder.KEY_DATA, orderEntity)
                                 .startParentActivity(getActivity(), PayOrderFragment.class, true);
                         EventBus.getDefault().post(new UpdateCartEvent());

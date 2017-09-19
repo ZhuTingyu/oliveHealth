@@ -41,6 +41,7 @@ import com.olive.ui.main.my.account.viewModel.AccountViewModel;
 import com.olive.ui.order.viewModel.OrderListViewModel;
 import com.olive.ui.order.viewModel.PayOrderViewModel;
 import com.olive.util.CashierInputFilter;
+import com.olive.util.Utils;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -97,7 +98,7 @@ public abstract class BasePayFragment extends BaseErrorFragment {
                 viewModel.accountEntity = accountEntity1;
                 initView();
             });
-        } else {
+        }else {
             initView();
         }
     }
@@ -188,7 +189,7 @@ public abstract class BasePayFragment extends BaseErrorFragment {
         TextView payPrice = (TextView) dialog.findViewById(R.id.pay_price);
         TextView btnOk = (TextView) dialog.findViewById(R.id.btn_ok);
 
-        userNumber.setText(getString(R.string.text_account_number, UserModel.getInstance().getMobile()));
+        userNumber.setText(getString(R.string.text_account_number, Utils.setPhoneString(UserModel.getInstance().getMobile())));
         payWay.setText(viewModel.isBalanceEnough() ? getString(R.string.text_pay_by_account_vacancies_1) : adapter.payWay);
         payPrice.setText(PriceUtil.formatRMB(viewModel.orderEntity.amount));
 

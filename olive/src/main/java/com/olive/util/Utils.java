@@ -83,4 +83,17 @@ public class Utils {
         adapter.setEmptyView(view);
     }
 
+    public static String setPhoneString(String phoneNumber){
+        StringBuilder sb  =new StringBuilder();
+        for (int i = 0; i < phoneNumber.length(); i++) {
+            char c = phoneNumber.charAt(i);
+            if (i >= 3 && i <= 6) {
+                sb.append('*');
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+
 }
