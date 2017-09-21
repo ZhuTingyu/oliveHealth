@@ -11,6 +11,7 @@ import com.olive.event.WeiPayResultEvent;
 import com.tencent.mm.sdk.constants.ConstantsAPI;
 import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
+import com.tencent.mm.sdk.modelpay.PayResp;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
@@ -52,7 +53,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
     public void onResp(BaseResp resp) {
         LogUtil.print("onResp" + this+":"+ GsonUtil.toJson(resp));
         if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
-            EventBus.getDefault().post(new WeiPayResultEvent(resp.errCode));
+            EventBus.getDefault().post(new WeiPayResultEvent((PayResp) resp));
         }
         finish();
     }

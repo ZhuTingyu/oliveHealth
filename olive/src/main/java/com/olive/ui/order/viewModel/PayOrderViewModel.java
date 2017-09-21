@@ -57,7 +57,6 @@ public class PayOrderViewModel extends AccountViewModel {
         payOrderParameterMap = new HashMap();
         orderEntity = getActivity().getIntent().getParcelableExtra(IntentBuilder.KEY_DATA);
         accountEntity = getActivity().getIntent().getParcelableExtra(IntentBuilder.KEY_VALUE);
-        EventBus.getDefault().register(this);
     }
 
     public void getBankCards(Action1<List<BankEntity>> action1) {
@@ -199,35 +198,21 @@ public class PayOrderViewModel extends AccountViewModel {
             payOrderParameterMap.put("useBalancePay", PAY_IS_USE_BALANCE);
             payOrderParameterMap.put("balancePayAmount", balancePayAmount);
         }
-        if (payType == PAY_TYPE_ALI) {
+        if (payType == PAY_TYPE_ALI || payType == PAY_TYPE_WEI) {
             payOrderParameterMap.put("outTradeNo", outTradeNo);
-        } else if (payType == PAY_TYPE_WEI) {
-
-        } else if (payType == PAY_TYPE_BANK) {
+        } else if(payType == PAY_TYPE_BANK) {
 
         }
 
         payOrderParameterMap.put("payPassword", payPassword);
     }
 
-    public void onEvent(WeiPayResultEvent event) {
-        if (event.code == WeiPayResultEvent.SUCCESS) {
-
-        } else if (event.code == WeiPayResultEvent.CANCEL) {
-
-        } else if (event.code == WeiPayResultEvent.ERROR) {
-
-        }
-    }
-
     public void setOrderEntity(OrderEntity orderEntity) {
         this.orderEntity = orderEntity;
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
+    public void setOutTradeNo(String outTradeNo) {
+        this.outTradeNo = outTradeNo;
     }
 }
 

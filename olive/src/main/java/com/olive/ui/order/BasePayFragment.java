@@ -42,6 +42,7 @@ import com.olive.ui.order.viewModel.OrderListViewModel;
 import com.olive.ui.order.viewModel.PayOrderViewModel;
 import com.olive.util.CashierInputFilter;
 import com.olive.util.Utils;
+import com.tencent.mm.sdk.modelbase.BaseResp;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -73,6 +74,7 @@ public abstract class BasePayFragment extends BaseErrorFragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         //EnvUtils.setEnv(EnvUtils.EnvEnum.SANDBOX);
+        EventBus.getDefault().register(this);
         viewModel = new PayOrderViewModel(context);
         initViewModel(viewModel);
 
@@ -270,4 +272,22 @@ public abstract class BasePayFragment extends BaseErrorFragment {
         });
     }
 
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    public void onEvent(WeiPayResultEvent event){
+        if(event.req.errCode == WeiPayResultEvent.SUCCESS){
+            viewModel.setOutTradeNo(event.req.extData);
+            submitOrder();
+        }else if(event.req.errCode == WeiPayResultEvent.CANCEL){
+            error(getString(R.string.title_pay_cancel));
+        }else if(event.req.errCode == WeiPayResultEvent.ERROR){
+            error(getString(R.string.title_pay_failed));
+
+        }
+    }
 }

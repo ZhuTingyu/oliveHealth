@@ -4,6 +4,7 @@ import com.biz.base.BaseActivity;
 import com.biz.util.IntentBuilder;
 import com.olive.R;
 import com.olive.app.OliveApplication;
+import com.olive.model.UserModel;
 import com.olive.ui.login.LoginActivity;
 import com.olive.ui.main.MainActivity;
 import com.olive.ui.upgrade.UpgradeManager;
@@ -54,9 +55,14 @@ public class LaunchActivity extends BaseActivity {
     }
 
     private void startMain() {
-        IntentBuilder.Builder()
-                .overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out)
-                .setClass(getActivity(), LoginActivity.class).startActivity(this);
+
+        if(UserModel.getInstance().isLogin()){
+            MainActivity.startMainWithAnim(getActivity(), 0);
+        }else {
+            IntentBuilder.Builder()
+                    .overridePendingTransition(R.anim.abc_fade_in, R.anim.abc_fade_out)
+                    .setClass(getActivity(), LoginActivity.class).startActivity(this);
+        }
     }
 
 

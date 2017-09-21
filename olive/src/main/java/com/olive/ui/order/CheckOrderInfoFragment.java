@@ -10,14 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.biz.base.BaseFragment;
 import com.biz.base.BaseViewHolder;
 import com.biz.util.IntentBuilder;
 import com.biz.util.PriceUtil;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
 import com.olive.event.UpdateCartEvent;
-import com.olive.model.OrderModel;
 import com.olive.model.UserModel;
 import com.olive.model.entity.AccountEntity;
 import com.olive.model.entity.AddressEntity;
@@ -27,7 +25,6 @@ import com.olive.ui.main.my.account.viewModel.ConsumeViewModel;
 import com.olive.ui.main.my.address.AddressManageFragment;
 import com.olive.ui.main.my.address.AddressViewModel;
 import com.olive.ui.order.viewModel.CheckInfoViewModel;
-import com.olive.ui.order.viewModel.OrderViewModel;
 
 import de.greenrobot.event.EventBus;
 

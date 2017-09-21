@@ -41,7 +41,7 @@ public class DownloadUtil {
         okHttpClient = new OkHttpClient();
     }
 
-    public void download(final String url, final String saveDir, final OnDownloadListener listener , Activity activity) {
+    public void download(final String url, final String saveDir, final OnDownloadListener listener, Activity activity) {
         Request request = new Request.Builder().url(url).build();
         call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {
@@ -50,6 +50,7 @@ public class DownloadUtil {
                 // 下载失败
                 listener.onDownloadFailed();
             }
+
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 InputStream is = null;
@@ -67,7 +68,7 @@ public class DownloadUtil {
 
                     if (Build.VERSION.SDK_INT >= 23) {
                         int REQUEST_CODE_CONTACT = 101;
-                        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE};
+                        String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
                         //验证是否许可权限
                         for (String str : permissions) {
                             if (activity.checkSelfPermission(str) != PackageManager.PERMISSION_GRANTED) {
@@ -110,8 +111,7 @@ public class DownloadUtil {
     /**
      * @param saveDir
      * @return
-     * @throws IOException
-     * 判断下载目录是否存在
+     * @throws IOException 判断下载目录是否存在
      */
     private String isExistDir(String saveDir) throws IOException {
         // 下载位置
@@ -125,8 +125,7 @@ public class DownloadUtil {
 
     /**
      * @param url
-     * @return
-     * 从下载连接中解析出文件名
+     * @return 从下载连接中解析出文件名
      */
     @NonNull
     private String getNameFromUrl(String url) {
@@ -140,8 +139,7 @@ public class DownloadUtil {
         void onDownloadSuccess(String filePath);
 
         /**
-         * @param progress
-         * 下载进度
+         * @param progress 下载进度
          */
         void onDownloading(int progress);
 
@@ -155,8 +153,8 @@ public class DownloadUtil {
         return filePath;
     }
 
-    public void cancelDownload(){
-        if(call != null){
+    public void cancelDownload() {
+        if (call != null) {
             call.cancel();
         }
     }
