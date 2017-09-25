@@ -52,6 +52,7 @@ public class MainActivity extends BaseActivity {
     private ViewPager mViewPager;
     private BadgeView cartBadgeView;
     protected Boolean isFirst = true;
+    private UpgradeManager manager;
 
 
 
@@ -125,7 +126,7 @@ public class MainActivity extends BaseActivity {
         mViewPager.setOffscreenPageLimit(fragments.size());
         mViewPager.setAnimationCacheEnabled(false);
 
-        UpgradeManager manager = new UpgradeManager(getActivity());
+        manager = new UpgradeManager(getActivity());
         manager.checkUpdate();
     }
 
@@ -167,10 +168,13 @@ public class MainActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == UpgradeManager.INSTALL_CODE){
+            //服务器版本与本地版本是否一致
             if(VersionModel.getInstance().getAppVersion() == VersionModel.getHisUpgradeVersion()){
                 FileUtil.deleteFile(DownloadUtil.getInstance().getFilePath());
             }else {
+                if(manager.isForceUpdate){
 
+                }
             }
         }
     }

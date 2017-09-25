@@ -19,6 +19,7 @@ import com.olive.ui.refund.LookRefundCheckResultFragment;
 import com.olive.ui.refund.viewModel.LookApplyRefundDetailViewModel;
 import com.olive.ui.service.CustomerServicesFragment;
 import com.olive.util.Utils;
+import com.olive.widget.LinearLayoutForRecyclerView;
 
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class RefundAdapter extends BaseQuickAdapter<OrderEntity, BaseViewHolder>
 
     private Activity context;
     private String type;
+    private RefundProductsNumberInfoAdapter adapter;
 
     public RefundAdapter(Activity context, String type) {
         super(R.layout.item_refund_info_layout, Lists.newArrayList());
@@ -62,18 +64,14 @@ public class RefundAdapter extends BaseQuickAdapter<OrderEntity, BaseViewHolder>
 
         tvStatus.setText(status);
 
-        List<ProductEntity> productEntities = orderEntity.products;
-        LinearLayout linearLayout = holder.findViewById(R.id.ll_info);
-        linearLayout.removeAllViews();
+        LinearLayoutForRecyclerView linearLayout = holder.findViewById(R.id.ll_info);
 
-        for(ProductEntity productEntity : productEntities){
-            View view = LayoutInflater.from(context).inflate(R.layout.item_line_text_layout, linearLayout,false);
-            TextView name = (TextView) view.findViewById(R.id.name);
-            TextView number = (TextView) view.findViewById(R.id.number);
-            name.setText(productEntity.name);
-            number.setText("x"+productEntity.quantity);
-            linearLayout.addView(view);
+        if(adapter == null){
+            adapter = new RefundProductsNumberInfoAdapter(mContext, orderEntity.products);
         }
+        adapter.setData(orderEntity.products);
+        linearLayout.setAdapter(adapter);
+
 
         service.setOnClickListener(v -> {
             IntentBuilder.Builder().startParentActivity(context, CustomerServicesFragment.class);
@@ -98,7 +96,7 @@ public class RefundAdapter extends BaseQuickAdapter<OrderEntity, BaseViewHolder>
             look.setVisibility(View.GONE);
 
             date.setText(TimeUtil.format(orderEntity.orderDate, TimeUtil.FORMAT_YYYYMMDD));
-            totalNumber.setText(context.getString(R.string.text_products_total_number,getTotalCount(productEntities)+""));
+            totalNumber.setText(context.getString(R.string.text_products_total_number,getTotalCount(orderEntity.products)+""));
             remark.setText(mContext.getString(R.string.text_refund_check_note, orderEntity.note));
         }
 

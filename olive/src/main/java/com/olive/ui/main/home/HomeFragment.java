@@ -49,7 +49,7 @@ public class HomeFragment extends BaseLazyFragment {
 
     private ConvenientBanner banner;
     private ExpandGridView gridview;
-    private XRecyclerView mNoticeTitleList;
+    private XRecyclerView noticeTitleList;
     private EditText searchView;
 
     ProductAdapter mAdapter;
@@ -151,15 +151,15 @@ public class HomeFragment extends BaseLazyFragment {
     }
 
     private void initNoticeList(View view) {
-        mNoticeTitleList = findViewById(view, R.id.notice_list);
-        mNoticeTitleList.setLayoutManager(new LinearLayoutManager(getActivity()));
-        Utils.setRecyclerViewNestedSlide(mNoticeTitleList);
+        noticeTitleList = findViewById(view, R.id.notice_list);
+        noticeTitleList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        Utils.setRecyclerViewNestedSlide(noticeTitleList);
         mNoticeAdapter = new HomeNoticeAdapter();
-        mNoticeTitleList.setAdapter(mNoticeAdapter);
+        noticeTitleList.setAdapter(mNoticeAdapter);
         mNoticeAdapter.setOnLoadMoreListener(() -> {
             noticeViewModel.setLoadMore(o -> {
             });
-        }, mNoticeTitleList.getRecyclerView());
+        }, noticeTitleList.getRecyclerView());
         mNoticeAdapter.setOnItemClickListener((baseQuickAdapter, view1, i) -> {
             NoticeEntity entity = (NoticeEntity) baseQuickAdapter.getItem(i);
             IntentBuilder.Builder().putExtra(IntentBuilder.KEY_VALUE, entity.id)
@@ -170,7 +170,7 @@ public class HomeFragment extends BaseLazyFragment {
             mNoticeAdapter.setNewData(noticeEntities);
         });
 
-        noticeViewModel.setRecyclerView(mNoticeTitleList);
+        noticeViewModel.setRecyclerView(noticeTitleList);
     }
 
     private void initBanner(View view) {

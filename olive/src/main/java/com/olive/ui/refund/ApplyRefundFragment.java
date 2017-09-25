@@ -35,21 +35,15 @@ import com.olive.R;
 import com.olive.model.entity.ProductEntity;
 import com.olive.ui.BaseErrorFragment;
 import com.olive.ui.adapter.BottomSheetAdapter;
-import com.olive.ui.adapter.CheckRefundGoodsAdapter;
 import com.olive.ui.adapter.ProductInfoWithNumberAdapter;
-import com.olive.ui.order.ProductDetailsFragment;
 import com.olive.ui.refund.viewModel.ApplyRefundViewModel;
-import com.olive.util.LoadImageUtil;
-import com.olive.util.Utils;
+
 import com.olive.widget.LinearLayoutForRecyclerView;
 
-import java.io.File;
-import java.lang.ref.SoftReference;
-import java.util.ArrayList;
+
 import java.util.List;
 
 import me.nereo.multi_image_selector.MultiImageSelector;
-import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 
 /**
  * Created by TingYu Zhu on 2017/7/29.
@@ -83,7 +77,6 @@ public class ApplyRefundFragment extends BaseErrorFragment {
 
     private UploadImageGridAdapter adapter;
 
-    protected CheckRefundGoodsAdapter checkRefundGoodsAdapter;
 
     @Override
     public void onAttach(Context context) {

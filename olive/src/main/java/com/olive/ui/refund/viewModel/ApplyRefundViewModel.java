@@ -30,7 +30,7 @@ public class ApplyRefundViewModel extends BaseViewModel {
 
     private int refundReasonId;
 
-    private List<ProductEntity>  chooseRefundProducts;
+    private List<ProductEntity> chooseRefundProducts;
 
     private String description;
 
@@ -39,52 +39,51 @@ public class ApplyRefundViewModel extends BaseViewModel {
         imgUrls = Lists.newArrayList();
     }
 
-    public void uploadImg(Action1<String> action1){
-        submitRequestThrowError(UploadImageModel.uploadImg(getActivity().getBaseContext() ,getString(R.string.api_upload_image),fileUri).map(r -> {
-            if(r.isOk()){
+    public void uploadImg(Action1<String> action1) {
+        submitRequestThrowError(UploadImageModel.uploadImg(getActivity().getBaseContext(), getString(R.string.api_upload_image), fileUri).map(r -> {
+            if (r.isOk()) {
                 return r.data;
-            }else throw new HttpErrorException(r);
-        }),action1);
-    }
-
-    public void getRefundReason(Action1<List<RefundReasonEntity>> action1){
-        submitRequestThrowError(RefundModel.applyRefundReasons().map(r -> {
-            if(r.isOk()){
-                refundReasonEntities = r.data;
-                return refundReasonEntities;
-            }else throw new HttpErrorException(r);
+            } else throw new HttpErrorException(r);
         }), action1);
     }
 
-    public void applyRefund(Action1<String> action1){
+    public void getRefundReason(Action1<List<RefundReasonEntity>> action1) {
+        submitRequestThrowError(RefundModel.applyRefundReasons().map(r -> {
+            if (r.isOk()) {
+                refundReasonEntities = r.data;
+                return refundReasonEntities;
+            } else throw new HttpErrorException(r);
+        }), action1);
+    }
 
-        if(chooseRefundProducts.isEmpty()){
+    public void applyRefund(Action1<String> action1) {
+
+        if (chooseRefundProducts == null || chooseRefundProducts.isEmpty()) {
             error.onNext(getErrorString(R.string.message_choose_refund_goods));
             return;
         }
 
-        if(refundReasonId == 0){
+        if (refundReasonId == 0) {
             error.onNext(getErrorString(R.string.message_choose_refund_goods_reason));
             return;
         }
 
-        if(imgUrls.isEmpty()){
+        if (imgUrls.isEmpty()) {
             error.onNext(getErrorString(R.string.message_choose_refund_goods_photo));
             return;
         }
 
 
-
         submitRequestThrowError(RefundModel.applyRefund(chooseRefundProducts, refundReasonId, getImgString(), description).map(r -> {
-            if(r.isOk()){
+            if (r.isOk()) {
                 return r.data;
-            }else throw new HttpErrorException(r);
+            } else throw new HttpErrorException(r);
         }), action1);
     }
 
     private String getImgString() {
         StringBuffer sb = new StringBuffer();
-        for(String url : imgUrls){
+        for (String url : imgUrls) {
             sb.append(url + ",");
         }
         return sb.toString();
@@ -98,12 +97,12 @@ public class ApplyRefundViewModel extends BaseViewModel {
         return fileUri;
     }
 
-    public void setImgUrl(int position, String url){
+    public void setImgUrl(int position, String url) {
     }
 
-    public List<String> getRefundNameList(){
+    public List<String> getRefundNameList() {
         refundNameList = Lists.newArrayList();
-        for(RefundReasonEntity refundReasonEntity : refundReasonEntities){
+        for (RefundReasonEntity refundReasonEntity : refundReasonEntities) {
             refundNameList.add(refundReasonEntity.reason);
         }
         return refundNameList;

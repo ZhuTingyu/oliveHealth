@@ -43,6 +43,7 @@ public class OrderInfoListAdapter extends BaseQuickAdapter<OrderEntity, BaseView
     private AccountViewModel accountViewModel;
     private BaseFragment fragment;
     private ProductsViewModel productsViewModel;
+    private ProductInfoWithNumberAdapter adapter;
 
     private static final int DMS_CODE = 1;
 
@@ -63,8 +64,12 @@ public class OrderInfoListAdapter extends BaseQuickAdapter<OrderEntity, BaseView
         LinearLayoutForRecyclerView linearLayout = holder.findViewById(R.id.list);
         List<ProductEntity> products = orderEntity.products;
 
-        ProductInfoWithNumberAdapter adapter = new ProductInfoWithNumberAdapter(mContext, products, true);
+        if(adapter == null) {
+            adapter = new ProductInfoWithNumberAdapter(mContext, products, true);
+        }
+        adapter.setData(orderEntity.products);
         linearLayout.setAdapter(adapter);
+
 
         holder.setText(R.id.price, PriceUtil.formatRMB(orderEntity.amount));
         holder.setText(R.id.number, mContext.getString(R.string.text_order_list_info_number, getTotalCount(orderEntity.products) + ""));

@@ -1,7 +1,6 @@
 package com.olive.ui.adapter;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,34 +8,34 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.olive.R;
+import com.olive.model.entity.ProductEntity;
 import com.olive.ui.holder.LineTextHolder;
 
 import java.util.List;
 
 /**
- * Created by TingYu Zhu on 2017/7/31.
+ * Created by TingYu Zhu on 2017/9/25.
  */
 
-public class BaseLineTextListAdapter extends BaseAdapter{
+public class RefundProductsNumberInfoAdapter extends BaseAdapter {
 
-    protected String[] title;
-    List<String> mData;
+    List<ProductEntity> data;
     LayoutInflater inflater;
 
-    public BaseLineTextListAdapter(Context context, String[] title, List<String> mData){
-        this.mData = mData;
-        this.title = title;
+
+    public RefundProductsNumberInfoAdapter(Context context, List<ProductEntity> data) {
+        this.data = data;
         inflater = LayoutInflater.from(context);
     }
 
     @Override
     public int getCount() {
-        return mData.size();
+        return data.size();
     }
 
     @Override
-    public Object getItem(int position) {
-        return mData.get(position);
+    public ProductEntity getItem(int position) {
+        return data.get(position);
     }
 
     @Override
@@ -56,13 +55,11 @@ public class BaseLineTextListAdapter extends BaseAdapter{
         }else {
             viewHolder = (LineTextHolder) convertView.getTag();
         }
-        viewHolder.bindData(title[position], mData.get(position));
+        viewHolder.bindData(data.get(position).name, "x" + String.valueOf(data.get(position).quantity));
         return convertView;
     }
 
-    public void setTitle(String[] title) {
-        this.title = title;
+    public void setData(List<ProductEntity> data) {
+        this.data = data;
     }
-
-
 }

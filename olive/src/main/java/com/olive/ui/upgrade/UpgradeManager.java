@@ -22,6 +22,8 @@ public class UpgradeManager {
     private static final int IS_FORCE_UPDATE = 1;
     public static final int INSTALL_CODE = 0x123;
 
+    public boolean isForceUpdate = false;
+
     Activity mContext;
     ProgressDialog mUpgradeDialog;
     UpgradeViewModel viewModel;
@@ -41,6 +43,7 @@ public class UpgradeManager {
                 apkUrl = versionEntity.url;
                 //apkUrl = "http://gdown.baidu.com/data/wisegame/65f486476dcc3567/jinritoutiao_634.apk";
                 if(versionEntity.forceUpdate == IS_FORCE_UPDATE){
+                    isForceUpdate = true;
                     createUpgradeDialog();
                     update();
                 }else {
@@ -88,7 +91,7 @@ public class UpgradeManager {
             public void onDownloadFailed() {
 
             }
-        }, (Activity) mContext);
+        }, mContext);
     }
 
     private void createHintDialog(){

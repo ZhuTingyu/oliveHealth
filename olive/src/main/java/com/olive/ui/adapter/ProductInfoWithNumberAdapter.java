@@ -56,4 +56,8 @@ public class ProductInfoWithNumberAdapter extends BaseAdapter {
         viewHolder.bindData(mData.get(position),isLook);
         return convertView;
     }
+
+    public void setData(List<ProductEntity> mData) {
+        this.mData = mData;
+    }
 }

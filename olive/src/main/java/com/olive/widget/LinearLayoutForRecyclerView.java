@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 
 public class LinearLayoutForRecyclerView extends LinearLayout {
 
-    BaseAdapter adapter;
+    public BaseAdapter adapter;
 
     public LinearLayoutForRecyclerView(Context context) {
         super(context);
@@ -33,7 +33,7 @@ public class LinearLayoutForRecyclerView extends LinearLayout {
         addView();
     }
 
-    private void addView(){
+    public void addView(){
         removeAllViews();
         for (int i = 0, len = adapter.getCount(); i < len; i++){
             View view = adapter.getView(i, null, this);
