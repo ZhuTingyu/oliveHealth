@@ -1,6 +1,5 @@
 package com.olive.event;
 
-import com.tencent.mm.sdk.modelbase.BaseResp;
 import com.tencent.mm.sdk.modelpay.PayResp;
 
 /**

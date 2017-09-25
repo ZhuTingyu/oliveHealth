@@ -21,9 +21,8 @@ import static me.nereo.multi_image_selector.utils.FileUtils.getCacheDirectory;
  */
 
 public class ImageUtils {
+
     public static void compressImg(String url, File file){
-
-
         Bitmap bmp = BitmapFactory.decodeFile(url);
         // 尺寸压缩倍数,值越大，图片尺寸越小
         // 0-100 100为不压缩

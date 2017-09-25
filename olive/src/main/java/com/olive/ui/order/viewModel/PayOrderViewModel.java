@@ -125,6 +125,7 @@ public class PayOrderViewModel extends AccountViewModel {
         }), weiXinPayEntity -> {
             SendWX sendWX = new SendWX(getActivity());
             sendWX.payWeiXin(weiXinPayEntity.getPayReq());
+            outTradeNo = weiXinPayEntity.outTradeNo;
         });
     }
 
