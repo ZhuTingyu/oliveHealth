@@ -21,7 +21,7 @@ public class ConsumeViewModel extends BaseLoadMoreViewModel {
 
     @Override
     public void setLoadMore(Action1<Object> action1) {
-        page++;
+        super.setLoadMore(action1);
         getConsumerDetails(orderEntities -> {
             loadMore(orderEntities, action1);
         });

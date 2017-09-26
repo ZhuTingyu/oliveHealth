@@ -15,7 +15,7 @@ import rx.functions.Action1;
  * Created by TingYu Zhu on 2017/8/3.
  */
 
-public abstract class BaseLoadMoreViewModel extends BaseViewModel {
+public class BaseLoadMoreViewModel extends BaseViewModel {
     protected XRecyclerView recyclerView;
     protected int page = 1;
 
@@ -38,7 +38,9 @@ public abstract class BaseLoadMoreViewModel extends BaseViewModel {
         this.recyclerView = recyclerView;
     }
 
-    public  abstract void setLoadMore(Action1<Object> action1);
+    public void setLoadMore(Action1<Object> action1){
+        page++;
+    }
 
     public void cleanPage(){
         page = 1;

@@ -1,14 +1,10 @@
 package com.olive.ui.adapter;
 
-import com.biz.base.BaseActivity;
-import com.biz.util.IntentBuilder;
 import com.biz.util.Lists;
-import com.biz.util.LogUtil;
 import com.biz.util.PriceUtil;
 import com.biz.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.olive.R;
-import com.olive.app.OliveApplication;
 import com.olive.model.entity.ProductEntity;
 import com.olive.ui.holder.ProductViewHolder;
 import com.olive.ui.main.home.ProductsViewModel;
@@ -17,11 +13,9 @@ import com.olive.util.LoadImageUtil;
 import com.olive.util.Utils;
 
 import android.app.Activity;
-import android.app.Application;
 import android.graphics.Paint;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 
 import java.util.List;

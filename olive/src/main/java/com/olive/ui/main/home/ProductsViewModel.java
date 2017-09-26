@@ -32,11 +32,6 @@ public  class ProductsViewModel extends BaseLoadMoreViewModel {
         super(activity);
     }
 
-    @Override
-    public void setLoadMore(Action1<Object> action1) {
-
-    }
-
 
     public void addProductFavorites(Action1<String> action1){
         getActivity().setProgressVisible(true);

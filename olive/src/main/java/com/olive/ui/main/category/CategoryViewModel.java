@@ -28,7 +28,7 @@ public class CategoryViewModel extends ProductsViewModel {
 
     @Override
     public void setLoadMore(Action1<Object> action1) {
-        page++;
+        super.setLoadMore(action1);
         getProductList(productEntities -> {
             loadMore(productEntities,action1);
         });

@@ -38,7 +38,7 @@ public class NoticeViewModel extends BaseLoadMoreViewModel {
 
     @Override
     public void setLoadMore(Action1<Object> action1) {
-        page++;
+        super.setLoadMore(action1);
         getNoticeList(noticeEntities -> {
             loadMore(noticeEntities,action1);
         });
