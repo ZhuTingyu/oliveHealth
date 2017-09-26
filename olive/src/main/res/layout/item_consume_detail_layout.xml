@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"/>
 
 
-    <LinearLayout
+    <com.olive.widget.LinearLayoutForRecyclerView
         android:id="@+id/ll_info"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"

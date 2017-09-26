@@ -17,8 +17,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.olive.R;
 import com.olive.model.entity.OrderEntity;
 import com.olive.model.entity.ProductEntity;
-import com.olive.ui.order.PayDebtFragment;
 import com.olive.util.Utils;
+import com.olive.widget.LinearLayoutForRecyclerView;
 
 import java.util.List;
 
@@ -30,6 +30,7 @@ public class ConsumeDetailAdapter extends BaseQuickAdapter<OrderEntity, BaseView
 
     private static final int TYPE_ORDER_PAY = 1;
     private static final int TYPE_REFUND = 2;
+    private  RefundProductsNumberInfoAdapter adapter;
 
     public ConsumeDetailAdapter() {
         super(R.layout.item_consume_detail_layout, Lists.newArrayList());
@@ -59,24 +60,15 @@ public class ConsumeDetailAdapter extends BaseQuickAdapter<OrderEntity, BaseView
         holder.setText(R.id.price, PriceUtil.formatRMB(orderEntity.amount));
 
         List<ProductEntity> productEntityList = orderEntity.products;
-        LinearLayout linearLayout = holder.findViewById(R.id.ll_info);
-        linearLayout.removeAllViews();
-        for(ProductEntity productEntity : productEntityList){
-            View view = LayoutInflater.from(mContext).inflate(R.layout.item_line_text_layout, linearLayout,false);
-            TextView name = (TextView) view.findViewById(R.id.name);
-            TextView number = (TextView) view.findViewById(R.id.number);
-            name.setText(productEntity.productName);
-            number.setText("x"+ productEntity.quantity);
-            view.setTag(orderEntity);
-            if(orderEntity.type != TYPE_ORDER_PAY){
-                view.setOnClickListener(v -> {
-                    IntentBuilder.Builder()
-                            .putExtra(IntentBuilder.KEY_DATA, (OrderEntity) v.getTag())
-                            .startParentActivity((Activity) mContext, PayDebtFragment.class);
-                });
-            }
-            linearLayout.addView(view);
-        }
+        LinearLayoutForRecyclerView linearLayout = holder.findViewById(R.id.ll_info);
+
+       if(adapter == null){
+           adapter = new RefundProductsNumberInfoAdapter(mContext, productEntityList);
+       }
+       adapter.setData(productEntityList);
+       linearLayout.setAdapter(adapter);
+
+
     }
 
     @Override

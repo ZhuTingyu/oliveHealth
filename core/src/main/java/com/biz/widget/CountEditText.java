@@ -7,6 +7,7 @@ import android.content.Context;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -66,5 +67,11 @@ public class CountEditText extends AppCompatEditText {
             mListeners.clear();
             mListeners = null;
         }
+    }
+
+    @Override
+    public void setText(CharSequence text, BufferType type) {
+        super.setText(text, type);
+        setSelection(text.length());
     }
 }

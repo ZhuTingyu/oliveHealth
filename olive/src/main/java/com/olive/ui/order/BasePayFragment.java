@@ -155,6 +155,7 @@ public abstract class BasePayFragment extends BaseErrorFragment {
                 if (price > (int) viewModel.orderEntity.amount) {
                     price = viewModel.orderEntity.amount;
                     etVacancies.setText(String.valueOf(price / 100d));
+                    etVacancies.setSelection(String.valueOf(price / 100d).length());
                 }
 
                 viewModel.setBalancePayAmount((int) price);

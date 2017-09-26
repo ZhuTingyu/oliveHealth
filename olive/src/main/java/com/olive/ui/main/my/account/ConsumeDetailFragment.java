@@ -17,6 +17,7 @@ import com.olive.R;
 import com.olive.ui.BaseErrorFragment;
 import com.olive.ui.adapter.ConsumeDetailAdapter;
 import com.olive.ui.main.my.account.viewModel.ConsumeViewModel;
+import com.olive.ui.order.PayDebtFragment;
 
 /**
  * Created by TingYu Zhu on 2017/7/30.
@@ -80,6 +81,9 @@ public class ConsumeDetailFragment extends BaseErrorFragment {
         }else {
             viewModel.getDebtDetails(orderEntities -> {
                 adapter.setNewData(orderEntities);
+            });
+            adapter.setOnItemClickListener((baseQuickAdapter, view, i) -> {
+                IntentBuilder.Builder().startParentActivity(getActivity(), PayDebtFragment.class);
             });
         }
     }

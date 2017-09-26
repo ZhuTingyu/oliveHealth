@@ -5,7 +5,6 @@ import com.olive.model.CategoryModel;
 import com.olive.model.ProductsModel;
 import com.olive.model.entity.CategoryEntity;
 import com.olive.model.entity.ProductEntity;
-import com.olive.ui.BaseLoadMoreViewModel;
 import com.olive.ui.main.home.ProductsViewModel;
 
 import java.util.List;

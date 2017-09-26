@@ -74,11 +74,7 @@ public class UpgradeManager {
         DownloadUtil.getInstance().download(apkUrl, "download", new DownloadUtil.OnDownloadListener() {
             @Override
             public void onDownloadSuccess(String filePath) {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.setDataAndType(Uri.parse("file://" + filePath),"application/vnd.android.package-archive");
-                mContext.startActivityForResult(intent, INSTALL_CODE);
+                installApk(filePath);
                 mUpgradeDialog.dismiss();
             }
 
@@ -103,6 +99,13 @@ public class UpgradeManager {
                     createUpgradeDialog();
                     update();
                 },R.string.text_sure);
+    }
+
+    public void installApk(String filePath){
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.setDataAndType(Uri.parse("file://" + filePath),"application/vnd.android.package-archive");
+        mContext.startActivityForResult(intent, INSTALL_CODE);
     }
 
 }

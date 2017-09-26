@@ -55,7 +55,9 @@ public class RefundProductsNumberInfoAdapter extends BaseAdapter {
         }else {
             viewHolder = (LineTextHolder) convertView.getTag();
         }
-        viewHolder.bindData(data.get(position).name, "x" + String.valueOf(data.get(position).quantity));
+        ProductEntity productEntity = data.get(position);
+        viewHolder.bindData(productEntity.name == null || productEntity.name.isEmpty() ? productEntity.productName : productEntity.name,
+                "x" + String.valueOf(data.get(position).quantity));
         return convertView;
     }
 
