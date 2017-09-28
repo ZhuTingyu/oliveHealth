@@ -8,10 +8,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.biz.base.BaseFragment;
 import com.biz.util.Lists;
 import com.biz.util.PriceUtil;
-import com.biz.widget.CountEditText;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.olive.R;
 import com.olive.model.entity.ProductEntity;
@@ -116,7 +114,7 @@ public class CartAdapter extends BaseChooseAdapter<ProductEntity, BaseViewHolder
         }
     }
 
-    private void setPrice(long price) {
+    public void setPrice(long price) {
         tvPrice.setText(PriceUtil.formatRMB(price));
     }
 
@@ -151,7 +149,7 @@ public class CartAdapter extends BaseChooseAdapter<ProductEntity, BaseViewHolder
     }
 
     public void deleteChoose() {
-        for (int i = 0; i < booleanArray.size(); ) {
+        for (int i = 0; i < booleanArray.size();) {
             if (booleanArray.get(i)) {
                 booleanArray.remove(i);
                 mData.remove(i);

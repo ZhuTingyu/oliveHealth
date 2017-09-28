@@ -166,16 +166,6 @@ public class PayOrderViewModel extends AccountViewModel {
         this.payPassword = payPassword + getString(R.string.string_password_suffix);
     }
 
-    public Action1<String> setBalancePayAmount() {
-        return s -> {
-            if (!s.isEmpty()) {
-                balancePayAmount = (int) (Float.valueOf(s) * 100);
-            } else {
-                balancePayAmount = 0;
-            }
-        };
-    }
-
     public void setBalancePayAmount(int price) {
         balancePayAmount = price;
     }
@@ -212,8 +202,5 @@ public class PayOrderViewModel extends AccountViewModel {
         this.orderEntity = orderEntity;
     }
 
-    public void setOutTradeNo(String outTradeNo) {
-        this.outTradeNo = outTradeNo;
-    }
 }
 

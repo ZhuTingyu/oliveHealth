@@ -108,6 +108,7 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
 
     public void onEvent(UpdateCartEvent event) {
         updateCart();
+        chooseAll.setSelected(false);
     }
 
     private void initView() {
@@ -116,7 +117,6 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
 
         findViewById(R.id.btn_go_pay).setOnClickListener(v -> {
             if (viewModel.isCanGoPay()) {
-                chooseAll.setSelected(false);
                 IntentBuilder.Builder()
                         .putExtra(IntentBuilder.KEY_VALUE, viewModel.getTotalPrice())
                         .putParcelableArrayListExtra(IntentBuilder.KEY_DATA, (ArrayList<? extends Parcelable>) viewModel.getSelectedProducts())
@@ -143,12 +143,12 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
 
         mToolbar.getMenu().add(getString(R.string.text_action_delete))
                 .setOnMenuItemClickListener(item -> {
+                    setProgressVisible(true);
                     viewModel.removeCartProducts(s -> {
-                        viewModel.getCartProductList(productEntities -> {
-                            adapter.replaceData(productEntities);
-                            priceTotal.setText(PriceUtil.formatRMB(0));
-                            chooseAll.setSelected(false);
-                        });
+                        setProgressVisible(false);
+                        adapter.deleteChoose();
+                        adapter.setPrice(0);
+                        chooseAll.setSelected(false);
                     });
                     return false;
                 })
@@ -215,7 +215,7 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
             }
             adapter.replaceData(productEntities);
             viewModel.getTotalPrice(aLong -> {
-                priceTotal.setText(PriceUtil.formatRMB(aLong));
+                adapter.setPrice(aLong);
             });
         });
     }
@@ -249,7 +249,7 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
     @Override
     public void click(CheckBox checkBox, int position) {
         viewModel.getTotalPrice(aLong -> {
-            priceTotal.setText(PriceUtil.formatRMB(aLong));
+            adapter.setPrice(aLong);
         });
     }
 
