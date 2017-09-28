@@ -14,17 +14,14 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import com.biz.base.BaseFragment;
 import com.biz.base.BaseLazyFragment;
 import com.biz.util.IntentBuilder;
-import com.biz.util.Lists;
-import com.biz.util.PriceUtil;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
 import com.olive.event.UpdateCartEvent;
 import com.olive.model.UserModel;
 import com.olive.model.entity.ProductEntity;
-import com.olive.ui.adapter.CartAdapter;
+import com.olive.ui.adapter.ProductMultiChooseAdapter;
 import com.olive.ui.login.LoginActivity;
 import com.olive.ui.order.CheckOrderInfoFragment;
 
@@ -45,10 +42,10 @@ import de.greenrobot.event.EventBus;
  * @version 1.0
  */
 
-public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumberChangeListener, CartAdapter.onCheckClickListener {
+public class CartFragment extends BaseLazyFragment implements ProductMultiChooseAdapter.onNumberChangeListener, ProductMultiChooseAdapter.onCheckClickListener {
 
     private XRecyclerView recyclerView;
-    private CartAdapter adapter;
+    private ProductMultiChooseAdapter adapter;
     private CartViewModel viewModel;
     private TextView priceTotal;
     private int productNumber;
@@ -162,7 +159,7 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
         recyclerView = findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.getRecyclerView();
-        adapter = new CartAdapter();
+        adapter = new ProductMultiChooseAdapter();
         adapter.setViewModel(viewModel);
         adapter.setTvPrice(priceTotal);
         adapter.setBuyAgainProductsNumber(buyAgainProductsNumber);
@@ -178,8 +175,8 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
 
         viewModel.getCartProductList(productEntities -> {
             if (isBuyAgain) {
-                adapter.initBooleanList(productEntities);
                 setBuyAgain(productEntities);
+                adapter.chooseBuyAgainProducts(productEntities);
             }
             adapter.setNewData(productEntities);
         });
@@ -190,7 +187,6 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
     }
 
     private void setBuyAgain(List<ProductEntity> productEntityList) {
-        adapter.chooseBuyAgainProducts();
         Collections.reverse(productEntityList);
     }
 
@@ -210,10 +206,9 @@ public class CartFragment extends BaseLazyFragment implements CartAdapter.onNumb
         viewModel.getCartProductList(productEntities -> {
             setProgressVisible(false);
             if (isBuyAgain) {
-                adapter.initBooleanList(productEntities);
                 setBuyAgain(productEntities);
             }
-            adapter.replaceData(productEntities);
+            adapter.setNewData(productEntities);
             viewModel.getTotalPrice(aLong -> {
                 adapter.setPrice(aLong);
             });

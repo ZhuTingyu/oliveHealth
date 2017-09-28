@@ -39,12 +39,12 @@ public class ProductEntity implements Parcelable {
     public int quantity;    //数量
     public long price;//价格（分）
     public int productStauts; //0:新品，1：销售中，2:已下架（只有状态是销售中的才能加入订单）
+    public boolean isChoose;
 
     //库存信息属性
     public int saleQuantity;     //销售量
-    public int stockQuantity;  //进货量
 
-    public boolean isSelected;
+    public int stockQuantity;  //进货量
 
     public ProductEntity() {
     }

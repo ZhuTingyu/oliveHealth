@@ -11,26 +11,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 
-import com.biz.base.BaseFragment;
 import com.biz.util.IntentBuilder;
-import com.biz.util.Lists;
 import com.biz.widget.recyclerview.XRecyclerView;
 import com.olive.R;
 import com.olive.model.entity.ProductEntity;
 import com.olive.ui.BaseErrorFragment;
-import com.olive.ui.adapter.CartAdapter;
+import com.olive.ui.adapter.ProductMultiChooseAdapter;
 import com.olive.ui.refund.viewModel.ChooseRefundGoodViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by TingYu Zhu on 2017/7/30.
  */
 
-public class ChooseRefundGoodsFragment extends BaseErrorFragment implements CartAdapter.onCheckClickListener, CartAdapter.onNumberChangeListener {
+public class ChooseRefundGoodsFragment extends BaseErrorFragment implements ProductMultiChooseAdapter.onCheckClickListener, ProductMultiChooseAdapter.onNumberChangeListener {
     private XRecyclerView recyclerView;
-    private CartAdapter adapter;
+    private ProductMultiChooseAdapter adapter;
     private ChooseRefundGoodViewModel viewModel;
 
     @Override
@@ -56,7 +53,7 @@ public class ChooseRefundGoodsFragment extends BaseErrorFragment implements Cart
     private void initView() {
         recyclerView = findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new CartAdapter();
+        adapter = new ProductMultiChooseAdapter();
         viewModel.setAdapter(adapter);
         adapter.setOnNumberChangeListener(this);
         adapter.setOnCheckClickListener(this);

@@ -9,7 +9,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.biz.util.Lists;
+import com.biz.util.LogUtil;
 import com.biz.util.PriceUtil;
+import com.biz.util.StringUtils;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.olive.R;
 import com.olive.model.entity.ProductEntity;
@@ -17,7 +20,7 @@ import com.olive.ui.main.cart.CartViewModel;
 import com.olive.util.LoadImageUtil;
 import com.olive.util.Utils;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -25,15 +28,16 @@ import java.util.List;
  * Created by TingYu Zhu on 2017/7/25.
  */
 
-public class CartAdapter extends BaseChooseAdapter<ProductEntity, BaseViewHolder> {
+public class ProductMultiChooseAdapter extends BaseQuickAdapter<ProductEntity, BaseViewHolder> {
 
     private CartViewModel viewModel;
     private onNumberChangeListener onNumberChangeListener;
     private TextView tvPrice;
     private onCheckClickListener onCheckClickListener;
     private int buyAgainProductsNumber;
+    private List<Integer> selectedPositions;
 
-    public CartAdapter() {
+    public ProductMultiChooseAdapter() {
         super(R.layout.item_cart_layout, Lists.newArrayList());
     }
 
@@ -66,17 +70,12 @@ public class CartAdapter extends BaseChooseAdapter<ProductEntity, BaseViewHolder
         AppCompatCheckBox checkBox = holder.getView(R.id.checkbox);
 
         checkBox.setOnClickListener(v -> {
-            if (isSelected(holder.getAdapterPosition())) {
-                checkBox.setChecked(false);
-                cancelSelected(holder.getAdapterPosition());
-            } else {
-                checkBox.setChecked(true);
-                setSelected(holder.getAdapterPosition());
-            }
+            checkBox.setChecked(!productEntity.isChoose);
+            setChoose(productEntity, !productEntity.isChoose);
             onCheckClickListener.click(checkBox, holder.getAdapterPosition());
         });
 
-        checkBox.setChecked(booleanArray.get(holder.getAdapterPosition()));
+        checkBox.setChecked(productEntity.isChoose);
 
 
         holder.getView(R.id.btn_min).setOnClickListener(v -> {
@@ -94,13 +93,11 @@ public class CartAdapter extends BaseChooseAdapter<ProductEntity, BaseViewHolder
     }
 
     public void isChooseAll(boolean isChooseAll) {
-        for (int i = 0; i < mData.size(); i++) {
-            booleanArray.set(i, isChooseAll);
-            notifyDataSetChanged();
-            viewModel.getTotalPrice(aLong -> {
-                setPrice(aLong);
-            });
-        }
+        setAllChoose(mData ,isChooseAll);
+        notifyDataSetChanged();
+        viewModel.getTotalPrice(aLong -> {
+            setPrice(aLong);
+        });
 
         if (!isChooseAll) {
             setPrice(0);
@@ -108,9 +105,9 @@ public class CartAdapter extends BaseChooseAdapter<ProductEntity, BaseViewHolder
 
     }
 
-    public void chooseBuyAgainProducts() {
+    public void chooseBuyAgainProducts(List<ProductEntity> productEntities) {
         for (int i = 0; i < buyAgainProductsNumber; i++) {
-            booleanArray.set(i, true);
+            setChoose(productEntities.get(i), true);
         }
     }
 
@@ -149,9 +146,8 @@ public class CartAdapter extends BaseChooseAdapter<ProductEntity, BaseViewHolder
     }
 
     public void deleteChoose() {
-        for (int i = 0; i < booleanArray.size();) {
-            if (booleanArray.get(i)) {
-                booleanArray.remove(i);
+        for (int i = 0; i < mData.size();) {
+            if (mData.get(i).isChoose) {
                 mData.remove(i);
                 continue;
             }
@@ -162,17 +158,60 @@ public class CartAdapter extends BaseChooseAdapter<ProductEntity, BaseViewHolder
 
     @Override
     public void setNewData(@Nullable List<ProductEntity> data) {
-        super.setNewData(data);
+
+        if(mData.size() != 0){
+            //购物车增加了商品
+            if(mData.size() <= data.size()){
+                setIsChooseData(data);
+                //初始化新添数据的选择状态
+                for(int i = mData.size(); i < data.size(); i++){
+                    setChoose(data.get(i), false);
+                }
+                //购物车删除了商品
+            }else if(mData.size() > data.size()) {
+                setAllChoose(data, false);
+            }
+        }
+
         if (data.isEmpty()) {
             Utils.setEmptyView(this, mContext.getString(R.string.message_empty_cart));
+        }
+        super.setNewData(data);
+    }
+
+
+
+    private void setChoose(ProductEntity productEntity, boolean isChoose){
+        productEntity.isChoose = isChoose;
+    }
+
+    private void setAllChoose(List<ProductEntity> productEntities, boolean isChoose){
+        for(ProductEntity productEntity : productEntities){
+            setChoose(productEntity, isChoose);
         }
     }
 
-    @Override
-    public void replaceData(@NonNull Collection<? extends ProductEntity> data) {
-        super.replaceData(data);
-        if (data.isEmpty()) {
-            Utils.setEmptyView(this, mContext.getString(R.string.message_empty_cart));
+    /**
+     * 设置新数据中已经选择了的商品的状态
+     * @param data 购物车数据变化过后新数据
+     */
+    private void setIsChooseData(List<ProductEntity> data){
+        ArrayList<Integer> selectedPotion = (ArrayList<Integer>) getSelectedPotion();
+        if(selectedPotion.size() > 0){
+            for(int i = 0, len = selectedPotion.size(); i < len; i++){
+                data.get(selectedPotion.get(i)).isChoose = true;
+            }
         }
+
+    }
+
+    public List<Integer> getSelectedPotion(){
+        selectedPositions = Lists.newArrayList();
+        for(int i = 0; i < mData.size(); i++){
+            if(mData.get(i).isChoose){
+                selectedPositions.add(i);
+            }
+        }
+        return selectedPositions;
     }
 }

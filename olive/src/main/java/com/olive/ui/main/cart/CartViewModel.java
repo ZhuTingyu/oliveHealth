@@ -2,11 +2,10 @@ package com.olive.ui.main.cart;
 
 import com.biz.base.BaseViewModel;
 import com.biz.http.HttpErrorException;
-import com.biz.http.ResponseJson;
 import com.biz.util.Lists;
 import com.olive.model.CartModel;
 import com.olive.model.entity.ProductEntity;
-import com.olive.ui.adapter.CartAdapter;
+import com.olive.ui.adapter.ProductMultiChooseAdapter;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -25,7 +24,7 @@ public class CartViewModel extends BaseViewModel {
     private String productNo;
     private int quantity;
     private List<Integer> selectedPosition;
-    private CartAdapter adapter;
+    private ProductMultiChooseAdapter adapter;
 
     public CartViewModel(Object activity) {
         super(activity);
@@ -78,7 +77,7 @@ public class CartViewModel extends BaseViewModel {
         this.quantity = quantity;
     }
 
-    public void setAdapter(CartAdapter adapter) {
+    public void setAdapter(ProductMultiChooseAdapter adapter) {
         this.adapter = adapter;
     }
 

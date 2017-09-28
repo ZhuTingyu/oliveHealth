@@ -6,7 +6,7 @@ import com.biz.util.Lists;
 import com.olive.R;
 import com.olive.model.ProductsModel;
 import com.olive.model.entity.ProductEntity;
-import com.olive.ui.adapter.CartAdapter;
+import com.olive.ui.adapter.ProductMultiChooseAdapter;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ import rx.functions.Action1;
 
 public class ChooseRefundGoodViewModel extends BaseViewModel {
 
-    private CartAdapter adapter;
+    private ProductMultiChooseAdapter adapter;
 
     private List<ProductEntity> productEntities;
 
@@ -63,7 +63,7 @@ public class ChooseRefundGoodViewModel extends BaseViewModel {
         productEntity.quantity ++ ;
     }
 
-    public void setAdapter(CartAdapter adapter) {
+    public void setAdapter(ProductMultiChooseAdapter adapter) {
         this.adapter = adapter;
     }
 }
