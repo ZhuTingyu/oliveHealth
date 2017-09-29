@@ -18,7 +18,6 @@ import com.olive.R;
 import com.olive.model.entity.OrderEntity;
 import com.olive.ui.BaseErrorFragment;
 import com.olive.ui.main.MainActivity;
-import com.olive.ui.main.my.address.AddressViewModel;
 import com.olive.ui.order.viewModel.OrderDetailViewModel;
 
 import org.w3c.dom.Text;

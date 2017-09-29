@@ -18,14 +18,13 @@ import com.olive.R;
 import com.olive.event.OrderListUpdateEvent;
 import com.olive.model.entity.OrderEntity;
 import com.olive.model.entity.ProductEntity;
+import com.olive.ui.account.viewModel.AccountViewModel;
 import com.olive.ui.main.cart.CartFragment;
 import com.olive.ui.main.home.ProductsViewModel;
-import com.olive.ui.main.my.account.viewModel.AccountViewModel;
 import com.olive.ui.order.PayDebtFragment;
 import com.olive.ui.order.PayOrderFragment;
 import com.olive.ui.order.viewModel.OrderListViewModel;
 import com.olive.ui.order.viewModel.OrderViewModel;
-import com.olive.util.LoadImageUtil;
 import com.olive.util.Utils;
 import com.olive.widget.LinearLayoutForRecyclerView;
 

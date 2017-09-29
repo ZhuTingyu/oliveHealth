@@ -7,7 +7,7 @@ import com.olive.R;
 import com.olive.app.OliveApplication;
 import com.olive.model.UserModel;
 import com.olive.ui.main.MainActivity;
-import com.olive.ui.main.my.password.FindPassword1Fragment;
+import com.olive.ui.password.FindPassword1Fragment;
 import com.olive.ui.upgrade.UpgradeManager;
 
 import android.app.Activity;

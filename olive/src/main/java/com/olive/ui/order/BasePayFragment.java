@@ -37,7 +37,6 @@ import com.olive.model.entity.OrderEntity;
 import com.olive.ui.BaseErrorFragment;
 import com.olive.ui.adapter.PayOrderAdapter;
 import com.olive.ui.main.my.UserViewModel;
-import com.olive.ui.main.my.account.viewModel.AccountViewModel;
 import com.olive.ui.order.viewModel.OrderListViewModel;
 import com.olive.ui.order.viewModel.PayOrderViewModel;
 import com.olive.util.CashierInputFilter;

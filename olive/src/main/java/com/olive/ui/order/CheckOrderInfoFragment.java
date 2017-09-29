@@ -20,10 +20,10 @@ import com.olive.model.UserModel;
 import com.olive.model.entity.AccountEntity;
 import com.olive.model.entity.AddressEntity;
 import com.olive.ui.BaseErrorFragment;
+import com.olive.ui.account.viewModel.ConsumeViewModel;
 import com.olive.ui.adapter.CheckOrderAdapter;
-import com.olive.ui.main.my.account.viewModel.ConsumeViewModel;
-import com.olive.ui.main.my.address.AddressManageFragment;
-import com.olive.ui.main.my.address.AddressViewModel;
+import com.olive.ui.address.AddressManageFragment;
+import com.olive.ui.address.AddressViewModel;
 import com.olive.ui.order.viewModel.CheckInfoViewModel;
 
 import de.greenrobot.event.EventBus;

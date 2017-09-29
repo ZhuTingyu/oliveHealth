@@ -14,7 +14,7 @@ import com.olive.model.OrderModel;
 import com.olive.model.entity.AccountEntity;
 import com.olive.model.entity.BankEntity;
 import com.olive.model.entity.OrderEntity;
-import com.olive.ui.main.my.account.viewModel.AccountViewModel;
+import com.olive.ui.account.viewModel.AccountViewModel;
 
 import java.math.BigDecimal;
 import java.util.HashMap;

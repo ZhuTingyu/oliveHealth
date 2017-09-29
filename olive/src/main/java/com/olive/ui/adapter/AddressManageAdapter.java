@@ -15,9 +15,9 @@ import com.biz.util.ToastUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.olive.R;
 import com.olive.model.entity.AddressEntity;
-import com.olive.ui.main.my.address.AddressManageFragment;
-import com.olive.ui.main.my.address.EditAddressFragment;
-import com.olive.ui.main.my.address.AddressViewModel;
+import com.olive.ui.address.AddressManageFragment;
+import com.olive.ui.address.AddressViewModel;
+import com.olive.ui.address.EditAddressFragment;
 import com.olive.util.Utils;
 
 import java.util.Collection;
