@@ -5,8 +5,6 @@ import android.support.annotation.Nullable;
 import com.biz.http.ResponseJson;
 import com.google.gson.reflect.TypeToken;
 import com.olive.R;
-import com.olive.model.entity.AdvertEntity;
-import com.olive.model.entity.OrderEntity;
 import com.olive.model.entity.ProductEntity;
 import com.olive.util.HttpRequest;
 

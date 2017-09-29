@@ -16,36 +16,20 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.alipay.sdk.app.EnvUtils;
-import com.biz.base.BaseFragment;
-import com.biz.base.BaseViewHolder;
 import com.biz.util.IntentBuilder;
-import com.biz.util.Lists;
 import com.biz.util.PriceUtil;
-import com.biz.util.RxUtil;
-import com.biz.util.ToastUtils;
-import com.biz.util.ValidUtil;
 import com.biz.widget.recyclerview.XRecyclerView;
-import com.jungly.gridpasswordview.GridPasswordView;
 import com.olive.R;
 import com.olive.event.OrderListUpdateEvent;
 import com.olive.event.WeiPayResultEvent;
 import com.olive.model.UserModel;
-import com.olive.model.entity.AccountEntity;
 import com.olive.model.entity.BankEntity;
-import com.olive.model.entity.OrderEntity;
 import com.olive.ui.BaseErrorFragment;
 import com.olive.ui.adapter.PayOrderAdapter;
-import com.olive.ui.main.my.UserViewModel;
 import com.olive.ui.order.viewModel.OrderListViewModel;
 import com.olive.ui.order.viewModel.PayOrderViewModel;
 import com.olive.util.CashierInputFilter;
 import com.olive.util.Utils;
-import com.tencent.mm.sdk.modelbase.BaseResp;
-
-import java.math.BigDecimal;
-import java.util.List;
-
 import de.greenrobot.event.EventBus;
 
 /**

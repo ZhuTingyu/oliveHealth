@@ -1,36 +1,18 @@
 package com.olive.model;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.SystemClock;
 
 import com.biz.http.ResponseJson;
 import com.biz.http.cache.HttpUrlCache;
-import com.biz.http.sign.Signer;
-import com.biz.image.upload.OpenCVUtil;
-import com.biz.util.BitmapUtil;
-import com.biz.util.FileUtil;
-import com.biz.util.FrescoImageUtil;
 import com.biz.util.GsonUtil;
 import com.biz.util.LogUtil;
-import com.biz.util.UrlUtils;
-import com.facebook.common.util.UriUtil;
 import com.google.gson.reflect.TypeToken;
-import com.olive.app.OliveApplication;
-import com.olive.model.UserModel;
-import com.olive.model.entity.BankEntity;
 import com.olive.util.ImageUtils;
-
-import org.opencv.core.Mat;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.SocketTimeoutException;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
@@ -42,7 +24,6 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import rx.Observable;
-import rx.functions.Action1;
 
 /**
  * Created by TingYu Zhu on 2017/8/10.

@@ -4,7 +4,6 @@ import com.biz.http.ResponseJson;
 import com.google.gson.reflect.TypeToken;
 import com.olive.R;
 import com.olive.model.entity.AddressEntity;
-import com.olive.model.entity.ProductEntity;
 import com.olive.util.HttpRequest;
 
 import java.util.List;

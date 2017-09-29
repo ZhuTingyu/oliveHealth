@@ -7,8 +7,6 @@ import com.olive.R;
 import com.olive.app.OliveApplication;
 import com.olive.model.entity.AccountEntity;
 import com.olive.model.entity.BankEntity;
-import com.olive.model.entity.OrderEntity;
-import com.olive.model.entity.ProductEntity;
 import com.olive.util.HttpRequest;
 
 import java.util.List;

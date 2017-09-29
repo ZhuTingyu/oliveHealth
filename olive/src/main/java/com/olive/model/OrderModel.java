@@ -4,9 +4,7 @@ import android.app.Activity;
 
 import com.alipay.sdk.app.PayTask;
 import com.biz.http.ResponseJson;
-import com.biz.util.GsonUtil;
 import com.biz.util.MD5;
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.olive.R;
 import com.olive.model.entity.AliPayResult;
