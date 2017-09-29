@@ -133,8 +133,6 @@ public class ProductDetailsFragment extends BaseErrorFragment {
                 findViewById(R.id.rl_relevance).setVisibility(View.GONE);
                 findViewById(R.id.rl_1).setVisibility(View.GONE);
             } else {
-                productEntities.addAll(productEntities);
-                productEntities.addAll(productEntities);
                 adapter.setNewData(productEntities);
             }
         });

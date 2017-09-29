@@ -66,7 +66,17 @@ public class ConsumeDetailFragment extends BaseErrorFragment {
         adapter = new ConsumeDetailAdapter();
         recyclerView.setAdapter(adapter);
         viewModel.setRecyclerView(recyclerView);
+        recyclerView.setRefreshListener(() -> {
+            initData();
+            recyclerView.setRefreshing(false);
+        });
 
+        initData();
+
+
+    }
+
+    private void initData() {
         if(type != null && TYPE_CONSUME.equals(type)){
             viewModel.getConsumerDetails(orderEntities -> {
                 adapter.setNewData(orderEntities);
