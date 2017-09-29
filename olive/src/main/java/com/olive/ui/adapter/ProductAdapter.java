@@ -13,10 +13,12 @@ import com.olive.util.LoadImageUtil;
 import com.olive.util.Utils;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Paint;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.ViewGroup;
 
 import java.util.List;
 
@@ -34,13 +36,29 @@ import java.util.List;
 public class ProductAdapter extends BaseQuickAdapter<ProductEntity, ProductViewHolder> {
 
     private ProductsViewModel viewModel;
+    private int size;
+    private boolean isHorizontal;
 
     public ProductAdapter(@LayoutRes int id) {
         super(id, Lists.newArrayList());
     }
 
+    public ProductAdapter(@LayoutRes int id, Context context) {
+        super(id, Lists.newArrayList());
+        size = (context.getResources().getDisplayMetrics().widthPixels - com.biz.util.Utils.dip2px(40)) / 3;
+        isHorizontal = true;
+    }
+
     @Override
     protected void convert(ProductViewHolder holder, ProductEntity item) {
+
+        if (isHorizontal){
+            ViewGroup.LayoutParams  lp =  holder.icon.getLayoutParams();
+            lp.width = size;
+            lp.height = size;
+            holder.icon.setLayoutParams(lp);
+        }
+
         LoadImageUtil.Builder()
                 .load(item.imgLogo).http().build()
                 .displayImage(holder.icon);

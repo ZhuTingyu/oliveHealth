@@ -123,7 +123,7 @@ public class ProductDetailsFragment extends BaseErrorFragment {
     private void initData() {
         setProgressVisible(true);
         viewModel.getProductDetail(productEntity -> {
-            initHeadView();
+            initHeadViewAndDetails();
             setProgressVisible(false);
             refreshLayout.setRefreshing(false);
         });
@@ -133,6 +133,8 @@ public class ProductDetailsFragment extends BaseErrorFragment {
                 findViewById(R.id.rl_relevance).setVisibility(View.GONE);
                 findViewById(R.id.rl_1).setVisibility(View.GONE);
             } else {
+                productEntities.addAll(productEntities);
+                productEntities.addAll(productEntities);
                 adapter.setNewData(productEntities);
             }
         });
@@ -143,7 +145,7 @@ public class ProductDetailsFragment extends BaseErrorFragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        adapter = new ProductAdapter(R.layout.item_cart_product_layout);
+        adapter = new ProductAdapter(R.layout.item_cart_product_layout, getContext());
         adapter.setViewModel(viewModel);
         recyclerView.setAdapter(adapter);
         recyclerView.setFocusable(false);
@@ -178,7 +180,7 @@ public class ProductDetailsFragment extends BaseErrorFragment {
 
     }
 
-    private void initHeadView() {
+    private void initHeadViewAndDetails() {
         BaseViewHolder headHolder = new BaseViewHolder(headView);
         if (viewModel.productEntity.salePrice == 0) {
             headHolder.findViewById(R.id.icon_label).setVisibility(View.GONE);

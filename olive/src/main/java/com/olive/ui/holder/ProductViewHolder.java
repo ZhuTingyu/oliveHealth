@@ -38,20 +38,20 @@ public class ProductViewHolder extends BaseViewHolder {
         super(itemView);
 
 
-        icon = (CustomDraweeView) findViewById(R.id.icon);
-        iconLabel = (LabelView) findViewById(R.id.icon_label);
-        tvProductName = (TextView) findViewById(R.id.tv_product_name);
-        tvProductPrice = (TextView) findViewById(R.id.tv_product_price);
-        tvProductPriceOld = (TextView) findViewById(R.id.tv_product_price_old);
-        btnCart = (AppCompatImageView) findViewById(R.id.btn_cart);
-        btnLike = (AppCompatImageView) findViewById(R.id.btn_like);
+        icon = findViewById(R.id.icon);
+        iconLabel = findViewById(R.id.icon_label);
+        tvProductName = findViewById(R.id.tv_product_name);
+        tvProductPrice = findViewById(R.id.tv_product_price);
+        tvProductPriceOld = findViewById(R.id.tv_product_price_old);
+        btnCart = findViewById(R.id.btn_cart);
+        btnLike = findViewById(R.id.btn_like);
 
         BaseActivity activity = (BaseActivity) itemView.getContext();
-        if(FragmentParentActivity.class.isInstance(activity)){
+        if (FragmentParentActivity.class.isInstance(activity)) {
             Toolbar toolbar = (Toolbar) activity.getmToolbar();
             String title = toolbar.getmTitleText().getText().toString();
-            if ( title.equals(getString(R.string.text_my_favor))){
-                if(btnLike != null){
+            if (title.equals(getString(R.string.text_my_favor))) {
+                if (btnLike != null) {
                     btnLike.setVisibility(View.GONE);
                 }
             }

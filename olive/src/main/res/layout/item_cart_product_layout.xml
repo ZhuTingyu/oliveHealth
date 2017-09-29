@@ -2,10 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="110dp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="2dp"
-    android:layout_marginRight="2dp"
     android:layout_marginTop="4dp"
     android:background="@color/white"
     android:orientation="vertical">
@@ -13,8 +11,8 @@
 
     <com.biz.widget.CustomDraweeView
         android:id="@+id/icon"
-        android:layout_width="match_parent"
-        android:layout_height="110dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:actualImageScaleType="fitCenter"
         app:fadeDuration="200"
         app:placeholderImageScaleType="centerCrop"
@@ -33,8 +31,6 @@
             android:id="@+id/tv_product_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:ellipsize="end"
             android:gravity="center"
             android:lines="1"
             android:maxLines="1"
