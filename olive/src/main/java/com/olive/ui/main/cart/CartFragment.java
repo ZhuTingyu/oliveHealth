@@ -42,7 +42,7 @@ import de.greenrobot.event.EventBus;
  * @version 1.0
  */
 
-public class CartFragment extends BaseLazyFragment implements ProductMultiChooseAdapter.onNumberChangeListener, ProductMultiChooseAdapter.onCheckClickListener {
+public class CartFragment extends BaseLazyFragment implements ProductMultiChooseAdapter.onCheckClickListener, ProductMultiChooseAdapter.onModifyNumberListener {
 
     private XRecyclerView recyclerView;
     private ProductMultiChooseAdapter adapter;
@@ -164,7 +164,7 @@ public class CartFragment extends BaseLazyFragment implements ProductMultiChoose
         adapter.setTvPrice(priceTotal);
         adapter.setBuyAgainProductsNumber(buyAgainProductsNumber);
         adapter.setOnCheckClickListener(this);
-        adapter.setOnNumberChangeListener(this);
+        adapter.setOnModifyNumberListener(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setRefreshListener(() -> {
             viewModel.getCartProductList(productEntities -> {
@@ -173,16 +173,9 @@ public class CartFragment extends BaseLazyFragment implements ProductMultiChoose
             });
         });
 
-        viewModel.getCartProductList(productEntities -> {
-            if (isBuyAgain) {
-                setBuyAgain(productEntities);
-                adapter.chooseBuyAgainProducts(productEntities);
-            }
-            adapter.setNewData(productEntities);
-        });
-
         viewModel.setAdapter(adapter);
 
+        updateCart();
 
     }
 
@@ -242,7 +235,7 @@ public class CartFragment extends BaseLazyFragment implements ProductMultiChoose
     }
 
     @Override
-    public void click(CheckBox checkBox, int position) {
+    public void checkBoxClick(CheckBox checkBox, int position) {
         viewModel.getTotalPrice(aLong -> {
             adapter.setPrice(aLong);
         });

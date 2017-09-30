@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * Created by TingYu Zhu on 2017/7/30.
  */
 
-public class ChooseRefundGoodsFragment extends BaseErrorFragment implements ProductMultiChooseAdapter.onCheckClickListener, ProductMultiChooseAdapter.onNumberChangeListener {
+public class ChooseRefundGoodsFragment extends BaseErrorFragment implements ProductMultiChooseAdapter.onCheckClickListener, ProductMultiChooseAdapter.onModifyNumberListener {
     private XRecyclerView recyclerView;
     private ProductMultiChooseAdapter adapter;
     private ChooseRefundGoodViewModel viewModel;
@@ -55,7 +55,7 @@ public class ChooseRefundGoodsFragment extends BaseErrorFragment implements Prod
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new ProductMultiChooseAdapter();
         viewModel.setAdapter(adapter);
-        adapter.setOnNumberChangeListener(this);
+        adapter.setOnModifyNumberListener(this);
         adapter.setOnCheckClickListener(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setRefreshListener(() -> {
@@ -79,7 +79,7 @@ public class ChooseRefundGoodsFragment extends BaseErrorFragment implements Prod
     }
 
     @Override
-    public void click(CheckBox checkBox, int position) {
+    public void checkBoxClick(CheckBox checkBox, int position) {
 
     }
 

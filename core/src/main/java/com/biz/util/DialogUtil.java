@@ -25,7 +25,7 @@ public class DialogUtil {
         builder.show();
     }
 
-    public static void createDialogView(Context context, String msgResId,
+    public static AlertDialog.Builder createDialogView(Context context, String msgResId,
                                         DialogInterface.OnClickListener leftListener, int leftResId,
                                         DialogInterface.OnClickListener rightListener, int rightResId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -33,6 +33,7 @@ public class DialogUtil {
         builder.setNegativeButton(leftResId, leftListener);
         builder.setPositiveButton(rightResId, rightListener);
         builder.show();
+        return builder;
     }
 
     public static void createDialogView(Context context, int titleResId, String msg,
@@ -57,12 +58,13 @@ public class DialogUtil {
         builder.show();
     }
 
-    public static void createDialogView(Context context, String msg,
+    public static AlertDialog.Builder createDialogView(Context context, String msg,
                                         DialogInterface.OnClickListener rightListener, int rightResId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(msg);
         builder.setPositiveButton(rightResId, rightListener);
         builder.show();
+        return builder;
     }
 
     public static void createDialogView(Context context, String msg,

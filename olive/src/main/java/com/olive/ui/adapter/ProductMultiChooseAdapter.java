@@ -1,7 +1,6 @@
 package com.olive.ui.adapter;
 
 
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.widget.CheckBox;
@@ -9,9 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.biz.util.Lists;
-import com.biz.util.LogUtil;
 import com.biz.util.PriceUtil;
-import com.biz.util.StringUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.olive.R;
@@ -31,7 +28,7 @@ import java.util.List;
 public class ProductMultiChooseAdapter extends BaseQuickAdapter<ProductEntity, BaseViewHolder> {
 
     private CartViewModel viewModel;
-    private onNumberChangeListener onNumberChangeListener;
+    private onModifyNumberListener onModifyNumberListener;
     private TextView tvPrice;
     private onCheckClickListener onCheckClickListener;
     private int buyAgainProductsNumber;
@@ -72,18 +69,18 @@ public class ProductMultiChooseAdapter extends BaseQuickAdapter<ProductEntity, B
         checkBox.setOnClickListener(v -> {
             checkBox.setChecked(!productEntity.isChoose);
             setChoose(productEntity, !productEntity.isChoose);
-            onCheckClickListener.click(checkBox, holder.getAdapterPosition());
+            onCheckClickListener.checkBoxClick(checkBox, holder.getAdapterPosition());
         });
 
         checkBox.setChecked(productEntity.isChoose);
 
 
         holder.getView(R.id.btn_min).setOnClickListener(v -> {
-            onNumberChangeListener.min(productEntity);
+            onModifyNumberListener.min(productEntity);
         });
 
         holder.getView(R.id.btn_add).setOnClickListener(v -> {
-            onNumberChangeListener.add(productEntity);
+            onModifyNumberListener.add(productEntity);
         });
 
         holder.getView(R.id.ed_count).setOnClickListener(v -> {
@@ -105,12 +102,6 @@ public class ProductMultiChooseAdapter extends BaseQuickAdapter<ProductEntity, B
 
     }
 
-    public void chooseBuyAgainProducts(List<ProductEntity> productEntities) {
-        for (int i = 0; i < buyAgainProductsNumber; i++) {
-            setChoose(productEntities.get(i), true);
-        }
-    }
-
     public void setPrice(long price) {
         tvPrice.setText(PriceUtil.formatRMB(price));
     }
@@ -127,18 +118,18 @@ public class ProductMultiChooseAdapter extends BaseQuickAdapter<ProductEntity, B
         this.buyAgainProductsNumber = buyAgainProductsNumber;
     }
 
-    public interface onNumberChangeListener {
+    public interface onModifyNumberListener {
         void add(ProductEntity productEntity);
 
         void min(ProductEntity productEntity);
     }
 
     public interface onCheckClickListener {
-        void click(CheckBox checkBox, int position);
+        void checkBoxClick(CheckBox checkBox, int position);
     }
 
-    public void setOnNumberChangeListener(onNumberChangeListener listener) {
-        this.onNumberChangeListener = listener;
+    public void setOnModifyNumberListener(onModifyNumberListener listener) {
+        this.onModifyNumberListener = listener;
     }
 
     public void setOnCheckClickListener(onCheckClickListener listener) {

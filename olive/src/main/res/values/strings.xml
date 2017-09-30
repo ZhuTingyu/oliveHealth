@@ -320,6 +320,7 @@
     <string name="message_downloading_update_app">正在下载最新版本</string>
     <string name="message_whether_upgrade">是否更新？</string>
     <string name="message_is_force_updating">正在强制更新</string>
+    <string name="message_force_updating_hint">必须更新才可以正常使用,请继续安装</string>
 
     <string name="string_password_suffix">dms</string>
     <string name="string_app_name">——客户下单系统——</string>

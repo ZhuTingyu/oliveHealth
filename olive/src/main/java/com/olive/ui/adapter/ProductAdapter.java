@@ -1,26 +1,26 @@
 package com.olive.ui.adapter;
 
-import com.biz.util.Lists;
-import com.biz.util.PriceUtil;
-import com.biz.util.ToastUtils;
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.olive.R;
-import com.olive.model.entity.ProductEntity;
-import com.olive.ui.holder.ProductViewHolder;
-import com.olive.ui.main.home.ProductsViewModel;
-import com.olive.ui.order.ProductDetailsFragment;
-import com.olive.util.LoadImageUtil;
-import com.olive.util.Utils;
+        import com.biz.util.Lists;
+        import com.biz.util.PriceUtil;
+        import com.biz.util.ToastUtils;
+        import com.chad.library.adapter.base.BaseQuickAdapter;
+        import com.olive.R;
+        import com.olive.model.entity.ProductEntity;
+        import com.olive.ui.holder.ProductViewHolder;
+        import com.olive.ui.main.home.ProductsViewModel;
+        import com.olive.ui.order.ProductDetailsFragment;
+        import com.olive.util.LoadImageUtil;
+        import com.olive.util.Utils;
 
-import android.app.Activity;
-import android.content.Context;
-import android.graphics.Paint;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.Nullable;
-import android.view.View;
-import android.view.ViewGroup;
+        import android.app.Activity;
+        import android.content.Context;
+        import android.graphics.Paint;
+        import android.support.annotation.LayoutRes;
+        import android.support.annotation.Nullable;
+        import android.view.View;
+        import android.view.ViewGroup;
 
-import java.util.List;
+        import java.util.List;
 
 /**
  * Title: ProductAdapter
