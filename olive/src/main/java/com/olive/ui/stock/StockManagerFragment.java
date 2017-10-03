@@ -22,7 +22,7 @@ import com.olive.ui.adapter.StockManagerAdapter;
  * Created by TingYu Zhu on 2017/7/30.
  */
 
-public class StockManagerFragment extends BaseFragment {
+public class    StockManagerFragment extends BaseFragment {
 
     private XRecyclerView recyclerView;
     private StockManagerAdapter adapter;

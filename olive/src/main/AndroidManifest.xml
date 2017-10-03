@@ -73,7 +73,7 @@
             android:name=".ui.refund.RefundActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.main.my.stock.StockManageActivity"
+            android:name=".ui.stock.StockManageActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity"
