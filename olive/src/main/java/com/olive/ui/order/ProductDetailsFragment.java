@@ -71,7 +71,6 @@ public class ProductDetailsFragment extends BaseErrorFragment {
 
     private XRecyclerView recyclerView;
     private ProductAdapter adapter;
-    private int productCount;
     private static final int TYPE_CART = 1001;
     private static final int TYPE_BUY = 1002;
 
@@ -82,6 +81,8 @@ public class ProductDetailsFragment extends BaseErrorFragment {
     View headView;
     WebView webView;
     SwipeRefreshLayout refreshLayout;
+
+    private ProductEntity productEntity;
 
     public static void startProductDetailsFragment(Activity activity, String productNo) {
         IntentBuilder.Builder()
@@ -123,6 +124,7 @@ public class ProductDetailsFragment extends BaseErrorFragment {
     private void initData() {
         setProgressVisible(true);
         viewModel.getProductDetail(productEntity -> {
+            this.productEntity = productEntity;
             initHeadViewAndDetails();
             setProgressVisible(false);
             refreshLayout.setRefreshing(false);
@@ -180,27 +182,27 @@ public class ProductDetailsFragment extends BaseErrorFragment {
 
     private void initHeadViewAndDetails() {
         BaseViewHolder headHolder = new BaseViewHolder(headView);
-        if (viewModel.productEntity.salePrice == 0) {
+        if (productEntity.salePrice == 0) {
             headHolder.findViewById(R.id.icon_label).setVisibility(View.GONE);
         }
-        headHolder.setText(R.id.tv_product_name, viewModel.productEntity.name);
-        headHolder.setText(R.id.tv_product_advice, viewModel.productEntity.intro);
+        headHolder.setText(R.id.tv_product_name, productEntity.name);
+        headHolder.setText(R.id.tv_product_advice, productEntity.intro);
         TextView price = headHolder.getView(R.id.tv_product_price);
         TextView priceOld = headHolder.findViewById(R.id.tv_product_price_old);
-        if (viewModel.productEntity.salePrice == 0) {
-            price.setText(PriceUtil.formatRMB(viewModel.productEntity.originalPrice) + "/" + viewModel.productEntity.unit);
+        if (productEntity.salePrice == 0) {
+            price.setText(PriceUtil.formatRMB(productEntity.originalPrice) + "/" + productEntity.unit);
             priceOld.setVisibility(View.GONE);
         } else {
-            price.setText(PriceUtil.formatRMB(viewModel.productEntity.salePrice) + "/" + viewModel.productEntity.unit);
-            priceOld.setText(PriceUtil.formatRMB(viewModel.productEntity.originalPrice) + "/" + viewModel.productEntity.unit);
+            price.setText(PriceUtil.formatRMB(productEntity.salePrice) + "/" + productEntity.unit);
+            priceOld.setText(PriceUtil.formatRMB(productEntity.originalPrice) + "/" + productEntity.unit);
             priceOld.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
         }
-        headHolder.setText(R.id.tv_product_specification, getString(R.string.text_product_specification, viewModel.productEntity.standard));
+        headHolder.setText(R.id.tv_product_specification, getString(R.string.text_product_specification, productEntity.standard));
         TextView saleEndTime = headHolder.findViewById(R.id.tv_product_sale_end_date);
-        if (viewModel.productEntity.saleEndDate == 0) {
+        if (productEntity.saleEndDate == 0) {
             saleEndTime.setVisibility(View.GONE);
         } else {
-            saleEndTime.setText(getString(R.string.text_product_sale_end_time, TimeUtil.format(viewModel.productEntity.saleEndDate, TimeUtil.FORMAT_YYYYHHMM_CHICESEC)));
+            saleEndTime.setText(getString(R.string.text_product_sale_end_time, TimeUtil.format(productEntity.saleEndDate, TimeUtil.FORMAT_YYYYHHMM_CHICESEC)));
         }
 
 
@@ -209,7 +211,7 @@ public class ProductDetailsFragment extends BaseErrorFragment {
         ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) indicator.getLayoutParams();
         lp.bottomMargin = Utils.dip2px(30);
         banner.setPages(
-                () -> new ImageHolderView(Utils.dip2px(getActivity(), 180), ScalingUtils.ScaleType.FIT_XY), IdsUtil.getList(viewModel.productEntity.images, ",", false))
+                () -> new ImageHolderView(Utils.dip2px(getActivity(), 180), ScalingUtils.ScaleType.FIT_XY), IdsUtil.getList(productEntity.images, ",", false))
                 .startTurning(3000)
                 .setPageIndicator(new int[]{R.drawable.ic_page_indicator, R.drawable.ic_page_indicator_focus})
                 .setPointViewVisible(true)
@@ -233,7 +235,7 @@ public class ProductDetailsFragment extends BaseErrorFragment {
         //自适应屏幕
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
         settings.setLoadWithOverviewMode(true);
-        webView.loadDataWithBaseURL(null, viewModel.productEntity.desc, "text/html", "utf-8", null);
+        webView.loadDataWithBaseURL(null, productEntity.desc, "text/html", "utf-8", null);
         webView.setLongClickable(true);
 
         webView.setOnTouchListener((v, event) -> {
@@ -301,34 +303,35 @@ public class ProductDetailsFragment extends BaseErrorFragment {
         TextView tvTitle = (TextView) dialog.findViewById(R.id.tv_title);
         TextView tvPrice = (TextView) dialog.findViewById(R.id.tv_price);
         CountEditText edCount = (CountEditText) dialog.findViewById(R.id.ed_count);
-        productCount = viewModel.productEntity.orderCardinality;
-        viewModel.productEntity.quantity = productCount;
+        productEntity.quantity = productEntity.orderCardinality;
 
 
-        customDraweeView.setImageURI(Uri.parse(viewModel.productEntity.imgLogo));
+        customDraweeView.setImageURI(Uri.parse(productEntity.imgLogo));
 
-        tvTitle.setText(viewModel.productEntity.name);
+        tvTitle.setText(productEntity.name);
         tvPrice.setText(PriceUtil.formatRMB(viewModel.getPrice()));
         TextView tvTotal = (TextView) dialog.findViewById(R.id.tv_total_price);
 
-        edCount.setText(productCount + "");
-        viewModel.setProductNumber(productCount);
+        edCount.setText(productEntity.quantity + "");
 
         bindUi(RxUtil.textChanges(edCount), viewModel.setProductNumberAndCalculateTotalPrice(aLong -> {
             tvTotal.setText(getString(R.string.text_price_total, PriceUtil.formatRMB(aLong)));
         }));
 
+        /**
+         * 数量编辑后，判断数量是否合理
+         */
         KeyboardVisibilityEvent.setEventListener(getActivity(), isOpen -> {
             if (!isOpen) {
                 String edCountString = edCount.getText().toString();
                 if (!edCountString.toString().isEmpty()) {
                     int number = Integer.valueOf(edCountString.toString());
-                    viewModel.setProductNumber(number);
-                    viewModel.isProductNumberValid(number, s1 -> {
+                    productEntity.quantity = number;
+                    viewModel.setProductNumberValid(number, s1 -> {
                         edCount.setText(s1);
                     });
                 }else {
-                    edCount.setText(String.valueOf(viewModel.productEntity.orderCardinality));
+                    edCount.setText(String.valueOf(productEntity.orderCardinality));
                 }
             }
         });
@@ -339,22 +342,20 @@ public class ProductDetailsFragment extends BaseErrorFragment {
         //减少orderCardinality
         AppCompatImageView iconLess = (AppCompatImageView) dialog.findViewById(R.id.icon_less);
         iconLess.setOnClickListener(l -> {
-            if (productCount <= viewModel.productEntity.orderCardinality) {
-                productCount = viewModel.productEntity.orderCardinality;
-                error(getString(R.string.message_add_cart_min_number, viewModel.productEntity.orderCardinality + ""));
+            if (productEntity.quantity <= productEntity.orderCardinality) {
+                productEntity.quantity = productEntity.orderCardinality;
+                error(getString(R.string.message_add_cart_min_number, productEntity.orderCardinality + ""));
             } else {
-                productCount -= viewModel.productEntity.orderCardinality;
+                productEntity.quantity -= productEntity.orderCardinality;
             }
-            edCount.setText(productCount + "");
-            viewModel.productEntity.quantity = productCount;
+            edCount.setText(productEntity.quantity + "");
         });
 
         //增多
         AppCompatImageView iconMore = (AppCompatImageView) dialog.findViewById(R.id.icon_more);
         iconMore.setOnClickListener(l -> {
-            productCount += viewModel.productEntity.orderCardinality;
-            edCount.setText(productCount + "");
-            viewModel.productEntity.quantity = productCount;
+            productEntity.quantity += productEntity.orderCardinality;
+            edCount.setText(productEntity.quantity + "");
         });
 
         TextView tvConfirm = (TextView) dialog.findViewById(R.id.tv_confirm);

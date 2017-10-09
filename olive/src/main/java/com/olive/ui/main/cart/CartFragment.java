@@ -24,6 +24,7 @@ import com.olive.model.entity.ProductEntity;
 import com.olive.ui.adapter.ProductMultiChooseAdapter;
 import com.olive.ui.login.LoginActivity;
 import com.olive.ui.order.CheckOrderInfoFragment;
+import com.olive.util.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -146,6 +147,9 @@ public class CartFragment extends BaseLazyFragment implements ProductMultiChoose
                         adapter.deleteChoose();
                         adapter.setPrice(0);
                         chooseAll.setSelected(false);
+                        if(adapter.getData().isEmpty()){
+                            Utils.setEmptyView(adapter, getString(R.string.message_empty_cart));
+                        }
                     });
                     return false;
                 })

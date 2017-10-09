@@ -79,7 +79,7 @@ public class ProductDetailViewModel extends ProductsViewModel {
         return current;
     }
 
-    public void isProductNumberValid(int number, Action1<String> action1) {
+    public void setProductNumberValid(int number, Action1<String> action1) {
         if (number == 0) {
             error.onNext(getErrorString(getString(R.string.message_products_count_can_not_is_0)));
         } else {
@@ -103,10 +103,5 @@ public class ProductDetailViewModel extends ProductsViewModel {
 
     public long getTotalPrice() {
         return new BigDecimal(getPrice()).multiply(new BigDecimal(productEntity.quantity)).longValue();
-    }
-
-    public void setProductNumber(int productNumber) {
-        this.productNumber = productNumber;
-        productEntity.quantity = productNumber;
     }
 }
