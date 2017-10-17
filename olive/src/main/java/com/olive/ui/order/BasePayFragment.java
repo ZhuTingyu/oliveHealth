@@ -265,11 +265,12 @@ public abstract class BasePayFragment extends BaseErrorFragment {
 
     public void onEvent(WeiPayResultEvent event){
         if(event.req.errCode == WeiPayResultEvent.SUCCESS){
+            viewModel.setOutTradeNo(event.req.prepayId);
             submitOrder();
         }else if(event.req.errCode == WeiPayResultEvent.CANCEL){
             error(getString(R.string.title_pay_cancel));
         }else if(event.req.errCode == WeiPayResultEvent.ERROR){
-            error(getString(R.string.title_pay_failed));
+            error(getString(R.string.title_pay_failed_by_wei));
         }
     }
 }

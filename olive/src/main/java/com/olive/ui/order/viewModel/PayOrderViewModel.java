@@ -125,7 +125,6 @@ public class PayOrderViewModel extends AccountViewModel {
         }), weiXinPayEntity -> {
             SendWX sendWX = new SendWX(getActivity());
             sendWX.payWeiXin(weiXinPayEntity.getPayReq());
-            outTradeNo = weiXinPayEntity.outTradeNo;
         });
     }
 
@@ -202,5 +201,8 @@ public class PayOrderViewModel extends AccountViewModel {
         this.orderEntity = orderEntity;
     }
 
+    public void setOutTradeNo(String outTradeNo) {
+        this.outTradeNo = outTradeNo;
+    }
 }
 
