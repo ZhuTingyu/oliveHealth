@@ -50,7 +50,7 @@ public class PayOrderViewModel extends AccountViewModel {
     private Integer bankCardId;
     private String outTradeNo;
 
-    private HashMap payOrderParameterMap;
+    private HashMap<String, Object> payOrderParameterMap;
 
     public PayOrderViewModel(Object activity) {
         super(activity);
@@ -98,7 +98,7 @@ public class PayOrderViewModel extends AccountViewModel {
 
     private void payOrderByAlliPay(String orderInfo, Action1<String> action1) {
         submitRequest(OrderModel.payAliPay(orderInfo, getActivity()).map(a -> {
-            String result = "";
+            String result;
             outTradeNo = a.getTradeNumber();
             if ("9000".equals(a.getResultStatus())) {
                 result = getString(R.string.message_pay_success);

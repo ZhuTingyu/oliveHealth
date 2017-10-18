@@ -214,6 +214,7 @@ public abstract class BasePayFragment extends BaseErrorFragment {
     }
 
     private void payOrder() {
+        setProgressVisible(true);
         if (viewModel.isPayHasBalance() && viewModel.isBalanceEnough()) {
             submitOrder();
         } else {

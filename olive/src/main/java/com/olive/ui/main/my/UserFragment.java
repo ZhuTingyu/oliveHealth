@@ -77,7 +77,6 @@ public class UserFragment  extends BaseLazyFragment  {
         View footer = View.inflate(getActivity(), R.layout.button_layout, null);
 
         getView(footer, R.id.btn).setOnClickListener(v -> {
-            //EXIT
             UserModel.getInstance().loginOut();
             LoginActivity.startLogin(getActivity());
             ActivityStackManager.finish();
