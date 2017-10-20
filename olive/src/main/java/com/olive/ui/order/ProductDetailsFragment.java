@@ -324,8 +324,8 @@ public class ProductDetailsFragment extends BaseErrorFragment {
         KeyboardVisibilityEvent.setEventListener(getActivity(), isOpen -> {
             if (!isOpen) {
                 String edCountString = edCount.getText().toString();
-                if (!edCountString.toString().isEmpty()) {
-                    int number = Integer.valueOf(edCountString.toString());
+                if (!edCountString.isEmpty()) {
+                    int number = Integer.valueOf(edCountString);
                     productEntity.quantity = number;
                     viewModel.setProductNumberValid(number, s1 -> {
                         edCount.setText(s1);
@@ -348,14 +348,14 @@ public class ProductDetailsFragment extends BaseErrorFragment {
             } else {
                 productEntity.quantity -= productEntity.orderCardinality;
             }
-            edCount.setText(productEntity.quantity + "");
+            edCount.setText(String.valueOf(productEntity.quantity));
         });
 
         //增多
         AppCompatImageView iconMore = (AppCompatImageView) dialog.findViewById(R.id.icon_more);
         iconMore.setOnClickListener(l -> {
             productEntity.quantity += productEntity.orderCardinality;
-            edCount.setText(productEntity.quantity + "");
+            edCount.setText(String.valueOf(productEntity.quantity));
         });
 
         TextView tvConfirm = (TextView) dialog.findViewById(R.id.tv_confirm);

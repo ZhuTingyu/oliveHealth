@@ -140,23 +140,7 @@ public class ApplyRefundFragment extends BaseErrorFragment {
     }
 
     private void initUploadImages() {
-        /*uploadImgs = Lists.newArrayList();
-        for (int i = 0; i < 2; i++) {
-            View view = LayoutInflater.from(getContext()).inflate(R.layout.item_icon_del_layout, imgsLinearLayout, false);
-            view.setOnClickListener(v -> {
-                current = (int) view.getTag();
-                select(list, p -> {
-                    if (p == CAMERA) {
-                        goCamera();
-                    } else {
-                        goGallery();
-                    }
-                });
-            });
-            view.setTag(i);
-            imgsLinearLayout.addView(view);
-            uploadImgs.add(view);
-        }*/
+
 
         List<String> list = Lists.newArrayList(getContext().getResources().getStringArray(R.array.array_photo));
         adapter = new UploadImageGridAdapter(getContext(), viewModel, this);
@@ -174,15 +158,6 @@ public class ApplyRefundFragment extends BaseErrorFragment {
 
     }
 
-    protected void setImg(View view, String url) {
-        AppCompatImageView imageView = (AppCompatImageView) view.findViewById(R.id.icon);
-        imageView.setImageBitmap(BitmapUtil.getCropBitmapFromFile(url, 70, 70).get());
-        view.findViewById(R.id.del).setOnClickListener(v -> {
-            imageView.setImageResource(R.drawable.vector_return_goods_photo);
-        });
-    }
-
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -195,26 +170,7 @@ public class ApplyRefundFragment extends BaseErrorFragment {
                     initGoodsInfoView(productEntities, false);
                 }
             }
-        } /*else if (requestCode == CAMERA_SUCCESS_REQUEST) {
-            if (data == null) {
-                setProgressVisible(true);
-                viewModel.uploadImg(s -> {
-                    setProgressVisible(false);
-                    setImg(uploadImgs.get(current), viewModel.getFileUri());
-                    viewModel.setImgUrl(current, viewModel.getFileUri());
-                });
-            }
-        } else if (requestCode == PHOTO_SUCCESS_REQUEST) {
-            if (data != null) {
-                setProgressVisible(true);
-                viewModel.setFileUri(data.getStringArrayListExtra(MultiImageSelector.EXTRA_RESULT).get(0));
-                viewModel.uploadImg(s -> {
-                    setProgressVisible(false);
-                    setImg(uploadImgs.get(current), viewModel.getFileUri());
-                    viewModel.setImgUrl(current, viewModel.getFileUri());
-                });
-            }
-        }*/
+        }
     }
 
     protected void initGoodsInfoView(List<ProductEntity> productEntities, boolean isLook) {
