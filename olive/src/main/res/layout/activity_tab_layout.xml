@@ -1,54 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:animateLayoutChanges="true"
-        android:foregroundGravity="center"
-        android:orientation="vertical">
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:foregroundGravity="center"
+    android:orientation="vertical">
 
 
     <android.support.design.widget.AppBarLayout
-            android:id="@+id/appbar"
-            android:elevation="0dp"
-            app:elevation="0dp"
-            android:background="@color/base_color"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/base_color"
+        android:elevation="0dp"
+        app:elevation="0dp">
 
 
         <com.biz.widget.Toolbar
-                style="@style/Toolbar"
-                android:id="@+id/toolbar"
-                android:focusable="true"
-                android:background="@color/color_transparent"
-                app:contentInsetStartWithNavigation="0dp"
-                app:contentInsetStart="20dp"
-                app:contentInsetLeft="20dp"
-                app:contentInsetRight="20dp"
-                app:contentInsetEnd="20dp"
-                android:focusableInTouchMode="true"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                >
+            android:id="@+id/toolbar"
+            style="@style/Toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/color_transparent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            app:contentInsetEnd="20dp"
+            app:contentInsetLeft="20dp"
+            app:contentInsetRight="20dp"
+            app:contentInsetStart="20dp"
+            app:contentInsetStartWithNavigation="0dp"
+            app:layout_scrollFlags="scroll|enterAlways">
         </com.biz.widget.Toolbar>
 
         <android.support.design.widget.TabLayout
-                android:id="@+id/tab"
-                style="@style/TabLayout"
-                app:tabIndicatorHeight="3dp"
-                android:layout_width="match_parent"
-                android:layout_height="42dp"/>
+            android:id="@+id/tab"
+            style="@style/TabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            app:tabIndicatorHeight="3dp" />
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
-            android:id="@+id/viewpager"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:fadingEdge="none"
-            android:overScrollMode="never"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadingEdge="none"
+        android:overScrollMode="never"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     </android.support.v4.view.ViewPager>
 </android.support.design.widget.CoordinatorLayout>
