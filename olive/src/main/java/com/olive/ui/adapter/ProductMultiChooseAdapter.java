@@ -154,16 +154,8 @@ public class ProductMultiChooseAdapter extends BaseQuickAdapter<ProductEntity, B
             //购物车增加了商品
             if(mData.size() <= data.size()){
                 setIsChooseData(data);
-                //初始化新添数据的选择状态
-                for(int i = mData.size(); i < data.size(); i++){
-                    setChoose(data.get(i), false);
-                }
-                //购物车删除了商品
-            }else if(mData.size() > data.size()) {
-                setAllChoose(data, false);
             }
         }
-
         if (data.isEmpty()) {
             Utils.setEmptyView(this, mContext.getString(R.string.message_empty_cart));
         }
@@ -183,8 +175,8 @@ public class ProductMultiChooseAdapter extends BaseQuickAdapter<ProductEntity, B
     }
 
     /**
-     * 设置新数据中已经选择了的商品的状态
-     * @param data 购物车数据变化过后新数据
+     * 保持原购物车选中的状态
+     * @param data 购物车新增商品后的数据
      */
     private void setIsChooseData(List<ProductEntity> data){
         ArrayList<Integer> selectedPotion = (ArrayList<Integer>) getSelectedPotion();
