@@ -29,8 +29,7 @@
             app:contentInsetLeft="20dp"
             app:contentInsetRight="20dp"
             app:contentInsetStart="20dp"
-            app:contentInsetStartWithNavigation="0dp"
-            app:layout_scrollFlags="scroll|enterAlways">
+            app:contentInsetStartWithNavigation="0dp">
         </com.biz.widget.Toolbar>
 
         <android.support.design.widget.TabLayout

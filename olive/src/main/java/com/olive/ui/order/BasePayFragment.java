@@ -249,12 +249,16 @@ public abstract class BasePayFragment extends BaseErrorFragment {
             EventBus.getDefault().post(new OrderListUpdateEvent(OrderListViewModel.TYPE_WAIT_PAY));
             getActivity().finish();
         }, throwable -> {
-            IntentBuilder.Builder()
-                    .putExtra(IntentBuilder.KEY_BOOLEAN, false)
-                    .putExtra(IntentBuilder.KEY_DATA, viewModel.orderEntity)
-                    .startParentActivity(getActivity(), PayResultFragment.class);
-            getActivity().finish();
+            goPayErrorActivity();
         });
+    }
+
+    private void goPayErrorActivity(){
+        IntentBuilder.Builder()
+                .putExtra(IntentBuilder.KEY_BOOLEAN, false)
+                .putExtra(IntentBuilder.KEY_DATA, viewModel.orderEntity)
+                .startParentActivity(getActivity(), PayResultFragment.class);
+        getActivity().finish();
     }
 
 
@@ -271,7 +275,7 @@ public abstract class BasePayFragment extends BaseErrorFragment {
         }else if(event.req.errCode == WeiPayResultEvent.CANCEL){
             error(getString(R.string.title_pay_cancel));
         }else if(event.req.errCode == WeiPayResultEvent.ERROR){
-            error(getString(R.string.title_pay_failed_by_wei));
+            goPayErrorActivity();
         }
     }
 }

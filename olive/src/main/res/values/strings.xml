@@ -254,7 +254,7 @@
 
     <string name="title_pay_failed">支付失败</string>
     <string name="title_pay_failed_by_wei">微信支付失败</string>
-    <string name="title_pay_cancel">用户取消支付</string>
+    <string name="title_pay_cancel">您取消了本笔订单支付！</string>
 
     <array name="array_order_details">
         <item>物流单号</item>

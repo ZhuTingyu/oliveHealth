@@ -139,12 +139,11 @@ public class ProductMultiChooseAdapter extends BaseQuickAdapter<ProductEntity, B
     public void deleteChoose() {
         for (int i = 0; i < mData.size();) {
             if (mData.get(i).isChoose) {
-                mData.remove(i);
+                remove(i);
                 continue;
             }
             i++;
         }
-        notifyDataSetChanged();
     }
 
     @Override
