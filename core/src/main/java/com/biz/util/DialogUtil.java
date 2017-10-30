@@ -86,6 +86,17 @@ public class DialogUtil {
         builder.show();
     }
 
+    public static void createNotCancelableDialogView(Context context, int msg,
+                                        DialogInterface.OnClickListener leftListener, int leftResId,
+                                        DialogInterface.OnClickListener rightListener, int rightResId) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setCancelable(false);
+        builder.setMessage(msg);
+        builder.setNegativeButton(leftResId, leftListener);
+        builder.setPositiveButton(rightResId, rightListener);
+        builder.show();
+    }
+
     public static void createDialogView(Context context, int titleResId, int msgResId,
                                         DialogInterface.OnClickListener rightListener, int rightResId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);

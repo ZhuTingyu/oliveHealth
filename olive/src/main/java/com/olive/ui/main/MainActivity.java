@@ -16,7 +16,9 @@ import com.olive.ui.main.home.HomeFragment;
 import com.olive.ui.main.my.UserFragment;
 import com.olive.ui.upgrade.UpgradeManager;
 import com.olive.util.DownloadUtil;
+import com.olive.util.PermissionManager;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -52,9 +54,7 @@ public class MainActivity extends BaseActivity {
     private ViewPager mViewPager;
     private BadgeView cartBadgeView;
     protected Boolean isFirst = true;
-    private UpgradeManager manager;
-
-
+    private UpgradeManager upgradeManager;
 
 
     public static final void startMain(Activity activity, int tab) {
@@ -126,8 +126,8 @@ public class MainActivity extends BaseActivity {
         mViewPager.setOffscreenPageLimit(fragments.size());
         mViewPager.setAnimationCacheEnabled(false);
 
-        manager = new UpgradeManager(getActivity());
-        manager.checkUpdate();
+        upgradeManager = new UpgradeManager(getActivity());
+        upgradeManager.checkUpdate();
     }
 
     @Override
@@ -176,8 +176,8 @@ public class MainActivity extends BaseActivity {
             if(VersionModel.getInstance().getAppVersion() == VersionModel.getHisUpgradeVersion()){
                 FileUtil.deleteFile(DownloadUtil.getInstance().getFilePath());
             }else {
-                if(manager.isForceUpdate){
-                    manager.createHintForceDialog();
+                if(upgradeManager.isForceUpdate){
+                    upgradeManager.createHintForceDialog();
                 }
             }
         }

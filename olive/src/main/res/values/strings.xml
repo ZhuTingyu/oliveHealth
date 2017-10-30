@@ -322,6 +322,7 @@
     <string name="message_whether_upgrade">是否更新？</string>
     <string name="message_is_force_updating">正在强制更新</string>
     <string name="message_force_updating_hint">必须更新才可以正常使用,请继续安装</string>
+    <string name="message_permission_hint">请去设置相关权限，没有权限应用不能正常使用</string>
 
     <string name="string_password_suffix">dms</string>
     <string name="string_app_name">——客户下单系统——</string>
@@ -332,6 +333,8 @@
     <string name="resultcode_alipay_ERROR_6002">网络连接出错！</string>
 
     <string name="text_copyright">Copyright ©</string>
+
+    <string name="string_set">设置</string>
 
 
 </resources>
